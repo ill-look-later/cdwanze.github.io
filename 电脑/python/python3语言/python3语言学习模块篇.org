@@ -1,0 +1,1065 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: python3语言学习模块篇
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+
+\part{常用的模块}
+这些常用的模块都是python3语言自带的模块。
+
+\chapter{pickle模块}
+\label{sec:pickle模块}
+pickle模块可以将某\uwave{一个}复杂的对象永久存入\uwave{一个}文件中，以后再导入这个文件，这样自动将这个复杂的对象导入进来了。
+
+\section{将对象存入文件}
+\begin{Verbatim}
+import pickle
+
+class Test:
+    def __init__(self):
+        self.a=0
+        self.b=0
+        self.c=1
+        self.d=1
+
+    def __str__(self):
+        return str(self.__dict__)
+
+if __name__ == '__main__':
+    test001=Test()
+    print(test001)
+    testfile=open('data.pkl','wb')
+    pickle.dump(test001,testfile)
+    testfile.close()
+\end{Verbatim}
+
+
+
+
+\section{从文件中取出对象}
+值得一提的是从文件中取出对象，原来的类的定义还是必须存在，也就是声明一次在内存中的，否则会出错。
+\begin{Verbatim}
+import pickle
+
+class Test:
+    def __init__(self):
+        self.a=0
+        self.b=0
+        self.c=1
+        self.d=1
+
+    def __str__(self):
+        return str(self.__dict__)
+
+if __name__ == '__main__':
+    testfile=open('data.pkl','rb')
+    test001=pickle.load(testfile)
+    print(test001)
+    testfile.close()
+\end{Verbatim}
+
+pickle模块的基本使用就是用dump函数将某个对象存入某个文件中，然后这个文件以后可以用load函数来加载，然后之前的那个对象会自动返回出来。
+
+\begin{Large}
+更多内容请参见\href{https://docs.python.org/3/library/pickle.html}{官方文档}。
+\end{Large}
+
+\chapter{shelve模块}
+shelve模块是基于pickle模块的，也就是只有pickle模块支持的对象它才支持。 之前提及pickle模块只能针对一个对象，如果你有多个对象要处理，可以考虑使用shelve模块，而shelve模块就好像是自动将这些对象用字典的形式包装起来了。除此之外shelve模块的使用更加简便了。
+
+\section{存入多个对象}
+我们根据类的操作第三版中定义的类（\ref{sec:类的操作第三版}）建立了一个Hero.py文件，就是将那些类的定义复制进去。然后我们新建了几个实例来存入test.db文件中。
+
+\begin{tcbpython}
+import shelve
+from Hero import Garen
+
+if __name__ == '__main__':
+    garen1=Garen()
+    garen2=Garen('red')
+    garen3=Garen('yellow')
+    db=shelve.open('test.db')
+    for (key,item) in [('garen1',garen1),('garen2',garen2),('garen3',garen3)]:
+        db[key]=item
+    db.close()
+\end{tcbpython}
+
+我们看到整个过程的代码变得非常的简洁了，然后一个个对象是以字典的形式存入进去的。
+
+\section{读取这些对象}
+读取这些对象的代码也很简洁，就是用shelve模块的open函数打开数据库文件，open函数会自动返回一个字典对象，这个字典对象里面的数据就对应着之前存入的键值和对象。
+
+同时通过这个例子我发现，如果自己定义的类，将他们提取出来放入另外一个文件，那么shelve模块读取文件时候是不需要再引入之前的定义。这一点值得我们注意，因为shelve模块内部也采用的是pickle的机制，所以可以猜测之前pickle的那个例子类的定义写在写入文件代码的里面，所以不能载入数据库；而如果将这些类的定义放入一个文件，然后这些类以模块或说模块载入的形式引入，那么读取这些对象就可以以一种更优雅的形式实现。如下所示：
+\begin{tcbpython}
+import shelve
+
+if __name__ == '__main__':
+    db=shelve.open('test.db')
+    for key in sorted(db):
+        print(db[key])
+    db.close()
+\end{tcbpython}
+
+我们看到就作为简单的程序或者原型程序的数据库，shelve模块已经很好用而且够用了。
+
+
+\begin{large}
+更多内容请参见\href{https://docs.python.org/3/library/shelve.html}{官方文档}。
+\end{large}
+
+
+\chapter{time模块}
+time模块提供了一些和时间相关的函数，更加的底层，不过有些函数可能在某些平台并不适用。类似的模块还有datetime模块，datetime是以类的框架来解决一些时间问题的。所以如果只是需要简单的调用一下时间，那么用time模块，如果是大量和时间相关的问题，推荐使用datetime模块。
+
+\section{time函数}
+\begin{Verbatim}
+>>> import time
+>>> time.time()
+1404348227.07554
+\end{Verbatim}
+time函数返回一个数值，这个数值表示从1970年1月1号0时0分0秒到现在的时间过了多少秒。
+
+\section{gmtime函数}
+这个函数可以接受一个参数，这个参数是多少秒，然后返回一个特定格式的时间数组\verb+struct_time+。如果不接受参数，那么默认接受的秒数由time函数返回，也就是从那个特定时间到现在过了多少秒，这样这个特定格式的时间数组对应的就是当前时间。
+
+\begin{Verbatim}
+>>> time.gmtime()
+time.struct_time(tm_year=2014, tm_mon=7, tm_mday=3, tm_hour=0, 
+tm_min=53, tm_sec=0, tm_wday=3, tm_yday=184, tm_isdst=0)
+>>> time.gmtime(0)
+time.struct_time(tm_year=1970, tm_mon=1, tm_mday=1, tm_hour=0, 
+tm_min=0, tm_sec=0, tm_wday=3, tm_yday=1, tm_isdst=0)
+\end{Verbatim}
+
+\section{localtime函数}
+此外类似的还有\textbf{localtime}函数，和gmtime用法和返回完全一模一样，唯一的区别就是返回的是当地的时间。
+\begin{Verbatim}
+>>> time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())
+'2014-07-03 09:19:40'
+>>> time.strftime('%Y-%m-%d %H:%M:%S',time.gmtime())
+'2014-07-03 01:19:49'
+\end{Verbatim}
+
+
+\section{ctime函数}
+\begin{Verbatim}
+>>> time.ctime()
+'Thu Jul  3 08:54:54 2014'
+>>> time.ctime(0)
+'Thu Jan  1 07:00:00 1970'
+\end{Verbatim}
+和gmtime类似，不过返回的是字符串格式的时间。我们看到ctime默认设置的时间是根据localtime函数来的。
+
+
+\section{strftime函数}
+接受那个特定格式的时间数组\verb+struct_time+作为参数，然后返回一定字符串格式的时间。具体例子请参看前面的例子。
+
+其中最常用的格式符有：
+\begin{Verbatim}
+%Y，多少年；%m，多少月；%d，多少日；
+%H，多少小时；%M，多少分；%S，多少秒。
+\end{Verbatim}
+
+\%{}X直接输出09:27:19这样的格式，也就是前面的多少小时多少分多少秒可以用一个\%{}X表示即可。
+
+还有一些，比如：\%{}I表示多少小时，不过是[0-12]的形式；\%{}y表示多少年，不过是[00-99]的格式，比如2014年就输出14；\%{}p，本地的AM或PM文字。等等。
+
+
+\section{sleep函数 }
+sleep函数有时需要用到，将程序休眠个几秒的意思。需要接受一个数值参数，单位是秒，可以是零点几秒。但sleep函数只是大概休眠几秒的意思，最好不去用来计时，因为它不大精确。
+
+
+
+\begin{large}
+更多内容请参见\href{https://docs.python.org/3/library/time.html}{官方文档}。
+\end{large}
+
+
+\chapter{sys模块}
+sys模块有一些功能很常用，其实在前面我们就看到过一些了。
+
+\section{sys.argv}
+在刚开始说明python执行脚本参数传递的问题时就已经讲了sys.argv这个变量。这是一个由字符串组成的列表。
+\begin{tcbpython}
+import sys
+
+print(sys.argv)
+for i in range(len(sys.argv)):
+    print(sys.argv[i])
+\end{tcbpython}
+比如新建上面的一个test.py文件，然后执行：
+\begin{Verbatim}
+python3 test.py test1 test2
+['test.py', 'test1', 'test2']
+test.py
+test1
+test2
+\end{Verbatim}
+我们可以看到sys.argv[0]就是这个脚本的文件名，然后后面依次是各个参数。
+
+\section{exit函数}
+这个我们在编写GUI程序的时候经常看到，在其他脚本程序中也很常用。如果不带参数的话那么直接退出程序，还可以带一个字符串参数，返回错误提示信息，或者带一个数字，这里的详细讨论略过。
+
+\begin{tcbbash}[]
+>>> import sys
+>>> sys.exit('出错了')
+出错了
+wanze@wanze-ubuntu:~$ 
+\end{tcbbash} 
+%$
+
+\section{sys.platform}
+返回当前脚本执行的操作系统环境。
+
+Linux 返回字符串值：linux；Windows返回win32；Mac OS X 返回darwin。
+
+\section{sys.path}
+一连串字符串列表，是python脚本模块的搜索路径，所以我们自定义的python模块，只需要在sys.path这个列表上新加一个字符串路径即可。
+
+\section{标准输入输出错误输出文件}
+sys.stdin，sys.stdout，sys.stderr这三个文件对象对应的就是linux系统所谓的标准输入标准输出和错误输出文件流对象。
+
+\section{sys.version}
+sys.version输出当前python的版本信息和编译环境的详细信息。
+
+\mint{bash}+sys.version_info[0]+返回当前python主版本的标识，比如python3就返回数字3。
+
+\section{sys.maxsize}
+返回当前计算环境下整数(int)类型的最大值，32位系统是$2**31-1$。
+\begin{Verbatim}
+>>> 2**31-1
+2147483647
+>>> import sys
+>>> sys.maxsize
+2147483647
+\end{Verbatim}
+
+\section{sys.stdin.isatty()}
+测试输入流是不是终端。如果是终端，则返回True。
+
+
+\begin{large}
+更多内容请参见\href{https://docs.python.org/3/library/sys.html}{官方文档}。
+\end{large}
+
+
+\chapter{fileinput模块}
+fileinput模块提供了便捷的多文件处理方案。
+
+\section{input函数}
+\begin{Verbatim}
+fileinput.input(files=None, inplace=False)
+\end{Verbatim}
+input函数最常用的两个参数如上所示，如果不带参数，那么就是默认的命令行的sys.argv[1:]接受到的一系列文件。如果命令行也没有输入文件参数，那么就是默认的sys.stdin标准输入。特定的文件输入用\textbf{files}来指定，参数为文件名字符值的列表。
+
+\textbf{inplace}默认是False，也就是原文件没有被修改，如果设置为True，那么对于line的一些操作是会原地修改原文件的。具体请看下面的例子：
+\begin{tcbpython}[]
+allfile = [os.path.join(path,f) for path,dirs,files in os.walk('.')
+        if files for f in files]
+def process(line):
+    return line.replace('skeleton',project_name)
+with fileinput.input(files=allfile,inplace=1) as f:
+    for line in f:
+        print(process(line),end='')
+\end{tcbpython}
+上面代码第一行使用用os.walk来生成本文件夹下所有的文件名路径。然后作为参数输入给files，这里一般定义一个process函数来处理每一行，然后返回处理后的值。用print函数打印具体的处理的效果。如果这里inpalce没有设置为True那么结果只是打印在终端上，设置为True之后，原文件对应行将被修改。inplace参数很有用\footnote{\href{http://ruslanspivak.com/2010/10/20/in-place-file-rewrite-with-fileinput/}{参考网站}}，在你确认操作结果的情况下慎重使用。
+
+
+\chapter{os.path模块}
+前面提到sys.argv只能返回当前python脚本的文件名，而我们常常需要这个python脚本在系统中的具体位置。前面如os.getcwd等也能获得当前python脚本的所在目录，不过os.path模块的一个优点就是跨平台特性支持很好，也就是一般我们通过其他方式获得的path路径都会用这个模块的函数辅助处理一下。
+
+我们来看下面的例子：
+\begin{tcbpython}[]
+import os
+
+print(os.path.abspath(__file__))
+print(os.path.dirname(os.path.abspath(__file__)))
+
+print(os.path.basename(__file__))
+print(os.path.basename(os.environ['HOME']))
+
+\end{tcbpython}
+\begin{Verbatim}
+/home/wanze/桌面/test.py
+/home/wanze/桌面
+test.py
+wanze
+\end{Verbatim}
+
+其中\verb+__file__+表示当前脚本文件所在的路径。
+
+\section{abspath函数}
+abspath函数接受一个path路径值然后返回一个正规的普适的路径地址。具体效果类似于执行了: \verb+normpath(join(os.getcwd(), path))+ 。
+
+再看下面的例子演示了空字符串默认当前工作目录，然后也接受绝对路径等。
+\begin{Verbatim}
+>>> import os
+>>> os.path.abspath('')
+'/home/wanze'
+>>> os.path.abspath('test')
+'/home/wanze/test'
+>>> os.path.abspath('/test')
+'/test'
+>>> os.path.abspath('test/')
+'/home/wanze/test'
+\end{Verbatim}
+
+我们看到如果abspath接收的是空字符串，其定位是当前脚本的工作目录，那么是引用的模块里面的\verb+os.path.abspath('')+，具体对应的也是当前脚本的工作目录。然后os.path.abspath(".")返回的是当前脚本工作目录。
+
+
+\section{dirname函数}
+dirname函数接受一个路径值然后返回这个路径除开最后一个元素的前面的路径值。比如上面的例子，路径指向文件，那么dirname函数返回的是除开这个文件名的前面的路径；而如果接受的路径指向目录，那么返回的是除开最后一个文件夹名的前面的路径值。
+
+\section{basename函数}
+如上面例子所示，basename函数接受一个路径值然后返回路径的最后一个元素，如果路径指向文件，那么返回的是文件名；如果路径指向目录，那么返回的是最后那个目录的文件夹名。比如下面实现了从绝对路径提取出文件名的功能。
+\begin{Verbatim}
+>>> import os.path
+>>> string = '/home/wanze/test.txt'
+>>> fileName,fileExtension = os.path.splitext(os.path.basename(string))
+>>> fileName
+'test'
+\end{Verbatim}
+
+
+
+
+\section{split函数}
+将路径path字符串分割，可以视作dirname和basename的组合。
+\begin{Verbatim}
+>>> os.path.split('/usr/local/bin/test.txt')
+('/usr/local/bin', 'test.txt')
+>>> os.path.dirname('/usr/local/bin/test.txt')
+'/usr/local/bin'
+>>> os.path.basename('/usr/local/bin/test.txt')
+'test.txt'
+\end{Verbatim}
+
+
+
+\section{splitext函数}
+将某个路径path的后缀分开，这里主要是针对文件名为输入的时候，那么第一个为该文件的名字，输出数组的第二个值是该文件的后缀。这个函数在提取文件名后缀和前面的名字的时候很有用，方便组合出新的文件名。
+\begin{Verbatim}
+>>> import os
+>>> fileName, fileExtension = os.path.splitext('/path/to/somefile.ext')
+>>> fileName
+'/path/to/somefile'
+>>> fileExtension
+'.ext'
+\end{Verbatim}
+
+
+\section{join函数}
+用于连接多个路径值合并成一个新的路径值，同样相对于简单的字符串拼接，用这个函数处理路径组合具有操作系统普适性和灵活性。
+\begin{Verbatim}
+>>> os.path.join(os.path.expanduser('~'),'test','lib')
+'/home/wanze/test/lib'
+\end{Verbatim}
+
+上面join函数多个参数生成的新path在windows下又是不同的输出的。
+
+
+
+\section{expanduser函数}
+\begin{Verbatim}
+>>> import os
+>>> os.path.expanduser('~')
+'/home/wanze'
+>>> os.path.expanduser('~/pymf')
+'/home/wanze/pymf'
+>>> os.path.join(os.path.expanduser('~'),'pymf','mymodule')
+'/home/wanze/pymf/mymodule'
+\end{Verbatim}
+
+\verb+~+这个符号可以在这里使用，从而展开为以/home/wanze为基础的绝对路径，兼容大部分系统（在windows下也可以使用。）
+
+同时我们看到join函数可以接受很多不定量的参数，然后将他们组合成为一个新的路径，而且不用你费心是\verb+/+还是\verb+\+，你不需要写这些了，用join函数自然料理好一切。
+
+
+
+\section{exists函数}
+os.path.exists(path)：测试路径或文件等是否存在。如果存在返回True，否则返回False。
+
+\section{isfile和isdir还有islink}
+os.path.isfile(path)：接受一个字符串路径变量，如果是文件那么返回True，否则返回False（也就是文件不存在或者不是文件是文件夹等情况都会返回False）。
+
+类似的有isdir和islink函数。
+
+
+\section{samefile函数}
+os.path.samefile(path1,path2)：如果两个文件或路径相同则返回True\\，否则返回False。
+
+\section{getmtime函数}
+os.path.getmtime(path)
+
+返回文件的最后修改时间，返回值是多少多少秒，可用time模块的ctime或localtime函数将其转换成time.struct\_{}time 对象，然后使用strftime来进行更好的格式输出。
+
+\section{getctime函数}
+类似getmtime，返回文件的最后创建时间。在unix系统中是指最后文件的元信息更改的时间。
+
+\begin{large}
+更多内容请参见\href{https://docs.python.org/3/library/os.path.html}{官方文档}。
+\end{large}
+
+
+\chapter{glob模块}
+glob模块用法很简单，初步学习就是一个glob函数，接受一个pathname路径值，然后返回这个路径下某些文件名组成的列表。支持\verb+* ? +，意思是任意数量的字符或者任意的一个字符，然后\verb+[?]+明确表示问号。
+\begin{Verbatim}
+>>> import glob
+>>> glob.glob('*.py')
+['re_subst.py', 're_sub.py', 'test2.py']
+\end{Verbatim}
+
+
+
+
+\chapter{subprocess模块}
+我想大家都注意到了现在的计算机都是多任务的，这种多任务的实现机制就是所谓的多个进程同时运行，因为计算机只有一个CPU（现在多核的越来越普及了，它们内部的工作原理我没了解过。）所有计算机一次只能处理一个进程，而这种多进程的实现有点类似你人脑（当然不排除某些极个别现象），你不能一边看电影一边写作业，但是可以写一会作业然后再看一会电影（当然不推荐这么做、），计算机的多进程实现机制也和这个类似，就是一会干这个进程，一会儿做那个进程。
+
+计算机的一个进程里面还可以分为很多个线程，这个较为复杂，就不谈了。比如你编写的一个脚本程序，系统就会给它分配一个进程号之类的，然后cpu有时就会转过头来执行它一下（计算机各个进程之间的切换很快的，所以才会给我们一种多任务的错觉。）而你的脚本程序里面还可以再开出其他的子进程出来， python的subprocess模块主要负责这方面的工作。
+
+\section{call函数}
+\begin{tcbpython}[]
+import subprocess
+
+# Command with shell expansion
+subprocess.call(["echo", "hello world"])
+subprocess.call(["echo", "$HOME"])
+subprocess.call('echo $HOME',shell=True)
+\end{tcbpython}
+\begin{Verbatim}
+hello world
+$HOME
+/home/wanze
+\end{Verbatim}
+%$
+
+其中使用shell=True选项后用法较简单较直观，但网上提及安全性和兼容性可能有问题，他们推荐一般不适用shell=True这个选项。\sidenote{\href{http://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess}{参考网站}}
+
+如果不使用shell=True这个选项的，比如这里\verb+$HOME+这个系统变量就无法正确翻译过来，如果实在需要home路径，需要使用os.path的expanduser函数。
+
+
+
+\section{getoutput函数}
+取出某个进程命令的输出，返回的是字符串形式。
+\begin{Verbatim}
+import subprocess
+
+name=subprocess.getoutput('whoami')
+print(name)
+\end{Verbatim}
+
+
+
+\section{getstatusoutput函数}
+某个进程执行的状态。
+
+
+
+\section{Popen类}
+根据Popen类创建一个进程管理实例，可以进行进程的沟通，暂停，关闭等等操作。前面的函数的实现是基于Popen类的，这是较高级的课题，这里暂时略过。
+
+
+
+\begin{large}
+更多内容请参见\href{https://docs.python.org/3/library/subprocess.html}{官方文档}。
+\end{large}
+
+
+
+\chapter{os模块}
+\section{getcwd函数}
+不管你在终端运行python还是运行某个python脚本，总有一个变量存储着当前工作目录的位置。你可以通过getcwd命令来查看当前工作目录。
+
+\begin{tcbpython}[]
+import os
+print(os.getcwd())
+\end{tcbpython}
+
+上面是通过\LaTeX 文件运行的python小脚本，当你以python命令来运行某个脚本的时候，你调用python命令的地方就是当前的工作目录\footnote{这里在\LaTeX 文档下的情况有点小复杂，通过我编写的xverbatim.sty我们可以看到当时运行python3命令的当前工作目录就在这个tex文档所在的目录下。}。然后加载的其他模块的各个py文件运行时的当前工作目录和主py文件脚本的当前目录是一样的，都是你运行python命令的地方。
+
+如果是终端调用python就是你终端的当前工作目录所在，你可以用pwd命令来查看。如下所示：
+\begin{Verbatim}
+=>pwd
+/home/wanze
+=>python3
+>>> import os
+>>> print(os.getcwd())
+/home/wanze
+\end{Verbatim}
+
+\section{mkdir函数}
+新建一个文件夹。
+\begin{Verbatim}
+os.mkdir(str)
+\end{Verbatim}
+
+
+\section{chdir函数}
+os模块里有一个chdir函数来更改当前工作目录所在地。
+
+可以使用\emph{.}和\emph{..}语法，也可以使用简单的"test"调转到test文件夹。
+\begin{Verbatim}
+>>> os.chdir('/home/wanze/pymf')
+>>> print(os.getcwd())
+/home/wanze/pymf
+\end{Verbatim}
+
+\section{删除文件}
+os.remove(path)
+
+支持相对路径表达。如果路径是目录将会抛出一个OSError异常。
+
+\section{os.rename}
+\begin{Verbatim}
+os.rename(src, dst)
+\end{Verbatim}
+
+第一个参数是目标文件或目录，第二个参数是要替换成为的名字。这个命令一方面可以重命名文件，此外可以移动文件。
+ 
+支持相对路径语法表达，rename在windows下不一定替换原文件，repalce一定替换文件。
+
+\section{os.repalce}
+\begin{Verbatim}
+os.replace(src, dst)
+\end{Verbatim}
+
+rename在windows下不一定替换原文件，repalce一定替换文件。
+
+支持相对路径语法表达。
+
+\section{删除空目录}
+os.rmdir(path)
+
+支持相对路径语法表达，只能删除空目录。如果要删除整个目录，请使用shutil.rmtree(path)。
+
+\section{listdir命令}
+\begin{Verbatim}
+os.listdir(path='.')
+\end{Verbatim}
+
+相当于简单的ls命令，将返回一个字符串列表，其内包含本path下所有的文件和文件夹名（包括链接文件）。
+
+可以结合前面介绍的os.path模块的isfile等函数新建一个函数listdir\_{}file，listdir\_{}dir和listdir\_{}link，将普通文件，目录和链接文件区分开来。
+
+\begin{tcbpython}[]
+import os
+
+def listdir_dir(path='.'):
+    '''os的listdir函数加强，只返回文件夹。'''
+    return [dir for dir in os.listdir(path) if os.path.isdir(dir) ]
+def listdir_file(path='.'):
+    '''os的listdir函数加强，只返回普通文件'''
+    return [file for file in os.listdir(path) if os.path.isfile(file)
+     and  not os.path.islink(file)]
+def listdir_link(path='.'):
+    '''os的listdir函数加强，只返回链接文件'''
+    return [link for link in os.listdir(path) if os.path.islink(link) ]
+\end{tcbpython}
+
+
+
+
+\section{遍历目录树}
+\begin{tcbpython}[]
+os.walk('.')
+\end{tcbpython}
+
+产生一个生成器对象，具体数值含义如下：（dirpath, dirnames, filenames），其中dirpath和filenames可以合并出本目录下所有文件的具体文件名路径，而dirpath和dirnames可以合并出本目录下所有目录的具体路径名。
+
+根据这个os.walk函数我写了一个\verb+gen_file+ 函数，其是一个生成器函数，会遍历目录树，并返回本目录下的文件信息。具体代码如下所示:
+
+\begin{tcbpython}[]
+def gen_file(startpath='.',filetype=""):
+    '''利用os.walk 遍历某个目录，收集其内的文件，返回
+    (文件路径列表, 本路径下的文件列表)
+    比如:
+    (['shortly'], ['shortly.py'])
+(['shortly', 'templates'], ['shortly.py'])
+(['shortly', 'static'], ['shortly.py'])
+
+    第一个可选参数 startpath  默认值 '.'
+    第二个参数  filetype  正则表达式模板 默认值是"" 其作用是只选择某些文件
+    如果是空值，则所有的文件都将被选中。比如 "html$|pdf$" 将只选中 html和pdf文件。
+    '''
+    for root, dirs, files in os.walk(startpath):
+        filelist = []
+        for f in files:
+            fileName,fileExt = os.path.splitext(f)
+            if filetype:
+                if re.search(filetype,fileExt):
+                    filelist.append(f)
+            else:
+                filelist = files
+        if filelist:#空文件夹不加入
+            dirlist = root.split(os.path.sep)
+            dirlist = dirlist[1:]
+            if dirlist:
+                yield (dirlist, filelist)
+            else:
+                yield (['.'], filelist)
+\end{tcbpython}
+
+这个函数可以帮助你管理本目录下（可以通过正则表达式过滤）你感兴趣的文件，都刷一边。然后继续必要的操作，比如查找等等之类的。
+
+\section{environ函数}
+os.environ，返回一个字典值，这个字典值里面存储着当前shell的一些变量和值。比如系统中“HOME”所具体的路径名是：
+\begin{tcbpython}[]
+import os
+print(os.environ['HOME'])
+\end{tcbpython}
+\begin{Verbatim}
+/home/wanze
+>>> 
+\end{Verbatim}
+
+\section{getpid函数}
+os.getpid函数，返回当前运行的进程的pid。
+
+\section{stat函数}
+返回文件的一些信息。比如st\_{}size是文件的大小，单位是字节。
+
+
+\subsection{st\_{}size属性}
+\begin{tcbpython}[]
+import os
+import glob
+
+print([os.path.abspath(f) for f in glob.glob('*.py')])
+
+print([f for f in glob.glob('*.py') if os.stat(f).st_size > 400])
+\end{tcbpython}
+\begin{Verbatim}
+['/home/wanze/桌面/test.py', '/home/wanze/桌面/flatten.py']
+['flatten.py']
+\end{Verbatim}
+
+下面这个例子进行了文件大小输出单位的优化: 
+\begin{tcbpython}[]
+import os
+import sys
+
+filename = sys.argv[1]
+filesize = os.stat(filename).st_size
+
+for unit in ['字节','KB','MB','GB','TB']:
+    if filesize > 1024:
+        filesize = filesize/1024
+    else:
+        break
+
+print(filename + '大小是' +str(int(filesize)) + unit)
+\end{tcbpython}
+这个python小脚本自动输出合适的单位，具体程序逻辑还是很简单的。
+
+\subsection{st\_{}mtime属性}
+最后文件修改的时间。
+
+\subsection{st\_{}ctime属性}
+最后文件创建的时间，在windows下是严格的最初文件创建时间，在unix下是最后文件metadata的改变时间。
+
+\section{给进程发送信号}
+可以通过os模块的kill函数来给某个进程发送某个信号。
+\begin{Verbatim}
+os.kill(pid, sig)
+\end{Verbatim}
+
+函数第一个参数是进程的pid，第二个参数是具体发送的信号。比如:
+\begin{Verbatim}
+os.kill(pid, signal.SIGSTOP)
+\end{Verbatim}
+就是暂停某个进程，然后
+
+\begin{Verbatim}
+os.kill(pid, signal.SIGCONT)
+\end{Verbatim}
+是继续某个进程。 然后\textbf{killpg}函数能够对某个进程包括其子进程发送某个信号，参考了\href{http://kernelcheck.blogspot.com/2009/07/pausestop-process-in-python.html}{这个网页}。
+
+除此之外还有 \textbf{SIGINT} （正常终止进程信号）和 \textbf{SIGKILL} （强制终止进程信号） 等等，更多信号请参看关于unix信号那块，比如\href{http://en.wikipedia.org/wiki/Unix_signal}{这个wiki页面} 。
+
+
+
+
+\begin{large}
+更多os模块内容请参见\href{https://docs.python.org/3.4/library/os.html}{官方文档}。
+\end{large}
+
+
+
+\chapter{shutil模块}
+相当于os模块的补充，shutil模块进一步提供了一些系统级别的文件或文件夹的复制，删除，移动等等操作。
+
+\section{复制文件}
+\begin{Verbatim}
+shutil.copyfile(src, dst)
+shutil.copy(src, dst)
+shutil.copy2(src, dst)
+\end{Verbatim}
+其中\textbf{copyfile}的src和dst两个参量都是完整文件路径名，第一个参量是待复制的文件，第二个参量是复制后的文件名；而\textbf{copy}函数的第一个参量是待复制的文件，但是第二个参量是目标文件夹路径；\textbf{copy2}函数和copy函数类似，不同的是它能尝试保留文件的所有元信息metadata（模块开头有说明是理论上但不尽然）。
+
+\section{复制文件夹}
+\begin{Verbatim}
+shutil.copytree(src, dst)
+\end{Verbatim}
+
+\textbf{copytree}函数第一个参量是待复制的文件夹路径名，第二个参量是目标文件夹路径名，其将被创建不应该存在。
+
+\section{删除整个目录}
+\begin{Verbatim}
+shutil.rmtree(path)
+\end{Verbatim}
+
+\textbf{rmtree}函数用于删除整个文件夹，path就是目标文件夹的路径名。
+
+\section{移动文件夹}
+\begin{Verbatim}
+shutil.move(src,dst)
+\end{Verbatim}
+\textbf{move}函数把一个文件或者一个文件夹移动到一个文件夹内。
+
+
+
+\section{chown函数}
+\begin{Verbatim}
+shutil.chown(path, user=None, group=None)
+\end{Verbatim}
+
+\textbf{chown}函数类似的linux系统下的chown函数，这个函数基于os.chown函数，不过接口更友好。
+
+
+\section{which函数}
+\begin{Verbatim}
+shutil.which(cmd)
+\end{Verbatim}
+
+\textbf{which}函数类似的linux系统下的which函数。
+
+
+
+\begin{large}
+更多shutil模块内容请参见\href{https://docs.python.org/3.4/library/shutil.html}{官方文档}。
+\end{large}
+
+
+\chapter{tarfile和zipfile模块}
+tarfile是gzip，bz2和lzma压缩文件读写的解决方案，zipfile模块是zip压缩文件的解决方案，\uwave{值得一提的是pip管理的egg文件也可以通过zipfile模块来管理}。
+
+\section{制作gz压缩文件}
+请看下面的例子：
+\begin{tcbpython}[]
+import tarfile
+with tarfile.open("skeleton.tar.gz", "w:gz") as tar:
+    for name in ["setup.py","LICENSE","README.md","skeleton", "docs"]:
+        tar.add(name)
+\end{tcbpython}
+
+这里首先用tarfile模块的\textbf{open}函数来返回一个TarFile对象，其中第一个参数是你的压缩文件的名字，第二个参数是处理模式。
+
+模式可接受的参数如下：
+\begin{description}
+\item[r] 默认值是r，就是只读某个压缩文件。类似有\textbf{r:gz}，\textbf{r:bz2}和\textbf{r:xz}，这里的意思就是具体设置好要读的压缩文件的格式（gzip，bzip2和lzma）。
+\item[w] 类似的还有\textbf{w:gz}，\textbf{w:bz2}，\textbf{w:xz}。这里\textbf{w}或者\textbf{w:}官方文档的说明是（Open for uncompressed writing），我对这个无压缩方式写不是很理解。
+\item[a] 还有\textbf{a:}， 	Open for appending with no compression. 文件如果不存在将被创建。
+\end{description}
+
+\subsection{TarFile的add方法}
+然后接下来就是往压缩文件里面添加内容（文件或者整个目录），具体就是用创建的TarFile对象的add方法，如上例子所示。
+
+\section{解压缩gz压缩文件}
+最简单的例子如下所示：
+\begin{tcbpython}[]
+with tarfile.open("skeleton.tar.gz") as tar:
+    tar.extractall()
+\end{tcbpython}
+
+\subsection{TarFile的extractall方法}
+用tarfile模块的open函数打开那个压缩文件，用返回的TarFile对象的extractall方法解压缩这个文件，注意用os.chdir来控制当前工作目录。
+
+
+\begin{large}
+更多tarfile模块内容请参见\href{https://docs.python.org/3.4/library/tarfile.html}{官方文档}。
+\end{large}
+
+\section{提取egg文件中的内容}
+简单的例子如下所示：
+\begin{tcbpython}[]
+zip=zipfile.ZipFile("test.egg")
+zip.extract('test.txt')
+\end{tcbpython}
+这里用zipfile模块的ZipFile构造函数创建了一个ZipFile对象，然后用ZipFile的\textbf{extract}方法提取出了test.txt文件在当前工作目录。
+
+相关的\textbf{extractall}方法将会提取出压缩文件中所有的内容。
+
+\section{制作zip压缩文件}
+简单的示例如下：
+\begin{tcbpython}[]
+with zipfile.ZipFile('test.zip','w') as zip:
+    zip.write('test2.png')
+\end{tcbpython}
+首先用zipfile模块的ZipFile构造函数创建一个ZipFile对象，这里mode需要使用\textbf{'w'}，然后使用ZipFile对象的write方法来添加内容。你可以猜到如果模式是\textbf{'a'}的话write方法是给这个压缩文件添加内容（a模式同文件操作含义如果原压缩文件不存在也是可以创建的）。
+
+
+
+\begin{large}
+更多zipfile模块内容请参见\href{https://docs.python.org/3.4/library/zipfile.html}{官方文档}。
+\end{large}
+
+
+\chapter{collections模块}
+\section{namedtuple函数}
+collections模块里面的namedtuple函数将会产生一个有名字的数组的类（有名数组），通过这个类可以新建类似的实例。比如：
+\begin{tcbpython}[]
+from collections import namedtuple
+
+Point3d=namedtuple('Point3d',['x','y','z'])
+p1=Point3d(0,1,2)
+print(p1)
+print(p1[0],p1.z)
+\end{tcbpython}
+\begin{Verbatim}
+Point3d(x=0, y=1, z=2)
+0 2
+\end{Verbatim}
+
+
+
+\section{Counter计数类}
+
+\begin{large}
+更多内容请参见\href{https://docs.python.org/3/library/collections.html}{官方文档}。
+\end{large}
+
+
+
+\chapter{re模块}
+\label{sec:re模块}
+re模块提供了python对于正则表达式的支持，对于字符串操作，如果之前在介绍字符串类型的一些方法（比如split，replace等等），能够用它们解决问题就用它们，因为更快更简单。实在需要动用正则表达式理念才考虑使用re模块，而且你要克制写很多或者很复杂的（除非某些特殊情况）正则表达式的冲动，因为正则表达式的引入将会使得整个程序都更加难懂和不可捉摸。
+
+\begin{large}
+更多内容请参见\href{https://docs.python.org/3/library/re.html}{官方文档}。
+\end{large}
+
+\section{re模块中的元字符集}
+\begin{description}
+\item[\emph{.}] 表示一行内的任意字符，如果如果通过re.compile指定\textbf{re.DOTALL}，则表示多行内的任意字符，即包括了换行符。此外还可以通过字符串模板在它的前面加上\textbf{(?s)}来获得同样的效果。
+\item[\emph{*}] 对之前的字符匹配\uwave{零次}或者多次。
+\item[\emph{+}] 对之前的字符匹配\uwave{一次}或者多次。
+\item[\emph{?}] 对之前的字符匹配\uwave{零次}或者\uwave{一次}。
+\item[\emph{\{m\}}] 对之前的字符匹配(\uwave{exactly})m次。
+\item[\emph{\{m,n\}}] 对之前的字符匹配m次到n次，其中n次可能省略，视作默认值是无穷大。
+\item[\emph{\^{}}] 表示字符串的开始，如果加上\textbf{re.MULTILINE}选项，则表示行首。此外字符串模板加上\textbf{(?m)}可以获得同样的效果。
+\item[\emph{\${}}] 表示字符串的结束，同\^{}类似，如果加上\textbf{re.MULTILINE}选项，则表示行尾，可以简单理解为\verb+\n+换行符。此外字符串模板加上\textbf{(?m)}可以获得同样的效果。
+
+\${}符号在re.sub函数中可以被替换为另外一个字符串，其具体效果就是原字符串尾加上了这个字符串，类似的\^{}被替换成某个字符串，其具体效果就是原字符串头加上了这个字符串。这里显然\^{}和\${}在字符串中都不是真实存在的字符，而没有这个所谓的标记，所以这种替换总给人怪怪的感觉。
+\item[\emph{[]}] [abc]字符组匹配一个字符，这个字符是a或者b或者c。类似的[a-z]匹配所有的小写字母，\verb+[\w]+匹配任意的字母或数字，具体请看下面的特殊字符类。
+\item[\emph{|}] 相当于正则表达式内的匹配或逻辑。
+\item[\emph{()}] 圆括号包围的部分将会记忆起来，方便后面调用。这个后面在谈及。
+\end{description}
+
+
+
+\section{re模块中的特殊字符类}
+\begin{Verbatim}
+\w  任意的字母或数字  [a-zA-Z0-9_]  (meaning word)
+\W  匹配任何非字母非数字 [^a-zA-Z0-9_]
+\d   [0-9]   (digit) 数字
+\D  [^0-9] 非数字
+\s   匹配任何空白字符   [ \t\n\r\f\v] 。
+\S  匹配任何非空白字符
+匹配中文:[\u4e00-\u9fa5]
+\b  文档说严格的定义是\w 和\W 之间的边界，反之亦然。粗略的理解可以看作是英文单词头或者尾。
+\end{Verbatim}
+
+其中\^{}在方括号[]里面，只有在最前面，才表示排除型字符组的意思。
+
+
+\section{转义问题}
+正则表达式的转义问题有时会比较纠结。一个简单的原则是以上谈及的有特殊作用的字符有转义问题，如果python中的字符都写成\verb+r''+这种形式，也就是所谓的raw string形式，这样\verb+\n+在里面就可以直接写成\verb+\n+，而\verb+\section+可以简单写为\verb+\\section+即可，也就是\verb+\+字符需要转义一次。
+
+然后字符组的方括号内[]有些字符有时是不需要转义的，这个实在不确定就转义吧，要不就用Kiki测试一下。
+
+
+\section{re模块的使用}
+compile方法生成regular expression object这一条线这里略过了，接下来的讨论全部基于（原始的）字符串模板。
+
+字符串模板前面提及(?m)和(?s)的用法了，然后\textbf{(?i)}表示忽略大小写。
+
+\subsection{匹配和查找}
+search，match方法简单地用法就是：
+\begin{Verbatim}
+re.search(字符串模板, 待匹配字符串)
+re.match(pattern, string)
+\end{Verbatim}
+
+它们将会返回一个match object或者none，其中match object在逻辑上就是真值的意思。match对字符串的匹配是必须从一开始就精确匹配，这对于正则表达式多少0有点突兀。推荐使用search方法，如果一定要限定行首，或者字符串开始可以用前面讨论的正则表达式各个符号来表达。请看下面的例子。
+
+\begin{tcbpython}[]
+import re
+string = '''this is test line.
+this is the second line.
+today is sunday.'''
+
+match = re.search('(?m)^today',string)
+
+if match:
+    print('所使用的正则表达式是：',match.re)
+    print('所输入的字符串是：',match.string)
+    print('匹配的结果是：',match.group(0))
+    print('匹配的字符串index',match.span())
+else:
+    print('return the none value')
+\end{tcbpython}
+
+前面说道圆括号的部分将会记忆起来，作为匹配的结果，默认整个正则表达式所匹配的全部是group中的第0个元素，然后从左到右，子group编号依次是1，2，3......。
+
+\begin{Verbatim}
+所使用的正则表达式是： re.compile('(?m)^today', re.MULTILINE)
+所输入的字符串是： this is test line.
+this is the second line.
+today is sunday.
+匹配的结果是： today
+匹配的字符串index (44, 49)
+\end{Verbatim}
+
+具体这些信息是为了说明情况，实际最简单的情况可能就需要判断一下是不是真值，字符串模板是不是匹配到了即可。
+
+
+\subsection{分割操作}
+re模块的split函数可以看作字符串的split方法的升级版本，对于所描述的任何正则表达式，匹配成功之后都将成为一个分隔符，从而将原输入字符串分割开来。
+
+下面是我写的zwc小脚本的最核心的部分，用途是统计中英文文档的具体英文单词和中文字符的个数。其中最核心的部分就是用的re的split函数进行正则表达式分割，如果不用那个圆括号的话，那么分隔符是不会包含进去的，这里就是具体匹配的中文字和各个标点符号等等。用了圆括号，那么圆括号匹配的内容也会进去列表。这里就是具体的各个分隔符。
+
+\begin{tcbpython}[]
+import re
+
+def zwc(string):
+    #中英文常用标点符号
+    lst = re.split('([\u4e00-\u9fa5\s，。；])',string)
+    #去除 空白
+    #去除\s 中英文常用标点符号
+    lst = [i for i in lst if not  i in
+    [""," ","\n","\t","\r","\f","\v","；","，","。"]]
+    print(lst)
+
+if __name__ == '__main__':
+    string='''道可道，非常道。名可名，非常名。無名天地之始，有名萬物之母。
+    故常無欲，以觀其妙；常有欲，以觀其徼。此兩者同出而異名，
+    同謂之玄，玄之又玄，眾妙之門。 '''
+    zwc(string)
+\end{tcbpython}
+
+字符分割之后后面做了一个小修正，将匹配到的空白字符和中英文标点符号等都删除了，这些是不应该统计入字数的。
+
+具体这个github项目链接在这里：\href{https://github.com/a358003542/zwc}{zwc项目}。
+
+
+\subsection{替换操作}
+基于正则表达式的替换操作非常的有用，其实前面的search方法，再加上具体匹配字符串的索引值，然后修改原字符串，然后再search这样循环操作下去，就是一个替换操作了。re模块有sub方法来专门解决这个问题。
+
+让我们为Linux系统写一个resub命令，这个命令的用途就是将某一个标准输入流或者utf-8文本文件按照你定义的正则表达式规则，依次完成一个\footnote{这里简单起见就是一个，多个情况可以考虑编写另外一个程序来控制之。}正则表达式文本替换工作。这个命令在我们需要对某个utf-8文本文件进行某个你想要的——非简单的精确相同匹配然后替换操作时——特别有用。
+
+为了作为程序的检验，这里提出两个任务：第一个任务是我们在ocr PDF文档之后的输出，经常发现很多标点符号问题，这些需要人手工修改会非常的耗费精力。其中第一个问题如下，"这是一段文字"需要替换成为“这是一段文字”。这个例子之所以特别是因为中文的双引号是分左和右的，这里必须要用正则表达式匹配和替换；第二个任务更加的复杂，那就是从排版角度上讲，如果括号里面的文字都是英文或者数字，那么就使用英文的括号()，如果括号里面有中文或者全是中文\footnote{这里程序的逻辑是都换成中文的全角括号（毕竟中文unicode码具体范围的判断是不太精确的），只有那些纯英文纯数字或者基本英文标点和其他简单符号的再换成英文括号}，那么就使用中文的括号（）。ocr出来或者甚至人编写的文档都常常难以做到没有瑕疵，第二个任务就是通过resub命令来确保之后的输出文档的括号满足这一要求。
+
+然后程序还需要建立两个选项，一个是自动替换所有，一个是对于每一个替换操作都请求确认——需要打印相关信息。
+
+程序需要经过如下几个阶段：1.明确匹配模板  1.1写出字符串模板 匹配操作 给出匹配的所有情况，最好是行模板匹配模式。  最后明确匹配情况 2.明确匹配的文字的后给出情况 
+
+\chapter{itertools模块}
+\label{sec:itertools}
+\section{repeat函数}
+其定义函数如下：
+\begin{Verbatim}
+def repeat(object, times=None):
+    # repeat(10, 3) --> 10 10 10
+    if times is None:
+        while True:
+            yield object
+    else:
+        for i in range(times):
+            yield object
+\end{Verbatim}
+也就是返回一个可迭代对象，这么封装最大的一个用处是用于填充map函数或者zip函数的某个常数值。因为你填写repeat(5)之后将一个返回一个可迭代对象，不停的返回数字5而不需要你考虑长度问题。
+
+\section{starmap函数}
+starmap函数具体定义如下所示：
+\begin{tcbpython}[]
+def starmap(function, iterable):
+    # starmap(pow, [(2,5), (3,2), (10,3)]) --> 32 9 1000
+    for args in iterable:
+        yield function(*args)
+\end{tcbpython}
+其接受一个可迭代对象，然后逐个将可迭代对象中的元素解包之后送入函数当参数（最后当然函数也执行了）。
+
+
+
+\chapter{multiprocessing模块}
+multiprocessing为python提供了多进程（或者多线程）的解决方案。
+
+\section{Pool类}
+\begin{Verbatim}
+from multiprocessing import Pool
+
+def f(x):
+    return x*x
+
+if __name__ == '__main__':
+    with Pool(5) as p:
+        print(p.map(f, [1, 2, 3]))
+\end{Verbatim}
+这里Pool的第一个参数是可选项\textbf{processes}，如果不设置，则默认的是\verb+os.cpu_count()+，即当前系统的cpu数。
+
+一般cpu密集型的任务推荐使用多进程处理，当然前提是你有多个cpu的情况下，如果你并没有相关硬件条件，追求时髦动用多进程还不如用单进程，集中精力用好的算法办好一件事。不过不同进程（不同程序）之间的通信还是很有用的。
+
+这里的map是Pool对象的\textbf{map}方法，其除了接受第一个列表参数，然后用多进程分别处理这些列表中的元素之外，并不能在额外接受其他参数了。如果你想要接受一些参数，推荐使用\textbf{starmap}方法。
+
+\subsection{starmap方法}
+starmap类似map方法，不过其接受的是一系列的函数参数。值得注意的是python的itertools模块\ref{sec:itertools}里面提供的starmap，repeat还有python语言的zip和map函数等在此处有时会很有用，可能是你感兴趣的。
+\begin{tcbpython}[]
+from multiprocessing import Pool
+
+def f(x,y):
+    return (x*x+y*y)
+
+if __name__ == '__main__':
+    with Pool(5) as p:
+        print(p.starmap(f, [(1,1),(2,2),(3,3)]))
+\end{tcbpython}
+
+在看一个有可选参数的情况：
+
+\begin{tcbpython}[]
+from multiprocessing.dummy import Pool as ThreadPool
+from itertools import repeat
+
+urls = get_all_urls(base_url,model_url)
+
+with ThreadPool(6) as tp:
+    imgs = tp.starmap(get_url_imgs,zip(urls,repeat(inclass))
+\end{tcbpython}
+这里的\verb+get_url_imgs+除了接受第一个url参数之外，还接受一个可选参数inclass，这里通过repeat封装之后将这两个参数用zip函数封装即能达到这样的执行效果：
+\begin{Verbatim}
+get_url_imgs(url,inclass)
+get_url_imgs(url,inclass)
+get_url_imgs(url,inclass)
+.....
+\end{Verbatim}
+然后这些都是多线程运行的。
+
+
+\section{ThreadPool类}
+一般和网络相关的I/O密集型任务推荐使用多线程处理，但也不是线程设置得越多越好，一般设置为当前CPU数*2+2左右，再多并没有起到提速效果，有时反而会降低速度。
+
+multiprocessing还有一个dummy子模块，其提供了和multiprocessing一样的API\footnote{请参看这个\href{http://segmentfault.com/blog/caspar/1190000000414339b}{网页}。}，不同的是multiprocessing作用于进程，而dummy子模块是作用于线程的。
+
+
+\begin{Verbatim}
+from multiprocessing.dummy import Pool as ThreadPool
+
+with ThreadPool(6) as tp:
+    imgs = tp.map(partial_get_url_imgs,urls)
+\end{Verbatim}

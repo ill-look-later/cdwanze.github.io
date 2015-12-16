@@ -1,0 +1,4999 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>python3语言学习基础篇</title>
+<!-- 2015-11-14 22:15 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+
+<script type="text/javascript" src="http://orgmode.org/org-info.js">
+/**
+ *
+ * @source: http://orgmode.org/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "5");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js","TeX/mhchem.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        },
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">python3语言学习基础篇</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a>
+<ul>
+<li><a href="#sec-1-1">1.1. 进入python的REPL环境</a></li>
+<li><a href="#sec-1-2">1.2. python3命令行用法</a></li>
+<li><a href="#sec-1-3">1.3. geany的相关配置</a></li>
+<li><a href="#sec-1-4">1.4. 代码注释</a></li>
+<li><a href="#sec-1-5">1.5. Unicode码支持</a></li>
+<li><a href="#sec-1-6">1.6. 代码多行表示一行</a></li>
+<li><a href="#sec-1-7">1.7. 一行表示多行</a></li>
+<li><a href="#sec-1-8">1.8. 输入和输出</a>
+<ul>
+<li><a href="#sec-1-8-1">1.8.1. 最基本的input和print命令</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-9">1.9. <code>__main__</code> 和 <code>__name__</code></a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. 程序中的操作对象</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 赋值</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1. 序列赋值</a>
+<ul>
+<li><a href="#sec-2-1-1-1">2.1.1.1. 交换两个元素</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-1-2">2.1.2. 同时赋相同的值</a></li>
+<li><a href="#sec-2-1-3">2.1.3. 增强赋值语句</a></li>
+<li><a href="#sec-2-1-4">2.1.4. 序列解包赋值</a></li>
+<li><a href="#sec-2-1-5">2.1.5. 可迭代对象的迭代赋值</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2. 数值</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1. 二进制八进制十六进制</a>
+<ul>
+<li><a href="#sec-2-2-1-1">2.2.1.1. 进制转换小程序</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2-2">2.2.2. 数学幂方运算</a></li>
+<li><a href="#sec-2-2-3">2.2.3. 数值比较</a></li>
+<li><a href="#sec-2-2-4">2.2.4. 相除取商或余</a></li>
+<li><a href="#sec-2-2-5">2.2.5. 复数</a></li>
+<li><a href="#sec-2-2-6">2.2.6. abs函数</a></li>
+<li><a href="#sec-2-2-7">2.2.7. round函数</a></li>
+<li><a href="#sec-2-2-8">2.2.8. min，max和sum函数</a></li>
+<li><a href="#sec-2-2-9">2.2.9. 位操作</a></li>
+<li><a href="#sec-2-2-10">2.2.10. math模块</a></li>
+<li><a href="#sec-2-2-11">2.2.11. random模块</a></li>
+<li><a href="#sec-2-2-12">2.2.12. statistics模块</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3">2.3. 序列</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. len函数</a></li>
+<li><a href="#sec-2-3-2">2.3.2. 调出某个值</a>
+<ul>
+<li><a href="#sec-2-3-2-1">2.3.2.1. 倒着来</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3-3">2.3.3. 调出多个值</a></li>
+<li><a href="#sec-2-3-4">2.3.4. 序列反转</a></li>
+<li><a href="#sec-2-3-5">2.3.5. 序列的可更改性</a></li>
+<li><a href="#sec-2-3-6">2.3.6. 序列的加法和减法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4">2.4. 字符串</a>
+<ul>
+<li><a href="#sec-2-4-1">2.4.1. 三单引号和三双引号</a></li>
+<li><a href="#sec-2-4-2">2.4.2. startswith方法</a></li>
+<li><a href="#sec-2-4-3">2.4.3. find方法</a></li>
+<li><a href="#sec-2-4-4">2.4.4. replace方法</a></li>
+<li><a href="#sec-2-4-5">2.4.5. upper方法</a></li>
+<li><a href="#sec-2-4-6">2.4.6. isdigit方法</a></li>
+<li><a href="#sec-2-4-7">2.4.7. split方法</a>
+<ul>
+<li><a href="#sec-2-4-7-1">2.4.7.1. splitline方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4-8">2.4.8. join方法</a></li>
+<li><a href="#sec-2-4-9">2.4.9. strip方法</a></li>
+<li><a href="#sec-2-4-10">2.4.10. format方法</a></li>
+<li><a href="#sec-2-4-11">2.4.11. 转义和不转义</a></li>
+<li><a href="#sec-2-4-12">2.4.12. count方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5">2.5. 列表</a>
+<ul>
+<li><a href="#sec-2-5-1">2.5.1. 列表的插入操作</a></li>
+<li><a href="#sec-2-5-2">2.5.2. append方法</a></li>
+<li><a href="#sec-2-5-3">2.5.3. reverse方法</a></li>
+<li><a href="#sec-2-5-4">2.5.4. copy方法</a></li>
+<li><a href="#sec-2-5-5">2.5.5. sort方法</a>
+<ul>
+<li><a href="#sec-2-5-5-1">2.5.5.1. sorted函数</a></li>
+<li><a href="#sec-2-5-5-2">2.5.5.2. 字典按值排序</a></li>
+<li><a href="#sec-2-5-5-3">2.5.5.3. 中文排序</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5-6">2.5.6. 删除某个元素</a></li>
+<li><a href="#sec-2-5-7">2.5.7. count方法</a></li>
+<li><a href="#sec-2-5-8">2.5.8. index方法</a></li>
+<li><a href="#sec-2-5-9">2.5.9. 列表解析</a>
+<ul>
+<li><a href="#sec-2-5-9-1">2.5.9.1. 列表解析加上过滤条件</a></li>
+<li><a href="#sec-2-5-9-2">2.5.9.2. 完整的列表解析结构</a></li>
+<li><a href="#sec-2-5-9-3">2.5.9.3. 列表解析的好处</a></li>
+<li><a href="#sec-2-5-9-4">2.5.9.4. 元组的生成</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5-10">2.5.10. for语句中列表可变的影响</a></li>
+<li><a href="#sec-2-5-11">2.5.11. 列表元素替换</a></li>
+<li><a href="#sec-2-5-12">2.5.12. 列表元素去重</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-6">2.6. 字典</a>
+<ul>
+<li><a href="#sec-2-6-1">2.6.1. 创建字典</a>
+<ul>
+<li><a href="#sec-2-6-1-1">2.6.1.1. 根据列表创建字典</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-6-2">2.6.2. 字典里面有字典</a></li>
+<li><a href="#sec-2-6-3">2.6.3. 字典遍历操作</a>
+<ul>
+<li><a href="#sec-2-6-3-1">2.6.3.1. keys方法</a></li>
+<li><a href="#sec-2-6-3-2">2.6.3.2. values方法</a></li>
+<li><a href="#sec-2-6-3-3">2.6.3.3. items方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-6-4">2.6.4. 字典的in语句</a></li>
+<li><a href="#sec-2-6-5">2.6.5. 字典对象的get方法</a></li>
+<li><a href="#sec-2-6-6">2.6.6. update方法</a></li>
+<li><a href="#sec-2-6-7">2.6.7. pop方法</a></li>
+<li><a href="#sec-2-6-8">2.6.8. 字典解析</a>
+<ul>
+<li><a href="#sec-2-6-8-1">2.6.8.1. zip函数创建字典</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-2-7">2.7. 集合</a>
+<ul>
+<li><a href="#sec-2-7-1">2.7.1. 集合添加元素</a></li>
+<li><a href="#sec-2-7-2">2.7.2. 集合去掉某个元素</a></li>
+<li><a href="#sec-2-7-3">2.7.3. 两个集合之间的关系</a>
+<ul>
+<li><a href="#sec-2-7-3-1">2.7.3.1. 子集判断</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-7-4">2.7.4. 两个集合之间的操作</a></li>
+<li><a href="#sec-2-7-5">2.7.5. clear方法</a></li>
+<li><a href="#sec-2-7-6">2.7.6. copy方法</a></li>
+<li><a href="#sec-2-7-7">2.7.7. pop方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-8">2.8. 元组</a>
+<ul>
+<li><a href="#sec-2-8-1">2.8.1. 生成器表达式</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-9">2.9. bytes类型</a>
+<ul>
+<li><a href="#sec-2-9-1">2.9.1. 基本编码知识</a></li>
+<li><a href="#sec-2-9-2">2.9.2. 使用方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-10">2.10. bytearray类型</a></li>
+<li><a href="#sec-2-11">2.11. 文件</a>
+<ul>
+<li><a href="#sec-2-11-1">2.11.1. 写文件</a></li>
+<li><a href="#sec-2-11-2">2.11.2. 读文件</a></li>
+<li><a href="#sec-2-11-3">2.11.3. open函数的处理模式</a></li>
+<li><a href="#sec-2-11-4">2.11.4. 用with语句打开文件</a></li>
+<li><a href="#sec-2-11-5">2.11.5. 除字符串外其他类型的读取</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 程序中的逻辑</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 布尔值</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1. 其他逻辑小知识</a></li>
+<li><a href="#sec-3-1-2">3.1.2. None</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2. if条件判断</a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1. 逻辑与或否</a></li>
+<li><a href="#sec-3-2-2">3.2.2. 稍复杂的条件判断</a></li>
+<li><a href="#sec-3-2-3">3.2.3. try语句捕捉异常</a>
+<ul>
+<li><a href="#sec-3-2-3-1">3.2.3.1. 异常处理完整语句</a></li>
+<li><a href="#sec-3-2-3-2">3.2.3.2. for里面放try语句的情况</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2-4">3.2.4. in语句</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-3">3.3. for迭代语句</a>
+<ul>
+<li><a href="#sec-3-3-1">3.3.1. else分句</a></li>
+<li><a href="#sec-3-3-2">3.3.2. range函数</a></li>
+<li><a href="#sec-3-3-3">3.3.3. 迭代加上操作</a></li>
+<li><a href="#sec-3-3-4">3.3.4. enumerate函数</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-4">3.4. while循环</a>
+<ul>
+<li><a href="#sec-3-4-1">3.4.1. break命令</a></li>
+<li><a href="#sec-3-4-2">3.4.2. continue命令</a></li>
+<li><a href="#sec-3-4-3">3.4.3. pass命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-4">4. 操作或者函数</a>
+<ul>
+<li><a href="#sec-4-1">4.1. 自定义函数</a></li>
+<li><a href="#sec-4-2">4.2. 参数传递问题</a></li>
+<li><a href="#sec-4-3">4.3. 变量作用域问题</a>
+<ul>
+<li><a href="#sec-4-3-1">4.3.1. 内置作用域</a></li>
+<li><a href="#sec-4-3-2">4.3.2. global命令</a></li>
+<li><a href="#sec-4-3-3">4.3.3. nonlocal命令</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-4">4.4. 参数和默认参数</a></li>
+<li><a href="#sec-4-5">4.5. 不定参量函数</a>
+<ul>
+<li><a href="#sec-4-5-1">4.5.1. 序列解包赋值</a></li>
+<li><a href="#sec-4-5-2">4.5.2. 函数中的通配符</a></li>
+<li><a href="#sec-4-5-3">4.5.3. mysum函数</a></li>
+<li><a href="#sec-4-5-4">4.5.4. 任意数目的可选参数</a></li>
+<li><a href="#sec-4-5-5">4.5.5. 解包可迭代对象传递参数</a>
+<ul>
+<li><a href="#sec-4-5-5-1">4.5.5.1. 最简单的打印文件命令</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-5-6">4.5.6. 解包字典成为关键字参数</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-6">4.6. 参数的顺序</a></li>
+<li><a href="#sec-4-7">4.7. 递归函式</a>
+<ul>
+<li><a href="#sec-4-7-1">4.7.1. 什么时候用递归？</a></li>
+<li><a href="#sec-4-7-2">4.7.2. lisp的car-cdr递归技术</a></li>
+</ul>
+</li>
+<li><a href="#sec-4-8">4.8. lambda函式</a></li>
+<li><a href="#sec-4-9">4.9. print函数</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. 类</a>
+<ul>
+<li><a href="#sec-5-1">5.1. python中类的结构</a></li>
+<li><a href="#sec-5-2">5.2. 类的最基础知识</a>
+<ul>
+<li><a href="#sec-5-2-1">5.2.1. 类的创建</a></li>
+<li><a href="#sec-5-2-2">5.2.2. 根据类创建实例</a></li>
+<li><a href="#sec-5-2-3">5.2.3. 类的属性</a></li>
+<li><a href="#sec-5-2-4">5.2.4. 类的方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-5-3">5.3. 类的继承</a></li>
+<li><a href="#sec-5-4">5.4. 类的内置方法</a>
+<ul>
+<li><a href="#sec-5-4-1">5.4.1. <code>__init__</code> 方法</a></li>
+<li><a href="#sec-5-4-2">5.4.2. self意味着什么</a></li>
+<li><a href="#sec-5-4-3">5.4.3. 类的操作第二版</a></li>
+<li><a href="#sec-5-4-4">5.4.4. 类的操作第三版</a></li>
+<li><a href="#sec-5-4-5">5.4.5. 构造函数的继承和重载</a></li>
+<li><a href="#sec-5-4-6">5.4.6. <code>__str__</code> 函数的继承和重载</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-6">6. 模块</a>
+<ul>
+<li><a href="#sec-6-1">6.1. 找到模块文件</a></li>
+<li><a href="#sec-6-2">6.2. 编写模块</a></li>
+<li><a href="#sec-6-3">6.3. import语句</a></li>
+<li><a href="#sec-6-4">6.4. from语句</a></li>
+<li><a href="#sec-6-5">6.5. reload函数</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Python是个成功的脚本语言。它最初由Guido van Rossum开发，在1991年第一次发布。Python由ABC和Haskell语言所启发。Python是一个高级的、通用的、跨平台、解释型的语言。一些人更倾向于称之为动态语言。它很易学，Python是一种简约的语言。它的最明显的一个特征是，不使用分号或括号，Python使用缩进。现在，Python由来自世界各地的庞大的志愿者维护。
+</p>
+
+<p>
+python现在主要有两个版本区别，python2和python3。作为新学者推荐完全使用python3编程，本文档完全基于python3。
+</p>
+
+<p>
+完全没有编程经验的人推荐简单学一下c语言和scheme语言（就简单学习一下这个语言的基本概念即可）。相信我学习这两门语言不会浪费你任何时间，其中scheme语言如果你学得深入的话甚至编译器的基本原理你都能够学到。了解了这两门语言的核心理念，基本上任何语言在你看来都大同小异了。
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 进入python的REPL环境</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+在ubuntu系统下打开终端输入python即进入python语言的REPL环境，目前默认的是python2。你可以运行：
+</p>
+<div class="highlight"><pre>python  --version
+</pre></div>
+<p>
+来查看确认一下。要进入python3在终端中输入
+</p>
+
+<div class="highlight"><pre>python3
+</pre></div>
+<p>
+python3即可。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> python3命令行用法</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+命令行的一般格式就是：
+</p>
+<pre class="example">
+python3  [可选项]  test.py  [可选参数1 可选参数2]
+</pre>
+
+
+<p>
+同样类似的运行 <code>python3 --help</code> 即可以查看python3命令的一些可选项。比如加入 <code>-i</code> 选项之后，python执行完脚本之后会进入REPL环境继续等待下一个命令，这个在最后结果一闪而过的时候有用。
+</p>
+
+<p>
+上面的命令行接受多个参数都没有问题的，不会报错，哪怕你在py文件并没有用到他们。在py文件中要使用他们，首先导入sys模块，然后 <code>sys.argv[0]</code> 是现在这个py文件在系统中的文件名，接下来的 <code>sys.argv[1]</code> 就是之前命令行接受的第一个参数，后面的就依次类推了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> geany的相关配置</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+geany的其他配置这里不做过多说明，就自动执行命令默认的应该是python2，修改成为：
+</p>
+<pre class="example">
+python3  -i  %f
+</pre>
+<p>
+即可。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 代码注释</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+python语言的注释符号和bash语言（linux终端的编程语言）一样用的是 <code>#</code> 符号来注释代码。然后py文件开头一般如下面代码所示：
+</p>
+<pre class="example">
+#!/usr/bin/env python3
+#-*-coding:utf-8-*-
+</pre>
+
+<p>
+其中代码第一行表示等下如果py文件可执行模式执行那么将用python3来编译 <sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> ，第二行的意思是py文件编码是utf-8编码的，python3直接支持utf-8各个符号，这是很强大的一个更新。
+</p>
+
+<p>
+多行注释可以利用编辑器快速每行前面加上 <code>#</code> 符号。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Unicode码支持</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+前面谈及python3是可以直接支持Unicode码的，如果以可执行模式加载，那么第二行需要写上：
+</p>
+<pre class="example">
+#-*-coding:utf-8-*-
+</pre>
+
+<p>
+这么一句。
+</p>
+
+<p>
+读者请实验下面这个小例子，这将打印一个笑脸符号：
+</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
+<span class="c">#-*-coding:utf-8-*-</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\u263a</span><span class="s">&#39;</span><span class="p">)</span>
+</pre></div>
+
+<pre class="example">
+☺
+&gt;&gt;&gt;
+</pre>
+
+<p>
+上面的数字就是笑脸符号具体的Unicode码（十六进制）。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> 代码多行表示一行</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+这个技巧防止代码越界所以经常会用到。用反斜线 <code>\</code> 即可。不过更常用的是将表达式用圆括号 <code>( )</code> 括起来，这样内部可以直接换行并继续。在python中任何表达式都可以包围在圆括号中。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> 一行表示多行</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+python中一般不用分号，但是分号的意义大致和bash或者c语言中的意义类似，表示一行结束的意思。其中c语言我们知道是必须使用分号的。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> 输入和输出</h3>
+<div class="outline-text-3" id="text-1-8">
+</div><div id="outline-container-sec-1-8-1" class="outline-4">
+<h4 id="sec-1-8-1"><span class="section-number-4">1.8.1</span> 最基本的input和print命令</h4>
+<div class="outline-text-4" id="text-1-8-1">
+<p>
+input函数请求用户输入，并将这个值赋值给某个变量。注意赋值之后类型是字符串，但后面你可以用强制类型转换——int函数（变成整数），float函数（变成实数），str函数（变成字符串）——将其转变过来。print函数就是一般的输出函数。
+</p>
+
+<p>
+读者请运行下面的例子：
+</p>
+<div class="highlight"><pre><span class="n">x</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s">&#39;请输入一个实数：&#39;</span><span class="p">)</span>
+<span class="n">string</span><span class="o">=</span><span class="s">&#39;你输入的这个实数乘以2等于：&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> <code>__main__</code> 和 <code>__name__</code></h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+按照 <a href="http://stackoverflow.com/questions/419163/what-does-if-name-main-do">这个网站</a> 的讲解，如果当前这个py文件是被执行的，那么 <code>__name__</code> 在本py文件中的值是 <code>__main__</code> ，如果这个py文件是被作为模块引入的，那么 <code>__name__</code> 在那个py文件中的值是本py文件作为模块的模块名。比如说你随便新建一个test.py文件，这个py文件里面就简单打印 <code>__name__</code> 的值，这个时候你会发现 <code>__name__</code> 的值是字符"test"，如果是mymodule模块里的mymod.py文件，那么在这个py文件里面其 <code>__name__</code> 的值是"mymodule.mymod"。一个很有用的用法是 <code>self = sys.modules[__name__]</code> ，这样self就表示本模块对象自身了。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 程序中的操作对象</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+python和c语言不同，c 是什么 <code>int x = 3</code> ，也就是这个变量是整数啊，字符啊什么的都要明确指定，python不需要这样做，只需要声明 <code>x ＝ 3</code> 即可。但是我们知道任何程序语言它到最后必然要明确某一个变量（这里也包括后面的更加复杂的各个结构对象）的内存分配，只是python语言帮我们将这些工作做了，所以就让我们省下这份心吧。
+</p>
+
+<pre class="example">
+''' 这是一个多行注释
+    你可以在这里写上很多废话
+    '''
+x = 10
+print(x,type(x))
+</pre>
+
+<p>
+python程序由各个模块（modules）组成，模块就是各个文件。模块由声明（statements）组成，声明由表达式（expressions）组成，表达式负责创造和操作对象（objects）。在python中一切皆对象。python语言内置对象（数值、字符串、列表、数组、字典、文件、集合、其他内置对象。）后面会详细说明之。
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 赋值</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+python中的赋值语法非常的简单，x=1，就是一个赋值语句了。和c语言不同，c是必须先声明int x之类，开辟一个内存空间，然后才能给这个x赋值。而python的x=1语句实际上至少完成了三个工作：一，判断1的类型（动态类型语言必须要这步）；二，把这个类型的对象存储在内存里面；三，创建x这个名字和这个名字指向这个内存，x似乎可以对应为c语言的指针对象。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> 序列赋值</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<div class="highlight"><pre><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;a&#39;</span>
+<span class="p">[</span><span class="n">z</span><span class="p">,</span><span class="n">w</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+
+<pre class="example">
+1 a b 10
+&gt;&gt;&gt;
+</pre>
+
+<p>
+我们记得python中表达式可以加上圆括号，所以这里 <code>x,y</code> 产生的是一个数组 <code>(x,y)</code> ，然后是对应的数组平行赋值，第二行是列表的平行赋值。这是一个很有用的技巧。
+</p>
+
+<p>
+在其他语言里面常常会介绍swap函数，就是接受两个参数然后将这两个参数的值交换一下，交换过程通常要用到临时变量。而在python中不需要再创建一个临时变量了，因为序列赋值会自动生成一个临时的右边的序列（其中的变量都对应原来的原始值），然后再 <span class="underline">一一对应</span> 赋值（这里强调一一对应是指两边的序列长度要一致。）
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1-1" class="outline-5">
+<h5 id="sec-2-1-1-1"><span class="section-number-5">2.1.1.1</span> 交换两个元素</h5>
+<div class="outline-text-5" id="text-2-1-1-1">
+<p>
+在python中交换两个元素用序列赋值形式是很便捷的：
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; y = 2
+&gt;&gt;&gt; x,y = y,x
+&gt;&gt;&gt; print(x,y)
+2 1
+</pre>
+
+<p>
+这个过程显然不是先执行x=y然后执行y=x，如上所述的，程序首先右边创建一个临时的序列，其中的变量都对应原来的值，即 <code>x,y=(2,1)</code> ，然后再进行序列赋值。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> 同时赋相同的值</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<div class="highlight"><pre><span class="n">x</span><span class="o">=</span><span class="n">y</span><span class="o">=</span><span class="s">&#39;a&#39;</span>
+<span class="n">z</span><span class="o">=</span><span class="n">w</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+
+<pre class="example">
+a a 2 2
+&gt;&gt;&gt;
+</pre>
+
+<p>
+这种语句形式c语言里面也有，不过内部实现机制就非常的不一样了。python当声明x=y的时候，x和y是相同的指针值，然后相同的指针值都指向了'a'这个字符串对象，也可以说x和y就是一个东西，只是取的名字不同罢了。
+</p>
+
+<p>
+我们用is语句 <sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>
+ 来测试，显示x和y就是一个东西。
+</p>
+<pre class="example">
+&gt;&gt;&gt; x=y='a'
+&gt;&gt;&gt; x is y
+True
+&gt;&gt;&gt; x == y
+True
+</pre>
+
+<p>
+因为python中一切皆为对象，我们可以做如下这个实验，来创建一个抽象意义上的对象。
+</p>
+<pre class="example">
+&gt;&gt;&gt; class Test:
+...   pass
+... 
+&gt;&gt;&gt; test1 = test2 = Test()
+&gt;&gt;&gt; test1 is test2
+True
+&gt;&gt;&gt; test1 == test2
+True
+&gt;&gt;&gt; test1 = Test()
+&gt;&gt;&gt; test2 = Test()
+&gt;&gt;&gt; test1 == test2
+False
+&gt;&gt;&gt; test1 is test2
+False
+</pre>
+
+<p>
+当然如果两个变量指向的本来就是同一对象，那么它们彼此当然是相等的，也就是 <code>==</code> 比较为True。然后我们看到
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = [1,2,3]
+&gt;&gt;&gt; y = [1,2,3]
+&gt;&gt;&gt; x == y
+True
+&gt;&gt;&gt; x is y
+False
+</pre>
+<p>
+这里创建了两个列表对象，采用如上声明并没有指向同一个内存对象。然后 <code>==</code> 返回True是由列表对象具体的 <code>__eq__</code> 内置方法确定的。到目前为止 so far so good。但是有一个小插曲小意外。我们看:
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; y = 1
+&gt;&gt;&gt; x is y
+True
+</pre>
+
+<p>
+看到这里你可能会说，好吧，数值和字符串可能不是对象，但不是的，我们要记住python中一切皆对象。然后看:
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; x = 1000
+&gt;&gt;&gt; y = 1000
+&gt;&gt;&gt; x is y
+False
+</pre>
+
+
+<p>
+请读者参看 <a href="http://stackoverflow.com/questions/132988/is-there-a-difference-between-and-is-in-python">这个网页</a> ，其中答案的字符串部分似乎在python3中已经变动了，分界点就是256
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = 256
+&gt;&gt;&gt; y = 256
+&gt;&gt;&gt; x is y
+True
+&gt;&gt;&gt; x = 257
+&gt;&gt;&gt; y = 257 
+&gt;&gt;&gt; x is y
+False
+</pre>
+<p>
+这个和python具体的底层实现细节相关了。总之读者请记住 同时赋某一个相同的值，这几个变量实际上都指向的是一个东西。然后比较None的时候推荐用 <code>x is None</code> 语法，其他相似判断都推荐用 <code>==</code> 比较判断。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> 增强赋值语句</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+x=x+y可以写作x += y。类似的还有：
+</p>
+<pre class="example">
++=  -=  *=  /=
+&amp;=  |=  ^=  %=
+&gt;&gt;=  &lt;&lt;=  **=  //=
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> 序列解包赋值</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<p>
+具体内容请参看后面的 <i>序列解包赋值</i> 这一小节。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-5" class="outline-4">
+<h4 id="sec-2-1-5"><span class="section-number-4">2.1.5</span> 可迭代对象的迭代赋值</h4>
+<div class="outline-text-4" id="text-2-1-5">
+<p>
+在我们对python语言有了深入的了解之后，我们发现python中迭代思想是深入骨髓的。我们在前面接触了序列的赋值模式之后，发现似乎这种赋值除了临时创建右边的序列之外，还似乎与迭代操作有关，于是我们推测python的这种平行赋值模式可以扩展到可迭代对象，然后我们发现确实如此！
+</p>
+<pre class="example">
+&gt;&gt;&gt; x,y,z= map(lambda x : x+2,[-1,0,1])
+&gt;&gt;&gt; print(x,y,z)
+1 2 3
+</pre>
+
+<p>
+最后要强调一点的是确保变量名和后面的可迭代对象的输出元素数目是一致的，当然进一步扩展的序列解包赋值也是支持的：
+</p>
+<pre class="example">
+&gt;&gt;&gt; x,y,*z= map(lambda x : x+2,[-1,0,1,2])
+&gt;&gt;&gt; print(x,y,z)
+1 2 [3, 4]
+</pre>
+
+<p>
+通配赋值，我喜欢这样称呼了，通配之后收集的元素在列表里面；而函数参数的通配传递，收集的元素是在元组里面。
+</p>
+
+<p>
+最后我们总结到，可迭代对象的赋值就是迭代操作加上各个元素的一对一的赋值操作。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 数值</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+python的数值的内置类型有：int，float，complex等<sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>。python的基本算术运算操作有加减乘除（+ - * /）。然后'='表示赋值，类似数学书上的中缀表达式和优先级和括号法则等，这些都是一般编程语言说到烂的东西了。
+</p>
+
+<pre class="example">
+print((1+2)*(10-5)/2)
+print(2**100)
+</pre>
+</div>
+
+
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> 二进制八进制十六进制</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+二进制的数字以0b（零比）开头，八进制的数字以0o（零哦）开头，十六进制的数字以0x（零艾克斯）开头。
+</p>
+<pre class="example">
+0b101010, 0o177, 0x9ff
+</pre>
+
+<p>
+以二进制格式查看数字使用bin命令，以十六进制查看数字使用hex命令。
+</p>
+<pre class="example">
+&gt;&gt;&gt; bin(42)
+'0b101010'
+&gt;&gt;&gt; hex(42)
+'0x2a'
+</pre>
+</div>
+
+
+<div id="outline-container-sec-2-2-1-1" class="outline-5">
+<h5 id="sec-2-2-1-1"><span class="section-number-5">2.2.1.1</span> 进制转换小程序</h5>
+<div class="outline-text-5" id="text-2-2-1-1">
+<div class="highlight"><pre><span class="n">number</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s">&quot;请输入一个数字：&quot;</span><span class="p">)</span>
+<span class="n">number</span><span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+<span class="n">radix</span><span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&#39;&#39;&#39;请输入你想转换的进制系统</span>
+<span class="s">2   表示  二进制</span>
+<span class="s">8   表示  八进制</span>
+<span class="s">16  表示  十六进制</span>
+<span class="s">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">radix</span> <span class="o">=</span><span class="nb">eval</span><span class="p">(</span><span class="n">radix</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">radix</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">bin</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
+        <span class="k">break</span>
+    <span class="k">elif</span> <span class="n">radix</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">oct</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
+        <span class="k">break</span>
+    <span class="k">elif</span> <span class="n">radix</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
+        <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;sorry you input the wrong radix&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>
+程序运行的情况如下所示：
+</p>
+<pre class="example">
+请输入一个数字：20
+请输入你想转换的进制系统
+2   表示  二进制
+8   表示  八进制
+16  表示  十六进制
+8
+0o24
+</pre>
+
+<p>
+此外基于字符串的进制转换可以用字符串的format方法来处理之。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> 数学幂方运算</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+\(x^y\) ，x的y次方如上面第二行所述就是用 <code>x**y</code> 这样的形式即可。此外pow函数作用是一样的， <code>pow(x,y)</code> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-3" class="outline-4">
+<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> 数值比较</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<p>
+数值比较除了之前提及的&gt;，&lt;，==之外，&gt;=，&lt;=，!=也是有的（大于等于，小于等于，不等于）。此外python还支持连续比较，就是数学格式 a&lt;x&lt;b ，x在区间 \((a,b)\) 的判断。在python中可以直接写成如下形式： <code>a&lt;x&lt;b</code> 。这实际实现的过程就是两个比较操作的进一步与操作。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-4" class="outline-4">
+<h4 id="sec-2-2-4"><span class="section-number-4">2.2.4</span> 相除取商或余</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<p>
+就作为正整数相除使用 <code>x//y</code> 得到的值意义还是很明显的就是 <strong>商</strong> 。带上负号感觉有点怪了，这里先略过。相关的还有 <strong>取余</strong> 数或者人们常说的 <strong>取模</strong> ，就是 <code>x%y</code> ，这样就得到x除以y之后的余数了，同样带上负号情况有变，这里先略过。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-5" class="outline-4">
+<h4 id="sec-2-2-5"><span class="section-number-4">2.2.5</span> 复数</h4>
+<div class="outline-text-4" id="text-2-2-5">
+<p>
+python直接支持复数， 复数的写法是类似 <code>1+2j</code> 这样的形式，然后如果z被赋值了一个复数，这样它就是一个复数类型，那么这个类具有两个属性量， <strong>real</strong> 和 <strong>imag</strong> 。也就是使用 <code>z.real</code> 就给出这个复数的实数部。imag是imaginary number的缩写，虚数，想像出来的数。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-6" class="outline-4">
+<h4 id="sec-2-2-6"><span class="section-number-4">2.2.6</span> abs函数</h4>
+<div class="outline-text-4" id="text-2-2-6">
+<p>
+大家都知道abs函数是绝对值函数，这个python自带的，不需要加载什么模块。作用于复数也是可以的：
+</p>
+<pre class="example">
+z=3+4j
+print(z.real,z.imag)
+print(abs(z))
+</pre>
+
+<p>
+这个和数学中复数绝对值的定义完全一致，也就是复数的模：
+$$\left| z \right| =\sqrt { a^{ 2 }+b^{ 2 } }$$
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-7" class="outline-4">
+<h4 id="sec-2-2-7"><span class="section-number-4">2.2.7</span> round函数</h4>
+<div class="outline-text-4" id="text-2-2-7">
+<p>
+简单的理解就是这个函数实现了对数值的 <strong>四舍五入</strong> 功能。
+</p>
+<pre class="example">
+&gt;&gt;&gt; round(3.1415926)
+3
+&gt;&gt;&gt; round(3.1415926,0)
+3.0
+&gt;&gt;&gt; round(3.1415926,1)
+3.1
+&gt;&gt;&gt; round(3.1415926,2)
+3.14
+&gt;&gt;&gt; round(3.1415926,4)
+3.1416
+</pre>
+
+<p>
+这里第二个参数接受0或者负数多少有点没意义了，一般使用还是取1或大于1的数吧，意思就是保留几位小数。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-8" class="outline-4">
+<h4 id="sec-2-2-8"><span class="section-number-4">2.2.8</span> min，max和sum函数</h4>
+<div class="outline-text-4" id="text-2-2-8">
+<p>
+<a id="sumhanshu" name="sumhanshu"></a>
+min，max函数的用法和sum的用法稍微有点差异，简单起见可以认为min，max，sum都接受一个元组或者列表（还有其他？），然后返回这个元组或者列表其中的最小值，最大值或者相加总和。此外min和max还支持min(1,2,3)这样的形式，而sum不支持。
+</p>
+<pre class="example">
+&gt;&gt;&gt; min((1,6,8,3,4))
+1
+&gt;&gt;&gt; max([1,6,8,3,4])
+8
+&gt;&gt;&gt; sum([1,6,8,3,4])
+22
+&gt;&gt;&gt; min(1,6,8,3,4)
+1
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-9" class="outline-4">
+<h4 id="sec-2-2-9"><span class="section-number-4">2.2.9</span> 位操作</h4>
+<div class="outline-text-4" id="text-2-2-9">
+<p>
+python支持位操作的，这里简单说一下：位左移操作 <code>&lt;&lt;</code> ，位与操作 <code>&amp;</code> ，位或操作 <code>|</code> ，位异或操作 <code>^</code> 。
+</p>
+<pre class="example">
+&gt;&gt;&gt; x=0b0001
+&gt;&gt;&gt; bin(x &lt;&lt; 2)
+'0b100'
+&gt;&gt;&gt; bin(x | 0b010)
+'0b11'
+&gt;&gt;&gt; bin(x &amp; 0b1)
+'0b1'
+&gt;&gt;&gt; bin(x ^ 0b101)
+'0b100'
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-2-10" class="outline-4">
+<h4 id="sec-2-2-10"><span class="section-number-4">2.2.10</span> math模块</h4>
+<div class="outline-text-4" id="text-2-2-10">
+<p>
+在 <code>from math import *</code> 之后，可以直接用符号 \(pi\) 和 \(e\) 来引用圆周率和自然常数。此外math模块还提供了很多数学函数，比如：
+</p>
+
+<dl class="org-dl">
+<dt> sqrt </dt><dd>开平方根函数，sqrt(x)。
+</dd>
+<dt> sin </dt><dd>正弦函数，类似的还有cos，tan等，sin(x)。
+</dd>
+<dt> degrees </dt><dd>将弧度转化为角度，三角函数默认输入的是弧度值。
+</dd>
+<dt> radians </dt><dd>将角度转化位弧度，radians(30)。 
+</dd>
+<dt> log </dt><dd>开对数，log(x,y)，即 \(\log_y x\) ，y默认是e。
+</dd>
+<dt> exp </dt><dd>指数函数，exp(x)。
+</dd>
+<dt> pow </dt><dd>扩展了内置方法，现在支持float了。pow(x,y)
+</dd>
+</dl>
+
+<p>
+这里简单写个例子：
+</p>
+<pre class="example">
+&gt;&gt;&gt; from math import *
+&gt;&gt;&gt; print(pi)
+3.141592653589793
+&gt;&gt;&gt; print(sqrt(85))
+9.219544457292887
+&gt;&gt;&gt; print(round(sin(radians(30)),1))#sin(30°)
+0.5
+</pre>
+
+
+<p>
+更多内容请参见 <a href="http://docs.python.org/3.4/library/math.html">官方文档</a> 。
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2-2-11" class="outline-4">
+<h4 id="sec-2-2-11"><span class="section-number-4">2.2.11</span> random模块</h4>
+<div class="outline-text-4" id="text-2-2-11">
+<p>
+random模块提供了一些函数来解决随机数问题。
+</p>
+
+<dl class="org-dl">
+<dt> random </dt><dd>random函数产生0到1之间的随机实数（包括0）。
+</dd>
+</dl>
+<pre class="example">
+random()-&gt;[0.0, 1.0)
+</pre>
+
+<dl class="org-dl">
+<dt> uniform </dt><dd>uniform函数产生从a到b之间的随机实数（a，b的值指定，包括a。）。
+</dd>
+</dl>
+<pre class="example">
+uniform(a,b)-&gt;[a.0, b.0)
+</pre>
+
+<dl class="org-dl">
+<dt> randint </dt><dd>randint函数产生从a到b之间的随机整数，包含a和b。
+</dd>
+</dl>
+<pre class="example">
+randint(a,b)-&gt;[a,b]
+</pre>
+
+<dl class="org-dl">
+<dt> choice </dt><dd>choice随机从一个列表或者字符串中取出一个元素。
+</dd>
+
+<dt> randrange </dt><dd>randrange函数产生从a到b之间的随机整数，步长为c（a，b，c的值指定，相当于choice(range(a,b,c))。整数之间就用randint函数吧，这里函数主要是针对range函数按照步长从而生成一些整数序列的情况。
+</dd>
+
+<dt> sample(p,k) </dt><dd>sample函数从p中随机选取唯一的元素（p一般是range(n)或集合之类的，这里所谓的唯一的意思就是不放回抽样的意思，但如果p样品里面有重复的元素，最后生成的列表还是会有重复的元素的。）然后组成k长度的列表返回。
+</dd>
+</dl>
+
+
+<p>
+下面是一个简单的例子：
+</p>
+<pre class="example">
+&gt;&gt;&gt; from random import *
+&gt;&gt;&gt; print(random())
+0.36882919781549717
+&gt;&gt;&gt; print(uniform(1,10))
+2.771065174892699
+&gt;&gt;&gt; print(randrange(1,6))
+1
+&gt;&gt;&gt; print(randint(1,10))
+3
+&gt;&gt;&gt; print(choice('abcdefghij'))
+j
+&gt;&gt;&gt; print(choice(['①','②','③']))
+①
+</pre>
+
+
+<p>
+作为随机实数，所谓开始包含的那个临界值可能数学意义大于实际价值，你可以写一个类似下面的小脚本看一下，随机实数是很难随机到某个具体的数的。
+</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+
+<p>
+从上一个例子我们看到，虽然我不确定随具体随机到某个实数的概率是不是永远也没有可能，但肯定很小很小。所以如果我们要解决某个问题，需要某个确定的概率的话还是用随机整数好一些。
+</p>
+
+<p>
+更多内容请参见 <a href="http://docs.python.org/3.4/library/random.html">官方文档</a> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-12" class="outline-4">
+<h4 id="sec-2-2-12"><span class="section-number-4">2.2.12</span> statistics模块</h4>
+<div class="outline-text-4" id="text-2-2-12">
+<p>
+这个模块python3.4才加入进来。
+</p>
+
+<p>
+上面的那个例子这里稍作修改，使之成为一个骰子模拟器。其中 <code>i_list</code> 这个列表收集多次实验中掷多少次骰子才遇到6的次数。
+</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">i_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span><span class="c">#一次实验</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;times:&#39;</span> <span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">i_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">i_list</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">print</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">i_list</span><span class="p">))</span><span class="c">#平均值</span>
+<span class="k">print</span><span class="p">(</span><span class="n">median</span><span class="p">(</span><span class="n">i_list</span><span class="p">))</span><span class="c">#中位数，去掉最高最低...</span>
+</pre></div>
+
+<p>
+statistics模块中的 <strong>mean</strong> 函数接受一组数值列表，然后返回这组数值的平均值。而 <strong>median</strong> 函数返回的是统计学上所谓的中位数，你可以简单看作一组数字不断的去掉一个最高和最低，然后剩下来的一个或者两个（两个要取平均值）的数值的值。
+</p>
+
+<p>
+更多内容请参见 <a href="https://docs.python.org/3/library/statistics.html">官方文档</a> 。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 序列</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+字符串，列表，元组（tuple，这里最好翻译成元组，因为里面的内容不一定是数值。）都是序列（sequence）的子类，所以序列的一些性质他们都具有，最好在这里一起讲方便理解记忆。
+</p>
+</div>
+
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> len函数</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+len函数返回序列所含元素的个数：
+</p>
+<div class="highlight"><pre><span class="n">string001</span><span class="o">=</span><span class="s">&#39;string&#39;</span>
+<span class="n">list001</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">tuple001</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">string001</span><span class="p">,</span><span class="n">list001</span><span class="p">,</span><span class="n">tuple001</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+<pre class="example">
+6
+3
+4
+&gt;&gt;&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> 调出某个值</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+对于序列来说后面跟个方括号，然后加上序号（程序界的老规矩，从0开始计数。），那么调出对应位置的那个值。还以上面那个例子来说明。
+</p>
+<div class="highlight"><pre><span class="n">string001</span><span class="o">=</span><span class="s">&#39;string&#39;</span>
+<span class="n">list001</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">tuple001</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">string001</span><span class="p">,</span><span class="n">list001</span><span class="p">,</span><span class="n">tuple001</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+
+<pre class="example">
+r
+c
+3
+&gt;&gt;&gt;
+</pre>
+</div>
+
+<div id="outline-container-sec-2-3-2-1" class="outline-5">
+<h5 id="sec-2-3-2-1"><span class="section-number-5">2.3.2.1</span> 倒着来</h5>
+<div class="outline-text-5" id="text-2-3-2-1">
+<p>
+倒着来计数-1表示倒数第一个，-2表示倒数第二个。依次类推。
+</p>
+<div class="highlight"><pre><span class="n">string001</span><span class="o">=</span><span class="s">&#39;string&#39;</span>
+<span class="n">list001</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">tuple001</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">string001</span><span class="p">,</span><span class="n">list001</span><span class="p">,</span><span class="n">tuple001</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+
+<pre class="example">
+g n
+c b
+4 3
+&gt;&gt;&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> 调出多个值</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+<a id="diaochuduogezhi" name="diaochuduogezhi"></a>
+前面不写表示从头开始，后面不写表示到达尾部。中间加个冒号的形式表示从那里到那里。这里注意后面那个元素是 <span class="underline">不包括</span> 进来，看来python区间的默认含义都是包头不包尾。这样如果你想要最后一个元素也进去，只有使用默认的不写形式了。
+</p>
+<div class="highlight"><pre><span class="n">string001</span><span class="o">=</span><span class="s">&#39;string&#39;</span>
+<span class="n">list001</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">tuple001</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">string001</span><span class="p">,</span><span class="n">list001</span><span class="p">,</span><span class="n">tuple001</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+<pre class="example">
+tr n strin tring trin
+['b', 'c'] ['b'] ['a', 'b'] ['b', 'c'] ['b']
+(2, 3) (3,) (1, 2, 3) (2, 3, 4) (2, 3)
+&gt;&gt;&gt;
+</pre>
+
+<p>
+用数学半开半闭区间的定义来理解这里的包含关系还是很便捷的。
+</p>
+
+<ol class="org-ol">
+<li>首先是数学半开半闭区间，左元素和右元素都是之前叙述的对应的定位点。左元素包含右元素不包含。
+</li>
+<li>其次方向应该是从左到右，如果定义的区间是从右到左，那么将产生空值。
+</li>
+<li>如果区间超过，那么从左到右包含的所有元素就是结果， <span class="underline">不会返回错误</span> 。
+</li>
+<li>最后如果左右元素定位点相同，那么将产生空值，比如： <code>string001[2:-4]</code> ，其中2和-4实际上是定位在同一个元素之上的。额外值得一提的列表插入操作，请参看 <a href="#liebiaocharucaozuo">列表插入操作</a> 这一小节。
+</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-4" class="outline-4">
+<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> 序列反转</h4>
+<div class="outline-text-4" id="text-2-3-4">
+<p>
+这是python最令人叹为观止的地方了，其他的语言可能对列表啊什么的反转要编写一个复杂的函数，我们python有一种令人感动的方法。
+</p>
+<div class="highlight"><pre><span class="n">string001</span><span class="o">=</span><span class="s">&#39;string&#39;</span>
+<span class="n">list001</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">tuple001</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="n">string001</span><span class="p">,</span><span class="n">list001</span><span class="p">,</span><span class="n">tuple001</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+<pre class="example">
+gnirts
+['c', 'b', 'a']
+(4, 3, 2, 1)
+&gt;&gt;&gt;
+</pre>
+
+<p>
+之前在range函数的介绍时提及序列的索引和range函数的参数设置很是类似，这是我们可以参考理解之，序列（列表，字符串等）的索引参数 <code>[start:end:step]</code> 和range函数的参数设置一样，第一个参数是起步值，第二个参数是结束值，第三个参数是步长。这里end不填都好理解，就是迭代完即可，不过如果step是负数，似乎起点不填默认的是-1。
+</p>
+
+<p>
+然后range函数生成的迭代器对象同样接受这种索引参数语法，看上去更加的怪异了：
+</p>
+<pre class="example">
+&gt;&gt;&gt; range(1,10,2)
+range(1, 10, 2)
+&gt;&gt;&gt; range(1,10,2)[::-2]
+range(9, -1, -4)
+
+&gt;&gt;&gt; list(range(1,10,2))
+[1, 3, 5, 7, 9]
+&gt;&gt;&gt; list(range(1,10,2)[::-2])
+[9, 5, 1]
+</pre>
+
+<p>
+我们可以看到对range函数进行切片操作之后返回的仍然是一个range对象，经过了一些修正。似乎这种切片操作和类的某个特殊方法有关，和python的slice对象有关。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-5" class="outline-4">
+<h4 id="sec-2-3-5"><span class="section-number-4">2.3.5</span> 序列的可更改性</h4>
+<div class="outline-text-4" id="text-2-3-5">
+<p>
+字符串不可以直接更改，但可以组合成为新的字符串；列表可以直接更改；元组不可以直接更改。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-6" class="outline-4">
+<h4 id="sec-2-3-6"><span class="section-number-4">2.3.6</span> 序列的加法和减法</h4>
+<div class="outline-text-4" id="text-2-3-6">
+<p>
+两个字符串相加就是字符串拼接了。乘法就是加法的重复，所以一个字符串乘以一个数字就是自己和自己拼接了几次。列表还有元组和字符串一样大致情况类似。
+</p>
+<div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="o">+</span><span class="s">&#39;def&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="k">print</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="s">&#39;a&#39;</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+<pre class="example">
+abcdef
+abcabcabc
+[1, 2, 3, 4, 5, 6]
+(0, 'a', 0, 'a')
+&gt;&gt;&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 字符串</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+python语言不像c语言字符和字符串是不分的，用单引号或者双引号包起来就表示一个字符串了。单引号和双引号的区别是一般用单引号，如果字符串里面有单引号，那么就使用双引号，这样单引号直接作为字符处理而不需要额外的转义处理——所谓转义处理和其他很多编程语言一样用 <code>\</code> 符号。比如要显示 " 就输入 \" 。
+</p>
+</div>
+
+<div id="outline-container-sec-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> 三单引号和三双引号</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+在单引号或者双引号的情况下，你可以使用 <code>\n</code> 来换行。此外还可以使用三单引号'''或者三双引号"""来包围横跨多行的字符串，其中换行的意义就是换行，不需要似前面那样的处理。
+</p>
+<pre class="example">
+print('''\
+这是一段测试文字
+  this is a test line
+      其中空白和    换行都所见所得式的保留。''')
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-2" class="outline-4">
+<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> startswith方法</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<pre class="example">
+&gt;&gt;&gt; x = 'helloABC'
+&gt;&gt;&gt; x
+'helloABC'
+&gt;&gt;&gt; x.startswith('hello')
+True
+&gt;&gt;&gt; x.endswith('ABC')
+True
+</pre>
+
+
+<dl class="org-dl">
+<dt> startswith </dt><dd>测试字符串是否以某个子字符串开始
+</dd>
+<dt> endswith </dt><dd>测试某个字符串是否以某个子字符串结束
+</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4-3" class="outline-4">
+<h4 id="sec-2-4-3"><span class="section-number-4">2.4.3</span> find方法</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<p>
+字符串的find方法可用来查找某个子字符串，没有找到返回-1，找到了返回字符串的偏移量。
+</p>
+<pre class="example">
+s.find('d')
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4-4" class="outline-4">
+<h4 id="sec-2-4-4"><span class="section-number-4">2.4.4</span> replace方法</h4>
+<div class="outline-text-4" id="text-2-4-4">
+<p>
+字符串的replace方法进行替换操作，接受两个参数：第一个参数是待匹配的子字符串，第二个参数是要替换成为的样子。
+</p>
+<pre class="example">
+&gt;&gt;&gt; print('a b 11 de'.replace('de','ding'))
+a b 11 ding
+&gt;&gt;&gt; print('1,1,5,4,1,6'.replace('1','replaced'))
+replaced,replaced,5,4,replaced,6
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-5" class="outline-4">
+<h4 id="sec-2-4-5"><span class="section-number-4">2.4.5</span> upper方法</h4>
+<div class="outline-text-4" id="text-2-4-5">
+<p>
+将字符串转换成大写形式。
+</p>
+<pre class="example">
+&gt;&gt;&gt; str='str'
+&gt;&gt;&gt; str.upper()
+'STR'
+</pre>
+
+<p>
+类似的还有：
+</p>
+
+<dl class="org-dl">
+<dt> lower </dt><dd>都变成小写
+</dd>
+<dt> capitalize </dt><dd>首字母大写，其它都小写。
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-6" class="outline-4">
+<h4 id="sec-2-4-6"><span class="section-number-4">2.4.6</span> isdigit方法</h4>
+<div class="outline-text-4" id="text-2-4-6">
+<dl class="org-dl">
+<dt> isdigit </dt><dd>测试是不是数字
+</dd>
+<dt> isalpha </dt><dd>测试是不是字母
+</dd>
+<dt> isalnum </dt><dd>测试是不是数字或字母
+</dd>
+</dl>
+
+<p>
+值得一提的是就算是字母组成的语句，如果中间有空格isalpha方法也会返回False。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-7" class="outline-4">
+<h4 id="sec-2-4-7"><span class="section-number-4">2.4.7</span> split方法</h4>
+<div class="outline-text-4" id="text-2-4-7">
+<p>
+字符串的split方法可以将字符串比如有空格或者逗号等分隔符分割而成，可以将其分割成子字符串列表。默认是空格是分隔符。
+</p>
+<pre class="example">
+&gt;&gt;&gt; string='a=1,b=2,c=3'
+&gt;&gt;&gt; string.split(',')
+['a=1', 'b=2', 'c=3']
+</pre>
+</div>
+
+
+<div id="outline-container-sec-2-4-7-1" class="outline-5">
+<h5 id="sec-2-4-7-1"><span class="section-number-5">2.4.7.1</span> splitline方法</h5>
+<div class="outline-text-5" id="text-2-4-7-1">
+<p>
+把一个字符串按照行分开。这个可以用上面的split方法然后接受 <code>\n</code> 参数来实现，所不同的是splitline方法不需要接受参数：
+</p>
+<pre class="example">
+&gt;&gt;&gt; string
+'this is line one\nthis is line two\nthis is line three'
+&gt;&gt;&gt; string.splitlines()
+['this is line one', 'this is line two', 'this is line three']
+&gt;&gt;&gt; string.split('\n')
+['this is line one', 'this is line two', 'this is line three']
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-8" class="outline-4">
+<h4 id="sec-2-4-8"><span class="section-number-4">2.4.8</span> join方法</h4>
+<div class="outline-text-4" id="text-2-4-8">
+<p>
+字符串的join方法非常有用，严格来说它接受一个迭代器参数，不过最常见的是列表。将列表中的多个字符串连接起来，我们看到他采用了一种非常优雅的方式，就是只有两个字符串之间才插入某个字符，这正是我们所需要的。具体例子如下所示：
+</p>
+<pre class="example">
+&gt;&gt;&gt; list001=['a','b','c']
+&gt;&gt;&gt; "".join(list001)
+'abc'
+&gt;&gt;&gt; ','.join(list001)
+'a,b,c'
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4-9" class="outline-4">
+<h4 id="sec-2-4-9"><span class="section-number-4">2.4.9</span> strip方法</h4>
+<div class="outline-text-4" id="text-2-4-9">
+<dl class="org-dl">
+<dt> rstrip方法 </dt><dd>字符串右边的空格都删除。换行符也会被删除掉。
+</dd>
+
+<dt> lstrip方法 </dt><dd>类似rstrip方法，字符串左边的空格都删除。换行符也会被删除掉。
+</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4-10" class="outline-4">
+<h4 id="sec-2-4-10"><span class="section-number-4">2.4.10</span> format方法</h4>
+<div class="outline-text-4" id="text-2-4-10">
+<p>
+字符串的format方法方便对字符串内的一些变量进行替换操作，其中花括号不带数字跟format方法里面所有的替换量，带数字0表示第一个替换量，后面类推。此外还可以直接用确定的名字引用。
+</p>
+<pre class="example">
+&gt;&gt;&gt; print('1+1={0}，2+2={1}'.format(1+1,2+2))
+1+1=2，2+2=4
+&gt;&gt;&gt; print('my name is {name}'.format(name='Jim T Kirk'))
+my name is Jim T Kirk
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4-11" class="outline-4">
+<h4 id="sec-2-4-11"><span class="section-number-4">2.4.11</span> 转义和不转义</h4>
+<div class="outline-text-4" id="text-2-4-11">
+<p>
+<code>\n    \t</code> 这是一般常用的转义字符，换行和制表。此外还有 <code>\\</code> 输出 <code>\</code> 符号。
+</p>
+
+<p>
+如果输出字符串不想转义那么使用如下格式：
+</p>
+<pre class="example">
+&gt;&gt;&gt; print(r'\t \n \test')
+\t \n \test
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4-12" class="outline-4">
+<h4 id="sec-2-4-12"><span class="section-number-4">2.4.12</span> count方法</h4>
+<div class="outline-text-4" id="text-2-4-12">
+<p>
+统计字符串中某个字符或某一连续的子字符串出现的次数。
+</p>
+<pre class="example">
+&gt;&gt;&gt; string = 'this is a test line.'
+&gt;&gt;&gt; string.count('this')
+1
+&gt;&gt;&gt; string.count('t')
+3
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 列表</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+方括号包含几个元素就是列表。
+</p>
+</div>
+
+<div id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> 列表的插入操作</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+<a id="liebiaocharucaozuo" name="liebiaocharucaozuo"></a>
+字符串和数组都不可以直接更改所以不存在这个问题，列表可以。其中列表还可以以一种定位在相同元素的区间的方法来实现插入操作，这个和之前理解的区间多少有点违和，不过考虑到定位在相同元素的区间本来就概念模糊，所以在这里就看作特例，视作在这个 <span class="underline">定位点相同元素之前</span> 插入吧。
+</p>
+<div class="highlight"><pre><span class="n">list001</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">,</span><span class="s">&#39;two&#39;</span><span class="p">,</span><span class="s">&#39;three&#39;</span><span class="p">]</span>
+<span class="n">list001</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;four&#39;</span><span class="p">,</span><span class="s">&#39;five&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">list001</span><span class="p">)</span>
+</pre></div>
+
+<pre class="example">
+['one', 'four', 'five', 'two', 'three']
+&gt;&gt;&gt;
+</pre>
+
+<p>
+不过一般插入操作更多的是使用 <strong>insert</strong> 方法，而且具体定位会通过 <strong>index</strong> 方法来获得，然后第一个参数就设置该元素的index索引值，第二个参数是具体要插入的值：
+</p>
+<pre class="example">
+&gt;&gt;&gt; lst = [1,2,3,4,5]
+&gt;&gt;&gt; i = lst.index(3)                
+&gt;&gt;&gt; lst.insert(i,6)
+&gt;&gt;&gt; lst
+[1, 2, 6, 3, 4, 5]
+</pre>
+<p>
+这样就是在你查找到的该元素的前面插入某个值。
+</p>
+
+<p>
+<strong>extend</strong> 方法用于列表后面扩展附加多个元素，其似乎和列表之间的加法重合了，比如 <code>list.extend([4,5,6])</code> 就和 <code>list=list+[4,5,6]</code> 大致类似的，但extend方法是破坏性的（也就是原列表的值被改变了）。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> append方法</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+python的append方法就是在最后面加 <strong>一个元素</strong> ，如果你append一个列表那么这一个列表整体作为一个元素。然后append方法会永久的改变了该列表对象的值。
+</p>
+
+
+<div class="lead">
+<p>
+记住，append等等原处修改列表的方法都是没有返回值的。
+</p>
+
+</div>
+
+<pre class="example">
+&gt;&gt;&gt; list = [1,2,3,4]
+&gt;&gt;&gt; list.append(5)
+&gt;&gt;&gt; list
+[1, 2, 3, 4, 5]
+</pre>
+
+<p>
+如果你希望不改动原列表的附加，请使用加法来操作列表。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-3" class="outline-4">
+<h4 id="sec-2-5-3"><span class="section-number-4">2.5.3</span> reverse方法</h4>
+<div class="outline-text-4" id="text-2-5-3">
+<p>
+reverse方法不接受任何参数，直接将一个列表 <em>永久性地</em> 翻转过来。如果你希望不改变原列表的翻转，有返回值，请使用如下方法：
+</p>
+<pre class="example">
+&gt;&gt;&gt; list
+[1, 2, 3, 4, 5]
+&gt;&gt;&gt; listNew = list[::-1]
+&gt;&gt;&gt; list
+[1, 2, 3, 4, 5]
+&gt;&gt;&gt; listNew
+[5, 4, 3, 2, 1]
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-4" class="outline-4">
+<h4 id="sec-2-5-4"><span class="section-number-4">2.5.4</span> copy方法</h4>
+<div class="outline-text-4" id="text-2-5-4">
+<p>
+copy方法复制返回本列表。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-5" class="outline-4">
+<h4 id="sec-2-5-5"><span class="section-number-4">2.5.5</span> sort方法</h4>
+<div class="outline-text-4" id="text-2-5-5">
+<p>
+也就是排序， <em>永久性</em> 改变列表。默认是递增排序，可以用 <code>reverse=True</code> 来调成递减排序。
+</p>
+
+<p>
+默认的递增排序顺序如果是数字那么意思是数字越来越大，如果是字符那么是按照utf-8编码递增来排序的。如果列表一些是数字一些是字符会报错。
+</p>
+<pre class="example">
+&gt;&gt;&gt; list = ['a','ab','A','123','124','5']
+&gt;&gt;&gt; list.sort()
+&gt;&gt;&gt; list
+['123', '124', '5', 'A', 'a', 'ab']
+</pre>
+
+<p>
+sort方法很重要的一个可选参数 <code>key=function</code> ，这个function函数就是你定义的函数（或者在这里直接使用lambda语句。），这个函数只接受一个参数，就是排序方法（在迭代列表时）接受的当前的那个元素。下面给出一段代码，其中tostr函数将接受的对象返回为字符，这样就不会出错了。
+</p>
+<pre class="example">
+def tostr(item):
+    return str(item)
+
+list001 = ['a','ab','A',123,124,5]
+
+list001.sort(key=tostr)
+
+print(list001)
+</pre>
+</div>
+
+<div id="outline-container-sec-2-5-5-1" class="outline-5">
+<h5 id="sec-2-5-5-1"><span class="section-number-5">2.5.5.1</span> sorted函数</h5>
+<div class="outline-text-5" id="text-2-5-5-1">
+<p>
+sorted函数在这里和列表的sort方法最大的区别是它返回的是 <span class="underline">一个新的列表</span> 而不是原处修改。其次sorted函数的第一个参数严格来说是所谓的可迭代对象，也就是说它还可以接受除了列表之外的比如 <em>元组字典</em> 等可迭代对象。至于用法他们两个差别不大。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; sorted((1,156,7,5))
+[1, 5, 7, 156]
+&gt;&gt;&gt; sorted({'andy':5,'Andy':1,'black':9,'Black':55},key=str.lower)
+['Andy', 'andy', 'black', 'Black']
+</pre>
+
+<p>
+上面第二个例子调用了 <code>str.lower</code> 函数，从而将接受的item，这里比如说'Andy'，转化为andy，然后参与排序。也就成了对英文字母大小写不敏感的排序方式了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-5-2" class="outline-5">
+<h5 id="sec-2-5-5-2"><span class="section-number-5">2.5.5.2</span> 字典按值排序</h5>
+<div class="outline-text-5" id="text-2-5-5-2">
+<p>
+同样类似的有字典按值排序的方法，参考了 <a href="http://www.cnpythoner.com/post/266.html">这个网站</a> ：
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; sorted({'andy':5,'Andy':1,'black':9,'Black':55}.items(),key=lambda i: i[1])
+[('Andy', 1), ('andy', 5), ('black', 9), ('Black', 55)]
+</pre>
+
+<p>
+这个例子先用字典的items方法处理返回(key,value)对的可迭代对象，然后用后面的lambda方法返回具体接受item的值，从而根据值来排序。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-5-3" class="outline-5">
+<h5 id="sec-2-5-5-3"><span class="section-number-5">2.5.5.3</span> 中文排序</h5>
+<div class="outline-text-5" id="text-2-5-5-3">
+<p>
+下面这个例子演示了如何对中文名字排序。整个函数的思路就是用 <a href="https://github.com/mozillazg/python-pinyin">pypinyin</a> （一个第三方模块），将中文姓名的拼音对应出来，然后组成一个列表，然后根据拼音对这个组合列表排序，然后生成目标列表。
+</p>
+<div class="highlight"><pre><span class="n">list001</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;张三&#39;</span><span class="p">,</span><span class="s">&#39;李四&#39;</span><span class="p">,</span><span class="s">&#39;王二&#39;</span><span class="p">,</span><span class="s">&#39;麻子&#39;</span><span class="p">,</span><span class="s">&#39;李二&#39;</span><span class="p">,</span><span class="s">&#39;李一&#39;</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">zhsort</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pypinyin</span> <span class="kn">import</span>  <span class="n">lazy_pinyin</span>
+    <span class="n">pinyin</span><span class="o">=</span><span class="p">[</span><span class="n">lazy_pinyin</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))]</span>
+    <span class="n">lst0</span><span class="o">=</span><span class="p">[(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span><span class="n">pinyin</span><span class="p">)]</span>
+    <span class="n">lst1</span><span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lst0</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">zhsort</span><span class="p">(</span><span class="n">list001</span><span class="p">))</span>
+\<span class="n">end</span><span class="p">{</span><span class="n">tcbpython</span><span class="p">}</span>
+</pre></div>
+
+<pre class="example">
+['李二', '李四', '李一', '麻子', '王二', '张三']
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-6" class="outline-4">
+<h4 id="sec-2-5-6"><span class="section-number-4">2.5.6</span> 删除某个元素</h4>
+<div class="outline-text-4" id="text-2-5-6">
+<ul class="org-ul">
+<li>赋空列表值，相当于所有元素都删除了。 
+</li>
+<li>pop方法：接受一个参数，就是列表元素的定位值，然后那个元素就删除了，方法并返回那个元素的值。如果不接受参数默认是删除最后一个元素。
+</li>
+<li>remove方法：移除第一个相同的元素，如果没有找到相同的元素，则返回异常。
+</li>
+<li>del函数：删除列表中的某个元素。
+</li>
+</ul>
+
+<pre class="example">
+&gt;&gt;&gt; list001=['a','b','c','d','e']
+&gt;&gt;&gt; list001.pop(2)
+'c'
+&gt;&gt;&gt; list001
+['a', 'b', 'd', 'e']
+&gt;&gt;&gt; list001.pop()
+'e'
+&gt;&gt;&gt; list001
+['a', 'b', 'd']
+&gt;&gt;&gt; list001.remove('a')
+&gt;&gt;&gt; list001
+['b', 'd']
+&gt;&gt;&gt; del list001[1]
+&gt;&gt;&gt; list001
+['b']
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-7" class="outline-4">
+<h4 id="sec-2-5-7"><span class="section-number-4">2.5.7</span> count方法</h4>
+<div class="outline-text-4" id="text-2-5-7">
+<p>
+统计某个元素出现的次数。
+</p>
+<pre class="example">
+&gt;&gt;&gt; list001=[1,'a',100,1,1,1]
+&gt;&gt;&gt; list001.count(1)
+4
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-8" class="outline-4">
+<h4 id="sec-2-5-8"><span class="section-number-4">2.5.8</span> index方法</h4>
+<div class="outline-text-4" id="text-2-5-8">
+<p>
+index方法返回某个相同元素的偏移值。
+</p>
+<pre class="example">
+&gt;&gt;&gt; list001=[1,'a',100]
+&gt;&gt;&gt; list001.index('a')
+1
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-9" class="outline-4">
+<h4 id="sec-2-5-9"><span class="section-number-4">2.5.9</span> 列表解析</h4>
+<div class="outline-text-4" id="text-2-5-9">
+<p>
+<a id="liebiaojiexi" name="liebiaojiexi"></a>
+我们来看下面这个例子：
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">n</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">square</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])))</span>
+<span class="k">print</span><span class="p">([</span><span class="n">square</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]])</span>
+</pre></div>
+
+<pre class="example">
+[1, 4, 9, 16, 25]
+[1, 4, 9, 16, 25]
+&gt;&gt;&gt;
+</pre>
+<p>
+map函数将某个函数应用于某个列表的元素中并生成一个map对象（可迭代对象），需要外面加上list函数才能生成列表形式。第二种方式更有python风格，是推荐使用的列表解析方法。
+</p>
+
+<p>
+在python中推荐多使用迭代操作和如上的列表解析风格，因为python中的迭代操作是直接用c语言实现的。
+</p>
+</div>
+
+<div id="outline-container-sec-2-5-9-1" class="outline-5">
+<h5 id="sec-2-5-9-1"><span class="section-number-5">2.5.9.1</span> 列表解析加上过滤条件</h5>
+<div class="outline-text-5" id="text-2-5-9-1">
+<p>
+for语句后面可以跟一个if子句表示过滤条件，看下面的例子来理解吧：
+</p>
+<pre class="example">
+&gt;&gt;&gt; [s*2 for s in ['hello','abc','final','help'] if s[0] == 'h']
+['hellohello', 'helphelp']
+</pre>
+
+<p>
+这个例子的意思是列表解析，找到的元素进行乘以2的操作，其中过滤条件为字符是h字母开头的，也就是后面if表达式不为真的元素都被过滤掉了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-9-2" class="outline-5">
+<h5 id="sec-2-5-9-2"><span class="section-number-5">2.5.9.2</span> 完整的列表解析结构</h5>
+<div class="outline-text-5" id="text-2-5-9-2">
+<p>
+下面给出一个完整的列表解析结构，最常见的情况一般就一两个for语句吧，这里if外加个括号是可选项的意思。
+</p>
+<pre class="example">
+[ expression for var1 in iterable1 [if condition1 ]
+                    for var2 in iterable2 [if condition2 ]
+                    ........
+                            ]
+</pre>
+
+<p>
+这里的逻辑是从左到右第一个for语句就是最先执行的for语句，然后是第二个for语句跟着执行。
+</p>
+
+<p>
+这里的iterable1是指某个可迭代对象，也就是说那些能够返回可迭代对象的函数比如map，filter，zip，range等函数都可以放进去。不过我们要克制自己在这里别写出太过于晦涩的程序了。还有for循环语句也别嵌套太多了，这样就极容易出错的。
+</p>
+
+<p>
+下面这个程序大家看看：
+</p>
+<pre class="example">
+&gt;&gt;&gt; [x+str(y) for x in ['a','b','c'] for y in [1,2,3,4,5,6] if y &amp; 1]
+['a1', 'a3', 'a5', 'b1', 'b3', 'b5', 'c1', 'c3', 'c5']
+&gt;&gt;&gt; [x+str(y) for x in ['a','b','c'] for y in [1,2,3,4,5,6] if not  y &amp; 1]
+['a2', 'a4', 'a6', 'b2', 'b4', 'b6', 'c2', 'c4', 'c6']
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-9-3" class="outline-5">
+<h5 id="sec-2-5-9-3"><span class="section-number-5">2.5.9.3</span> 列表解析的好处</h5>
+<div class="outline-text-5" id="text-2-5-9-3">
+<p>
+在熟悉列表解析的语句结构之后，一两个for语句不太复杂的情况下，还是很简单明了的。同时语法也更加精炼，同时运行速度较for循环要至少快上一倍。最后python的迭代思想深入骨髓，以后python的优化工作很多都围绕迭代展开，也就是多用列表解析会让你的代码以后可能运行的更快。
+</p>
+
+<p>
+有这么多的好处，加上这么cool的pythonic风格，推荐大家多用列表解析风格解决问题。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-9-4" class="outline-5">
+<h5 id="sec-2-5-9-4"><span class="section-number-5">2.5.9.4</span> 元组的生成</h5>
+<div class="outline-text-5" id="text-2-5-9-4">
+<p>
+这个时候需要明确加个括号表示这是一个元组对象。
+</p>
+<pre class="example">
+&gt;&gt;&gt; [(x,x**2) for x in range(5)]
+[(0, 0), (1, 1), (2, 4), (3, 9), (4, 16)]
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5-10" class="outline-4">
+<h4 id="sec-2-5-10"><span class="section-number-4">2.5.10</span> for语句中列表可变的影响</h4>
+<div class="outline-text-4" id="text-2-5-10">
+<p>
+一般情况for迭代某个可迭代对象就是可迭代对象返回一个值然后利用这个值赋值并进行下面的操作，但是列表却是一个可变的东西，如果列表在操作中被修改了，情况会怎样呢？
+</p>
+
+<div class="highlight"><pre><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+    <span class="n">lst</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+<pre class="example">
+1
+3
+5
+</pre>
+
+<p>
+具体这个过程的细节我不清楚，但确定的是在这里for语句并没有记忆原列表，而只是记忆了返回次数或者偏移值。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-11" class="outline-4">
+<h4 id="sec-2-5-11"><span class="section-number-4">2.5.11</span> 列表元素替换</h4>
+<div class="outline-text-4" id="text-2-5-11">
+<p>
+推荐用列表解析方法来实现列表元素的替换功能。
+</p>
+<pre class="example">
+def replace(x,a,b):
+    if x == a:
+        return b
+    else:
+        return x
+
+lst=[1,5,4,1,6]
+</pre>
+
+<pre class="example">
+&gt;&gt;&gt; [replace(i,1,'replaced') for i in lst]
+['replaced', 5, 4, 'replaced', 6]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-12" class="outline-4">
+<h4 id="sec-2-5-12"><span class="section-number-4">2.5.12</span> 列表元素去重</h4>
+<div class="outline-text-4" id="text-2-5-12">
+<p>
+列表元素去重推荐用后来的set集合对象来处理之，其会自动去除重复的元素。请参看下面的 <a href="#jihe">集合</a> 一小节。
+</p>
+<pre class="example">
+&gt;&gt;&gt; lst = [1,2,3,4,5,1,2,3,4,5]
+&gt;&gt;&gt; [i for i in set(lst)]
+[1, 2, 3, 4, 5]
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 字典</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+与列表一样字典是可变的，可以像列表一样引用然后原处修改，del语句也适用。
+</p>
+</div>
+
+<div id="outline-container-sec-2-6-1" class="outline-4">
+<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> 创建字典</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<p>
+字典是一种映射，并没有从左到右的顺序，只是简单地将键映射到值。字典的声明格式如下：
+</p>
+<pre class="example">
+dict001={'name':'tom','height':'180','color':'red'}
+dict001['name']
+</pre>
+
+<p>
+或者创建一个空字典，然后一边赋值一边创建对应的键：
+</p>
+<pre class="example">
+dict002={}
+dict002['name']='bob'
+dict002['height']=195
+</pre>
+
+<p>
+所以对字典内不存在的键赋值是可行的。
+</p>
+</div>
+
+<div id="outline-container-sec-2-6-1-1" class="outline-5">
+<h5 id="sec-2-6-1-1"><span class="section-number-5">2.6.1.1</span> 根据列表创建字典</h5>
+<div class="outline-text-5" id="text-2-6-1-1">
+<p>
+如果是[['a',1],['b',2],['c',3]]这样的形式，那么直接用dict函数处理就变成字典了，如果是['a','b','c']和[1,2,3]这样的形式那么需要用zip函数处理一下，然后用dict函数处理一次就变成字典了：
+</p>
+<pre class="example">
+&gt;&gt;&gt; lst
+[['a', 1], ['b', 2], ['c', 3]]
+&gt;&gt;&gt; dict001=dict(lst)
+&gt;&gt;&gt; dict001
+{'a': 1, 'b': 2, 'c': 3}
+</pre>
+
+<p>
+zip函数的例子请参看后面的 <a href="#zidianjiexi">字典解析</a> 。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-6-2" class="outline-4">
+<h4 id="sec-2-6-2"><span class="section-number-4">2.6.2</span> 字典里面有字典</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<p>
+和列表的不同就在于字典的索引方式是根据“键”来的。
+</p>
+<pre class="example">
+dict003={'name':{'first':'bob','second':'smith'}}
+dict003['name']['first']
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6-3" class="outline-4">
+<h4 id="sec-2-6-3"><span class="section-number-4">2.6.3</span> 字典遍历操作</h4>
+<div class="outline-text-4" id="text-2-6-3">
+<p>
+字典特定顺序的遍历操作的通用做法就是通过字典的keys方法收集键的列表，然后用列表的sort方法处理之后用for语句遍历，如下所示：
+</p>
+<pre class="example">
+dict={'a':1,'c':2,'b':3}
+dictkeys=list(dict.keys())
+dictkeys.sort()
+for key in dictkeys:
+    print(key,'-&gt;',dict[key])
+</pre>
+
+<p>
+警告：上面的例子可能对python早期版本并不使用，因为python中一大规则是对对象的原处修改的函数并没有返回值。上面的语句只是到了python3后期才能适用，保险起见，推荐使用sorted函数，sorted函数是默认对字典的键进行排序并返回键的值组成的列表。
+</p>
+<pre class="example">
+dict={'a':1,'c':3,'b':2}
+&gt;&gt;&gt; for key in sorted(dict):
+...   print(key,'-&gt;',dict[key])
+... 
+a -&gt; 1
+b -&gt; 2
+c -&gt; 3
+</pre>
+
+<p>
+如果你对字典遍历的顺序没有要求，那么就可以简单的这样处理：
+</p>
+<pre class="example">
+&gt;&gt;&gt; for key in dict:
+...     print(key,'-&gt;',dict[key])
+... 
+c -&gt; 2
+a -&gt; 1
+b -&gt; 3
+</pre>
+</div>
+
+<div id="outline-container-sec-2-6-3-1" class="outline-5">
+<h5 id="sec-2-6-3-1"><span class="section-number-5">2.6.3.1</span> keys方法</h5>
+<div class="outline-text-5" id="text-2-6-3-1">
+<p>
+收集键值，返回 <em>可迭代对象</em> 。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6-3-2" class="outline-5">
+<h5 id="sec-2-6-3-2"><span class="section-number-5">2.6.3.2</span> values方法</h5>
+<div class="outline-text-5" id="text-2-6-3-2">
+<p>
+和keys方法类似，收集的值，返回 <em>可迭代对象</em> 。
+</p>
+<pre class="example">
+&gt;&gt;&gt; dict001.values()
+dict_values([3, 1, 2])
+&gt;&gt;&gt; list(dict001.values())
+[3, 1, 2]
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6-3-3" class="outline-5">
+<h5 id="sec-2-6-3-3"><span class="section-number-5">2.6.3.3</span> items方法</h5>
+<div class="outline-text-5" id="text-2-6-3-3">
+<p>
+和keys和values方法类似，不同的是返回的是(key,value)对的 <em>可迭代对象</em> 。
+</p>
+<pre class="example">
+&gt;&gt;&gt; dict001.items()
+dict_items([('c', 3), ('a', 1), ('b', 2)])
+&gt;&gt;&gt; list(dict001.items())
+[('c', 3), ('a', 1), ('b', 2)]
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6-4" class="outline-4">
+<h4 id="sec-2-6-4"><span class="section-number-4">2.6.4</span> 字典的in语句</h4>
+<div class="outline-text-4" id="text-2-6-4">
+<p>
+可以看到in语句只针对字典的键，不针对字典的值。
+</p>
+<pre class="example">
+&gt;&gt;&gt; dict001={'a':1,'b':2,'c':3}
+&gt;&gt;&gt; 2 in dict001
+False
+&gt;&gt;&gt; 'b' in dict001
+True
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6-5" class="outline-4">
+<h4 id="sec-2-6-5"><span class="section-number-4">2.6.5</span> 字典对象的get方法</h4>
+<div class="outline-text-4" id="text-2-6-5">
+<p>
+get方法是去找某个键的值，为什么不直接引用呢，get方法的好处就是某个键不存在也不会出错，返回的是None值。
+</p>
+<pre class="example">
+&gt;&gt;&gt; dict001={'a':1,'b':2,'c':3}
+&gt;&gt;&gt; dict001.get('b')
+2
+&gt;&gt;&gt; dict001.get('e')
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6-6" class="outline-4">
+<h4 id="sec-2-6-6"><span class="section-number-4">2.6.6</span> update方法</h4>
+<div class="outline-text-4" id="text-2-6-6">
+<p>
+感觉字典就是一个小型数据库，update方法将另外一个字典里面的键和值覆盖进之前的字典中去，称之为更新，没有的加上，有的覆盖。
+</p>
+<pre class="example">
+&gt;&gt;&gt; dict001={'a':1,'b':2,'c':3}
+&gt;&gt;&gt; dict002={'e':4,'a':5}
+&gt;&gt;&gt; dict001.update(dict002)
+&gt;&gt;&gt; dict001
+{'c': 3, 'a': 5, 'e': 4, 'b': 2}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6-7" class="outline-4">
+<h4 id="sec-2-6-7"><span class="section-number-4">2.6.7</span> pop方法</h4>
+<div class="outline-text-4" id="text-2-6-7">
+<p>
+pop方法类似列表的pop方法，不同引用的是键，而不是偏移地址，这个就不多说了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6-8" class="outline-4">
+<h4 id="sec-2-6-8"><span class="section-number-4">2.6.8</span> 字典解析</h4>
+<div class="outline-text-4" id="text-2-6-8">
+<p>
+<a id="zidianjiexi" name="zidianjiexi"></a>
+这种字典解析方式还是很好理解的。
+</p>
+<pre class="example">
+&gt;&gt;&gt; dict001={x:x**2 for x in [1,2,3,4]}
+&gt;&gt;&gt; dict001
+{1: 1, 2: 4, 3: 9, 4: 16}
+</pre>
+</div>
+
+<div id="outline-container-sec-2-6-8-1" class="outline-5">
+<h5 id="sec-2-6-8-1"><span class="section-number-5">2.6.8.1</span> zip函数创建字典</h5>
+<div class="outline-text-5" id="text-2-6-8-1">
+<p>
+可以利用zip函数来通过两个可迭代对象平行合成一个配对元素的可迭代对象，然后用dict函数将其变成字典对象。具体的理解请参看 <i>深入理解python3的迭代</i> 这一章。
+</p>
+<pre class="example">
+&gt;&gt;&gt; dict001=zip(['a','b','c'],[1,2,3])
+&gt;&gt;&gt; dict001
+&lt;zip object at 0xb7055eac&gt;
+&gt;&gt;&gt; dict001=dict(dict001)
+&gt;&gt;&gt; dict001
+{'c': 3, 'b': 2, 'a': 1}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 集合</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+<a id="jihe" name="jihe"></a>
+python实现了数学上的无序不重复元素的集合概念，在前面讨论列表去重元素的时候我们提到过正好可以利用集合的这一特性。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; list001=[1,2,3,1,2,4,4,5,5,5,7]
+&gt;&gt;&gt; {x for x in list001}
+{1, 2, 3, 4, 5, 7}
+&gt;&gt;&gt; set(list001)
+{1, 2, 3, 4, 5, 7}
+</pre>
+
+<p>
+用集合解析的形式表示出来就是强调set命令可以将任何可迭代对象都变成集合类型。当然如果我们希望继续使用列表的话使用list命令强制类型转换为列表类型即可，不过如果我们在应用中确实一致需要元素不重复这一特性，就可以考虑直接使用集合作为主数据操作类型。
+</p>
+
+<p>
+集合也是可迭代对象。关于可迭代对象可以进行的列表解析操作等等就不啰嗦了。下面介绍集合的一些操作。
+</p>
+</div>
+
+<div id="outline-container-sec-2-7-1" class="outline-4">
+<h4 id="sec-2-7-1"><span class="section-number-4">2.7.1</span> 集合添加元素</h4>
+<div class="outline-text-4" id="text-2-7-1">
+<p>
+值得一提的是如果想创建一个空的集合, 需要用set命令，用花括号 <code>{}</code> 系统会认为你创建的是空字典。然后我们看到用集合的 <strong>add</strong> 方法添加，那些重复的元素是添加不进来的。
+</p>
+
+<p>
+警告：值得一提的是集合只能包括不可变类型，因此列表和字典不能作为集合内部的元素。元组不可变，所以可以加进去。还有\uwave{集合也是不可以包括进去的}，觉得这点好逊啊，数学里面的集合概念能够包含集合那是基本的特性啊，感觉这点不修正好还是用列表方便些。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; set001=set()
+&gt;&gt;&gt; set001.add(1)
+&gt;&gt;&gt; set001
+{1}
+&gt;&gt;&gt; set001.add(2)
+&gt;&gt;&gt; set001
+{1, 2}
+&gt;&gt;&gt; set001.add(1)
+&gt;&gt;&gt; set001
+{1, 2}
+</pre>
+
+<p>
+或者使用update方法一次更新多个元素：
+</p>
+<pre class="example">
+&gt;&gt;&gt; set001=set('a')
+&gt;&gt;&gt; set001.update('a','b','c')
+&gt;&gt;&gt; set001
+{'b', 'a', 'c'}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7-2" class="outline-4">
+<h4 id="sec-2-7-2"><span class="section-number-4">2.7.2</span> 集合去掉某个元素</h4>
+<div class="outline-text-4" id="text-2-7-2">
+<p>
+有两个集合对象的方法可以用于去掉集合中的某个元素， <strong>discard</strong> 方法和 <strong>remove</strong> 方法，其中discard方法如果删除集合中没有的元素那么什么都不会发生，而remove方法如果删除某个不存在的元素那么会产生KeyError。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; set001=set('hello')
+&gt;&gt;&gt; set001.discard('h')
+&gt;&gt;&gt; set001
+{'e', 'o', 'l'}
+&gt;&gt;&gt; set001.discard('l')
+&gt;&gt;&gt; set001
+{'e', 'o'}
+</pre>
+
+<p>
+remove方法与之类似就不做演示了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7-3" class="outline-4">
+<h4 id="sec-2-7-3"><span class="section-number-4">2.7.3</span> 两个集合之间的关系</h4>
+<div class="outline-text-4" id="text-2-7-3">
+</div><div id="outline-container-sec-2-7-3-1" class="outline-5">
+<h5 id="sec-2-7-3-1"><span class="section-number-5">2.7.3.1</span> 子集判断</h5>
+<div class="outline-text-5" id="text-2-7-3-1">
+<p>
+集合对象有一个issubset方法用于判断这个集合是不是那个集合的子集。
+</p>
+<pre class="example">
+&gt;&gt;&gt; set001=set(['a','b'])
+&gt;&gt;&gt; set002=set(['a','b','c'])
+&gt;&gt;&gt; set001.issubset(set002)
+True
+</pre>
+
+<p>
+还有更加简便的方式比较两个集合之间的关系，那就是&gt;，&lt;，&gt;=，&lt;=，==这样的判断都是适用的。也就是set001是set002的子集，它的元素set002都包含，那么 <code>set001&lt;=set002</code> ，然后真子集的概念就是 <code>set001&lt;set002</code> 即不等于即可。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-7-4" class="outline-4">
+<h4 id="sec-2-7-4"><span class="section-number-4">2.7.4</span> 两个集合之间的操作</h4>
+<div class="outline-text-4" id="text-2-7-4">
+<p>
+下面的例子演示的是两个集合之间的交集: <code>&amp;</code> ，并集: <code>|</code> ，差集： <code>-</code> 。
+</p>
+<pre class="example">
+&gt;&gt;&gt; set001=set('hello')
+&gt;&gt;&gt; set002=set('hao')
+&gt;&gt;&gt; set001 &amp; set002 #交集
+{'o', 'h'}
+&gt;&gt;&gt; set001 | set002 #并集
+{'h', 'l', 'a', 'e', 'o'}
+&gt;&gt;&gt; set001 - set002 #差集
+{'e', 'l'}
+</pre>
+
+<p>
+类似的集合对象还有 <strong>intersection</strong> 方法， <strong>union</strong> 方法， <strong>difference</strong> 方法：
+</p>
+<pre class="example">
+&gt;&gt;&gt; set001=set('hello')
+&gt;&gt;&gt; set002=set('hao')
+&gt;&gt;&gt; set001.intersection(set002) #交集
+{'h', 'o'}
+&gt;&gt;&gt; set001.union(set002) #并集
+{'e', 'a', 'h', 'o', 'l'}
+&gt;&gt;&gt; set001.difference(set002) #差集
+{'e', 'l'}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7-5" class="outline-4">
+<h4 id="sec-2-7-5"><span class="section-number-4">2.7.5</span> clear方法</h4>
+<div class="outline-text-4" id="text-2-7-5">
+<p>
+将一个集合清空。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7-6" class="outline-4">
+<h4 id="sec-2-7-6"><span class="section-number-4">2.7.6</span> copy方法</h4>
+<div class="outline-text-4" id="text-2-7-6">
+<p>
+类似列表的copy方法，制作一个集合copy备份然后赋值给其他变量。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7-7" class="outline-4">
+<h4 id="sec-2-7-7"><span class="section-number-4">2.7.7</span> pop方法</h4>
+<div class="outline-text-4" id="text-2-7-7">
+<p>
+无序弹出集合中的一个元素，直到没有然后返回KeyError错误。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 元组</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+圆括号包含几个元素就是元组(tuple)。元组和列表的不同在于元组是不可改变。元组也是从属于序列对象的，元组的很多方法之前都讲了。而且元组在使用上和列表极其接近，有很多内容这里也略过了。
+</p>
+
+<p>
+值得一提的是如果输入的时候写的是 <code>x,y</code> 这样的形式，实际上表达式就加上括号了，也就是一个元组了 <code>(x,y)</code> 。
+</p>
+</div>
+
+<div id="outline-container-sec-2-8-1" class="outline-4">
+<h4 id="sec-2-8-1"><span class="section-number-4">2.8.1</span> 生成器表达式</h4>
+<div class="outline-text-4" id="text-2-8-1">
+<p>
+类似列表解析，如果元组在这里解析也是返回的元组吗？这里并不是如此，前面谈到python中一般表达式的圆括号是忽略了的，所以这里的元组解析表示式有个更专门的名字叫做生成器表达式，它返回的是生成器对象，和生成器函数具体调用之后返回的对象是一样的。生成器对象具有 <code>__next__</code> 方法，可以调用next函数。
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = [i for i in [1,2,3]]
+&gt;&gt;&gt; x
+[1, 2, 3]
+&gt;&gt;&gt; y = (i for i in [1,2,3])
+&gt;&gt;&gt; y
+&lt;generator object &lt;genexpr&gt; at 0xb70dbe8c&gt;
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> bytes类型</h3>
+<div class="outline-text-3" id="text-2-9">
+</div><div id="outline-container-sec-2-9-1" class="outline-4">
+<h4 id="sec-2-9-1"><span class="section-number-4">2.9.1</span> 基本编码知识</h4>
+<div class="outline-text-4" id="text-2-9-1">
+<p>
+具体存储在计算机里面的都是二进制流，而如果要将其正确解析成为对应的字符，是需要建立一定的编码规则的，比如大家熟悉的ASCⅡ编码规则。ACSⅢ编码是Latin-1和utf-8等编码的子集，也就是一连串基于ACSⅡ编码的字符串用utf-8编码也能正确解析。
+</p>
+
+<p>
+python2中目前也支持bytes类型了，但其只是str类型的一个别名（请<a href="http://stackoverflow.com/questions/5901706/the-bytes-type-in-python-2-7-and-pep-358">参看这个网页</a>。） 。然后python2还有一个unicode类型，由于python3字符串默认是unicode编码的，所以python3中的str可以对应python2的unicode。此外还有一个bytearray类型，目前python2也加入进来了，差别不大。
+</p>
+
+<p>
+就实现上具体python2和python3底层还有什么区别不大清楚，而且大家都承认python3定义字符串str和字节流bytes这两个名字都是很好的。只是因为python2和python3在这块领域具体功能都差不多，而因为这种转变带来了困扰很多，可能也是人们迟迟不愿意接受python3的原因吧。
+</p>
+
+<p>
+bytes简单的理解就是没有任何字符含义的二进制字节流。然后如这样 b'test' ，在前面加个字符b或者B，其将解析为bytes类型。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; x = b'test'
+&gt;&gt;&gt; x
+b'test'
+&gt;&gt;&gt; type(x)
+&lt;class 'bytes'&gt;
+&gt;&gt;&gt; x[0]
+116
+&gt;&gt;&gt; x[1]
+101
+&gt;&gt;&gt; list(x)
+[116, 101, 115, 116]
+&gt;&gt;&gt;
+</pre>
+
+<p>
+python在打印时会尽可能打印可见字符，尽管上面的x打印显示出了具体的test这个字符，但我们应该认为x是一连串的数字序列而不具有任何字符串含义，如果我们调用bytes类型的 <strong>decode</strong> 方法，那么bytes类型解码之后将变成str类型。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; y = x.decode('utf-8')
+&gt;&gt;&gt; y
+'test'
+&gt;&gt;&gt; type(y)
+&lt;class 'str'&gt;
+</pre>
+
+<p>
+当然具体编码方式是否正确，是否正确解析了原bytes字节流那又是另外一回事了。比如还可能是big5或者GB什么的编码。
+</p>
+
+<p>
+此外字符串str类型有个 <strong>encode</strong> 方法可以进行编码操作从而输出对应编码的bytes字节流。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-9-2" class="outline-4">
+<h4 id="sec-2-9-2"><span class="section-number-4">2.9.2</span> 使用方法</h4>
+<div class="outline-text-4" id="text-2-9-2">
+<p>
+我们可以如下看一下str类型和bytes类型具体有那些方法差异:
+</p>
+<pre class="example">
+&gt;&gt;&gt; set(dir('abc')) - set(dir(b'abc'))
+{'isdecimal', 'casefold', '__rmod__', 'format_map', 'format', 'encode', '__mod__', 'isnumeric', 'isprintable', 'isidentifier'}
+&gt;&gt;&gt; set(dir(b'abc')) - set(dir('abc'))
+{'decode', 'fromhex'}
+</pre>
+
+<p>
+我们看到bytes和str几乎拥有相同的功能，所以大部分之前学到的用于str字符串类型的那些方法同样可以用于bytes类型中。这多少有点方法泛滥了，因为bytes是字节流类型，内在是没有字符含义的，可能某些方法并不推荐使用。
+</p>
+
+<p>
+比如下面的upper方法和replace方法:
+</p>
+<pre class="example">
+&gt;&gt;&gt; b't'.upper()
+b'T'
+&gt;&gt;&gt; b'testst'.replace(b'st',b'oo')
+b'teoooo'
+</pre>
+
+<p>
+replace方法还可以接受，但upper方法有点过了。
+</p>
+
+<p>
+然后字节流的连接可以很方便的用加法或join方法来进行，如下所示:
+</p>
+<pre class="example">
+&gt;&gt;&gt; b't' + b'e'
+b'te'
+&gt;&gt;&gt; b''.join([b'a',b'c'])
+b'ac'
+</pre>
+
+<p>
+但是要注意，python2里面不管是加法还是join方法都将丢掉那个b修饰符（请参看<a href="http://gehrcke.de/2014/02/concatenate-byte-strings-in-python-3/">这个网页</a> 。）:
+</p>
+<pre class="example">
+&gt;&gt;&gt; b''.join([b'a',b'c'])
+'ac'
+&gt;&gt;&gt; b'a' + b'b'
+'ab'
+</pre>
+
+<p>
+不过这也无关紧要，因为python2里面我们可以理解str就对应的是python3的bytes类型。这一块python2和python3分裂得很厉害，最好不要用对接的思维了，是python2就用python2的思维，是python3就用python3的思维。
+</p>
+
+<p>
+其他还有很多方法包括切片操作等就不赘述了。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> bytearray类型</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+bytearray和bytes类型类似，而且其内部支持的方法和操作也和bytes类型类似，除了其更像是一个列表，可以原处修改而字符串和bytes是不可变的。python2现在也有bytearray类型了，只是内在的文本和二进制是不分的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> 文件</h3>
+<div class="outline-text-3" id="text-2-11">
+<p>
+文件对象是可迭代对象。
+</p>
+</div>
+
+<div id="outline-container-sec-2-11-1" class="outline-4">
+<h4 id="sec-2-11-1"><span class="section-number-4">2.11.1</span> 写文件</h4>
+<div class="outline-text-4" id="text-2-11-1">
+<p>
+对文件的操作首先需要用 <strong>open</strong> 函数创建一个文件对象，简单的理解就是把相应的接口搭接好。文件对象的 <strong>write</strong> 方法进行对某个文件的写操作，最后需要调用 <strong>close</strong> 方法写的内容才真的写进去了。
+</p>
+
+<pre class="example">
+file001 = open('test.txt','w')
+file001.write('hello world1\n')
+file001.write('hello world2\n')
+file001.close()
+</pre>
+
+<p>
+如果你们了解C语言的文件操作，在这里会为python语言的简单便捷赞叹不已。就是这样三句话：创建一个文件对象，然后调用这个文件对象的wirte方法写入一些内容，然后用close方法关闭这个文件即可。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-11-2" class="outline-4">
+<h4 id="sec-2-11-2"><span class="section-number-4">2.11.2</span> 读文件</h4>
+<div class="outline-text-4" id="text-2-11-2">
+<p>
+一般的用法就是用 <strong>open</strong> 函数创建一个文件对象，然后用 <strong>read</strong> 方法调用文件的内容。最后记得用 <strong>close</strong> 关闭文件。
+</p>
+<pre class="example">
+file001 = open('test.txt')
+filetext=file001.read()
+print(filetext)
+file001.close()
+</pre>
+
+<p>
+此外还有 <strong>readline</strong> 方法是一行一行的读取某文件的内容。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-11-3" class="outline-4">
+<h4 id="sec-2-11-3"><span class="section-number-4">2.11.3</span> open函数的处理模式</h4>
+<div class="outline-text-4" id="text-2-11-3">
+<p>
+open函数的处理模式如下：
+</p>
+
+<dl class="org-dl">
+<dt> 'r' </dt><dd>默认值，read，读文件。
+</dd>
+<dt> 'w' </dt><dd>wirte，写文件，如果文件不存在会创建文件，如果文件已存在，文件原内容会清空。
+</dd>
+<dt> 'a' </dt><dd>append，附加内容，也就是后面用write方法内容会附加在原文件之后。
+</dd>
+<dt> 'b' </dt><dd>处理模式设置的 <em>附加</em> 选项，'b'不能单独存在，要和上面三个基本模式进行组合，比如'rb'等，意思是二进制数据格式读。
+</dd>
+<dt> '+' </dt><dd>处理模式设置的 <em>附加</em> 选项，同样'+'不能单独存在，要和上面三个基本模式进行组合，比如'r+'等，+是updating更新的意思，也就是既可以读也可以写，那么'r+'，'w+'，'a+'还有什么区别呢？区别就是'r+'不具有文件创建功能，如果文件不存在会报错，然后'r+'不会清空文件，如果'r+'不清空文件用write方法情况会有点复杂；而'w+'具有文件创建功能，然后'w+'的write方法内容都是重新开始的；而'a+'的write方法内容是附加在原文件上的，然后'a+'也有文件创建功能。
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-11-4" class="outline-4">
+<h4 id="sec-2-11-4"><span class="section-number-4">2.11.4</span> 用with语句打开文件</h4>
+<div class="outline-text-4" id="text-2-11-4">
+<p>
+类似之前的例子我们可以用with语句来打开文件，这样就不用close方法来关闭文件了。然后with语句来提供了类似try语句的功能可以自动应对打开文件时的一些异常情况。
+</p>
+<pre class="example">
+with open('test.txt','w') as file01:
+    file01.write('hello world1\n')
+    file01.write('hello world2\n')
+
+with open('test.txt','r') as file01:
+    filetext=file01.read()
+    print(filetext)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-11-5" class="outline-4">
+<h4 id="sec-2-11-5"><span class="section-number-4">2.11.5</span> 除字符串外其他类型的读取</h4>
+<div class="outline-text-4" id="text-2-11-5">
+<p>
+文本里面存放的都是字符串类型，也就是写入文件需要用str函数强行将其他类型转变成字符串类型，而读取进来想要进行一些操作则需要将字符串类型转变回去。比如用int或者float等，不过列表和字典的转变则需要 <strong>eval</strong> 函数。
+</p>
+
+<p>
+eval这个函数严格来讲作用倒不是为了进行上面说的类型转换的，它就是一个内置函数，一个字符串类型python代码用eval函数处理了之后就能转变为可执行代码。
+</p>
+<pre class="example">
+&gt;&gt;&gt; eval('1+1')
+2
+&gt;&gt;&gt; eval('[1,2,3]')
+[1, 2, 3]
+&gt;&gt;&gt; eval("{'a':1,'b':2,'c':3}")
+{'c': 3, 'b': 2, 'a': 1}
+</pre>
+
+<p>
+推荐使用pickle模块来处理其他类型的文件读写问题，相对来说更简单更安全。请参看 <i>pickle模块</i> 这一小节。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 程序中的逻辑</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 布尔值</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+<a id="bool" name="bool"></a>
+boolean类型，和大多数语言一样，就两个值： <code>True</code> ， <code>False</code> 。然后强制类型转换使用函数 <strong>bool</strong> 。
+</p>
+</div>
+
+<div id="outline-container-sec-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> 其他逻辑小知识</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+在python中，有些关于逻辑真假上的小知识，需要简单了解下。
+</p>
+
+<ul class="org-ul">
+<li>数0、空对象或者其他特殊对象None值都认为是假（比如列表都是真，但空列表是假。）
+</li>
+<li>其他非零的数字或非空的对象都认为是真
+</li>
+<li>前面两条用bool函数可以进行强制类型转换
+</li>
+<li>比较和相等测试会递归作用在数据结构中
+</li>
+<li>比较和相等测试会返回True或False（1和0的custom version（翻译为定制版？））
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> None</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+函数如果没有return的值就会返回None值，None值是NoneType对象中的一个值，和列表的空值等是不同的，它和其他任何值都不一样的。比如re.search如果没有找到匹配就会返回None值。这个时候需要知道得是None值在逻辑上是逻辑假，not None是逻辑真。
+</p>
+<pre class="example">
+&gt;&gt;&gt; def f():
+...  pass
+... 
+&gt;&gt;&gt; y = f()
+&gt;&gt;&gt; y
+&gt;&gt;&gt; type(y)
+&lt;class 'NoneType'&gt;
+</pre>
+
+<p>
+在逻辑判断上如果预期程序在这里应该返回None，最好推荐还是使用 <code>is None</code> 来截取这个条件，直接使用结果的布尔值判断有些其他情况也会被混进来，这可能并不是你想要的。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> if条件判断</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+python中的条件语句基本格式如下：
+</p>
+<pre class="example">
+if  test:
+    条件判断执行区块
+</pre>
+
+<p>
+也就是if命令后面跟个条件判断语句，然后记住加个冒号，然后后面缩进的区块都是条件判断为真的时候要执行的语句。
+</p>
+
+<pre class="example">
+if  test:
+    do something001
+else :
+    do something002
+</pre>
+
+<p>
+这里的逻辑是条件判断，如果真，do something001；如果假，do something002。
+</p>
+
+<pre class="example">
+if  test001:
+    do something001
+elif test002:
+    do something002
+</pre>
+
+<p>
+显然你一看就明白了，elif是else和if的结合。
+</p>
+</div>
+
+
+<div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> 逻辑与或否</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+and表示逻辑与，or表示逻辑或，not表示逻辑否。
+</p>
+
+<p>
+下面编写一个逻辑，判断一个字符串，这个字符串开头必须是a或者b，结尾必须是s，倒数第二个字符不能是单引号'。在这里就演示一下逻辑。。
+</p>
+<div class="highlight"><pre><span class="n">x</span><span class="o">=</span><span class="s">&#39;agais&#39;</span>
+<span class="k">if</span> <span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;a&#39;</span> <span class="ow">or</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;b&#39;</span><span class="p">)</span>
+    <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span><span class="s">&#39;s&#39;</span>
+    <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span><span class="s">&quot;&#39;&quot;</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;yes it is..&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> 稍复杂的条件判断</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+现在我们了解了if，elif和else语句，然后还了解了逻辑与或非的组合判断。那么在实际编程中如何处理复杂的条件逻辑呢？
+</p>
+
+<p>
+首先能够用逻辑语句“与或非”组合起来的就将其组合起来，而不要过分使用嵌套。如下面代码所示，如果一个情况分成两部分，那么就用if&#x2026;else&#x2026;语句，
+</p>
+<div class="highlight"><pre><span class="n">x</span><span class="o">=-</span><span class="mi">2</span>
+<span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x大于0&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x小于0&#39;</span><span class="p">)</span>
+</pre></div>
+
+<p>
+而如果一个情况分成三部分，那么就用if&#x2026;elif&#x2026;else语句。同一深度的这些平行语句对应的是“或”逻辑，或者说类似其他编程语言的switch语句。
+</p>
+<div class="highlight"><pre><span class="n">x</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x大于0&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x小于0&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x等于0&#39;</span><span class="p">)</span>
+</pre></div>
+
+<p>
+我们再看一看下面的代码，这个代码是 <em>错误的</em> ，两个if语句彼此并不构成逻辑分析关系。<sup><a id="fnr.4" name="fnr.4" class="footref" href="#fn.4">4</a></sup>
+</p>
+<div class="highlight"><pre><span class="n">x</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x大于0&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x小于0&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x等于0&#39;</span><span class="p">)</span>
+</pre></div>
+
+<p>
+然后我们看到下面的代码，这个例子演示的是在加深一个深度的条件判断语句它当时处于的逻辑判断情况，这个语句的条件判断逻辑是本语句的判断逻辑再和左边（也就是前面）的判断逻辑的“与”逻辑，或者说成是“交集”。比如说 print('0&lt;x&lt;2') 这个语句就是本语句的判断逻辑 x&lt;2 和上一层判断逻辑 x&gt;0 的“交集”，也就是 0&lt;x&lt;2。
+</p>
+
+<div class="highlight"><pre><span class="n">x</span><span class="o">=-</span><span class="mi">2</span>
+<span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x大于0&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;x&gt;2&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;0&lt;x&lt;2&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;x=2&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x小于0&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x等于0&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>
+整个过程的情况如下图所示：
+</p>
+
+<figure>
+<p><img src="images/复杂条件判断.png" alt="复杂条件判断.png">
+</p>
+<figcaption><span class="figure-number">Figure 1:</span> 复杂条件判断</figcaption>
+</figure>
+
+<p>
+为了在编程的时候对处于何种判断逻辑之下有一个清晰的认识，强烈建议读者好好思考一下。毕竟磨刀不误砍柴功。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3"><span class="section-number-4">3.2.3</span> try语句捕捉异常</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+try语句是编程中用来处理可能出现的异常或者已经出现但并不打算应付的错误最通用的方式。比如一个变量你预先想的是接受一个数值，但是用户却输入了一个字符，这个时候你就可以将这段语句包围在try里面；或者有时你在编程的时候就发现了这种情况，只是懒得理会他们，那么简单的把这块出错的语句包围在try里面，然后后面跟个except语句，打印出一个信息“出错了”，即可。用法如下所示：
+</p>
+<div class="highlight"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">x</span><span class="o">=</span><span class="nb">input</span><span class="p">(</span><span class="s">&#39;请输入一个数，将返回它除以2之后的数值</span><span class="se">\n</span><span class="s">输入&quot;quit&quot;退出</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">&#39;quit&#39;</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">try</span> <span class="p">:</span>
+        <span class="n">num</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;出错了&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+
+
+<div id="outline-container-sec-3-2-3-1" class="outline-5">
+<h5 id="sec-3-2-3-1"><span class="section-number-5">3.2.3.1</span> 异常处理完整语句</h5>
+<div class="outline-text-5" id="text-3-2-3-1">
+<pre class="example">
+try:
+    yourCode
+except yourError:
+    do something
+except yourError2:
+    do something2
+......
+else:
+    do somethingN
+finally:
+    do the funallystuff
+</pre>
+
+<p>
+这个语句的逻辑是试着执行try区块下的语句，如果出现异常，那么看是不是异常yourError，如果是则执行do something，如果是yourError2，则执行do something2 &#x2026;&#x2026;等等，如果没有异常，则执行else字句: do somethingN，如果还有异常，则这个异常将会返回（更上面的控制程序）。
+</p>
+
+<p>
+那么finally语句的作用是什么呢，finally语句实际上和整个语句中异常判断情况没有关系，不管有没有异常发生，最后它都将被执行。和简单地不缩进直接写在下面的语句比起来，finally语句的特点就是就算程序发生异常了，它也会先被执行，然后再将异常上传给上面的控制程序。
+</p>
+
+<p>
+else语句和finally语句是可选的，根据具体情况来看。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-2-3-2" class="outline-5">
+<h5 id="sec-3-2-3-2"><span class="section-number-5">3.2.3.2</span> for里面放try语句的情况</h5>
+<div class="outline-text-5" id="text-3-2-3-2">
+<p>
+for语句里面放上try语句还需要细讲一下。
+</p>
+
+<p>
+具体try语句相关逻辑前面说过了，这里的问题是for语句的继续执行问题。首先是第一个情况，try字句里面使用return，这在函数里面是会跳出for语句的，也就是执行多次只要成功一次就会被跳出。然后错误捕捉，如果错误捕捉里面再放入一个raise语句，再抛出一个错误，这个时候for语句是会被中止的。然后抛出这个异常。然后是else字句，其逻辑是try多次没有错误，那么将会执行else字句，但是如果你try一次，然后else语句里面加入break命令，则会跳出for语句的。
+</p>
+
+<p>
+这里面情况稍微有点复杂，目前我接触到的有如下两种应用:
+</p>
+
+<p>
+这是一个mongodb的安全调用的函数装饰器。其在试图调用mongodb的时候，如果发生AutoReconnect异常，那么将会sleep一秒然后再去try 之前的那个调用函数。如果成功了，那么进入return，然后自然就跳出for语句了。
+</p>
+<pre class="example">
+def safe_mongocall(call):
+    '''mongodb replica set assistant'''
+    def _safe_mongocall(*args, **kwargs):
+        for i in xrange(100):#
+            try:
+                return call(*args, **kwargs)
+            except pymongo.AutoReconnect:
+                import time
+                time.sleep(1)
+                print("try to connect mongodb again...")
+    return _safe_mongocall
+</pre>
+
+
+<p>
+第二个例子较为常用，就是在重复做某件事的时候可能会发生错误，然后捕捉这个错误，然后继续执行。然后捕捉的时候计了一下数。
+</p>
+<pre class="example">
+def test():
+    failcount = 0
+
+    for i in range(src_count):
+        try:
+            do something
+        except Exception as ex:
+            failcount += 1
+
+    sucess_count = src_count - failcount
+    return sucess_count
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3-2-4" class="outline-4">
+<h4 id="sec-3-2-4"><span class="section-number-4">3.2.4</span> in语句</h4>
+<div class="outline-text-4" id="text-3-2-4">
+<p>
+in语句对于可迭代对象都可以做出是否某个元素包含在某个对象之中的判断。
+</p>
+<pre class="example">
+&gt;&gt;&gt; 'a' in ['a',1,2]
+True
+&gt;&gt;&gt; dict
+{'a': 1, 'c': 2, 'b': 3, 'd': 4}
+&gt;&gt;&gt; 'e' in dict
+False
+&gt;&gt;&gt; '2' in dict
+False
+</pre>
+
+<p>
+从上面例子可以看到，一般的列表判断元素是否存在和我们之前预料的一致，关于字典需要说的就是in语句 <span class="underline">只判断键</span> ，不判断值。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> for迭代语句</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+一般有内部重复操作的程序可以先考虑for迭代结构实现，实在不行才考虑while循环结构，毕竟简单更美更安全。
+</p>
+
+<p>
+python的for迭代语句有点类似lisp语言的dolist和dotimes函数，具体例子如下：
+</p>
+<pre class="example">
+&gt;&gt;&gt; for x in 'abc':
+...     print(x)
+... 
+a
+b
+c
+&gt;&gt;&gt;
+</pre>
+
+<p>
+in后面跟的是 可迭代对象，然后字符串，列表，数组都是可以的。这个语句可以看作先执行x='a'或者类似的匹配赋值操作，然后执行缩进的区块，后面依次类推。（所以for语句也支持序列解包赋值。
+</p>
+</div>
+
+<div id="outline-container-sec-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> else分句</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<pre class="example">
+for x in 'abc':
+    if x == 'b':
+        print(x)
+        break
+else:
+    print('test')
+</pre>
+
+<p>
+for语句加上else分句这种形式，如果for迭代完了就会执行else分句。但如果for语句还在迭代过程中，break或者return出来了，那么else分句将不会被执行。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-3-2" class="outline-4">
+<h4 id="sec-3-3-2"><span class="section-number-4">3.3.2</span> range函数</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<p>
+range函数常和for迭代语句一起使用，其返回一个可迭代对象。
+</p>
+
+<pre class="example">
+range(1,10,2)
+</pre>
+
+<p>
+range函数的用法如上，表示从1开始到10，步长为2，如果用list函数将其包裹，将会输出[1,3,5,7,9]。如果不考虑步长的话，这个range函数就有点类似于在序列调出多个值那一小节谈论的区间的情况。所以range(10)就可以看作[0,10)，range(1,10)就可以看作[1,10)。但是在这里再加上步长的概念和区间的概念又有所不同了。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; for x in range(-10,-20,-3):
+...     print(x)
+... 
+-10
+-13
+-16
+-19
+&gt;&gt;&gt;
+</pre>
+
+<p>
+上面例子还演示了range的负数概念，这里如果用区间概念来考察的话，是不能理解的，之所以行得通，是因为它的步长是负数，如果不是负数，那么情况就会和之前讨论的结果类似，将是一个空值。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-3-3" class="outline-4">
+<h4 id="sec-3-3-3"><span class="section-number-4">3.3.3</span> 迭代加上操作</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<p>
+迭代产生信息流并经过某些操作之后生成目标序列，更多内容请参见列表解析一节。
+</p>
+<pre class="example">
+&gt;&gt;&gt; squares=[x**2 for x in [1,2,3,4,5]]
+&gt;&gt;&gt; squares
+[1, 4, 9, 16, 25]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3-4" class="outline-4">
+<h4 id="sec-3-3-4"><span class="section-number-4">3.3.4</span> enumerate函数</h4>
+<div class="outline-text-4" id="text-3-3-4">
+<p>
+enumerate函数返回一个enumerate对象，这个对象将偏移值和元素组合起来，成为一个可迭代对象了。
+</p>
+<pre class="example">
+&gt;&gt;&gt; enu = enumerate('abcd')
+&gt;&gt;&gt; [i for i in enu]
+[(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd')]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> while循环</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+while语句用法和大多数编程语言类似，就是条件控制，循环结构。
+</p>
+<pre class="example">
+while test:
+    do something
+else :
+    do something
+</pre>
+
+<p>
+值得一提的是else语句和while语句属于一个整体，通常情况下while执行完了然后执行下面的语句似乎不需要加上else来控制<sup><a id="fnr.5" name="fnr.5" class="footref" href="#fn.5">5</a></sup>。不过else语句的一个功用就是如果while循环的时候遇到break那么else语句也不会执行而是直接跳过去了，见下面。
+</p>
+</div>
+
+<div id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1"><span class="section-number-4">3.4.1</span> break命令</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+break跳出最近的while或者for循环结构。前面谈到了else和while语句构成一个整体的时候，break可以跳过else语句。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2"><span class="section-number-4">3.4.2</span> continue命令</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+continue命令接下来的循环结构的执行区块将不执行了，跳到条件判断那里看看是不是继续循环。如果是，那么继续循环。同样在for语句中continue命令的意思也是一样的。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4-3" class="outline-4">
+<h4 id="sec-3-4-3"><span class="section-number-4">3.4.3</span> pass命令</h4>
+<div class="outline-text-4" id="text-3-4-3">
+<p>
+pass命令就是什么都不做。pass命令即可用于循环语句也可用于条件语句。
+</p>
+
+<p>
+pass命令什么都不做似乎没有什么意义，不过作为一个空占位符还是很有用的。比如你编写一个大型的GUI程序，信号－槽机制都构思好了，只是对应的函数暂时还没写好，这个时候你可以将对应的函数，只是空的函数名加上pass语句写上，这样整个程序就可以继续边编写边调试了。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 操作或者函数</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+函数也是一个对象，叫函数对象。函数名和变量名一样都是引用，函数名后面带个括号才真正实际执行。比如下面不带括号就只是返回了对这个函数对象的引用地址。
+</p>
+<pre class="example">
+&gt;&gt;&gt; print
+&lt;built-in function print&gt;
+</pre>
+
+<p>
+要理解函数也是一个对象，比如在下面的例子中，fun刚开始是一个函数列表，然后在for的迭代语句里，意思具体就是multiply这个函数对象，然后接下来又是plus这个函数对象。整个过程是对x*a然后再加上b。即 \(a*x +b\)
+</p>
+
+<div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">a</span>
+
+<span class="k">def</span> <span class="nf">plus</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">b</span>
+
+<span class="n">fun</span> <span class="o">=</span> <span class="p">[</span><span class="n">multiply</span> <span class="p">,</span> <span class="n">plus</span><span class="p">]</span>
+<span class="n">para</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">fun</span><span class="p">,</span><span class="n">para</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">para</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">para</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 自定义函数</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+定义函数用def命令，语句基本结构如下：
+</p>
+<pre class="example">
+def yourfunctionname(para001,para002...):
+    do something001
+    do something002
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 参数传递问题</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+函数具体参数的值是通过赋值形式<sup><a id="fnr.6" name="fnr.6" class="footref" href="#fn.6">6</a></sup>来传递的，这有助于理解后面的不定变量函数。而函数的参数名是没有意义的，这个可以用lambda函式来理解之，def定义的为有名函数，有具体的引用地址，但内部作用原理还是跟lambda无名函式一样，形式参数名是x啊y啊都无所谓。为了说明这点，下面给出一个古怪的例子：
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; y=1
+&gt;&gt;&gt; def test(x,y=y):
+...     return x+y
+... 
+&gt;&gt;&gt; print(test(4))
+5
+</pre>
+
+<p>
+输出结果是5。我们看到似乎函数的形式参数y和外面的y不是一个东西，同时参数的传递是通过赋值形式进行的，那么具体是怎样的呢？具体的解释就是函数的形式参数y是这个函数自己内部的 <strong>本地变量</strong> y，和外面的y不一样，更加深入的理解请看下面的变量作用域问题。
+</p>
+
+<p>
+然后还有：
+</p>
+<pre class="example">
+&gt;&gt;&gt; x=[1,2,3]
+&gt;&gt;&gt; for x in x:
+...  print(x)
+... 
+1
+2
+3
+</pre>
+
+<p>
+我们知道for语句每进行一次迭代之前也进行了一次赋值操作，所以for语句里面刚开始定义的这个x和外面的x也不是一个东西，刚开始定义的x也是for语句内部的 <strong>本地变量</strong> 。更加深入的理解请看下面的变量作用域问题。
+</p>
+
+<p>
+想到这里我又想起之前编写removeduplicate函数遇到的一个问题，那就是for语句针对列表这个可变的可迭代对象的工作原理是如何的？具体请看下面的例子：
+</p>
+<pre class="example">
+&gt;&gt;&gt; lst=[1,2,3,4]
+&gt;&gt;&gt; for x in lst:
+...  print(x,lst)
+...  del lst[-1]
+... 
+1 [1, 2, 3, 4]
+2 [1, 2, 3]
+</pre>
+
+<p>
+可迭代对象的惰性求值内部机制在我看来很神奇，目前还不太清楚，但从这个例子看来列表的惰性求值并没有记忆内部的数值，只是记忆了 <span class="underline">返回返回值的次数</span> （合情合理），然后如果迭代产生了StopIteration异常就终止。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 变量作用域问题</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+python的变量作用域和大部分语言比如c语言或lisp语言的概念都类似，就是函数里面是局部变量，一层套一层，里面可以引用外面，外面不可以引用里面。
+</p>
+
+<p>
+具体实现机制是每个函数都有自己的命名空间，（和模块类似）就好像一个盒子一样封装着内部的变量。所谓的本地变量和函数有关，或者其他类似的比如for语句；所谓的全局变量和模块有关，更确切的表述是和文件有关，比如说在现在这个文件里，你可以通过导入其他模块的变量名，但实际上模块导入之后那些变量名都引入到这个文件里面来了。
+</p>
+
+<p>
+具体实现和类的继承类似也是一种搜索机制，先搜索本地作用域（函数就是有函数作用域的情况也是盒子里面有盒子），然后是上一层(def，lambda，for)的本地作用域，然后是全局作用域，然后是内置作用域。更加的直观的说明如下图所示：
+</p>
+
+
+<figure>
+<p><img src="images/python的变量作用域.png" alt="python的变量作用域.png">
+</p>
+<figcaption><span class="figure-number">Figure 2:</span> python的变量作用域</figcaption>
+</figure>
+
+<p>
+简单来说python的变量作用域问题就是：盒子套盒子，搜索是从盒子最里面然后往外面寻找，里面可以用外面的变量，外面的不可以用里面的。
+</p>
+</div>
+
+
+<div id="outline-container-sec-4-3-1" class="outline-4">
+<h4 id="sec-4-3-1"><span class="section-number-4">4.3.1</span> 内置作用域</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<p>
+内置作用域就是由一个 <code>__builtin</code> 模块来实现的，python的作用机制最后会自动搜索这个内置模块的变量。这个内置模块里面就是我们前面学习的那些可以直接使用的函数名，比如print，range等等之类的，然后还有一些内置的异常名。
+</p>
+
+<p>
+所以我们想到即使对于这些python的内置函数我们也是可以覆盖定义的，事实确实如此：
+</p>
+<pre class="example">
+&gt;&gt;&gt; abs(-3)
+3
+&gt;&gt;&gt; def abs(x):
+...  print(x)
+... 
+&gt;&gt;&gt; abs(3)
+3
+&gt;&gt;&gt; abs(-3)
+-3
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-3-2" class="outline-4">
+<h4 id="sec-4-3-2"><span class="section-number-4">4.3.2</span> global命令</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<p>
+如果希望函数里面定义的变量就是全局变量，在变量声明的时候前面加上 <strong>global</strong> 命令即可。
+</p>
+
+<p>
+通常不建议这么做，除非你确定需要这么做，然后你需要写两行代码才能实现，意思也是不推荐你这么做。
+</p>
+<pre class="example">
+def test():
+    global var
+    var= 'hello'
+test()
+print(var)
+</pre>
+
+<p>
+而且就算你这样做了，这个变量也只能在本py文件中被引用，其他文件用不了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3-3" class="outline-4">
+<h4 id="sec-4-3-3"><span class="section-number-4">4.3.3</span> nonlocal命令</h4>
+<div class="outline-text-4" id="text-4-3-3">
+<p>
+nonlocal命令python3之后才出现，这里实现的概念有点类似于lisp语言的闭包(closure技术)，就是如果你有某个需要，需要函数记忆一点自己的状态，同时又不想这个状态信息是全局变量，也不希望用类的方式来实现，那么就可以用nonlocal命令来简单地完成这个任务。
+</p>
+
+<p>
+global意味着命名只存在于一个嵌套的模块中，而nonlocal的查找只限于嵌套的def中。要理解nonlocal首先需要理解函数里面嵌套函数的情况——也就是所谓的工厂函数，一个函数返回一个函数对象。比如说
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">x</span>
+    <span class="k">def</span> <span class="nf">action</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+    <span class="k">return</span> <span class="n">action</span>
+</pre></div>
+
+<pre class="example">
+&gt;&gt;&gt; add1=add(1)
+&gt;&gt;&gt; add1(5)
+6
+&gt;&gt;&gt; add2=add(2)
+&gt;&gt;&gt; add2(5)
+7
+</pre>
+
+<p>
+这里的return action是返回一个函数对象，这样add1的实际接口是def action那里。熟悉lisp语言的明白，action外面的那个函数的变量叫做自由变量，不过嵌套函数在这里可以引用自由变量<sup><a id="fnr.7" name="fnr.7" class="footref" href="#fn.7">7</a></sup>但 <span class="underline">不能直接修改</span> 自由变量。如果我们声明nonlocal x，那么就可以修改嵌套函数外面声明的变量了。
+</p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">x</span>
+    <span class="k">def</span> <span class="nf">action</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="n">nonlocal</span> <span class="n">x</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+    <span class="k">return</span> <span class="n">action</span>
+</pre></div>
+
+<pre class="example">
+&gt;&gt;&gt; add2=add(2)
+&gt;&gt;&gt; add2(5)
+8
+&gt;&gt;&gt; add2(5)
+9
+&gt;&gt;&gt; add2(5)
+10
+</pre>
+
+<p>
+然后我们看到这个生产出来的函数具有了运行上的状态性，实际上通过类也能构建出类似的效果，不过对于某些问题可能闭包方式处理显得更适合一些。
+</p>
+
+<p>
+下面给出一个稍微合理点的例子：
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">myrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">n</span>
+    <span class="k">def</span> <span class="nf">action</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">i</span>
+        <span class="k">while</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span>
+            <span class="k">return</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">action</span>
+</pre></div>
+
+<pre class="example">
+&gt;&gt;&gt; myrange5=myrange(5)
+&gt;&gt;&gt; myrange5()
+4
+&gt;&gt;&gt; myrange5()
+3
+&gt;&gt;&gt; myrange5()
+2
+&gt;&gt;&gt; myrange5()
+1
+&gt;&gt;&gt; myrange5()
+0
+&gt;&gt;&gt; myrange5()
+&gt;&gt;&gt;
+</pre>
+
+
+<p>
+下面给出类似的类的实现方法：
+</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">myrange</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="o">=</span><span class="n">n</span>
+    <span class="k">def</span> <span class="nf">action</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">i</span>
+</pre></div>
+
+<pre class="example">
+&gt;&gt;&gt; myrange5=myrange(5)
+&gt;&gt;&gt; 
+&gt;&gt;&gt; myrange5.action()
+4
+&gt;&gt;&gt; myrange5.action()
+3
+&gt;&gt;&gt; myrange5.action()
+2
+&gt;&gt;&gt; myrange5.action()
+1
+&gt;&gt;&gt; myrange5.action()
+0
+&gt;&gt;&gt; myrange5.action()
+&gt;&gt;&gt;
+</pre>
+
+<p>
+我们看到从编码思路上基本上没什么差异，可以说稍作修改就可以换成类的实现版本。推荐一般使用类的实现方法。但有的时候可能用类来实现有点不伦不类和大材小用了。这里就不做进一步讨论了，闭包思想是函数编程中很重要的一个思想，学习了解一下也好。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 参数和默认参数</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+定义的函数圆括号那里就是接受的参数，如果参数后面跟个等号，来个赋值语句，那个这个赋的值就是这个参数的默认值。比如下面随便写个演示程序：
+</p>
+<pre class="example">
+def test(x='hello'):
+    print(x)
+test()
+test('world')
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> 不定参量函数</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+我们在前面谈到sum函数只接受一个列表，而不支持这样的形式：sum(1,2,3,4,5)。现在我们设计这样一个可以接受不定任意数目参量的函数。首先让我们看看一种奇怪的赋值方式。
+</p>
+</div>
+
+<div id="outline-container-sec-4-5-1" class="outline-4">
+<h4 id="sec-4-5-1"><span class="section-number-4">4.5.1</span> 序列解包赋值</h4>
+<div class="outline-text-4" id="text-4-5-1">
+<pre class="example">
+&gt;&gt;&gt; a,b,*c=1,2,3,4,5,6,7,8,9
+&gt;&gt;&gt; print(a,b,c,sep=' | ')
+1 | 2 | [3, 4, 5, 6, 7, 8, 9]
+&gt;&gt;&gt; a,*b,c=1,2,3,4,5,6,7,8,9
+&gt;&gt;&gt; print(a,b,c,sep=' | ')
+1 | [2, 3, 4, 5, 6, 7, 8] | 9
+&gt;&gt;&gt; *a,b,c=1,2,3,4,5,6,7,8,9
+&gt;&gt;&gt; print(a,b,c,sep=' | ')
+[1, 2, 3, 4, 5, 6, 7] | 8 | 9
+</pre>
+
+<p>
+带上一个星号*的变量变得有点类似通配符的味道了，针对后面的序列<sup><a id="fnr.8" name="fnr.8" class="footref" href="#fn.8">8</a></sup>（数组，列表，字符串），它都会将遇到的元素收集在一个列表里面，然后说是它的。
+</p>
+
+<p>
+for语句也支持序列解包赋值，也是将通配到的的元素收集到了一个列表里面，如：
+</p>
+<pre class="example">
+&gt;&gt;&gt; for (a,*b,c) in [(1,2,3,4,5,6),(1,2,3,4,5),(1,2,3,4)]:
+...     print(b)
+... 
+[2, 3, 4, 5]
+[2, 3, 4]
+[2, 3]
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-5-2" class="outline-4">
+<h4 id="sec-4-5-2"><span class="section-number-4">4.5.2</span> 函数中的通配符</h4>
+<div class="outline-text-4" id="text-4-5-2">
+<pre class="example">
+&gt;&gt;&gt; def test(*args):
+...  print(args)
+... 
+&gt;&gt;&gt; test(1,2,3,'a')
+(1, 2, 3, 'a')
+</pre>
+
+<p>
+我们看到类似上面序列解包赋值中的带星号表通配的概念，在定义函数的时候写上一个带星号的参量（我们可以想象在函数传递参数的时候有一个类似的序列解包赋值过程），在函数定义里面，这个args就是接受到的参量组成的 <em>元组</em> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-5-3" class="outline-4">
+<h4 id="sec-4-5-3"><span class="section-number-4">4.5.3</span> mysum函数</h4>
+<div class="outline-text-4" id="text-4-5-3">
+<pre class="example">
+&gt;&gt;&gt; def mysum(*args):
+...     return sum(args[:])
+... 
+&gt;&gt;&gt; print(mysum(1,2,3,4,5,6))
+21
+&gt;&gt;&gt;
+</pre>
+
+<p>
+这样我们定义的可以接受任意参数的mysum函数，如上所示。具体过程就是将接受到的args（已成一个元组了），然后用sum函数处理了一下即可。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-5-4" class="outline-4">
+<h4 id="sec-4-5-4"><span class="section-number-4">4.5.4</span> 任意数目的可选参数</h4>
+<div class="outline-text-4" id="text-4-5-4">
+<p>
+在函数定义的写上带上两个星号的变量 <code>**args</code> ，那么args在函数里面的意思就是接受到的可选参数组成的一个字典值。
+</p>
+<pre class="example">
+&gt;&gt;&gt; def test(**args):
+...  return args
+... 
+&gt;&gt;&gt; test(a=1,b=2)
+{'b': 2, 'a': 1}
+</pre>
+
+<p>
+我们看到利用这个可以构建出一个简单的字典对象生成器。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5-5" class="outline-4">
+<h4 id="sec-4-5-5"><span class="section-number-4">4.5.5</span> 解包可迭代对象传递参数</h4>
+<div class="outline-text-4" id="text-4-5-5">
+<p>
+之前 <code>*args</code> 是在函数定义中，然后通配一些参数放入元组中。这里是在函数调用中，针对可迭代对象，可以用一个*星号将其所包含的元素迭代出来，然后和参数一一对应赋值。
+</p>
+<pre class="example">
+&gt;&gt;&gt; map = map(lambda x:x+2,[1,2,3])
+&gt;&gt;&gt; print(*map)
+3 4 5
+&gt;&gt;&gt; print(*[1,2,3])
+1 2 3
+</pre>
+</div>
+
+<div id="outline-container-sec-4-5-5-1" class="outline-5">
+<h5 id="sec-4-5-5-1"><span class="section-number-5">4.5.5.1</span> 最简单的打印文件命令</h5>
+<div class="outline-text-5" id="text-4-5-5-1">
+<p>
+前面说到文件也是一个可迭代对象，然后如果在这里解包文件对象将是一个最简单的打印文件命令，简单得惊天地泣鬼神了&#x2026;
+</p>
+<pre class="example">
+print(*open('test.py'))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-5-6" class="outline-4">
+<h4 id="sec-4-5-6"><span class="section-number-4">4.5.6</span> 解包字典成为关键字参数</h4>
+<div class="outline-text-4" id="text-4-5-6">
+<p>
+和上面的类似，通过**args语法可以将某个字典对象解包成为某个函数的关键字参数。还是以上面那个函数f为例子：
+</p>
+<pre class="example">
+&gt;&gt;&gt; def f(a,b,c=3):
+...  print(a,b,c)
+&gt;&gt;&gt; f(**{'c':6,'b':4,'a':2})
+2 4 6
+&gt;&gt;&gt; f(1,2,5)
+1 2 5
+</pre>
+<p>
+这个例子也告诉我们不是可选参数的a和b同样也可以通过这种字典形式复制。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> 参数的顺序</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+老实说一般参数，可选参数（关键字参数），任意（通配）参数，任意（通配）关键字参数所有这些概念混在一起非常的让人困惑。就一般的顺序是：
+</p>
+
+<ol class="org-ol">
+<li>一般参数，这个如果有一定要在第一位，然后通过位置一一对应分配参数。
+</li>
+<li>关键字参数，关键字参数跟在一般参数后面，通过匹配变量名来分配。
+</li>
+<li>通配一般参数，其他额外的非关键字的参数分配到*args元组里面。
+</li>
+<li>通配关键字参数，其他额外的关键字参数分配到**args字典里面，这个必须在最后面。
+</li>
+</ol>
+
+<p>
+一般的情况就是这些吧，可能你会遇到更加困难的情况，到时候再说吧。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-4-7" class="outline-3">
+<h3 id="sec-4-7"><span class="section-number-3">4.7</span> 递归函式</h3>
+<div class="outline-text-3" id="text-4-7">
+<p>
+虽然递归函式能够在某种程度上取代前面的一些循环或者迭代程序结构，不过不推荐这么做。这里谈及递归函式是把某些问题归结为数学函数问题，而这些问题常常用递归算法更加直观（不一定高效）。比如下面的菲波那奇函数：
+</p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+<pre class="example">
+1
+1
+2
+3
+5
+&gt;&gt;&gt;
+</pre>
+
+<p>
+我们可以看到，对于这样专门的数学问题来说，用这样的递归算法来表述是非常简洁易懂的。至于其内部细节，我们可以将上面定义的fib称之为函式，函式是一种操作的模式，然后具体操作就是复制出这个函式（函数或者操作都是数据），然后按照这个函式来扩展生成具体的函数或者操作。
+</p>
+
+<p>
+下面看通过递归函式来写阶乘函数，非常的简洁，我以为这就是最好最美的方法了。
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="n">fact</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+<pre class="example">
+1 3628800
+&gt;&gt;&gt;
+</pre>
+</div>
+
+
+<div id="outline-container-sec-4-7-1" class="outline-4">
+<h4 id="sec-4-7-1"><span class="section-number-4">4.7.1</span> 什么时候用递归？</h4>
+<div class="outline-text-4" id="text-4-7-1">
+<p>
+最推荐使用递归的情况是这样的情况，那就是一份工作（或函数）执行一遍之后你能够感觉到虽然所有的工作没有做完，但是已经做了一小部分了，有了一定的进展了，就好比是蚂蚁吞大象一样，那么这个时候你就可以使用递归思想了。其次有的时候有那么一种情况虽然表面上看似乎并没有什么进展，但事情在发展，你能感受到有一个条件最终将会终止程序从而得到一个输出，那么这个时候就可以用递归。
+</p>
+
+<p>
+递归思想最核心的两个概念就是一做了一小部分工作，你能感觉到做着做着事情就会做完了；二有一个终止判断最终将会起作用。
+</p>
+
+<p>
+其实通过递归函式也可以实现类似for的迭代结构（这种情况不推荐使用递归），不过我觉得递归函式还是不应该滥用。比如下面通过递归函式生成一种执行某个操作n次的结构：
+</p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">dosomething</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">elif</span> <span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;do!&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;do!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dosomething</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">dosomething</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+
+<pre class="example">
+do!
+do!
+do!
+do!
+do!
+None
+&gt;&gt;&gt;
+</pre>
+<p>
+可以看到，如果把上面的print语句换成其他的某个操作，比如机器人向前走一步，那么这里dosomething换个名字向前走(5)就成了向前走5步了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-7-2" class="outline-4">
+<h4 id="sec-4-7-2"><span class="section-number-4">4.7.2</span> lisp的car-cdr递归技术</h4>
+<div class="outline-text-4" id="text-4-7-2">
+<p>
+在lisp语言中， car-cdr递归技术是很重要的一门技术，它的特长就是遍历随意嵌套的列表结构可以同一对列表中的每一个元素执行某种操作。
+</p>
+
+<p>
+首先我们来看下面的例子，一个把任意嵌套列表所有元素放入一个列表中的函数：
+</p>
+<div class="highlight"><pre><span class="n">lst</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,[</span><span class="mi">3</span><span class="p">]],[</span><span class="mi">4</span><span class="p">,[</span><span class="mi">5</span><span class="p">,[[[[</span><span class="mi">10</span><span class="p">],</span><span class="mi">11</span><span class="p">]]]],(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)],[{</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">},</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]]</span>
+
+<span class="k">def</span> <span class="nf">is_list</span><span class="p">(</span><span class="n">thing</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="nb">iter</span><span class="p">):</span>
+    <span class="n">templst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_list</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">templst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">templst</span> <span class="o">+=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">templst</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+</pre></div>
+
+<pre class="example">
+[1, 2, 3, 4, 5, 10, 11, (1, 2, 3), {'c', 'b', 'a'}, 8, 9]
+&gt;&gt;&gt;
+</pre>
+
+<p>
+这个函数的逻辑是如果是最小元素对象不是列表，那么收集进列表；如果不是，那么把它展开，这里就是调用的原函数继续展开函式。
+</p>
+
+<p>
+上面的例子严格意义上来讲还不算lisp的经典car-cdr递归技术，下面给出一个典型的例子，就是复制任意嵌套结构的列表。当然列表的copy方法就可以做这个工作，这里主要通过这个例子来进一步深入car-cdr技术。
+</p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_list</span><span class="p">(</span><span class="n">thing</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">copy_list</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">if</span>  <span class="ow">not</span>  <span class="n">is_list</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">lst</span>
+    <span class="k">elif</span> <span class="n">lst</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">copy_list</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+</span> <span class="n">copy_list</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">copy_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span><span class="mi">3</span><span class="p">]))</span>
+</pre></div>
+
+<pre class="example">
+[1, [2, 6], 3]
+&gt;&gt;&gt;
+</pre>
+
+<p>
+这种嵌套列表的复制以及后面的修改等等操作，最合适的就是lisp的car-cdr技术了，但我不得不承认，这种递归写法是递归函式里面最难懂的了。
+</p>
+
+<p>
+不管怎么严格，在这个基础之上，因为第一个if not的语句中传递下来的lst实际上已经是非列表的其他元素了，然后我们可以进行一些其他修改操作，这样在保持原列表的复杂嵌套的基础上，等于遍历的对列表中的所有元素进行了某种操作。
+</p>
+
+<p>
+比如所有元素都平方：
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_list</span><span class="p">(</span><span class="n">thing</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">square_list</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">if</span>  <span class="ow">not</span>  <span class="n">is_list</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">square</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">lst</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">square_list</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+</span> <span class="n">square_list</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">square_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span><span class="mi">3</span><span class="p">]))</span>
+</pre></div>
+
+<pre class="example">
+[1, [4, 36], 9]
+&gt;&gt;&gt;
+</pre>
+<p>
+我们可以想像更加复杂功能的函数作用于列表中所有的元素同时又不失去原列表复杂的嵌套结构，lisp的car-cdr这种技术了解一下吧，但是不是一定要使用复杂的嵌套结构呢？也许没有必要吧。。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-8" class="outline-3">
+<h3 id="sec-4-8"><span class="section-number-3">4.8</span> lambda函式</h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+lambda λ表达式这个在刚开始介绍lisp语言的时候已有所说明，简单来说就是函数只是一个映射规则，变量名，函数名都无所谓的。这里就是没有名字的函数的意思。
+</p>
+
+<p>
+具体的样子如下面所示：
+</p>
+<pre class="example">
+&gt;&gt;&gt; f=lambda x,y,z:x+y+z
+&gt;&gt;&gt; print(f(1,2,3))
+6
+&gt;&gt;&gt;
+</pre>
+
+<p>
+lanmbda函式在有些情况下要用到，比如pyqt里面的信号－槽机制用connect方法的时候，槽比如是函数名或者无参函数，如果用户想加入参量的话，可以使用lamba函式引入。
+</p>
+
+<p>
+读者如果对lambda函式表达不太熟悉强烈建议先简单学一学scheme或lisp语言。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-9" class="outline-3">
+<h3 id="sec-4-9"><span class="section-number-3">4.9</span> print函数</h3>
+<div class="outline-text-3" id="text-4-9">
+<p>
+print函数因为很常用和基础，就放在这里了。
+</p>
+
+<p>
+print函数接受任意的参量，逐个打印出来。然后它还有一些关键字参数:
+</p>
+
+<dl class="org-dl">
+<dt> sep </dt><dd>默认值是' '，也就是一个空格，如果修改为空字符串，那么逐个打印出来的字符之间就没有间隔了。
+</dd>
+<dt> end </dt><dd>默认值是'\n'
+</dd>
+<dt> file </dt><dd>默认值是sys.stdout，也就是在终端显示，你可以修改为某个文件变量，这样直接往某个文件里面输出内容。
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 类</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+在python中一切皆对象。前面学的那些操作对象都是python程序语言自己内部定义的对象（Object），而接下来介绍的类的语法除了更好的理解之前的那些对象之外，再就是可以创造自己的操作对象。一般面向对象(OOP)编程的基本概念这里不重复说明了，如有不明请读者自己随便搜索一篇网页阅读下即可。
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> python中类的结构</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+python中的类就好像树叶，所有的类就构成了一棵树，而python中超类，子类，实例的重载或继承关系等就是由一种搜索机制实现的：
+</p>
+
+<figure>
+<p><img src="images/类搜索结构图.png" alt="类搜索结构图.png">
+</p>
+<figcaption><span class="figure-number">Figure 3:</span> 类搜索结构图</figcaption>
+</figure>
+
+<p>
+python首先搜索self有没有这个属性或者方法，如果没有，就向上搜索。比如说实例l1没有，就向上搜索C1，C1没有就向上搜索C2或C3等。
+</p>
+
+<p>
+实例继承了创造他的类的属性，创造他的类上面可能还有更上层的超类，类似的概念还有子类，表示这个类在树形层次中比较低。
+</p>
+
+<p>
+well，简单来说类的结构和搜索机制就是这样的，很好地模拟了真实世界知识的树形层次结构。
+</p>
+
+<p>
+上面那副图实际编写的代码如下：
+</p>
+<pre class="example">
+class C2: ...
+class C3: ...
+class C1(C2,C3): ...
+l1=C1()
+l2=C1()
+</pre>
+
+<p>
+其中class语句是创造类，而C1继承自C2和C3，这是多重继承，从左到右是内部的搜索顺序（会影响重载）。l1和l2是根据类C1创造的两个实例。
+</p>
+
+<p>
+对于初次接触类这个概念的读者并不指望他们马上就弄懂类这个概念，这个概念倒并一定要涉及很多哲学的纯思考的东西，也可以看作一种编程经验或技术的总结。多接触也许对类的学习更重要，而不是纯哲学抽象概念的讨论，毕竟类这个东西创造出来就是为了更好地描述现实世界的。
+</p>
+
+<p>
+最后别人编写的很多模块就是一堆类，你就是要根据这些类来根据自己的情况情况编写自己的子类，为了更好地利用前人的成果，或者你的成果更好地让别人快速使用和上手，那么你需要好好掌握类这个工具。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 类的最基础知识</h3>
+<div class="outline-text-3" id="text-5-2">
+</div><div id="outline-container-sec-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1"><span class="section-number-4">5.2.1</span> 类的创建</h4>
+<div class="outline-text-4" id="text-5-2-1">
+<pre class="example">
+class MyClass:
+    something
+</pre>
+
+<p>
+类的创建语法如上所示，然后你需要想一个好一点的类名。类名规范的写法是首字母大写，这样好和其他变量有所区分。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-2" class="outline-4">
+<h4 id="sec-5-2-2"><span class="section-number-4">5.2.2</span> 根据类创建实例</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<p>
+按照如下语句格式就根据MyClass类创建了一个实例myclass001。
+</p>
+<pre class="example">
+myclass001=MyClass()
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-3" class="outline-4">
+<h4 id="sec-5-2-3"><span class="section-number-4">5.2.3</span> 类的属性</h4>
+<div class="outline-text-4" id="text-5-2-3">
+<pre class="example">
+&gt;&gt;&gt; class MyClass:
+...  name='myclass'
+... 
+&gt;&gt;&gt; myclass001=MyClass()
+&gt;&gt;&gt; myclass001.name
+'myclass'
+&gt;&gt;&gt; MyClass.name
+'myclass'
+&gt;&gt;&gt; myclass001.name='myclass001'
+&gt;&gt;&gt; myclass001.name
+'myclass001'
+&gt;&gt;&gt; MyClass.name
+'myclass'
+</pre>
+
+<p>
+如上代码所示，我们首先创建了一个类，这个类加上了一个name属性，然后创建了一个实例myclass001，然后这个实例和这个类都有了name属性。然后我们通过实例加上点加上name的这种格式引用了这个实例的name属性，并将其值做了修改。
+</p>
+
+<p>
+这个例子简单演示了类的创建，属性添加，实例创建，多态等核心概念。后面类的继承等概念都和这些大同小异了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2-4" class="outline-4">
+<h4 id="sec-5-2-4"><span class="section-number-4">5.2.4</span> 类的方法</h4>
+<div class="outline-text-4" id="text-5-2-4">
+<p>
+类的方法就是类似上面类的属性一样加上def语句来定义一个函数，只是函数在类里面我们一般称之为方法。这里演示一个例子，读者看一下就明白了。
+</p>
+<pre class="example">
+&gt;&gt;&gt; class MyClass:
+...  name='myclass'
+...  def double(self):
+...   self.name=self.name*2
+...   print(self.name)
+... 
+&gt;&gt;&gt; myclass001=MyClass()
+&gt;&gt;&gt; myclass001.name
+'myclass'
+&gt;&gt;&gt; myclass001.double()
+myclassmyclass
+&gt;&gt;&gt; myclass001.name
+'myclassmyclass'
+</pre>
+
+
+<p>
+这里需要说明的是在类的定义结构里面，self代表着类自身，self.name代表着对自身name属性的引用。然后实例在调用自身的这个方法时用的是myclass001.double()这样的结构，这里double函数实际上接受的第一个参数就是自身，也就是myclass001，而不是无参数函数。所以类里面的方法（被外部引用的话）至少有一个参数self。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 类的继承</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+实例虽然说是根据类创建出来的，但实际上实例和类也是一种继承关系，实例继承自类，而类和类的继承关系也与之类似，只是语法稍有不同。下面我们来看这个例子：
+</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Hero</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">addlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">addhp</span>
+
+<span class="k">class</span> <span class="nc">Garen</span><span class="p">(</span><span class="n">Hero</span><span class="p">):</span>
+    <span class="n">level</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">hp</span><span class="o">=</span><span class="mi">455</span>
+    <span class="n">addhp</span><span class="o">=</span><span class="mi">96</span>
+
+<span class="n">garen001</span><span class="o">=</span><span class="n">Garen</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;级别:&#39;</span><span class="p">,</span><span class="n">garen001</span><span class="o">.</span><span class="n">level</span><span class="p">,</span><span class="s">&#39;生命值：&#39;</span> <span class="p">,</span><span class="n">garen001</span><span class="o">.</span><span class="n">hp</span><span class="p">)</span>
+    <span class="n">garen001</span><span class="o">.</span><span class="n">addlevel</span><span class="p">()</span>
+</pre></div>
+
+<pre class="example">
+级别: 1 生命值： 455
+级别: 2 生命值： 551
+级别: 3 生命值： 647
+级别: 4 生命值： 743
+级别: 5 生命值： 839
+级别: 6 生命值： 935
+&gt;&gt;&gt;
+</pre>
+
+
+<figure>
+<p><img src="images/类的继承示例.png" alt="类的继承示例.png">
+</p>
+<figcaption><span class="figure-number">Figure 4:</span> 类的继承示例</figcaption>
+</figure>
+
+<p>
+这里就简单的两个类，盖伦Garen类是继承自Hero类的，实例garen001是继承自Garen类的，这样garen001也有了addlevel方法，就是将自己的level属性加一，同时hp生命值也加上一定的值，整个过程还是很直观的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 类的内置方法</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+如果构建一个类，就使用pass语句，什么都不做，python还是会为这个类自动创建一些属性或者方法。
+</p>
+<pre class="example">
+&gt;&gt;&gt; class TestClass:
+...  pass
+... 
+&gt;&gt;&gt; dir(TestClass)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__',
+ '__eq__', '__format__', '__ge__', '__getattribute__',
+  '__gt__',  '__hash__', '__init__', '__le__', '__lt__',
+   '__module__', '__ne__', '__new__', '__reduce__', 
+   '__reduce_ex__', '__repr__', '__setattr__', 
+   '__sizeof__', '__str__', '__subclasshook__',
+    '__weakref__']
+</pre>
+
+<p>
+这些变量名字前后都加上双下划线是给python这个语言的设计者用的，一般应用程序开发者还是不要这么做。
+</p>
+
+<p>
+这些内置方法用户同样也是可以重定义他们从来覆盖掉原来的定义，其中特别值得一讲的就是 <code>__init__</code> 方法或者称之为构造函数。
+</p>
+</div>
+
+<div id="outline-container-sec-5-4-1" class="outline-4">
+<h4 id="sec-5-4-1"><span class="section-number-4">5.4.1</span> <code>__init__</code> 方法</h4>
+<div class="outline-text-4" id="text-5-4-1">
+<p>
+<code>__init__</code> 方法对应的就是该类创建实例的时候的构造函数。比如：
+</p>
+<pre class="example">
+&gt;&gt;&gt; class Point:
+...  def __init__(self,x,y):
+...   self.x=x
+...   self.y=y
+... 
+&gt;&gt;&gt; point001=Point(5,4)
+&gt;&gt;&gt; point001.x
+5
+&gt;&gt;&gt; point001.y
+4
+</pre>
+
+<p>
+这个例子重载了 <code>__init__</code> 函数，然后让他接受三个参数，self等下要创建的实例，x，还有y通过下面的语句给这个待创建的实例的属性x和y赋了值。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-4-2" class="outline-4">
+<h4 id="sec-5-4-2"><span class="section-number-4">5.4.2</span> self意味着什么</h4>
+<div class="outline-text-4" id="text-5-4-2">
+<p>
+self在类中是一个很重要的概念，当类的结构层次较简单时还容易看出来， 当类的层次结构很复杂之后，你可能会弄糊涂。 <span class="underline">self就是指现在引用的这个实例</span> 。比如你现在通过调用某个实例的某个方法，这个方法可能是一个远在天边的某个类给出的定义，就算如此，那个定义里面的self还是指调用这个方法的那个实例，这一点要牢记于心。
+</p>
+
+<p>
+比如下面这个例子：
+</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Test</span><span class="p">():</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">Test</span><span class="p">()</span>
+</pre></div>
+<pre class="example">
+&gt;&gt;&gt; test.x
+10
+&gt;&gt;&gt; Test.x
+5
+</pre>
+
+<p>
+其中self.x就是对应的创建的实例的属性x，而前面定义的x则是类Test的属性x。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5-4-3" class="outline-4">
+<h4 id="sec-5-4-3"><span class="section-number-4">5.4.3</span> 类的操作第二版</h4>
+<div class="outline-text-4" id="text-5-4-3">
+<p>
+现在我们可以写出和之前那个版本相比更加专业的类的使用版本了。
+</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Hero</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">addlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">addhp</span>
+
+<span class="k">class</span> <span class="nc">Garen</span><span class="p">(</span><span class="n">Hero</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">=</span><span class="mi">455</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addhp</span><span class="o">=</span><span class="mi">96</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skill</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;不屈&#39;</span><span class="p">,</span><span class="s">&#39;致命打击&#39;</span><span class="p">,</span><span class="s">&#39;勇气&#39;</span><span class="p">,</span><span class="s">&#39;审判&#39;</span><span class="p">,</span><span class="s">&#39;德玛西亚正义&#39;</span><span class="p">]</span>
+
+<span class="n">garen001</span><span class="o">=</span><span class="n">Garen</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;级别:&#39;</span><span class="p">,</span><span class="n">garen001</span><span class="o">.</span><span class="n">level</span><span class="p">,</span><span class="s">&#39;生命值：&#39;</span> <span class="p">,</span><span class="n">garen001</span><span class="o">.</span><span class="n">hp</span><span class="p">)</span>
+    <span class="n">garen001</span><span class="o">.</span><span class="n">addlevel</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;盖伦的技能有：&#39;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="s">&#39;  &#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">garen001</span><span class="o">.</span><span class="n">skill</span><span class="p">]))</span>
+</pre></div>
+
+<pre class="example">
+级别: 1 生命值： 455
+级别: 2 生命值： 551
+级别: 3 生命值： 647
+级别: 4 生命值： 743
+级别: 5 生命值： 839
+级别: 6 生命值： 935
+盖伦的技能有： 不屈  致命打击  勇气  审判  德玛西亚正义  
+&gt;&gt;&gt;
+</pre>
+
+<p>
+似乎专业的做法类里面多放点方法，最好不要放属性，不太清楚是什么。但确实这样写给人感觉更干净点，方法是方法，如果没有调用代码就放在那里我们不用管它，后面用了构造函数我们就去查看相关类的构造方法，这样很省精力。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-4-4" class="outline-4">
+<h4 id="sec-5-4-4"><span class="section-number-4">5.4.4</span> 类的操作第三版</h4>
+<div class="outline-text-4" id="text-5-4-4">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Unit</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">hp</span><span class="p">,</span><span class="n">atk</span><span class="p">,</span><span class="n">color</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">=</span><span class="n">hp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atk</span><span class="o">=</span><span class="n">atk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="o">=</span><span class="n">color</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;生命值：{0}，攻击力：{1}，颜色：</span><span class="se">\</span>
+<span class="s">        {2}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">atk</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Hero</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">level</span><span class="p">,</span><span class="n">hp</span><span class="p">,</span><span class="n">atk</span><span class="p">,</span><span class="n">color</span><span class="p">):</span>
+        <span class="n">Unit</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">hp</span><span class="p">,</span><span class="n">atk</span><span class="p">,</span><span class="n">color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">=</span><span class="n">level</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;级别：{0},生命值：{1}，攻击力：{2}，</span><span class="se">\</span>
+<span class="s">        颜色：{3}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">atk</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">addlevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">addhp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atk</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">addatk</span>
+
+<span class="k">class</span> <span class="nc">Garen</span><span class="p">(</span><span class="n">Hero</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;blue&#39;</span><span class="p">):</span>
+        <span class="n">Hero</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">455</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="n">color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;盖伦&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addhp</span><span class="o">=</span><span class="mi">96</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addatk</span><span class="o">=</span><span class="mf">3.5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skill</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;不屈&#39;</span><span class="p">,</span><span class="s">&#39;致命打击&#39;</span><span class="p">,</span><span class="s">&#39;勇气&#39;</span><span class="p">,</span><span class="s">&#39;审判&#39;</span><span class="p">,</span><span class="s">&#39;德玛西亚正义&#39;</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">garen001</span><span class="o">=</span><span class="n">Garen</span><span class="p">(</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">garen002</span><span class="o">=</span><span class="n">Garen</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">garen001</span><span class="p">)</span>
+    <span class="n">unit001</span><span class="o">=</span><span class="n">Unit</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">unit001</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">garen001</span><span class="p">)</span>
+        <span class="n">garen001</span><span class="o">.</span><span class="n">addlevel</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;盖伦的技能有：&#39;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="s">&#39;  &#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">garen001</span><span class="o">.</span><span class="n">skill</span><span class="p">]))</span>
+</pre></div>
+
+<pre class="example">
+级别：1,生命值：455，攻击力：56，        颜色：red
+生命值：1000，攻击力：1000，颜色：        gray
+级别：1,生命值：455，攻击力：56，        颜色：red
+级别：2,生命值：551，攻击力：59.5，        颜色：red
+级别：3,生命值：647，攻击力：63.0，        颜色：red
+级别：4,生命值：743，攻击力：66.5，        颜色：red
+级别：5,生命值：839，攻击力：70.0，        颜色：red
+级别：6,生命值：935，攻击力：73.5，        颜色：red
+盖伦的技能有： 不屈  致命打击  勇气  审判  德玛西亚正义  
+&gt;&gt;&gt;
+</pre>
+
+<p>
+现在就这个例子相对于第二版所作的改动，也就是核心知识点说明之。其中函数参量列表中这样表述 color='blue' 表示blue是color变量的备选值，也就是color成了可选参量了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-4-5" class="outline-4">
+<h4 id="sec-5-4-5"><span class="section-number-4">5.4.5</span> 构造函数的继承和重载</h4>
+<div class="outline-text-4" id="text-5-4-5">
+<p>
+上面例子很核心的一个概念就是 <code>__init__</code> 构造函数的继承和重载。比如我们看到garen001实例的创建，其中就引用了Hero的构造函数，特别强调的是 <span class="underline">只有创造实例的时候比如这样的形式Garen()才叫做调用了Garen类的构造方法</span> ， 比如这里 <code>Hero.__init__(self,1,455,56,color)</code> 就是调用了Hero类的构造函数，这个时候需要把self写上，因为self就是最终创建的实例garen001，而不是Hero，而且调用Hero类的构造函数就必须按照它的参量列表形式来。这个概念需要弄清楚！
+</p>
+
+<p>
+理解了这一点，在类的继承关系中的构造函数的继承和重载就好看了。比如这里Hero类的构造函数又是继承自Unit类的构造函数，Hero类额外有一个参量level接下来也要开辟存储空间配置好。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-4-6" class="outline-4">
+<h4 id="sec-5-4-6"><span class="section-number-4">5.4.6</span> <code>__str__</code> 函数的继承和重载</h4>
+<div class="outline-text-4" id="text-5-4-6">
+<p>
+第二个修改是这里重定义了一些类的 <code>__str__</code> 函数，通过重新定义它可以改变默认print某个类对象是的输出。默认只是一段什么什么类并无具体内容信息。具体就是return一段你想要的字符串样式即可。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 模块</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+现在让我们进入模块基础知识的学习吧，建立编写自己的模块，这样不断积累自己的知识，不断变得更强。
+</p>
+
+<p>
+实际上之前我们已经接触过很多python自身的标准模块或者其他作者写的第三方模块，而import和from语句就是加载模块用的。这里我们主要讨论如何自己编写自己的模块。
+</p>
+
+<p>
+from语句和import语句内部作用机制很类似，只是在变量名的处理方式上有点差异（from会把变量名复制过来）。这里重点就import的工作方式说明如下：
+</p>
+
+<ol class="org-ol">
+<li>首先需要找到模块文件。
+</li>
+<li>然后将模块文件编译成位码（需要时，根据文件的时间戳。），你会看到新多出来一个 <code>__pycache__</code> 文件夹。
+</li>
+<li>执行编译出来的位码，创建该py文件定义的对象。
+</li>
+</ol>
+
+<p>
+这三个步骤是第一次import的时候会执行的，第二次import的时候会跳过去，而直接引用内存中已加载的对象。
+</p>
+</div>
+
+
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 找到模块文件</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+python模块的搜索路径会搜索几个地方，这些地方最后都会放在sys.path这个列表里面，所以在你的py文件刚开始修改这个sys.path，append上你想要的地址也是可以的。我在这里选择了这种简单的方法，除此之外还有很多方法这里先不涉及。
+</p>
+
+<p>
+比如主文件一般如下：
+</p>
+<pre class="example">
+import os,sys
+sys.path.append(os.environ['HOME']+'/pymf')
+from pyconfig import *
+</pre>
+
+<p>
+这里为什么使用 <code>from pyconfig import *</code> 这样的语句而不是import语句呢？因为我决定整个项目的主py文件除了这一个from语句之外不会再import或者from其他模块了，其他所有模块的引用都放在pyconfig.py这个主配置文件里面。
+</p>
+
+<p>
+pyconfig.py任务就是加载最常用最通用的一些模块，如果你实际编写的另外一个项目通用pyconfig文件满足不了你的要求了，那么你可以把那个pyconfig文件复制过来，然后放在你的项目文件夹里面，然后继续衍化修改。这个经验是我从 LaTeX 文档的编写中总结出来的，既满足了共性又满足了个性。
+</p>
+
+<p>
+那么为什么要用from语句，很简单。如果用import语句，那么pyconfig.py文件里面import math模块，在主py文件里面引用就要使用这样的格式 <code>pyconfig.math.pi</code> ，这既不方便而且违背大家平时惯用的那种math.pi格式。
+</p>
+
+
+<p>
+现在我们让可以开始编写自己的模块吧。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 编写模块</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+well，编写模块就是一些py文件，然后模块的名字和py文件里面的内容编写好就是了。
+</p>
+
+<p>
+我现在编写了一个pyconfig.py文件，放在主文件夹（ubuntu系统）的pymf文件里面的。里面定义了一个斐波拉契函数，如下所示：
+</p>
+<pre class="example">
+def fib(n):
+    if n==0:
+        return 1
+    if n==1:
+        return 1
+    else:
+        return fib(n-1)+fib(n-2)
+</pre>
+
+<p>
+然后我们的测试小脚本如下：
+</p>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;HOME&#39;</span><span class="p">]</span><span class="o">+</span><span class="s">&#39;/pymf&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pyconfig</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">print</span><span class="p">([</span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> import语句</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+import语句的一般使用方法之前已有接触，比如import math，然后要使用math模块里面的函数或者类等需要使用这样的带点的变量名结构：math.pi。
+</p>
+
+<p>
+此外import语句还有一个常见的缩写名使用技巧，比如import numpy as np，那么后面就可以这样写了， np.array，而不是numpy.array。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> from语句</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+from语句的使用有以下两种情况：
+</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">this</span> <span class="kn">import</span> <span class="n">this</span>
+<span class="kn">from</span> <span class="nn">what</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+<p>
+第一种形式是点名只导入某个变量，第二种形式是都导入进来。我想读者肯定知道这点，使用第二种导入形式的时候要小心变量名覆盖问题，这个自己心里有数即可。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-6-5" class="outline-3">
+<h3 id="sec-6-5"><span class="section-number-3">6.5</span> reload函数</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+reload函数可以重新载入某个模块，reload函数的优点就是不需要重新启动应用程序，更加合理的动态重载一些模块。reload只能用于python编写的模块，在python3中，reload函数被移到imp模块里面去了，因此首先需要import imp才能使用了。比如说：
+</p>
+
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="nb">reload</span>
+<span class="nb">reload</span><span class="p">(</span><span class="n">somemodule</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 参考资料</h2>
+<div class="outline-text-2" id="text-7">
+<ol class="org-ol">
+<li>python入门教程，python官网上的tutorial。原作者：Guido van Rossum  Fred L. Drake；中文翻译：刘鑫等；版本：2013-10-28；pdf下载链接：<a href="https://drive.google.com/open?id=0ByWxOeitx54PSW40bU5zNVhuMlU&authuser=0">python入门教程</a>  。
+</li>
+
+<li>learning python，主要python语言参考，我主要参看了python学习手册（第四版）。原作者：Mark Lutz，中文翻译：李军，刘红伟等。
+</li>
+
+<li>programming python，作者Mark Lutz对python编程的进阶讨论；版本：第四版。
+</li>
+
+<li>python <a href="https://docs.python.org/3/">官网上的资料</a> 。
+</li>
+
+<li>第三方模块参考手册，如numpy, scipy, matplotlib等等第三方模块官网上发布的官方参考手册。
+</li>
+
+<li>dive into python3，<a href="http://www.diveintopython3.net/index.html">the english origin site</a> , 这是 <a href="http://sebug.net/paper/books/dive-into-python3/index.html">中文网站链接</a> 。
+</li>
+
+<li>A Guide to Python's Magic Methods，作者：Rafe Kettler ,版本：2014-01-04，github <a href="https://github.com/RafeKettler/magicmethods">项目地址</a> .
+</li>
+
+<li>metaprogramming，the website link is <a href="http://python-3-patterns-idioms-test.readthedocs.org/en/latest/Metaprogramming.html">here</a> .
+</li>
+
+<li>Foundations of Python Network Programming ，python网络编程基础，[美] John Goerzen 著，莫迟等译 。
+</li>
+</ol>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>也就是用chmod加上可执行权限那么可以直接执行了。第一行完整的解释是什么通过env程序来搜索python的路径，这样代码更具可移植性。</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p>is语句用来测试对象的同一性，就是真正是内存里的同一个东西，而不仅仅是值相同而已。==只是确保值相同。</p></div>
+
+<div class="footdef"><sup><a id="fn.3" name="fn.3" class="footnum" href="#fnr.3">3</a></sup> <p>这些int、float等命令都是强制类型转换命令</p></div>
+
+<div class="footdef"><sup><a id="fn.4" name="fn.4" class="footnum" href="#fnr.4">4</a></sup> <p>四个甚至更多的平行或逻辑就用更多的elif，读者请自己实验一下。</p></div>
+
+<div class="footdef"><sup><a id="fn.5" name="fn.5" class="footnum" href="#fnr.5">5</a></sup> <p>最后一下while是False所以会跳转到执行else的语句那里。</p></div>
+
+<div class="footdef"><sup><a id="fn.6" name="fn.6" class="footnum" href="#fnr.6">6</a></sup> <p>整个过程有点类似前面讨论的一般赋值语句，但又有点区别的。</p></div>
+
+<div class="footdef"><sup><a id="fn.7" name="fn.7" class="footnum" href="#fnr.7">7</a></sup> <p>如果自己定义那么就是自己的本地变量了，这里的自由变量的意思是嵌套函数自己没有定义，引用母函数的变量。</p></div>
+
+<div class="footdef"><sup><a id="fn.8" name="fn.8" class="footnum" href="#fnr.8">8</a></sup> <p>似乎序列赋值内置迭代操作</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>); 最后修改时间: 2015-11-14 22:15.</p></div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+intermediate-and-advanced-software-carpentry.pdf filter=lfs diff=lfs merge=lfs -text
+magicmethods.pdf filter=lfs diff=lfs merge=lfs -text
+Programming[[:space:]]Python.pdf filter=lfs diff=lfs merge=lfs -text
+python3编程指南.pdf filter=lfs diff=lfs merge=lfs -text
+python[[:space:]]cookbook.pdf filter=lfs diff=lfs merge=lfs -text
+python入门教程.pdf filter=lfs diff=lfs merge=lfs -text
+Python学习手册第4版.pdf filter=lfs diff=lfs merge=lfs -text

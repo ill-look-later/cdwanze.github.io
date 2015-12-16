@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>python2和python3的移植问题</title>
+<!-- 2015-11-02 17:38 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">python2和python3的移植问题</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a></li>
+<li><a href="#sec-2">2. 2to3内置模块</a></li>
+<li><a href="#sec-3">3. // 和 /</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 解决方案</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. print函数</a>
+<ul>
+<li><a href="#sec-4-1">4.1. 兼容性方案</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. raise语句</a>
+<ul>
+<li><a href="#sec-5-1">5.1. 兼容性方案</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. input和raw_input</a>
+<ul>
+<li><a href="#sec-6-1">6.1. 兼容方案</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. unicode字符串问题</a>
+<ul>
+<li><a href="#sec-7-1">7.1. bytes类型</a>
+<ul>
+<li><a href="#sec-7-1-1">7.1.1. 基本编码知识</a></li>
+<li><a href="#sec-7-1-2">7.1.2. 使用方法</a></li>
+<li><a href="#sec-7-1-3">7.1.3. bytearray类型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-8">8. 所有的类都继承自object</a>
+<ul>
+<li><a href="#sec-8-1">8.1. 兼容方案</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9. execfile函数</a>
+<ul>
+<li><a href="#sec-9-1">9.1. 兼容方案</a></li>
+</ul>
+</li>
+<li><a href="#sec-10">10. &lt;&gt;替换为!=</a></li>
+<li><a href="#sec-11">11. 模块包的导入问题</a></li>
+<li><a href="#sec-12">12. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+<p>
+本文停写了，后面的代码将完全基于python3，不会考虑这些问题了。
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文主要讨论python2和python3的区别，以及如何从python2移植到python3或者如何写出更具python3兼容性的python2代码等等。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 2to3内置模块</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+python有个 <strong>2to3</strong> 内置模块可以自动进行python2脚本到python3脚本的移植工作，不过我感觉最好是不要过分依赖这个工具，这只是适合初学者的。因为python2和python3很多地方不一样了。如果你对这个模块有很深的了解，可能自己手工进行修改会更合适一些（其中可能会涉及到新的编写思路）。
+</p>
+
+<p>
+2to3模块简单的使用就是：
+</p>
+<pre class="example">
+2to3 test.py
+</pre>
+<p>
+这个test.py就是你要移植的py文件。
+</p>
+
+<p>
+然后如果加上 <code>-w</code> 选项，这个文件就会被原地修改为python3的版本。其他的使用就不多说了，下面主要详细讨论一下python2到python3的移植细节问题。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> // 和 /</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+在python2中，两个整数相除会返回一个整数，也就是python3的//。
+</p>
+<pre class="example">
+Python 2.7.6 (default, Mar 22 2014, 22:59:38) 
+[GCC 4.8.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; 5/2
+2
+</pre>
+</div>
+
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 解决方案</h3>
+<div class="outline-text-3" id="text-3-1">
+<pre class="example">
+from __future__ import division
+</pre>
+<p>
+这样都使用python3的语法规则，即: / 表示常规除法， // 表示整除——返回商。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> print函数</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+这是最常见的错误了，推荐第一步就在文档里面进行find print这个字符串操作，然后将所有：
+</p>
+<pre class="example">
+print ...
+</pre>
+<p>
+这样的形式都换成：
+</p>
+<pre class="example">
+print(...)
+</pre>
+<p>
+这是目前python2和python3都兼容的形式了，所以没有什么好犹豫的，大胆的修改就是了。
+</p>
+
+<p>
+其中python2 
+</p>
+<pre class="example">
+print 1, 2,
+</pre>
+<p>
+似乎还有点小复杂，简单的理解就是对应到python3的
+</p>
+<pre class="example">
+print(1, 2, end=' ')
+</pre>
+
+<p>
+然后python2支持这样的重定向语法 <code>print &gt;&gt;sys.stderr, 1, 2, 3</code> ，其对应python3的就是file选项： <code>print(1, 2, 3, file=sys.stderr)</code> 。
+</p>
+</div>
+
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 兼容性方案</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+目前推荐在模块最上面写上:
+</p>
+<pre class="example">
+from __future__ import print_function
+</pre>
+<p>
+然后使用python3的语法来使用print函数。这样python2里面也能正常运行。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> raise语句</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+raise语句的移植也是必做的，推荐先搜索字符串raise来查看一下。
+</p>
+
+<p>
+diveintopython3表格做的很好，我直接截图过来了。
+</p>
+
+
+<figure>
+<p><img src="images/raise语句.png" alt="raise语句.png">
+</p>
+<figcaption><span class="figure-number">Figure 1:</span> raise语句</figcaption>
+</figure>
+
+<p>
+具体raise某个异常或者raise某个异常提示信息都不需要修改的，就是raise某个异常后面跟着异常提示信息的，需要将其用括号括起来，表示其是异常类的一个参数。然后traceback的情况似乎很复杂。先略过。
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 兼容性方案</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+这种括号语法两边都支持:
+</p>
+<pre class="example">
+raise ValueError("dodgy value")
+</pre>
+
+
+<p>
+这里的future模块来自第三方模块future，用 <code>pip install future</code> 安装之。
+</p>
+<pre class="example">
+from future.utils import raise_with_traceback
+
+raise_with_traceback(ValueError("dodgy value"))
+</pre>
+
+<p>
+这种as表示两边都支持:
+</p>
+<pre class="example">
+# Python 2 and 3:
+try:
+    ...
+except ValueError as e:
+    ...
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> input和raw_input</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+在python2中的raw_input函数对应的就是python3的input函数。然后python2还有一个input函数，具体在python3中对应的是eval(input())，这个函数推荐被废弃掉。
+</p>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 兼容方案</h3>
+<div class="outline-text-3" id="text-6-1">
+<pre class="example">
+from builtins import input
+
+name = input('What is your name? ')
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> unicode字符串问题</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+python2有两种字符串类型，unicode字符串和非unicode字符串，python3所有的字符串都是unicode字符串。
+</p>
+
+<p>
+所以python2中
+</p>
+<pre class="example">
+u'test'
+ur'test\test'
+</pre>
+
+<p>
+在python3中，将前面那个u删掉即可：
+</p>
+<pre class="example">
+'test'
+r'test\test'
+</pre>
+
+<p>
+然后如果遇到 <code>unicode(something)</code> 这样的形式，将其换成 <code>str(something)</code> 。不过这只是应急的修改，由于python2和python3在这一块分裂很大，所以最好还是单独是python2就是python2的思维进行，是python3就用python3的思维进行。下面是我在python3编程指南一书中关于这部分的内容的讨论，因为和本小节很相关，就拿过来了。
+</p>
+</div>
+
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> bytes类型</h3>
+<div class="outline-text-3" id="text-7-1">
+</div><div id="outline-container-sec-7-1-1" class="outline-4">
+<h4 id="sec-7-1-1"><span class="section-number-4">7.1.1</span> 基本编码知识</h4>
+<div class="outline-text-4" id="text-7-1-1">
+<p>
+具体存储在计算机里面的都是二进制流，而如果要将其正确解析成为对应的字符，是需要建立一定的编码规则的，比如大家熟悉的ASCⅡ编码规则。ACSⅢ编码是Latin-1和utf-8等编码的子集，也就是一连串基于ACSⅡ编码的字符串用utf-8编码也能正确解析。
+</p>
+
+<p>
+python2中目前也支持bytes类型了，但其只是str类型的一个别名<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> 。然后python2还有一个unicode类型，由于python3字符串默认是unicode编码的，所以python3中的str可以对应python2的unicode。此外还有一个bytearray类型，目前python2也加入进来了，差别不大。
+</p>
+
+<p>
+就实现上具体python2和python3底层还有什么区别不大清楚，而且大家都承认python3定义字符串str和字节流bytes这两个名字都是很好的。只是因为python2和python3在这块领域具体功能都差不多，而因为这种转变带来了困扰很多，可能也是人们迟迟不愿意接受python3的原因吧。
+</p>
+
+
+<p>
+bytes简单的理解就是没有任何字符含义的二进制字节流。然后如这样 b'test'  ，在前面加个字符b或者B，其将解析为bytes类型。
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = b'test'
+&gt;&gt;&gt; x
+b'test'
+&gt;&gt;&gt; type(x)
+&lt;class 'bytes'&gt;
+&gt;&gt;&gt; x[0]
+116
+&gt;&gt;&gt; x[1]
+101
+&gt;&gt;&gt; list(x)
+[116, 101, 115, 116]
+</pre>
+
+
+<p>
+python在打印时会尽可能打印可见字符，尽管上面的x打印显示出了具体的test这个字符，但我们应该认为x是一连串的数字序列而不具有任何字符串含义，如果我们调用bytes类型的 <strong>decode</strong> 方法，那么bytes类型解码之后将变成str类型。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; y = x.decode('utf-8')
+&gt;&gt;&gt; y
+'test'
+&gt;&gt;&gt; type(y)
+&lt;class 'str'&gt;
+</pre>
+<p>
+当然具体编码方式是否正确，是否正确解析了原bytes字节流那又是另外一回事了。比如还可能是big5或者GB什么的编码。
+</p>
+
+<p>
+此外字符串str类型有个 <strong>decode</strong> 方法可以进行编码操作从而输出对应编码的bytes字节流。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-1-2" class="outline-4">
+<h4 id="sec-7-1-2"><span class="section-number-4">7.1.2</span> 使用方法</h4>
+<div class="outline-text-4" id="text-7-1-2">
+<p>
+我们可以如下看一下str类型和bytes类型具体有那些方法差异:
+</p>
+<pre class="example">
+&gt;&gt;&gt; set(dir('abc')) - set(dir(b'abc'))
+{'isdecimal', 'casefold', '__rmod__', 'format_map', 'format', 'encode', '__mod__', 'isnumeric', 'isprintable', 'isidentifier'}
+&gt;&gt;&gt; set(dir(b'abc')) - set(dir('abc'))
+{'decode', 'fromhex'}
+</pre>
+
+
+<p>
+我们看到bytes和str几乎拥有相同的功能，所以大部分之前学到的用于str字符串类型的那些方法同样可以用于bytes类型中。这多少有点方法泛滥了，因为bytes是字节流类型，内在是没有字符含义的，可能某些方法并不推荐使用。
+</p>
+
+<p>
+比如下面的upper方法和replace方法:
+</p>
+<pre class="example">
+&gt;&gt;&gt; b't'.upper()
+b'T'
+&gt;&gt;&gt; b'testst'.replace(b'st',b'oo')
+b'teoooo'
+</pre>
+
+<p>
+replace方法还可以接受，但upper方法有点过了。
+</p>
+
+<p>
+然后字节流的连接可以很方便的用加法或join方法来进行，如下所示:
+</p>
+<pre class="example">
+&gt;&gt;&gt; b't' + b'e'
+b'te'
+&gt;&gt;&gt; b''.join([b'a',b'c'])
+b'ac'
+</pre>
+
+<p>
+但是要 <em>注意</em> ，python2里面不管是加法还是join方法都将丢掉那个b修饰符<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>:
+</p>
+<pre class="example">
+&gt;&gt;&gt; b''.join([b'a',b'c'])
+'ac'
+&gt;&gt;&gt; b'a' + b'b'
+'ab'
+</pre>
+
+
+<p>
+不过这也无关紧要，因为python2里面我们可以理解str就对应的是python3的bytes类型。这一块最好python2和python3分裂得很厉害，最好不要用对接的思维了，是python2就用python2的思维，是python3就用python3的思维。
+</p>
+
+<p>
+其他还有很多方法包括切片操作等就不赘述了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7-1-3" class="outline-4">
+<h4 id="sec-7-1-3"><span class="section-number-4">7.1.3</span> bytearray类型</h4>
+<div class="outline-text-4" id="text-7-1-3">
+<p>
+bytearray和bytes类型类似，而且其内部支持的方法和操作也和bytes类型类似，除了其更像是一个列表，可以原处修改而字符串和bytes是不可变的。python2现在也有bytearray类型了，只是内在的文本和二进制是不分的。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 所有的类都继承自object</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+如果python2中的代码如下:
+</p>
+<pre class="example">
+class A(object):
+    pass
+</pre>
+
+<p>
+那么将其换成:
+</p>
+<pre class="example">
+class A():
+    pass
+</pre>
+
+<p>
+因为python3中所有的类都默认是object的子类。
+</p>
+</div>
+
+<div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> 兼容方案</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+兼容方案是引入从builtns引入object，然后都明确指明继承自object。
+</p>
+<pre class="example">
+from builtins import object
+
+class Upper(object):
+    def __init__(self, iterable):
+        self._iter = iter(iterable)
+    def __next__(self):      # Py3-style iterator interface
+        return next(self._iter).upper()  # builtin next() function calls
+    def __iter__(self):
+        return self
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> execfile函数</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+在python2中execfile是个内置函数，可以直接运行，用来执行某个python脚本。
+</p>
+
+<div class="highlight"><pre><span class="nb">execfile</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;openerp&#39;</span><span class="p">,</span> <span class="s">&#39;release.py&#39;</span><span class="p">))</span>  <span class="c"># Load release variables</span>
+<span class="n">lib_name</span> <span class="o">=</span> <span class="s">&#39;openerp&#39;</span>
+
+
+<span class="k">exec</span><span class="p">(</span><span class="nb">compile</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;openerp&#39;</span><span class="p">,</span> <span class="s">&#39;release.py&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;openerp&#39;</span><span class="p">,</span> <span class="s">&#39;release.py&#39;</span><span class="p">),</span> <span class="s">&#39;exec&#39;</span><span class="p">))</span> 
+ <span class="n">lib_name</span> <span class="o">=</span> <span class="s">&#39;openerp&#39;</span>
+</pre></div>
+</div>
+
+<div id="outline-container-sec-9-1" class="outline-3">
+<h3 id="sec-9-1"><span class="section-number-3">9.1</span> 兼容方案</h3>
+<div class="outline-text-3" id="text-9-1">
+<pre class="example">
+exec(compile(open('myfile.py').read()))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> &lt;&gt;替换为!=</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+不等于号&lt;&gt;被废弃了，推荐用!=，这样python2和python3都是兼容的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> 模块包的导入问题</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+python2到python3模块包的结构很多地方也发生了变动，实际上即使是python3，随着版本升级，内置模块包内部也在发生着变动，比如新加入的函数类等等。这是不可避免的，同时python2一些模块包已经被官方提醒要被废弃了，这也是值得引起我们的注意的。这一块，当然还是自己平时多阅读官方文档（通常这些变动官方文档都会有所说明的）。下面是根据diveintopython3网页的介绍整理的一些信息。
+</p>
+
+
+
+<pre class="example">
+# Python 2 and 3 (after ``pip install future``):
+from configparser import ConfigParser
+</pre>
+
+
+<hr >
+<p>
+这一块有时间还需要慢慢整理。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> 参考资料</h2>
+<div class="outline-text-2" id="text-12">
+<ol class="org-ol">
+<li><a href="http://www.diveintopython3.net/porting-code-to-python-3-with-2to3.html">diveintopython3的2to3附录部分</a>
+</li>
+<li><a href="http://python3porting.com/bookindex.html">porting to python3</a>
+</li>
+<li><a href="http://python-future.org/compatible_idioms.html">python-future</a> 其github项目地址在 <a href="https://github.com/PythonCharmers/python-future">这里</a> 。
+</li>
+<li></li>
+</ol>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p><a href="http://stackoverflow.com/questions/5901706/the-bytes-type-in-python-2-7-and-pep-358">参考这个网页。</a></p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p>参考了<a href="http://gehrcke.de/2014/02/concatenate-byte-strings-in-python-3/">这个网页</a>。</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>
