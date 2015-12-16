@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2015-12-16 三 13:35 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>编写emacs插件</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">.title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+<script type="text/javascript" src="http://orgmode.org/org-info.js">
+/**
+ *
+ * @source: http://orgmode.org/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "6");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">编写emacs插件</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">前言</a>
+<ul>
+<li><a href="#orgheadline2">quote函数</a></li>
+<li><a href="#orgheadline3">链表结构</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline34">elisp基础</a>
+<ul>
+<li><a href="#orgheadline4">注释</a></li>
+<li><a href="#orgheadline5">程序中的操作对象</a>
+<ul>
+<li><a href="#orgheadline6">Welcome to IELM <strong>*</strong>  Type (describe-mode) for help.</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">类型检测</a>
+<ul>
+<li><a href="#orgheadline7">type-of</a></li>
+<li><a href="#orgheadline8">其他p型函数</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">相等判断</a>
+<ul>
+<li><a href="#orgheadline11">eq</a></li>
+<li><a href="#orgheadline12">equal</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline13">定义变量</a>
+<ul>
+<li><a href="#orgheadline14">defvar</a></li>
+<li><a href="#orgheadline15">defconst</a></li>
+<li><a href="#orgheadline16">defcustom</a></li>
+<li><a href="#orgheadline17">defgroup</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline18">eval-last-sexp</a></li>
+<li><a href="#orgheadline19">concat函数</a></li>
+<li><a href="#orgheadline20">substring函数</a></li>
+<li><a href="#orgheadline21">buffer-name</a></li>
+<li><a href="#orgheadline22">buffer-file-name</a></li>
+<li><a href="#orgheadline23">返回该脚本所在的目录路径</a></li>
+<li><a href="#orgheadline24">读取某个文件内容</a></li>
+<li><a href="#orgheadline29">程序流程控制函数</a>
+<ul>
+<li><a href="#orgheadline25">if函数</a></li>
+<li><a href="#orgheadline26">and</a></li>
+<li><a href="#orgheadline27">or</a></li>
+<li><a href="#orgheadline28">cond</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline30">defun定义自己的函数</a>
+<ul>
+<li><a href="#orgheadline31">let创建局部变量</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline32">深入理解闭包</a></li>
+<li><a href="#orgheadline33">理解递归</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline35">链表操作函数</a>
+<ul>
+<li><a href="#orgheadline36">reverse  将列表第一层元素倒置:</a></li>
+<li><a href="#orgheadline37">nth</a></li>
+<li><a href="#orgheadline38">nthcdr</a></li>
+<li><a href="#orgheadline39">last</a></li>
+<li><a href="#orgheadline40">remove</a></li>
+<li><a href="#orgheadline41">member</a></li>
+<li><a href="#orgheadline42">intersection</a></li>
+<li><a href="#orgheadline43">union</a></li>
+<li><a href="#orgheadline44">set-difference</a></li>
+<li><a href="#orgheadline45">subsetp</a></li>
+<li><a href="#orgheadline46">assoc</a></li>
+<li><a href="#orgheadline47">set-exclusive-or</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline65">更多的函数</a>
+<ul>
+<li><a href="#orgheadline48">subst</a></li>
+<li><a href="#orgheadline49">sublis</a></li>
+<li><a href="#orgheadline50">funcall</a></li>
+<li><a href="#orgheadline51">mapcar</a></li>
+<li><a href="#orgheadline52">lambda</a></li>
+<li><a href="#orgheadline53">find-if</a></li>
+<li><a href="#orgheadline54">remove-if-not</a></li>
+<li><a href="#orgheadline55">remove-if</a></li>
+<li><a href="#orgheadline56">reduce</a></li>
+<li><a href="#orgheadline57">every</a></li>
+<li><a href="#orgheadline58">setf</a></li>
+<li><a href="#orgheadline59">incf</a></li>
+<li><a href="#orgheadline60">decf</a></li>
+<li><a href="#orgheadline61">push</a></li>
+<li><a href="#orgheadline62">pop</a></li>
+<li><a href="#orgheadline63">when</a></li>
+<li><a href="#orgheadline64">unless</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline66">定义自己的包</a></li>
+<li><a href="#orgheadline70">附录</a>
+<ul>
+<li><a href="#orgheadline67">emacs中使用common-lisp</a></li>
+<li><a href="#orgheadline68">命令行执行emacs里面的命令</a></li>
+<li><a href="#orgheadline69">参考资料</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div class="outline-2">
+<h2 id="orgheadline1">前言</h2>
+<div class="outline-text-2" id="text-orgheadline1">
+<p>
+编写emacs插件的过程实际上就是熟悉elisp这门语言的过程。lisp语言在很多方面都和我们接触的其他大部分语言与众不同。要理解这点最关键的就是要理解lisp语言的链表数据结构。
+</p>
+
+<p>
+因为我以前折腾过一段时间的common-lisp了，所以下面的谈论就大致回顾一下lisp的最核心的一些特性（也不会拘泥于某些语法细节）:
+</p>
+
+<p>
+lisp语言里面最基本的元素是atom的，是atom类型的元素可以直接eval，你可以在emacs下输入 <code>M-x ielm</code> 来进入elisp的交互环境试着输入 1 或者 "abc" 来看一下。你可以如下来看看某个元素是不是数字:
+</p>
+
+<div class="highlight"><pre><span class="nv">ELISP&gt;</span> <span class="p">(</span><span class="nb">numberp</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="no">t</span>
+</pre></div>
+
+<p>
+类似的我们有 <code>stringp</code> 来判断目标元素是不是字符串。lisp的 <code>t</code> 和 <code>nil</code> 就是布尔真和布尔假。然后空表()也表示nil，然后其他所有东西都看作真。除开上面讲的有具体值atom元素，第二大类元素就是符号(symbol)，所谓symbol就是你在lisp里面简单输入一个x，其就是一个符号，这个符号具体的值可以对应为某个函数，或者某个值。
+</p>
+
+<p>
+然后接下来lisp的第二大概念就是列表，lisp的一个表达式就是一个列表。比如:
+</p>
+<div class="highlight"><pre><span class="nv">ELISP&gt;</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">2</span> <span class="mi">5</span><span class="p">)</span>
+<span class="mi">7</span>
+<span class="nv">ELISP&gt;</span> <span class="p">(</span><span class="nb">*</span> <span class="mi">5</span> <span class="mi">5</span><span class="p">)</span>
+<span class="mi">25</span>
+</pre></div>
+
+<p>
+若这个列表被eval执行，也就是如上输入，则该列表第一个元素总认为是一个函数，然后后面的都是该函数的各个参数。具体函数定义细节这里略过。
+</p>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">quote函数</h3>
+<div class="outline-text-3" id="text-orgheadline2">
+<p>
+在lisp系统中，quote是一个特殊的函数，其意思是:
+</p>
+<pre>
+(eval (quote x)) = x
+</pre>
+
+<p>
+也就是后面的元素跳过eval，直接返回自身。上面的 (quote x) 还有一种简写形式 'x ，你可以直接输入'x来返回某个符号对象。
+</p>
+
+<div class="highlight"><pre><span class="nv">ELISP&gt;</span> <span class="ss">&#39;x</span>
+<span class="nv">x</span>
+<span class="nv">ELISP&gt;</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+<p>
+这里需要读者深刻理解，因为在lisp语言中，任何一个列表都将被eval的，而具体就是递归遍历列表内的各个元素，将各个元素都求出值出来，这里所谓的求出值，就是最终元素为上面讲的atom元素类型，或者数字或者字符串。如果是列表套列表结构（或者说得不规范点，括号套括号结构），那么里面的子列表可以看作大列表内的子元素，然后其又将继续eval之。如此递归循环，直到得出某个结果。然后对于每个列表的eval都将其内的第一个元素视作函数。
+</p>
+
+<p>
+因此quote函数被lisp语言里面广泛使用，被用作表达本符号自身，然后出了第一个eval列表之后，到达父列表，其就是x也就是被eval出该符号对应的值了。所以我们也可以把引用包装某个符号看作将该符号的值传递给父环境列表中。
+</p>
+
+<p>
+因为其他编程语言的列表和lisp语言里面的列表相去甚远，所以最好称之为链表。下面将介绍一下lisp语言的链表结构，理解这点对于理解lisp语言和编程模式是很关键的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">链表结构</h3>
+<div class="outline-text-3" id="text-orgheadline3">
+<p>
+本小节的例子使用的是common-lisp，但这里具体是要理解lisp语言底层的链表结构，这一点各个lisp方言包括emacs-lisp都是一致的。
+</p>
+
+<p>
+首先推荐读者到 <a href="http://www.cs.cmu.edu/~dst/Lisp/sdraw/sdraw.generic">这里</a> 下载该网页文件保存为 <code>sdraw.lisp</code> 。然后在slime中加载如下所示:
+</p>
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">load</span> <span class="s">&quot;~/sdraw.lisp&quot;</span><span class="p">)</span>
+<span class="c1">;; Loading file /home/wanze/sdraw.lisp ...</span>
+<span class="c1">;; Loaded file /home/wanze/sdraw.lisp</span>
+<span class="no">T</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nv">sdraw</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">))</span>
+
+<span class="nv">[*|*]---&gt;NIL</span>
+<span class="nv"> |</span>
+ <span class="nv">v</span>
+<span class="s">&quot;a&quot;</span>
+<span class="c1">; No value</span>
+</pre></div>
+
+<p>
+这里 <strong>load</strong> 函数就是加载某个lisp脚本，这个lisp脚本提供了一个 <strong>sdraw</strong> 函数，其可以画出你给出的链表的结构图，是个不错的工具。
+</p>
+
+<p>
+我们看到上面的例子，链表("a")里面就一个元素，其实际上是由两个部分组成的，第一个是car，也就是链表头，第二个是cdr，也就是链表尾。如下所示:
+</p>
+
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">car</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">))</span>
+<span class="s">&quot;a&quot;</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">cdr</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">))</span>
+<span class="no">NIL</span>
+<span class="nv">CL-USER&gt;</span>
+</pre></div>
+
+<p>
+然后我们再来看两个元素的情况:
+</p>
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nv">sdraw</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;a&quot;</span> <span class="s">&quot;b&quot;</span><span class="p">))</span>
+
+<span class="nv">[*|*]---&gt;[*|*]---&gt;NIL</span>
+ <span class="nv">|        |</span>
+ <span class="nv">v</span>        <span class="nv">v</span>
+<span class="s">&quot;a&quot;</span>      <span class="s">&quot;b&quot;</span>
+</pre></div>
+
+<p>
+我们看到lisp的链表大致由叫做cons cell的东西链接起来的，这个cons cell分为两部分，一个头（car），一个尾（cdr），然后头或尾可以具体指向某个值，其中头或者尾指向某个具体的值则表明该链接终止了。一般的链表就如同上面所示，头指向某个具体的值，尾链接其他cons cell或者最终指向nil终止。但实际上还有一种结构:
+</p>
+
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nv">sdraw</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;a&quot;</span> <span class="o">.</span> <span class="s">&quot;b&quot;</span><span class="p">))</span>
+
+<span class="nv">[*|*]---&gt;&quot;b&quot;</span>
+<span class="nv"> |</span>
+ <span class="nv">v</span>
+<span class="s">&quot;a&quot;</span>
+</pre></div>
+
+
+<p>
+下面再贴一个链表之内还有一个链表的情况:
+</p>
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nv">sdraw</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;a&quot;</span> <span class="p">(</span><span class="s">&quot;b&quot;</span> <span class="s">&quot;c&quot;</span><span class="p">)))</span>
+
+<span class="nv">[*|*]---&gt;[*|*]---&gt;NIL</span>
+ <span class="nv">|        |</span>
+ <span class="nv">v</span>        <span class="nv">v</span>
+<span class="s">&quot;a&quot;</span>      <span class="nv">[*|*]---&gt;[*|*]---&gt;NIL</span>
+          <span class="nv">|        |</span>
+          <span class="nv">v</span>        <span class="nv">v</span>
+         <span class="s">&quot;b&quot;</span>      <span class="s">&quot;c&quot;</span>
+</pre></div>
+
+<p>
+实际上这里所谓的 cons cell 的cons是英文单词链接concatenate的缩写，你可以如下来自己构建一个链表结构:
+</p>
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">cons</span> <span class="s">&quot;a&quot;</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">)</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">cons</span> <span class="s">&quot;a&quot;</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;b&quot;</span> <span class="s">&quot;c&quot;</span><span class="p">))</span>
+<span class="p">(</span><span class="s">&quot;a&quot;</span> <span class="s">&quot;b&quot;</span> <span class="s">&quot;c&quot;</span><span class="p">)</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">cons</span> <span class="s">&quot;a&quot;</span> <span class="o">&#39;</span><span class="p">((</span><span class="s">&quot;b&quot;</span> <span class="s">&quot;c&quot;</span><span class="p">)))</span>
+<span class="p">(</span><span class="s">&quot;a&quot;</span> <span class="p">(</span><span class="s">&quot;b&quot;</span> <span class="s">&quot;c&quot;</span><span class="p">))</span>
+<span class="nv">CL-USER&gt;</span>
+</pre></div>
+
+<p>
+这里就是构建一个cons cell，car指向第一个参数，cdr指向第二个参数。
+</p>
+
+<p>
+上面谈及的lisp语言系最通用的一些概念，具有普适性。然后接下来lisp编程的故事就是各种各样的函数——官方内置的或者你自己定义的了。这其中各个lisp方言之间差异就很大了。我们后面再详细讨论之。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline34" class="outline-2">
+<h2 id="orgheadline34">elisp基础</h2>
+<div class="outline-text-2" id="text-orgheadline34">
+</div><div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">注释</h3>
+<div class="outline-text-3" id="text-orgheadline4">
+<p>
+注释用 <code>;</code> 符号开始。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">程序中的操作对象</h3>
+<div class="outline-text-3" id="text-orgheadline5">
+<ul class="org-ul">
+<li>integer float 同样存在数值范围限制，这个程序员注意点就可以了</li>
+
+<li>character 这个比较特殊，不是 'a' 这样的表达，而是 ?a 这样的输入，然后字符实际上就是一个数值，此外特殊的字符还有:</li>
+</ul>
+<pre>
+?\a ⇒ 7    ; control-g, C-g
+?\b ⇒ 8    ; backspace, BS, C-h
+?\t ⇒ 9    ; tab, TAB, C-i
+?\n ⇒ 10   ; newline, C-j
+?\v ⇒ 11   ; vertical tab, C-k
+?\f ⇒ 12   ; formfeed character, C-l
+?\r ⇒ 13   ; carriage return, RET, C-m
+?\e ⇒ 27   ; escape character, ESC, C-[
+?\s ⇒ 32   ; space character, SPC
+?\\ ⇒ 92   ; backslash character, \
+?\d ⇒ 127  ; delete character, DEL
+</pre>
+
+<p>
+特殊符号的转义，这些符号应该用 \ 来进行转义:
+</p>
+<pre>
+( ) \ | ; " # . ,
+</pre>
+<p>
+官方文档还有单左引号和单右引号 ’‘ ，似乎在英文中并没使用这两个符号啊？
+</p>
+
+<ul class="org-ul">
+<li>symbol 可以看作其他语言的变量名</li>
+
+<li>sequence 其包括 list（） 和 array（arrayp） 。array是定长数组，其又可以分为: string vector char-table（char-table-p） bool-table 。sequence不可以读两次？
+<ul class="org-ul">
+<li>string 一大段字符串可以用 \ 换行  char-or-string-p</li>
+<li><p>
+vertor
+</p>
+<pre>
+ELISP&gt; [1 2 3]
+[1 2 3]
+</pre></li>
+</ul></li>
+</ul>
+
+<p>
+bool-vector-p
+</p>
+
+<ul class="org-ul">
+<li>cons cell 结构，这个就是lisp语言的底层了。 consp</li>
+<li>dotted pair notation 其实也是一种更 cons cell 结构，只是两端都有值 (a . b)</li>
+<li>association list  基于前面的dotted pair notation:</li>
+</ul>
+
+<p>
+#+BEGIN<sub>EXAMPLE</sub>
+</p>
+</div>
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6">Welcome to IELM <strong>*</strong>  Type (describe-mode) for help.</h4>
+<div class="outline-text-4" id="text-orgheadline6">
+<p>
+ELISP&gt; '(("rose" . "red") ("lily" . "white") ("buttercup" . "yellow"))
+(("rose" . "red")
+ ("lily" . "white")
+ ("buttercup" . "yellow"))
+#+END<sub>EXAMPLE</sub>
+</p>
+
+<p>
+这可以看作对应python语言的字典或map结构的存在。
+</p>
+
+<ul class="org-ul">
+<li>hash-table hash-table类似于association list 但查找更快。后面再详细讨论。</li>
+<li>function 实际上就是第一个元素为lambda的链表</li>
+<li>macro</li>
+<li>autoload</li>
+</ul>
+
+<p>
+custom-variable-p
+</p>
+<hr >
+<p>
+编辑器相关对象
+</p>
+<ul class="org-ul">
+<li>buffer bufferp</li>
+<li>marker</li>
+<li>window</li>
+<li>frame</li>
+<li>terminal</li>
+<li>window configuration</li>
+<li>frame configuration</li>
+<li>process</li>
+<li>stream</li>
+<li>keymap</li>
+<li>overlay</li>
+<li>font</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9">类型检测</h3>
+<div class="outline-text-3" id="text-orgheadline9">
+</div><div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7">type-of</h4>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8">其他p型函数</h4>
+<div class="outline-text-4" id="text-orgheadline8">
+<p>
+atom
+arrayp
+bool-vector-p
+bufferp
+byte-code-function-p
+case-table-p
+char-or-string-p
+char-table-p
+commandp
+consp
+custom-variable-p
+display-table-p
+floatp
+fontp
+frame-configuration-p
+frame-live-p
+framep
+functionp
+hash-table-p
+integer-or-marker-p
+integerp
+keymapp
+keywordp
+listp
+markerp
+wholenump
+nlistp
+numberp
+number-or-marker-p
+overlayp
+processp
+sequencep
+stringp
+subrp
+symbolp
+syntax-table-p
+vectorp
+window-configuration-p
+window-live-p
+windowp
+booleanp
+string-or-null-p
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10">相等判断</h3>
+<div class="outline-text-3" id="text-orgheadline10">
+<p>
+相等判断：equal   eq   eql  =  equalp
+eq是运算最快的了，它只比较地址。
+equal比较内容。
+eql类似eq，比较地址，还专门针对不同类型的数字。
+= 专门针对不同类型的数字
+equalp和equal差不多，但是忽略字符中的大小写。
+</p>
+</div>
+
+
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11">eq</h4>
+<div class="outline-text-4" id="text-orgheadline11">
+<p>
+test if the same object
+</p>
+<pre>
+(eq object1 object2)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12">equal</h4>
+<div class="outline-text-4" id="text-orgheadline12">
+<p>
+test if has the same components
+</p>
+<pre>
+(equal object1 object2)
+</pre>
+
+<p>
+equal-including-properties object1 object2
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13">定义变量</h3>
+<div class="outline-text-3" id="text-orgheadline13">
+<p>
+setq是最基本的，上面已经有所介绍了。然后是defvar和defconst，一般推荐使用defvar和defconst，其中defvar用于声明变量，然后defconst用于声明常量，此外还有defcustom，defcustom比较复杂，等下再详细讨论，其和defvar，defconst的区别是defcustom适用于接口开放给用户的变量，好方便用户来定制。defvar和defconst和setq的区别是其可以接受一段字符串作为自身的描述信息，所以一般推荐使用这个。然后这几个本质上应该都是基于setq的，也就是都是定义的全局变量。
+</p>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14">defvar</h4>
+<div class="outline-text-4" id="text-orgheadline14">
+<pre>
+defvar symbol [ value [ doc-string ]]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15">defconst</h4>
+<div class="outline-text-4" id="text-orgheadline15">
+<pre>
+defconst symbol value [ doc-string ]
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16">defcustom</h4>
+<div class="outline-text-4" id="text-orgheadline16">
+<p>
+defcustom参数和defvar比较起来多了一些可选项关键词参数可以填，然后前面三个意思是变量名字，初始值和说明文档。
+</p>
+<pre>
+defcustom option standard doc [ keyword value ]
+</pre>
+
+<p>
+凡是需要对外开放给用户配置的变量都推荐使用defcustom，然后通过 <code>custom-set-variables</code> 来配置这些变量。如下所示:
+</p>
+<pre>
+(custom-set-variables
+ '(cua-mode t nil (cua-base))
+ '(custom-enabled-themes (quote (tango-dark))))
+</pre>
+
+<p>
+<code>custom-set-variables</code> 里面定制的格式，第一个是变量名，第二个是具体的值，这都是好理解的。然后后面是一些可选的参数，now request和comment。其中now如果non-nil则该变量的值没有evaluate也进行赋值，然后request是一个feature列表，这个后面再说。comment就是一些定制说明了。
+</p>
+
+
+
+<p>
+defcustom的大致格式如下:
+</p>
+<pre>
+(defcustom org-html-use-infojs 'when-configured
+  "Non-nil when Sebastian Rose's Java Script org-info.js should be active.
+This option can be nil or t to never or always use the script.
+It can also be the symbol `when-configured', meaning that the
+script will be linked into the export file if and only if there
+is a \"#+INFOJS_OPT:\" line in the buffer.  See also the variable
+`org-html-infojs-options'."
+  :group 'org-export-html
+  :version "24.4"
+  :package-version '(Org . "8.0")
+  :type '(choice
+      (const :tag "Never" nil)
+      (const :tag "When configured in buffer" when-configured)
+      (const :tag "Always" t)))
+</pre>
+
+<p>
+每一个关键词前面都应该加上 <code>:</code> ，下面详细讨论这些关键词:
+</p>
+
+<ul class="org-ul">
+<li>:type 数据类型定义</li>
+<li>:options 关于该变量的一系列的建议值</li>
+<li>:group 该变量属于那个群组</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17">defgroup</h4>
+<div class="outline-text-4" id="text-orgheadline17">
+<p>
+定义一个群组
+</p>
+<pre>
+defgroup group members doc [ keyword value ]
+</pre>
+
+<p>
+如果其接受 :group ，则表示该群组属于那个群组。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18">eval-last-sexp</h3>
+<div class="outline-text-3" id="text-orgheadline18">
+<p>
+eval最后一个s表达式，这个快捷键很常用 <code>C-x C-e</code> ，用来执行最后一个S表达式，方便快速测试。然后还有 <code>C-:</code> 在minibuffer下进行互动。比如下面写上这么一行，然后在行尾执行 <code>C-x C-e</code>
+</p>
+
+<p>
+(defun hello () (message "hello world"))
+</p>
+
+<p>
+这个定义的hello命令就进入elisp环境了，然后输入 <code>C-:</code> ，在minibuffer下来输入 (hello) 来看一下效果。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19">concat函数</h3>
+<div class="outline-text-3" id="text-orgheadline19">
+<p>
+字符串拼接函数
+(concat "abc" "abc")
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20">substring函数</h3>
+<div class="outline-text-3" id="text-orgheadline20">
+<p>
+(substring "test" 0 2)
+相当于python的 "test"[0:2]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21">buffer-name</h3>
+<div class="outline-text-3" id="text-orgheadline21">
+<p>
+(buffer-name)
+目前buffer的name
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22">buffer-file-name</h3>
+<div class="outline-text-3" id="text-orgheadline22">
+<p>
+(buffer-file-name)
+目前buffer在系统的中的文件路径名
+</p>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23">返回该脚本所在的目录路径</h3>
+<div class="outline-text-3" id="text-orgheadline23">
+<p>
+参考了 <a href="http://stackoverflow.com/questions/4088681/get-path-to-current-emacs-script-file-when-loaded-with-l-parameter">这个网页</a> 。
+</p>
+
+<p>
+如下面的代码将返回本脚本所在的目录路径，字符串形式。
+</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">file-name-directory</span> <span class="nv">load-file-name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+
+
+
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24">读取某个文件内容</h3>
+<div class="outline-text-3" id="text-orgheadline24">
+<p>
+参考了 <a href="http://ergoemacs.org/emacs/elisp_read_file_content.html">这个网页</a> 。
+</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nb">defun</span> <span class="nv">get-string-from-file</span> <span class="p">(</span><span class="nv">filePath</span><span class="p">)</span>
+  <span class="s">&quot;Return filePath&#39;s file content.&quot;</span>
+  <span class="p">(</span><span class="nv">with-temp-buffer</span>
+    <span class="p">(</span><span class="nv">insert-file-contents</span> <span class="nv">filePath</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">buffer-string</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29">程序流程控制函数</h3>
+<div class="outline-text-3" id="text-orgheadline29">
+</div><div id="outline-container-orgheadline25" class="outline-4">
+<h4 id="orgheadline25">if函数</h4>
+<div class="outline-text-4" id="text-orgheadline25">
+<p>
+if函数最简单的理解如下所示:
+</p>
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="k">if</span> <span class="no">t</span> <span class="mi">5</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="k">if</span> <span class="no">nil</span> <span class="mi">5</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="nv">CL-USER&gt;</span>
+</pre></div>
+<p>
+如果第二个元素估值为t，则返回第三个元素的值，如果是nil则返回第四个元素的值。然后第四个元素可以不填，也就是nil的时候什么都不做或者说返回nil。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-4">
+<h4 id="orgheadline26">and</h4>
+<div class="outline-text-4" id="text-orgheadline26">
+<p>
+and是先evaluate一个，如果是真，那么going on to evaluate，如果是nil，那么返回nil。
+and还有一个有趣的性质，那就是如果都为真，那么最后返回的不是T，而是最后那个信息的结果。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline27" class="outline-4">
+<h4 id="orgheadline27">or</h4>
+<div class="outline-text-4" id="text-orgheadline27">
+<p>
+or是先evaluate一个，如果是真就report，同样返回这个信息的结果，如果是nil，keep going on to search。
+(or nil nil 'apple 'blue)-&#x2014;&gt;apple
+</p>
+
+<p>
+or可以建立事物的组合关系，这样对应真实世界的空间关系。也就是抽取一个属性，和某个逻辑判断元比对后，返回这个属性。
+and可以建立事物的序列关系，对应真实世界的时间关系。即依次对比，直到反馈最后一个属性
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28">cond</h4>
+<div class="outline-text-4" id="text-orgheadline28">
+<p>
+cond函数相当于c语言的switch语句。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30">defun定义自己的函数</h3>
+<div class="outline-text-3" id="text-orgheadline30">
+<p>
+在lisp中讲到定义函数就不得不提lambda表达式，对lambda表达式有兴趣的请上网搜索相关信息了解之。简单来说就是如这样的 <code>(lambda (x) (* x x))</code> 一种匿名函数表示方法。该列表第二项定义的该函数的入口参数，然后第三项定义的是该函数的结果返回形式。对应的通过 <strong>defun</strong> 来定义自己的函数如下所示:
+</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nb">defun</span> <span class="nv">square</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">))</span>
+</pre></div>
+
+<p>
+通过defun定义的有名函数，底层实质就是lambda函数机制，不过是给具体的那个lambda函数对象赋了一个名字罢了。我们前面说道lisp在eval一个链表的时候，其第一项将被默认认为是一个函数对象，其实质就是指向了一个lambda函数对象。
+</p>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline31" class="outline-4">
+<h4 id="orgheadline31">let创建局部变量</h4>
+<div class="outline-text-4" id="text-orgheadline31">
+<p>
+let 主要用于创造local  variables.用法如下
+</p>
+
+
+<p>
+上面就是用let 给sum赋值，然后sum是local  variale,即他的存在只在let 这个括号内
+</p>
+
+<p>
+let 在body中遇到不认识的变量了，首先在自己内部找，如果找不到，那么在global variable中找。
+然后没定义一个defun其函数内部都有自己独立的语境，即用自己的局域变量，找不到就用广义变量。还找不到就说出现错误
+</p>
+
+
+<p>
+let*和let的区别就是一次只运算赋值一个本地变量，然后再第二个。也就是说如果第二个的赋值依赖于第一个的话，那么比如用let*。比如说我先赋值r，然后赋值面积等于2 * pai*r，那么第二个赋值就依赖于第二个。这种情况用let就会出现错误。但是编程一般用let，为了竟可能减少程序间的依赖关系，方便理解
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32">深入理解闭包</h3>
+</div>
+
+
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33">理解递归</h3>
+<div class="outline-text-3" id="text-orgheadline33">
+<p>
+&gt; (defun our-member (obj lst)
+   (if (null lst)
+       nil
+   (if (eql (car lst) obj)
+       lst
+       (our-member obj (cdr lst)))))
+OUR-MEMBER
+</p>
+
+<p>
+(defun median (list)
+       (let ((sortlist (sort list #'&lt;))
+         (long (length list)))
+         (if (oddp long) (nth (/ (- long 1) 2) sortlist)
+         (/ (+ (nth (- (/ long 2) 1) sortlist ) (nth (/ long 2) sortlist)) 2.0))))
+</p>
+
+<p>
+defparameter
+</p>
+
+<p>
+defconstant
+</p>
+
+<p>
+boundp
+</p>
+
+<p>
+setf
+</p>
+
+
+<p>
+do 宏
+</p>
+
+<p>
+loop 宏
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline35" class="outline-2">
+<h2 id="orgheadline35">链表操作函数</h2>
+<div class="outline-text-2" id="text-orgheadline35">
+<p>
+car
+</p>
+
+<p>
+cdr
+</p>
+
+<p>
+cadr  second
+</p>
+
+<div class="highlight"><pre><span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">cadr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
+<span class="mi">2</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">second</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
+<span class="mi">2</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">caddr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
+<span class="mi">3</span>
+<span class="nv">CL-USER&gt;</span> <span class="p">(</span><span class="nb">third</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
+<span class="mi">3</span>
+<span class="nv">CL-USER&gt;</span>
+</pre></div>
+
+
+
+
+<p>
+cons ，list 还有append。
+cons这个命令就是创建cons cell结构，通常用于把元素添加到列表头上。
+ 整个过程是先创造一个cons cell，第一个地址指向第一个元素，第二个地址指向第二个元素。
+</p>
+
+
+<p>
+需要特别说明的就是那个中间加点的结构，叫什么dotted list，意思是它不是以nil结尾的。而是以一个值。
+</p>
+
+<p>
+list这个命令好理解点，就是加了一个括号。也就是总是ending in nil。因为括号就是意味这一个标准的cons cell 结构 而且以nil结束。
+</p>
+
+<p>
+append命令作用过程是首先复制第一个列表作为input信号，然后将其尾部指向到第二个元素中。
+因此append命令第一个元素必须是列表，否则会出现错误。
+(append 'a '(b c))&#x2014;&gt;error!!
+</p>
+
+
+<p>
+更多的列表操作函数：
+reverse               nth                        nthcdr                  last           remove
+上面四个函数都是创建了一个新的列表，原列表对应的变量的值并没有改变。
+</p>
+</div>
+
+<div id="outline-container-orgheadline36" class="outline-3">
+<h3 id="orgheadline36">reverse  将列表第一层元素倒置:</h3>
+<div class="outline-text-3" id="text-orgheadline36">
+<p>
+(reverse '((a b) (c d) (e f)))
+&#x2014;&gt;((e f) (c d) (a b))
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-3">
+<h3 id="orgheadline37">nth</h3>
+<div class="outline-text-3" id="text-orgheadline37">
+<p>
+  提取列表的第几个元素:
+(nth 0 '(a b c))&#x2013;&#x2014;&gt;A
+(nth 1 '(a (b c) d))&#x2014;&gt;(B C)
+说明，在common-lisp中数数都是从0开始数的。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38">nthcdr</h3>
+<div class="outline-text-3" id="text-orgheadline38">
+<p>
+  cdr命令我们是知道的，nth就是做几次cdr命令。所以做0次就是原列表，做一次cdr等等。
+需要注意的就是：
+(cdr nil)&#x2014;&gt;nil
+也就是对空列表cdr还是空列表，所以如果cdr过头了就会得到nil，但是有一个例外，那就是dotted list。
+因为dotted list是以一个元素作结尾，这样将会导致错误。因为cdr不能对列表进行操作。
+(nthcdr 2 '(a b c))&#x2014;&gt;(c)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39">last</h3>
+<div class="outline-text-3" id="text-orgheadline39">
+<p>
+ last返回的是列表的最后一个cons cell结构。
+(last nil)&#x2014;&gt;nil
+对于正常的列表就是返回最后一个元素，不过是加了列表符号的。
+(last '(a b c))&#x2014;&gt;(c)
+对于dotted list则是所谓的最后一个cons cell：
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40">remove</h3>
+<div class="outline-text-3" id="text-orgheadline40">
+<p>
+     remove就是把某个列表中出现的某个元素给移去。
+(remove 'a '(b a n a n a))&#x2014;&gt;(b n n)
+这个时候你们一定会像是局限于元素，还是局限于某个单元元素，还是列表中出现的任何地方的元素。
+最后结果如图片2所示：
+</p>
+
+<p>
+表作为集合：
+集合的概念我们在数学中已经了解得很清除了。lisp的括号非常方便表达集合，除了每一个item项目只出现一次要特别注意就是了。
+虽然下面对集合的几个函数对于不是作为集合的列表也可以操作，但最好还是严格定义。
+以下是针对集合的命令：
+member      intersection       union       set-difference     subsetp
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline41" class="outline-3">
+<h3 id="orgheadline41">member</h3>
+<div class="outline-text-3" id="text-orgheadline41">
+<p>
+member函数的作用就是核对某个value值是不是在后面列表中。如果是那么返回真值，包括开始为真的那个值也包括后面的元素。是假那么返回nil。
+</p>
+
+
+<p>
+这个和remove是类似的，所以这个命令和严格的集合内部元素判断的定义还是有点差异的。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42">intersection</h3>
+<div class="outline-text-3" id="text-orgheadline42">
+<p>
+交集
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline43" class="outline-3">
+<h3 id="orgheadline43">union</h3>
+<div class="outline-text-3" id="text-orgheadline43">
+<p>
+补集
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline44" class="outline-3">
+<h3 id="orgheadline44">set-difference</h3>
+<div class="outline-text-3" id="text-orgheadline44">
+<p>
+差集
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45">subsetp</h3>
+<div class="outline-text-3" id="text-orgheadline45">
+<p>
+判断第一个集合是不是第二个集合的子集，是就返回T，这里是确定的t。假返回nil。
+</p>
+
+<p>
+上面的交集补集差集就和集合的定义运算完全一致了，也就是第一个参量是一个列表的话，代表着一个整体对第二个集合进行考察。而这种操作是有意义的，而前面的remove member似乎都不包括这一情况。而9.10.11.12这几个命令必须是列表不能是元素。看来所有这些命令至少有一点是共同的，那就是第一个项目要某是列表要某是元
+</p>
+
+<p>
+用集合来解决一个小问题，输入一个名字，然后在这个名字的前面加上mr或者ms之类的。
+以后编程都要遵循以下两点，一是将一个大问题转化成一些小的问题小的函数，二是一次测试好一个函数。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline46" class="outline-3">
+<h3 id="orgheadline46">assoc</h3>
+</div>
+
+<div id="outline-container-orgheadline47" class="outline-3">
+<h3 id="orgheadline47">set-exclusive-or</h3>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline65" class="outline-2">
+<h2 id="orgheadline65">更多的函数</h2>
+<div class="outline-text-2" id="text-orgheadline65">
+</div><div id="outline-container-orgheadline48" class="outline-3">
+<h3 id="orgheadline48">subst</h3>
+</div>
+
+<div id="outline-container-orgheadline49" class="outline-3">
+<h3 id="orgheadline49">sublis</h3>
+</div>
+
+
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="orgheadline50">funcall</h3>
+</div>
+
+<div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51">mapcar</h3>
+</div>
+
+<div id="outline-container-orgheadline52" class="outline-3">
+<h3 id="orgheadline52">lambda</h3>
+</div>
+
+<div id="outline-container-orgheadline53" class="outline-3">
+<h3 id="orgheadline53">find-if</h3>
+</div>
+
+<div id="outline-container-orgheadline54" class="outline-3">
+<h3 id="orgheadline54">remove-if-not</h3>
+</div>
+
+<div id="outline-container-orgheadline55" class="outline-3">
+<h3 id="orgheadline55">remove-if</h3>
+</div>
+
+<div id="outline-container-orgheadline56" class="outline-3">
+<h3 id="orgheadline56">reduce</h3>
+</div>
+
+<div id="outline-container-orgheadline57" class="outline-3">
+<h3 id="orgheadline57">every</h3>
+</div>
+
+
+<div id="outline-container-orgheadline58" class="outline-3">
+<h3 id="orgheadline58">setf</h3>
+</div>
+
+<div id="outline-container-orgheadline59" class="outline-3">
+<h3 id="orgheadline59">incf</h3>
+</div>
+
+<div id="outline-container-orgheadline60" class="outline-3">
+<h3 id="orgheadline60">decf</h3>
+</div>
+
+<div id="outline-container-orgheadline61" class="outline-3">
+<h3 id="orgheadline61">push</h3>
+</div>
+
+<div id="outline-container-orgheadline62" class="outline-3">
+<h3 id="orgheadline62">pop</h3>
+</div>
+
+<div id="outline-container-orgheadline63" class="outline-3">
+<h3 id="orgheadline63">when</h3>
+</div>
+
+<div id="outline-container-orgheadline64" class="outline-3">
+<h3 id="orgheadline64">unless</h3>
+<div class="outline-text-3" id="text-orgheadline64">
+<p>
+ 类似的第二个元素有：
+cadr     second     nth
+第三个元素有：
+caddr    third      nth
+</p>
+
+
+
+<p>
+2.破坏性列表操作符
+append      对应的是     nconc
+subst                    nsubst
+union                    nunion
+intersection             nintersection
+set-difference           nset-difference
+</p>
+
+
+<p>
+3.setq和set函数
+lisp早期赋值函数就是setq，还没有setf和对广义变量的支持。现在一般都用setf赋值，不管是一般变量还是广义变量（second x）。setq算是一个比较老旧的过时的函数了，不过一般lisp实现过程中，对一般变量来说还是会把setf变成setq的。
+set也是来自早期lisp的一种方言，我没兴趣了解了。
+</p>
+
+
+<p>
+4.迭代
+dotimes 和dolist函数
+这两个函数的结构式是：
+</p>
+
+
+
+<p>
+ do宏功能强大同时有点小复杂，首先他前面可以定义任意数量的变量，并赋初值。
+然后他后面还可以有个test函数，判断一下，如果为真，那么依次执行后面的action-1之类的。如果为假，那么执行一次循环体body，然后更新变量，然后再判断一次。如此类推。body中如果有return函数执行的话，会退出整个do宏
+</p>
+
+
+
+<p>
+；；；这篇文章介绍了的函数有：
+factorial -&#x2014;阶乘函数
+fibonnaci&#x2013;&#x2014;斐波拉契数列函数
+insert  &#x2014;&#x2014;插入函数
+arrange  &#x2013;&#x2014;排列函数
+while和until  宏
+</p>
+
+
+
+<p>
+;;;while macro
+(defmacro while (test  &amp;rest body)
+  `(do ()
+       ((not ,test))
+       ,@body))
+</p>
+
+<p>
+;;;until macro
+(defmacro until (test &amp;rest body)
+  `(do ()
+       (,test)
+       ,@body))
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline66" class="outline-2">
+<h2 id="orgheadline66">定义自己的包</h2>
+<div class="outline-text-2" id="text-orgheadline66">
+<p>
+.(defun p (x y)
+                          (cond  ((zerop y) 1)
+                                     ((= y (1- x)) 1)
+                                     (t  (+ (p (1- x) (1- y)) (p (1- x) y)))))
+</p>
+
+
+
+<p>
+(defun pascal (n)
+                          (loop  for  i  from 0  to (1- n)
+                               collect (p n i)))
+</p>
+
+<p>
+(defun pascal-triangle (x)
+                          (loop for i from 1 to x
+                             for s = '(1) then (pascal i)
+                                 do  (format t "~&amp;~s" s)))
+</p>
+
+
+
+<p>
+(defmacro show-series (f a z &amp;optional (step 1))
+  `(loop for n from ,a to ,z by ,step
+for y = ,f
+collect y ))
+</p>
+
+
+
+<p>
+(defmacro sum (f a z &amp;optional (step 1))
+  `(loop for n from ,a to ,z by ,step
+for y = ,f
+collect y into lst
+finally (return (reduce #'+ lst))))
+</p>
+
+
+<p>
+(defmacro product (f a z &amp;optional (step 1))
+  `(loop for n from ,a to ,z by ,step
+for y = ,f
+collect y into lst
+finally (return (reduce #'* lst))))
+</p>
+
+<p>
+(defmacro sum (f x a b &amp;optional (step 1))
+  `(loop for ,x from ,a to ,b by ,step
+for y = ,f
+collect y into lst
+finally (return (reduce #'+ lst)))
+</p>
+
+
+<p>
+ (defmacro show-series (f x a z &amp;optional (step 1))
+  `(loop for ,x from ,a to ,z by ,step
+for y = ,f
+collect y ))
+(defmacro product (f x a z &amp;optional (step 1))
+   `(loop for ,x from ,a to ,z by ,step
+for y = ,f
+ collect y into lst
+ finally (return (reduce #'* lst))))
+</p>
+
+<p>
+ (defmacro s-integrate (f x a b &amp;optional (n 100))
+`(let ((h (/ (- ,b ,a) ,n)))
+  (* (* h 1/3)
+     (+
+(let ((,x ,a))
+    ,f)
+      (* 4 (sum ,f ,x (+ ,a h) ,b (* 2 h)))
+      (* 2 (sum ,f ,x (+ ,a (* 2 h)) (- ,b h) (* 2 h)))
+(let ((,x ,b))
+  ,f)))))
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline70" class="outline-2">
+<h2 id="orgheadline70">附录</h2>
+<div class="outline-text-2" id="text-orgheadline70">
+</div><div id="outline-container-orgheadline67" class="outline-3">
+<h3 id="orgheadline67">emacs中使用common-lisp</h3>
+<div class="outline-text-3" id="text-orgheadline67">
+<p>
+在deb系系统中推荐直接用apt-get安装之:
+</p>
+<div class="highlight"><pre>apt-get install slime
+</pre></div>
+
+<p>
+这样安装之后连配置都不用配置了，直接输入 <code>M-x slime</code> 即可，不过你可能还没有装一个common-lisp的解释器，gnu的 <code>clisp</code> 或者 <code>sbcl</code> 都还行吧。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline68" class="outline-3">
+<h3 id="orgheadline68">命令行执行emacs里面的命令</h3>
+<div class="outline-text-3" id="text-orgheadline68">
+<p>
+参考了 <a href="http://stackoverflow.com/questions/22072773/batch-export-of-org-mode-files-from-the-command-line">这个网页</a> 。
+</p>
+
+<p>
+如下所示，将以batch批处理模式加载test.org，然后执行命令"org-html-export-to-html" 。然后这里的 <code>-u</code> 是指定以某个用户的身份来运行emacs（主要是一些配置文件相关）。
+</p>
+<div class="highlight"><pre><span class="nv">emacs</span> <span class="nv">test.org</span> <span class="nv">-u</span> <span class="s">&quot;$(id -un)&quot;</span> <span class="nv">--batch</span>  <span class="nv">-f</span> <span class="nv">org-html-export-to-html</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline69" class="outline-3">
+<h3 id="orgheadline69">参考资料</h3>
+<div class="outline-text-3" id="text-orgheadline69">
+<ol class="org-ol">
+<li>COMMON LISP: A Gentle Introduction to Symbolic Computation ; Author: David S. Touretzky</li>
+<li><a href="http://acl.readthedocs.org/en/latest/">ANSI Common Lisp 中文</a></li>
+</ol>
+
+<pre>
+(add-to-list 'load-path "~/workspace/myemacs/myorg/org")
+(require 'org)
+</pre>
+
+<p>
+add-to-list
+</p>
+<div class="highlight"><pre><span class="nv">ELISP&gt;</span> <span class="p">(</span><span class="k">setq</span> <span class="nv">x</span> <span class="no">nil</span><span class="p">)</span>
+<span class="no">nil</span>
+<span class="nv">ELISP&gt;</span> <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;x</span> <span class="s">&quot;a&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">)</span>
+
+<span class="nv">ELISP&gt;</span> <span class="nv">x</span>
+<span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+
+<p>
+我们常见的 load-path 就是emacs启动时搜索插件路径的列表，所以我们加入某个搜索路径有如下命令:
+</p>
+
+
+<pre>
+(add-to-list 'load-path "~/workspace/myemacs/myorg/org")
+</pre>
+
+<p>
+eval-after-load
+</p>
+
+<p>
+eval-when-compile
+</p>
+
+
+<p>
+declare-function
+</p>
+
+<p>
+global-set-key
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

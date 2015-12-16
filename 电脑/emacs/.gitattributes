@@ -1,0 +1,8 @@
+ANSI[[:space:]]Common[[:space:]]Lisp.pdf filter=lfs diff=lfs merge=lfs -text
+common[[:space:]]lisp[[:space:]]a[[:space:]]gentle[[:space:]]introduction[[:space:]].pdf filter=lfs diff=lfs merge=lfs -text
+eintr.pdf filter=lfs diff=lfs merge=lfs -text
+elisp.pdf filter=lfs diff=lfs merge=lfs -text
+emacs.pdf filter=lfs diff=lfs merge=lfs -text
+On[[:space:]]Lisp.pdf filter=lfs diff=lfs merge=lfs -text
+org.pdf filter=lfs diff=lfs merge=lfs -text
+Paradigms-of-Artificial-Intelligence.pdf filter=lfs diff=lfs merge=lfs -text

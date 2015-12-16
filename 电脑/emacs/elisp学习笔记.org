@@ -1,0 +1,828 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+#+INFOJS_OPT: view:showall
+
+#+TITLE: 编写emacs插件
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+编写emacs插件的过程实际上就是熟悉elisp这门语言的过程。lisp语言在很多方面都和我们接触的其他大部分语言与众不同。要理解这点最关键的就是要理解lisp语言的链表数据结构。
+
+因为我以前折腾过一段时间的common-lisp了，所以下面的谈论就大致回顾一下lisp的最核心的一些特性（也不会拘泥于某些语法细节）:
+
+lisp语言里面最基本的元素是atom的，是atom类型的元素可以直接eval，你可以在emacs下输入 ~M-x ielm~ 来进入elisp的交互环境试着输入 1 或者 "abc" 来看一下。你可以如下来看看某个元素是不是数字:
+
+#+BEGIN_SRC emacs-lisp
+ELISP> (numberp 1.1)
+t
+#+END_SRC
+
+类似的我们有 ~stringp~ 来判断目标元素是不是字符串。lisp的 ~t~ 和 ~nil~ 就是布尔真和布尔假。然后空表()也表示nil，然后其他所有东西都看作真。除开上面讲的有具体值atom元素，第二大类元素就是符号(symbol)，所谓symbol就是你在lisp里面简单输入一个x，其就是一个符号，这个符号具体的值可以对应为某个函数，或者某个值。
+
+然后接下来lisp的第二大概念就是列表，lisp的一个表达式就是一个列表。比如:
+#+BEGIN_SRC emacs-lisp
+ELISP> (+ 2 5)
+7
+ELISP> (* 5 5)
+25
+#+END_SRC
+
+若这个列表被eval执行，也就是如上输入，则该列表第一个元素总认为是一个函数，然后后面的都是该函数的各个参数。具体函数定义细节这里略过。
+
+** quote函数
+在lisp系统中，quote是一个特殊的函数，其意思是:
+#+BEGIN_EXAMPLE
+(eval (quote x)) = x
+#+END_EXAMPLE
+
+也就是后面的元素跳过eval，直接返回自身。上面的 (quote x) 还有一种简写形式 'x ，你可以直接输入'x来返回某个符号对象。
+
+#+BEGIN_SRC emacs-lisp
+ELISP> 'x
+x
+ELISP> '(1 2 3)
+(1 2 3)
+#+END_SRC
+
+这里需要读者深刻理解，因为在lisp语言中，任何一个列表都将被eval的，而具体就是递归遍历列表内的各个元素，将各个元素都求出值出来，这里所谓的求出值，就是最终元素为上面讲的atom元素类型，或者数字或者字符串。如果是列表套列表结构（或者说得不规范点，括号套括号结构），那么里面的子列表可以看作大列表内的子元素，然后其又将继续eval之。如此递归循环，直到得出某个结果。然后对于每个列表的eval都将其内的第一个元素视作函数。
+
+因此quote函数被lisp语言里面广泛使用，被用作表达本符号自身，然后出了第一个eval列表之后，到达父列表，其就是x也就是被eval出该符号对应的值了。所以我们也可以把引用包装某个符号看作将该符号的值传递给父环境列表中。
+
+因为其他编程语言的列表和lisp语言里面的列表相去甚远，所以最好称之为链表。下面将介绍一下lisp语言的链表结构，理解这点对于理解lisp语言和编程模式是很关键的。
+
+
+** 链表结构
+本小节的例子使用的是common-lisp，但这里具体是要理解lisp语言底层的链表结构，这一点各个lisp方言包括emacs-lisp都是一致的。
+
+首先推荐读者到 [[http://www.cs.cmu.edu/~dst/Lisp/sdraw/sdraw.generic][这里]] 下载该网页文件保存为 ~sdraw.lisp~ 。然后在slime中加载如下所示:
+#+BEGIN_SRC lisp
+CL-USER> (load "~/sdraw.lisp")
+;; Loading file /home/wanze/sdraw.lisp ...
+;; Loaded file /home/wanze/sdraw.lisp
+T
+CL-USER> (sdraw '("a"))
+
+[*|*]--->NIL
+ |
+ v
+"a"
+; No value
+#+END_SRC
+
+这里 *load* 函数就是加载某个lisp脚本，这个lisp脚本提供了一个 *sdraw* 函数，其可以画出你给出的链表的结构图，是个不错的工具。
+
+我们看到上面的例子，链表("a")里面就一个元素，其实际上是由两个部分组成的，第一个是car，也就是链表头，第二个是cdr，也就是链表尾。如下所示:
+
+#+BEGIN_SRC lisp
+CL-USER> (car '("a"))
+"a"
+CL-USER> (cdr '("a"))
+NIL
+CL-USER> 
+#+END_SRC
+
+然后我们再来看两个元素的情况:
+#+BEGIN_SRC lisp
+CL-USER> (sdraw '("a" "b"))
+
+[*|*]--->[*|*]--->NIL
+ |        |
+ v        v
+"a"      "b"
+#+END_SRC
+
+我们看到lisp的链表大致由叫做cons cell的东西链接起来的，这个cons cell分为两部分，一个头（car），一个尾（cdr），然后头或尾可以具体指向某个值，其中头或者尾指向某个具体的值则表明该链接终止了。一般的链表就如同上面所示，头指向某个具体的值，尾链接其他cons cell或者最终指向nil终止。但实际上还有一种结构:
+
+#+BEGIN_SRC lisp
+CL-USER> (sdraw '("a" . "b"))
+
+[*|*]--->"b"
+ |
+ v
+"a"
+#+END_SRC
+
+
+下面再贴一个链表之内还有一个链表的情况:
+#+BEGIN_SRC lisp
+CL-USER> (sdraw '("a" ("b" "c")))
+
+[*|*]--->[*|*]--->NIL
+ |        |
+ v        v
+"a"      [*|*]--->[*|*]--->NIL
+          |        |
+          v        v
+         "b"      "c"
+#+END_SRC
+
+实际上这里所谓的 cons cell 的cons是英文单词链接concatenate的缩写，你可以如下来自己构建一个链表结构:
+#+BEGIN_SRC lisp
+CL-USER> (cons "a" nil)
+("a")
+CL-USER> (cons "a" '("b" "c"))
+("a" "b" "c")
+CL-USER> (cons "a" '(("b" "c")))
+("a" ("b" "c"))
+CL-USER> 
+#+END_SRC
+
+这里就是构建一个cons cell，car指向第一个参数，cdr指向第二个参数。
+
+上面谈及的lisp语言系最通用的一些概念，具有普适性。然后接下来lisp编程的故事就是各种各样的函数——官方内置的或者你自己定义的了。这其中各个lisp方言之间差异就很大了。我们后面再详细讨论之。
+
+
+
+* elisp基础
+** 注释
+注释用 ~;~ 符号开始。
+
+** 程序中的操作对象
+- integer float 同样存在数值范围限制，这个程序员注意点就可以了
+
+- character 这个比较特殊，不是 'a' 这样的表达，而是 ?a 这样的输入，然后字符实际上就是一个数值，此外特殊的字符还有:
+#+BEGIN_EXAMPLE
+?\a ⇒ 7    ; control-g, C-g
+?\b ⇒ 8    ; backspace, BS, C-h
+?\t ⇒ 9    ; tab, TAB, C-i
+?\n ⇒ 10   ; newline, C-j
+?\v ⇒ 11   ; vertical tab, C-k
+?\f ⇒ 12   ; formfeed character, C-l
+?\r ⇒ 13   ; carriage return, RET, C-m
+?\e ⇒ 27   ; escape character, ESC, C-[
+?\s ⇒ 32   ; space character, SPC
+?\\ ⇒ 92   ; backslash character, \
+?\d ⇒ 127  ; delete character, DEL
+#+END_EXAMPLE
+
+特殊符号的转义，这些符号应该用 \ 来进行转义:
+#+BEGIN_EXAMPLE
+( ) \ | ; " # . , 
+#+END_EXAMPLE
+官方文档还有单左引号和单右引号 ’‘ ，似乎在英文中并没使用这两个符号啊？
+
+- symbol 可以看作其他语言的变量名
+
+- sequence 其包括 list（） 和 array（arrayp） 。array是定长数组，其又可以分为: string vector char-table（char-table-p） bool-table 。sequence不可以读两次？
+  - string 一大段字符串可以用 \ 换行  char-or-string-p
+  - vertor  
+    #+BEGIN_EXAMPLE
+    ELISP> [1 2 3]
+    [1 2 3]
+    #+END_EXAMPLE
+     
+bool-vector-p
+
+- cons cell 结构，这个就是lisp语言的底层了。 consp
+- dotted pair notation 其实也是一种更 cons cell 结构，只是两端都有值 (a . b)
+- association list  基于前面的dotted pair notation:
+
+#+BEGIN_EXAMPLE
+*** Welcome to IELM ***  Type (describe-mode) for help.
+ELISP> '(("rose" . "red") ("lily" . "white") ("buttercup" . "yellow"))
+(("rose" . "red")
+ ("lily" . "white")
+ ("buttercup" . "yellow"))
+#+END_EXAMPLE
+
+这可以看作对应python语言的字典或map结构的存在。
+
+- hash-table hash-table类似于association list 但查找更快。后面再详细讨论。
+- function 实际上就是第一个元素为lambda的链表
+- macro 
+- autoload
+
+custom-variable-p
+------------
+编辑器相关对象
+- buffer bufferp
+- marker
+- window
+- frame
+- terminal
+- window configuration
+- frame configuration
+- process
+- stream
+- keymap
+- overlay
+- font
+
+** 类型检测
+*** type-of
+
+*** 其他p型函数
+atom
+arrayp
+bool-vector-p
+bufferp
+byte-code-function-p
+case-table-p
+char-or-string-p
+char-table-p
+commandp 
+consp 
+custom-variable-p
+display-table-p
+floatp
+fontp
+frame-configuration-p
+frame-live-p
+framep
+functionp
+hash-table-p
+integer-or-marker-p
+integerp
+keymapp 
+keywordp
+listp 
+markerp
+wholenump
+nlistp 
+numberp 
+number-or-marker-p
+overlayp
+processp
+sequencep
+stringp 
+subrp 
+symbolp
+syntax-table-p
+vectorp
+window-configuration-p
+window-live-p
+windowp 
+booleanp
+string-or-null-p
+
+
+** 相等判断
+相等判断：equal   eq   eql  =  equalp
+eq是运算最快的了，它只比较地址。
+equal比较内容。
+eql类似eq，比较地址，还专门针对不同类型的数字。
+= 专门针对不同类型的数字
+equalp和equal差不多，但是忽略字符中的大小写。
+
+
+
+*** eq
+test if the same object
+#+BEGIN_EXAMPLE
+(eq object1 object2)
+#+END_EXAMPLE
+
+*** equal
+test if has the same components
+#+BEGIN_EXAMPLE
+(equal object1 object2)
+#+END_EXAMPLE
+
+equal-including-properties object1 object2
+
+
+** 定义变量
+setq是最基本的，上面已经有所介绍了。然后是defvar和defconst，一般推荐使用defvar和defconst，其中defvar用于声明变量，然后defconst用于声明常量，此外还有defcustom，defcustom比较复杂，等下再详细讨论，其和defvar，defconst的区别是defcustom适用于接口开放给用户的变量，好方便用户来定制。defvar和defconst和setq的区别是其可以接受一段字符串作为自身的描述信息，所以一般推荐使用这个。然后这几个本质上应该都是基于setq的，也就是都是定义的全局变量。
+
+*** defvar
+#+BEGIN_EXAMPLE
+defvar symbol [ value [ doc-string ]]
+#+END_EXAMPLE
+
+*** defconst
+#+BEGIN_EXAMPLE
+defconst symbol value [ doc-string ]
+#+END_EXAMPLE
+
+
+
+*** defcustom
+defcustom参数和defvar比较起来多了一些可选项关键词参数可以填，然后前面三个意思是变量名字，初始值和说明文档。
+#+BEGIN_EXAMPLE
+defcustom option standard doc [ keyword value ]
+#+END_EXAMPLE
+
+凡是需要对外开放给用户配置的变量都推荐使用defcustom，然后通过 ~custom-set-variables~ 来配置这些变量。如下所示:
+#+BEGIN_EXAMPLE
+(custom-set-variables
+ '(cua-mode t nil (cua-base))
+ '(custom-enabled-themes (quote (tango-dark))))
+#+END_EXAMPLE
+
+~custom-set-variables~ 里面定制的格式，第一个是变量名，第二个是具体的值，这都是好理解的。然后后面是一些可选的参数，now request和comment。其中now如果non-nil则该变量的值没有evaluate也进行赋值，然后request是一个feature列表，这个后面再说。comment就是一些定制说明了。
+
+
+
+defcustom的大致格式如下:
+#+BEGIN_EXAMPLE
+(defcustom org-html-use-infojs 'when-configured
+  "Non-nil when Sebastian Rose's Java Script org-info.js should be active.
+This option can be nil or t to never or always use the script.
+It can also be the symbol `when-configured', meaning that the
+script will be linked into the export file if and only if there
+is a \"#+INFOJS_OPT:\" line in the buffer.  See also the variable
+`org-html-infojs-options'."
+  :group 'org-export-html
+  :version "24.4"
+  :package-version '(Org . "8.0")
+  :type '(choice
+	  (const :tag "Never" nil)
+	  (const :tag "When configured in buffer" when-configured)
+	  (const :tag "Always" t)))
+#+END_EXAMPLE
+
+每一个关键词前面都应该加上 ~:~ ，下面详细讨论这些关键词:
+
+- :type 数据类型定义
+- :options 关于该变量的一系列的建议值
+- :group 该变量属于那个群组
+
+
+*** defgroup
+定义一个群组
+#+BEGIN_EXAMPLE
+defgroup group members doc [ keyword value ]
+#+END_EXAMPLE
+
+如果其接受 :group ，则表示该群组属于那个群组。
+
+
+** eval-last-sexp
+eval最后一个s表达式，这个快捷键很常用 ~C-x C-e~ ，用来执行最后一个S表达式，方便快速测试。然后还有 ~C-:~ 在minibuffer下进行互动。比如下面写上这么一行，然后在行尾执行 ~C-x C-e~
+
+(defun hello () (message "hello world"))
+
+这个定义的hello命令就进入elisp环境了，然后输入 ~C-:~ ，在minibuffer下来输入 (hello) 来看一下效果。
+
+
+
+** concat函数
+字符串拼接函数
+(concat "abc" "abc")
+
+
+** substring函数
+(substring "test" 0 2)
+相当于python的 "test"[0:2]
+
+** buffer-name
+(buffer-name)
+目前buffer的name
+
+** buffer-file-name
+(buffer-file-name)
+目前buffer在系统的中的文件路径名
+
+
+
+
+
+** 返回该脚本所在的目录路径
+参考了 [[http://stackoverflow.com/questions/4088681/get-path-to-current-emacs-script-file-when-loaded-with-l-parameter][这个网页]] 。
+
+如下面的代码将返回本脚本所在的目录路径，字符串形式。
+#+BEGIN_SRC emacs-lisp
+(file-name-directory load-file-name)
+#+END_SRC
+
+
+
+
+
+
+** 读取某个文件内容
+参考了 [[http://ergoemacs.org/emacs/elisp_read_file_content.html][这个网页]] 。
+
+#+BEGIN_SRC emacs-lisp
+(defun get-string-from-file (filePath)
+  "Return filePath's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
+#+END_SRC
+
+
+
+
+
+** 程序流程控制函数
+*** if函数
+if函数最简单的理解如下所示:
+#+BEGIN_SRC lisp
+CL-USER> (if t 5 3)
+5
+CL-USER> (if nil 5 3)
+3
+CL-USER> 
+#+END_SRC
+如果第二个元素估值为t，则返回第三个元素的值，如果是nil则返回第四个元素的值。然后第四个元素可以不填，也就是nil的时候什么都不做或者说返回nil。
+
+*** and
+and是先evaluate一个，如果是真，那么going on to evaluate，如果是nil，那么返回nil。
+and还有一个有趣的性质，那就是如果都为真，那么最后返回的不是T，而是最后那个信息的结果。
+
+
+
+*** or
+or是先evaluate一个，如果是真就report，同样返回这个信息的结果，如果是nil，keep going on to search。
+(or nil nil 'apple 'blue)---->apple
+
+or可以建立事物的组合关系，这样对应真实世界的空间关系。也就是抽取一个属性，和某个逻辑判断元比对后，返回这个属性。
+and可以建立事物的序列关系，对应真实世界的时间关系。即依次对比，直到反馈最后一个属性
+
+
+*** cond
+cond函数相当于c语言的switch语句。
+
+** defun定义自己的函数
+在lisp中讲到定义函数就不得不提lambda表达式，对lambda表达式有兴趣的请上网搜索相关信息了解之。简单来说就是如这样的 ~(lambda (x) (* x x))~ 一种匿名函数表示方法。该列表第二项定义的该函数的入口参数，然后第三项定义的是该函数的结果返回形式。对应的通过 *defun* 来定义自己的函数如下所示:
+
+#+BEGIN_SRC lisp
+(defun square (x) (* x x))
+#+END_SRC
+
+通过defun定义的有名函数，底层实质就是lambda函数机制，不过是给具体的那个lambda函数对象赋了一个名字罢了。我们前面说道lisp在eval一个链表的时候，其第一项将被默认认为是一个函数对象，其实质就是指向了一个lambda函数对象。
+
+
+
+
+*** let创建局部变量
+
+let 主要用于创造local  variables.用法如下
+
+
+上面就是用let 给sum赋值，然后sum是local  variale,即他的存在只在let 这个括号内
+
+let 在body中遇到不认识的变量了，首先在自己内部找，如果找不到，那么在global variable中找。
+然后没定义一个defun其函数内部都有自己独立的语境，即用自己的局域变量，找不到就用广义变量。还找不到就说出现错误
+
+
+let*和let的区别就是一次只运算赋值一个本地变量，然后再第二个。也就是说如果第二个的赋值依赖于第一个的话，那么比如用let*。比如说我先赋值r，然后赋值面积等于2 * pai*r，那么第二个赋值就依赖于第二个。这种情况用let就会出现错误。但是编程一般用let，为了竟可能减少程序间的依赖关系，方便理解
+
+
+
+** 深入理解闭包
+
+
+
+** 理解递归
+
+> (defun our-member (obj lst)
+   (if (null lst)
+       nil
+   (if (eql (car lst) obj)
+       lst
+       (our-member obj (cdr lst)))))
+OUR-MEMBER
+
+(defun median (list)
+       (let ((sortlist (sort list #'<))
+         (long (length list)))
+         (if (oddp long) (nth (/ (- long 1) 2) sortlist) 
+         (/ (+ (nth (- (/ long 2) 1) sortlist ) (nth (/ long 2) sortlist)) 2.0)))) 
+
+defparameter
+
+defconstant
+
+boundp
+
+setf
+
+
+do 宏
+
+loop 宏
+
+
+
+
+* 链表操作函数
+car
+
+cdr
+
+cadr  second
+
+#+BEGIN_SRC lisp
+CL-USER> (cadr '(1 2 3))
+2
+CL-USER> (second '(1 2 3))
+2
+CL-USER> (caddr '(1 2 3))
+3
+CL-USER> (third '(1 2 3))
+3
+CL-USER> 
+#+END_SRC
+
+
+
+
+cons ，list 还有append。
+cons这个命令就是创建cons cell结构，通常用于把元素添加到列表头上。
+ 整个过程是先创造一个cons cell，第一个地址指向第一个元素，第二个地址指向第二个元素。
+
+
+需要特别说明的就是那个中间加点的结构，叫什么dotted list，意思是它不是以nil结尾的。而是以一个值。
+
+list这个命令好理解点，就是加了一个括号。也就是总是ending in nil。因为括号就是意味这一个标准的cons cell 结构 而且以nil结束。
+
+append命令作用过程是首先复制第一个列表作为input信号，然后将其尾部指向到第二个元素中。
+因此append命令第一个元素必须是列表，否则会出现错误。
+(append 'a '(b c))--->error!!
+
+
+更多的列表操作函数：
+reverse               nth                        nthcdr                  last           remove
+上面四个函数都是创建了一个新的列表，原列表对应的变量的值并没有改变。
+
+** reverse  将列表第一层元素倒置:
+(reverse '((a b) (c d) (e f)))
+--->((e f) (c d) (a b))
+
+** nth
+  提取列表的第几个元素:
+(nth 0 '(a b c))----->A
+(nth 1 '(a (b c) d))--->(B C)  
+说明，在common-lisp中数数都是从0开始数的。
+
+** nthcdr
+  cdr命令我们是知道的，nth就是做几次cdr命令。所以做0次就是原列表，做一次cdr等等。
+需要注意的就是：
+(cdr nil)--->nil
+也就是对空列表cdr还是空列表，所以如果cdr过头了就会得到nil，但是有一个例外，那就是dotted list。
+因为dotted list是以一个元素作结尾，这样将会导致错误。因为cdr不能对列表进行操作。
+(nthcdr 2 '(a b c))--->(c)
+
+** last 
+ last返回的是列表的最后一个cons cell结构。
+(last nil)--->nil
+对于正常的列表就是返回最后一个元素，不过是加了列表符号的。
+(last '(a b c))--->(c)
+对于dotted list则是所谓的最后一个cons cell：
+
+
+** remove
+     remove就是把某个列表中出现的某个元素给移去。
+(remove 'a '(b a n a n a))--->(b n n)
+这个时候你们一定会像是局限于元素，还是局限于某个单元元素，还是列表中出现的任何地方的元素。
+最后结果如图片2所示：
+
+表作为集合：
+集合的概念我们在数学中已经了解得很清除了。lisp的括号非常方便表达集合，除了每一个item项目只出现一次要特别注意就是了。
+虽然下面对集合的几个函数对于不是作为集合的列表也可以操作，但最好还是严格定义。
+以下是针对集合的命令：
+member      intersection       union       set-difference     subsetp
+
+** member
+   member函数的作用就是核对某个value值是不是在后面列表中。如果是那么返回真值，包括开始为真的那个值也包括后面的元素。是假那么返回nil。
+
+
+这个和remove是类似的，所以这个命令和严格的集合内部元素判断的定义还是有点差异的。
+
+** intersection 
+ 交集
+** union
+  补集
+** set-difference
+  差集
+
+** subsetp 
+  判断第一个集合是不是第二个集合的子集，是就返回T，这里是确定的t。假返回nil。
+
+上面的交集补集差集就和集合的定义运算完全一致了，也就是第一个参量是一个列表的话，代表着一个整体对第二个集合进行考察。而这种操作是有意义的，而前面的remove member似乎都不包括这一情况。而9.10.11.12这几个命令必须是列表不能是元素。看来所有这些命令至少有一点是共同的，那就是第一个项目要某是列表要某是元
+
+用集合来解决一个小问题，输入一个名字，然后在这个名字的前面加上mr或者ms之类的。
+以后编程都要遵循以下两点，一是将一个大问题转化成一些小的问题小的函数，二是一次测试好一个函数。
+
+
+** assoc
+
+** set-exclusive-or
+
+
+
+* 更多的函数
+** subst
+
+** sublis
+
+
+** funcall
+
+** mapcar
+
+** lambda
+ 
+** find-if
+
+** remove-if-not
+
+** remove-if
+
+** reduce
+
+** every
+
+
+** setf
+
+** incf
+
+** decf
+
+** push 
+
+** pop
+
+** when
+
+** unless
+
+
+ 类似的第二个元素有：
+cadr     second     nth
+第三个元素有：
+caddr    third      nth
+
+
+
+2.破坏性列表操作符
+append      对应的是     nconc
+subst                    nsubst
+union                    nunion
+intersection             nintersection
+set-difference           nset-difference
+
+
+3.setq和set函数
+lisp早期赋值函数就是setq，还没有setf和对广义变量的支持。现在一般都用setf赋值，不管是一般变量还是广义变量（second x）。setq算是一个比较老旧的过时的函数了，不过一般lisp实现过程中，对一般变量来说还是会把setf变成setq的。
+set也是来自早期lisp的一种方言，我没兴趣了解了。
+
+
+4.迭代
+dotimes 和dolist函数
+这两个函数的结构式是：
+
+
+
+ do宏功能强大同时有点小复杂，首先他前面可以定义任意数量的变量，并赋初值。
+然后他后面还可以有个test函数，判断一下，如果为真，那么依次执行后面的action-1之类的。如果为假，那么执行一次循环体body，然后更新变量，然后再判断一次。如此类推。body中如果有return函数执行的话，会退出整个do宏
+
+
+
+；；；这篇文章介绍了的函数有：
+factorial ----阶乘函数
+fibonnaci-----斐波拉契数列函数
+insert  ------插入函数
+arrange  -----排列函数
+while和until  宏
+
+
+
+;;;while macro
+(defmacro while (test  &rest body)
+  `(do ()
+       ((not ,test))
+       ,@body))
+
+;;;until macro
+(defmacro until (test &rest body)
+  `(do ()
+       (,test)
+       ,@body))
+
+
+* 定义自己的包
+
+
+.(defun p (x y)
+                          (cond  ((zerop y) 1)
+                                     ((= y (1- x)) 1)
+                                     (t  (+ (p (1- x) (1- y)) (p (1- x) y)))))
+
+
+
+(defun pascal (n)
+                          (loop  for  i  from 0  to (1- n)
+                               collect (p n i)))
+
+(defun pascal-triangle (x)
+                          (loop for i from 1 to x
+                             for s = '(1) then (pascal i)
+                                 do  (format t "~&~s" s)))
+
+
+
+(defmacro show-series (f a z &optional (step 1))
+  `(loop for n from ,a to ,z by ,step
+for y = ,f
+collect y ))
+
+
+
+(defmacro sum (f a z &optional (step 1))
+  `(loop for n from ,a to ,z by ,step
+for y = ,f
+collect y into lst
+finally (return (reduce #'+ lst))))
+
+
+(defmacro product (f a z &optional (step 1))
+  `(loop for n from ,a to ,z by ,step
+for y = ,f
+collect y into lst
+finally (return (reduce #'* lst))))
+
+(defmacro sum (f x a b &optional (step 1))
+  `(loop for ,x from ,a to ,b by ,step
+for y = ,f
+collect y into lst
+finally (return (reduce #'+ lst)))
+
+
+ (defmacro show-series (f x a z &optional (step 1))
+  `(loop for ,x from ,a to ,z by ,step
+for y = ,f
+collect y ))
+(defmacro product (f x a z &optional (step 1))
+   `(loop for ,x from ,a to ,z by ,step
+for y = ,f
+ collect y into lst
+ finally (return (reduce #'* lst))))
+
+ (defmacro s-integrate (f x a b &optional (n 100))
+`(let ((h (/ (- ,b ,a) ,n)))
+  (* (* h 1/3) 
+     (+ 
+(let ((,x ,a)) 
+    ,f)
+      (* 4 (sum ,f ,x (+ ,a h) ,b (* 2 h)))
+      (* 2 (sum ,f ,x (+ ,a (* 2 h)) (- ,b h) (* 2 h)))
+(let ((,x ,b))
+  ,f)))))
+
+
+
+
+* 附录
+** emacs中使用common-lisp
+在deb系系统中推荐直接用apt-get安装之:
+#+BEGIN_SRC bash
+apt-get install slime
+#+END_SRC
+
+这样安装之后连配置都不用配置了，直接输入 ~M-x slime~ 即可，不过你可能还没有装一个common-lisp的解释器，gnu的 ~clisp~ 或者 ~sbcl~ 都还行吧。
+
+** 命令行执行emacs里面的命令
+参考了 [[http://stackoverflow.com/questions/22072773/batch-export-of-org-mode-files-from-the-command-line][这个网页]] 。
+
+如下所示，将以batch批处理模式加载test.org，然后执行命令"org-html-export-to-html" 。然后这里的 ~-u~ 是指定以某个用户的身份来运行emacs（主要是一些配置文件相关）。
+#+BEGIN_SRC emacs-lisp
+emacs test.org -u "$(id -un)" --batch  -f org-html-export-to-html
+#+END_SRC
+
+** 参考资料
+1. COMMON LISP: A Gentle Introduction to Symbolic Computation ; Author: David S. Touretzky
+2. [[http://acl.readthedocs.org/en/latest/][ANSI Common Lisp 中文]] 
+
+#+BEGIN_EXAMPLE
+(add-to-list 'load-path "~/workspace/myemacs/myorg/org")
+(require 'org)
+#+END_EXAMPLE
+
+ add-to-list
+#+BEGIN_SRC elisp
+ELISP> (setq x nil)
+nil
+ELISP> (add-to-list 'x "a")
+("a")
+
+ELISP> x
+("a")
+#+END_SRC
+
+
+
+我们常见的 load-path 就是emacs启动时搜索插件路径的列表，所以我们加入某个搜索路径有如下命令:
+
+
+#+BEGIN_EXAMPLE
+(add-to-list 'load-path "~/workspace/myemacs/myorg/org")
+#+END_EXAMPLE
+
+eval-after-load
+
+eval-when-compile
+
+
+declare-function
+
+global-set-key
+
