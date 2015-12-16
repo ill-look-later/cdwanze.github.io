@@ -1,0 +1,23 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: 费曼物理学讲义第一卷
+#+AUTHOR: 费曼
+#+CREATOR: 编者:万泽(德山书生)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+OCR识别，精校精排版，目前已经到第十章了。
+
+* 资源
+因为内容要时不时的更新，所以pdf文档还有tex源码都在github上 [[https://github.com/a358003542/feynman-lectures-one][请点击这里来获取最新的内容]] 。
+
+
+
+
+
+
+

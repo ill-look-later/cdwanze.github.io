@@ -1,0 +1,27 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: 高观点下的初等数学
+#+AUTHOR: 菲利克斯·克莱因
+#+CREATOR: 编者:万泽(德山书生)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+作者：〔德〕菲利克斯·克莱因，哥廷根学派创始人。本书是克莱因根据自己在哥廷根大学多年为德国中学数学教师及在校学生开设的讲座所撰写的基础数学普及读物。
+
+该书反映了他对数学的许多观点，向人们生动地展示了一流大师的遗风，出版后被译成多种文字，是一部数学教育的不朽杰作，影响至今不衰。全书分为三卷：第一卷，数学、代数；第二卷，几何；第三卷：精确数学和近似数学。
+
+
+警告： *非文字版* ，主要用于学习研究目的。
+
+* 资源
+1. [[https://drive.google.com/open?id=0ByWxOeitx54Pc1pMRTd6U1dRc3M&authuser=0][高观点下的初等数学第一卷]]
+2. [[https://drive.google.com/open?id=0ByWxOeitx54PV3dvRm5ZWlBINE0&authuser=0][高观点下的初等数学第二卷]]
+3. [[https://drive.google.com/open?id=0ByWxOeitx54PSHZncW5WMGdrYUk&authuser=0][高观点下的初等数学第三卷]]
+
+
+
+

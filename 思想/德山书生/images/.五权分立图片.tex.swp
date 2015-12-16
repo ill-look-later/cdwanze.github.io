@@ -1,0 +1,65 @@
+% !Mode:: "TeX:UTF-8"%確保文檔utf-8編碼
+%新加入的命令如下：addchtoc addsectoc reduline showendnotes hlabel
+%新加入的环境如下：common-format  fig linefig xverbatim
+
+\documentclass[11pt,oneside]{book}
+\newlength{\textpt}
+\setlength{\textpt}{11pt}
+\newif\ifphone
+\phonefalse
+
+\usepackage{myconfig}
+\usetikzlibrary{intersections,calc,external,positioning}
+
+\tikzset{external/system call={xelatex \tikzexternalcheckshellescape -halt-on-error
+-interaction=batchmode -jobname "\image" "\texsource";
+dvips -o "\image".ps "\image".dvi;
+ps2eps "\image.ps"}}
+\tikzexternalize
+
+\tikzexternalize % activate!
+
+\begin{document}
+
+
+\begin{tikzpicture}
+\begin{scope}[rotate=18]
+\def\n{5}
+\pgfmathsetmacro\i{\n-1}
+\foreach \x in {0,...,\i}
+{
+\def\pointname{\x}
+\coordinate (\pointname) at ($(0,0) +(\x*360/\n:4cm)$)  ;
+}
+\end{scope}
+
+\node[circle,draw] (huo) at (0) {党};
+\node[circle,draw]  (mu) at (1) {法};
+\node[circle,draw] (shui) at (2) {政};
+\node[circle,draw] (jin) at (3) {商};
+\node[circle,draw] (tu) at (4) {军};
+
+\draw [-latex] (mu) to [bend left] node[above] {生}  (huo);
+\draw [-latex] (huo) to [bend left=15] node[right] {生} (tu);
+\draw [-latex] (tu) to [bend left=5] node[below] {生}   (jin);
+\draw [-latex] (jin) to [bend left=15] node[left] {生} (shui);
+\draw [-latex] (shui) to [bend left] node[above] {生} (mu);
+
+\draw [-latex] (mu) to node[right] {克}  (tu);
+\draw [-latex] (huo) to  node[below] {克} (jin);
+\draw [-latex] (tu) to  node[below] {克}   (shui);
+\draw [-latex] (jin) to  node[left] {克} (mu);
+\draw [-latex] (shui) to  node[above] {克} (huo);
+
+\end{tikzpicture}
+
+
+
+
+
+%这里空一行
+
+\end{document}
+
+
+

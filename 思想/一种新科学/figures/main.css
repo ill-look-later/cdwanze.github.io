@@ -1,0 +1,94 @@
+/*  this is a comment     */
+html{
+    margin:0;padding:0;
+    }
+
+p{
+    text-indent:2em;
+    }/*段落缩进*/
+
+/*  class  */
+/* 强调字体颜色红色 */
+i{
+    font-style:normal;
+    color:red;}
+
+body{
+    margin:0;
+    padding:0;
+    width: 800px;
+    margin-left: 200px;
+    }
+
+header{
+    background-color: #DCDCDC;
+    }
+
+aside {
+    position: fixed;
+    width: 180px;
+    background-color: #DCDCDC;
+    margin-left: -200px;
+}
+
+section{
+    }
+
+pre {
+    background-color: #2E3436;
+    color: white ;
+}
+
+footer {
+    background-color: #DCDCDC;
+}
+
+
+
+/*
+htmlize代码(org-html-htmlize-generate-css)提取出来的代码css
+*/
+.org-keyword {
+    /* font-lock-keyword-face */
+    color: #b4fa70;
+}
+.org-variable-name {
+    /* font-lock-variable-name-face */
+    color: #fcaf3e;
+}
+.org-string {
+    /* font-lock-string-face */
+    color: #e9b96e;
+}
+.org-comment {
+    /* font-lock-comment-face */
+    color: #73d216;
+}
+.org-comment-delimiter {
+    /* font-lock-comment-delimiter-face */
+    color: #73d216;
+}
+
+ .org-constant {
+    /* font-lock-constant-face */
+    color: #e9b2e3;
+}
+.org-doc {
+    /* font-lock-doc-face */
+    color: #e9b96e;
+}
+.org-error {
+    /* error */
+    color: #ff4b4b;
+}
+.org-escape-glyph {
+    /* escape-glyph */
+    color: #c4a000;
+}
+.org-function-name {
+    /* font-lock-function-name-face */
+    color: #fce94f;
+}
+
+
+

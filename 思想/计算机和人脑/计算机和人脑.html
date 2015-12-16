@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>计算机和人脑</title>
+<!-- 2015-11-14 21:57 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="冯·诺伊曼">
+<meta  name="description" content="由万泽OCR然后校对整理完成。"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+
+<script type="text/javascript" src="http://orgmode.org/org-info.js">
+/**
+ *
+ * @source: http://orgmode.org/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "5");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js","TeX/mhchem.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        },
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">计算机和人脑</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 引言</a></li>
+<li><a href="#sec-2">2. 计算机</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 模拟方法</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1. 常用的基本运算</a></li>
+<li><a href="#sec-2-1-2">2.1.2. 不常用的基本运算</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2. 数字方法</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1. 符号，它们的组合与体现</a></li>
+<li><a href="#sec-2-2-2">2.2.2. 数字计算机的类型及其基本元件</a></li>
+<li><a href="#sec-2-2-3">2.2.3. 并行和串行线路</a></li>
+<li><a href="#sec-2-2-4">2.2.4. 常用的基本运算</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3">2.3. 逻辑控制</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. 插入式控制</a></li>
+<li><a href="#sec-2-3-2">2.3.2. 逻辑带的控制</a></li>
+<li><a href="#sec-2-3-3">2.3.3. 毎一基本运算只需要一个器官的原理</a></li>
+<li><a href="#sec-2-3-4">2.3.4. 由此引起的特殊记忆器官的需要</a></li>
+<li><a href="#sec-2-3-5">2.3.5. 用“控制序列”点的控制</a></li>
+<li><a href="#sec-2-3-6">2.3.6. 记忆存储控制</a></li>
+<li><a href="#sec-2-3-7">2.3.7. 记忆存储控制的运算方式</a></li>
+<li><a href="#sec-2-3-8">2.3.8. 控制的混合方式</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4">2.4. 混合数字方法</a>
+<ul>
+<li><a href="#sec-2-4-1">2.4.1. 数的混合表现，以及在此基础上建造的计算机</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-5">2.5. 准确度</a>
+<ul>
+<li><a href="#sec-2-5-1">2.5.1. 需要高度的准确度（数字的）之理由</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-6">2.6. 现代模拟计算机的特征</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 引言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+由于我既不是一个神经学专家，又不是精神病学家，而是一个数学家，所以，对这本书需要作若干解释与申明。本书是从数学家的观点去理解神经系统的一个探讨。然而，这个陈述中的各个要点，都必须立即予以定义。
+</p>
+
+<p>
+首先，我说这是企图对理解神经系统所作的探讨，这句话还是夸张了。这只不过是多少系统化了的一组推测，预测应该进行怎样的探索。这就是说，我企图揣测:在所有以数学为引导的各硏究途径中，从朦胧不淸的距离看来，哪些途径是先验地最有希望的， 哪些途径的情况似乎正相反。我将同时为这些预测提供某些合理化的意见。
+</p>
+
+<p>
+其次，对于“数学家的观点”这个词，我希望读者作这样的理解：它的着重点和一般的说法不同，它幷不着重一般的数学技巧，而是着重逻辑学与统计学的前景。而且，逻辑学与统计学应该主要地（虽然幷不排除其他方面）被看作是“信息理论”的基本工具。同时，围绕着对复杂的逻辑自动机和数学自动机所进行的设计、求值与编码工作，已经积累起一批经验，这将是信息理论的大多数的注意焦点。其中，最有典型意义的自动机(但不是唯一的），当然就是大型的电子计算机了。
+</p>
+
+<p>
+应该顺便指出，如果有人能够讲出关于这种自动机的“理论”， 那我就非常满意了。遗慽的是，直到目前为止，我们所据有的——我必须这样呼吁——，仍然只能说是还不完全淸楚的、难于条理化的那样“一批经验”。
+</p>
+
+<p>
+最后，应当说，我的主要目的，实际上是要揭示出事情的颇为不同的一个方面。我希望，对神经系统所作的更深入的数学的硏讨(这里所说的“数学的”之涵义，在上面已经讲过），将会影响我们对数学自身各个方面的理解。事实上，它将会改变我们对数学和逻辑学的固有看法。这个信念的理由何在，我将在后文加以解说。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 计算机</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+我从讨论计算机系统的基础原理以及计算机的实践开始。现有的计算机，可以分为两大类:“模拟”计算机和“数字”计算机。这种分类，是根据计算机进行运算中表示数目的方法而决定的。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 模拟方法</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+在模拟计算机中，每一个数，都用一个适当的物理量来表示。这个物理量的数値，以预定的量度单位来表示，等于问题中的数。这个物理量，可以是某一圆盘的旋转角度，也可能是某一电流的强度，或者是某一电压（相对的电压）之大小等等。要使计算机能够进行计算，也就是说，能按照一个预先规定的计划对这些数进行运算，就必须使计算机的器官（或元件)，能够对这些表示数値进行数学上的基本运算。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> 常用的基本运算</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+常用的基本运算，通常是理解为“算术四则”的运算，即：加 \((x+y)\) 、减 \((x-y)\) 、乘 \((xy)\) 、除 \((x/y)\) 。
+</p>
+
+<p>
+很明显，两个电流的相加或相减，是没有什么困难的（两个电流并联起来，就是相加；相反的并联方向，就是相减）。两个电流的相乘，就比较困难一点，但已有许多种电气器件能够进行相乘的运算；两个电流的相除，情况也是如此。（对于乘和除来说，所量度的电流的单位当然应该是相关的，而对加和减来说，则不一定要这样。）
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> 不常用的基本运算</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+一些模拟计算机的一个相当值得注意的特性，就是它进行不常用的运算。这是我在后面要进一步叙述的。这些模拟计算机，有时是按照算术四则以外的“基本”运算方法来建造的。经典式的“微分分析机”就是这一类，在那里，数值由某些圆盘的旋转角度来表示。它的过程如下：它不用加 \((x+y)\) 与减 \((x-y)\) 来运算，而是用 \((x \pm y )/2\) 来运算，因为用一种现成的简单元件——差动齿轮（像汽车上后轴所用的齿轮），就可以进行这种运算。它也不用乘法 \((xy)\) ，而是采取另一种完全不同的方法：在微分分析机中，所有的数量都表现为时间的函数，而微分分析机用一种叫做“积分器”的元件，能够把两个数量： \(x(t) , (y(t))\)  ，形成“斯蒂杰斯”积分 \(z(t)\equiv \int _{  }^{ t }{ x(t)dy(t) }\) 。
+</p>
+
+
+<p>
+这个体系包括三个要点：
+</p>
+
+<p>
+第一，上述三种基本运算，经过适当的组合，可以产生四种常用的算术基本运算中的三种，即加、减、乘。
+</p>
+
+<p>
+第二，上述基本运算，和一定的“反馈”方法结合起来，就能产生第四种运算——除法。在这里，我不讨论反馈的原理。这里只是说明，反馈除了表现为解出数学上蕴涵关系的一种工具外，它实际上还是一种特别巧妙的短路迭代与逐次逼近的线路。
+</p>
+
+<p>
+第三，微分分析机的一个真正得到支持的根据是：它的基本运算—— \((x \pm y)/2\) 和积分，对于许多类问题来说，比算术四则运算 \((x+y),(x-y),(xy),(x/y)\) 要更经济一些。更具体地说，任何计算机，要它解出一个复杂的数学问题时，必须先对这个问题作出“程序”。就是说，为解出这个问题而进行的复杂运算，必须用计算机的各个基本运算的组合来表示这个程序，严格地说，往往只是这些组合的近似（近似到我们预定的任何程度）。对于某一类给定问题来说，如果一组基本运算和另一组基本运算相比，能够使用较简单、较少的组合就能解出问题，那么，我们说这一组基本运算更有效。所以，专门对全微分方程的系统来说（微分分析机本来就是为解全微分方程而设计的），微分分析机的这几种基本运算，就比前面所讲的算术基本运算 \((x+y),(x-y),(xy),(x/y)\) 更有效一些。
+</p>
+
+<p>
+下面，我要讲数字计算机。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 数字方法</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+在一个十进制数字计算机中，每一个数都是用通常书写或印刷一样的方法来表示的，即用一序列的十进制数字来表示。而这每一个十进制的数字，又用一组“符号”系统来表示。
+</p>
+</div>
+
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> 符号，它们的组合与体现</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+一个符号，可以用十个不同的形式表现，以满足表示一组十进制数字的需要。要使一个符号，只以两种不同形式表示，则只在每一个十进制数字相对应于整个符号组时才能使用（一组3个的两 値符号，可构成8个组合，这还不够表示10个十进制数字之用；一组4个的两值符号，则可以有16个组合，这就够用而有余了。所以，十进制数字，必须用至少4个一组的两值符号来表示。这就是使用比较大的符号组的理由，见下述）。十值符号的一个例子就是在十根预定的导线上各自出现一个电脉冲。两值符号是在一根预定的导线上出现一个电脉冲，于是，脉冲的存在或不存在就传送了信息（这就是符号的“值”）。另一种可能的两值符号，是具有正极性和负极性的电脉冲。当然，还有许多种同样有效的符号体系。
+</p>
+
+<p>
+我们将进一步观察这些符号。上述十值符号，显然是一组10个的两值符号。我们已经说过，这组符号是高度过剩了。最小的组，包括4个两值符号的，也是可以用在同一体系中的。请考虑一个四根预定的导线的系统，在它们之间，能够发生任何组合的、同时出现的电脉冲。这样，它可以有16种组合，我们可以把其中的任何10种组合规定为十进制10个数字的相应代表。
+</p>
+
+<p>
+应当注意，这些符号通常都是电脉冲（或可能是电压或电流，持续到它们的标示生效为止），它们必须由电闸装置来控制。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> 数字计算机的类型及其基本元件</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+到目前为止的发展中，电磁机械的继电器、真空管、晶体二极管、铁磁芯、晶体管已经被成功地应用了；有时是相互结合起来应用，比如在计算机的存锗器官（见后面的叙述）中用这一种元件，而在存储器官之外（在“作用”器官中）则用另一种，这样，就使计算机产生了许多不同的种类。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-3" class="outline-4">
+<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> 并行和串行线路</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<p>
+现在，计算机中的一个数是用一序列的十值符号（或符号组）来表示的。这些符号，可以安排在机器的各个器官中同时出现，这就是 <strong>并行</strong> 。或者是把它们安排在机器的一个器官中，在连续的瞬间依次出现，这就是 <strong>串行</strong> 。比如，机器是为处理12位十进制数字而建造的，在小数点“左边”有6位，小数点“右边”也有6位，那么，12个这样的符号（或符号耝）都应在机器的每一信息通道中准备好，这些通道是为通过数字而预备的。（这个方案，在各种机器中， 可以采取各种不同的方法和程度，从而得到更大的灵活性。在几乎所有的计算机中，小数点的位置都是可以调整移动的。但是，我们在这里不打算进一步讨论这个问题。）
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-4" class="outline-4">
+<h4 id="sec-2-2-4"><span class="section-number-4">2.2.4</span> 常用的基本运算</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<p>
+数字计算机的运算，常常以算术四则为基础。关于这些人们已经熟知的过程，还应该讲以下的几点：
+</p>
+
+<p>
+第一，关于加法：在模拟计算机中，加法的过程要通过物理过程作为媒介来进行（见上文所述）。和模拟计算机不同，数字计算机的加法运算，是受严格而具有逻辑特性的规则所控制的，比如，怎样形成数字的和，什么时候应该进位，如何重复和结合这些运算步骤等等。数字和的逻辑特性，在二进制系统中显得更加淸楚（与十进制比较而言）。二进制的加法表 
+</p>
+
+<p>
+$$0+0=00 \\
+0+1=1+0=01 \\
+1+1=10$$
+</p>
+
+<p>
+可表述如下：如果两个相加的数字不同，其和数字为1；如果两个相加数宇相同，其和数字为0，而且，如两个相加数字都是1时，其进位数字为1，如两个相加数宇都是0时，其进位数字为0。因为会出现进位数字，所以实际上需要3项的二进制加法表，即 
+</p>
+
+<p>
+$$0+0+0=00 \\
+0+0+1=0+1+0=1+0+0=01 \\
+0+1+1=1+0+1=1+1+0=10 \\
+1+1+1=11$$
+</p>
+
+<p>
+这个加法表，可以表述为：如果在相加的数字中（包括进位数），1的数目是奇数（即1个或3个），则和数字为1 ；如果1的数目不是奇数，则和数字为0。如果在相加数字中（包括进位数），1的数目是多数（2个或3个），则进位数字是1;如果1的数目不是多数（而是1个），则进位数宇是0。
+</p>
+
+<p>
+第二，关于减法：减法的逻辑构造，和加法非常相似。减法可以（而且是通常地）简化成为加法，运用一种简单的手段——补数法，就可以做到这一点。
+</p>
+
+<p>
+第三，关于乘法：乘法的基本逻辑特性，甚至比加法还要明显，其结构性质也比加法明显。在十进制中，乘数的每一个数字，与被乘数相乘，而得出乘积（这个相乘的过程，通常可用各种的相加方法，这对所有的十进制数字都是可以进行的）。然后，把上述各个乘积加在一起（还要有适当的移位）。在二进制中，乘法的逻辑特性更显明易见。二进制只可能有两个不同的数字——0与1，因此，只有乘数和被乘数都是1时，乘积才是1，否则乘积就是0。
+</p>
+
+<p>
+以上的全部陈述，都是指正数的乘积而言。当乘数和被乘数有正、负符号时，则产生了4种可能的情况。这时，就需要有更多的逻辑规则来支配这4种情况。
+</p>
+
+<p>
+第四，关于除法：除法的逻辑结构与乘法是可比较的，但除法还须加入各种重复的、试错法的减法过程。在各种可能发生的变换情况中，为了得出商数，需要一些特别的逻辑规则，从而必须用一种串行的、重复的方法来处理这个问题。
+</p>
+
+<p>
+总的说来，上述加、减、乘、除的运算，和模拟计算机中所运用的物理过程，有着根本的区别。它们都是交变作用的模式，组织在高度重复的序列中，并受严格的逻辑规则所支配。特别是对乘法和除法来说，这些规则具有十分复杂的逻辑特性。（这些运算的逻辑特性，由于我们长期地、几乎是本能地对它们熟习了，因而往往不易看出，可是，如果你强迫自己去充分表述这些运算，它们的复杂程度就会显现出来了。）
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 逻辑控制</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+除了进行基本运算的能力外，一个计算机必须能够按照一定的序列（或者不如说是按照逻辑模式）来进行运算，以便取得数学问题的解答，这和我们进行笔算的实际目的相同。在传统的模拟计算机中（最典型的是“微分分析机”），计算的“序列”是这样完成的：它必须具有足够的器官来完成计算所要求的各个基本运算，也就是说，必须具有足够的“差动齿轮”和“积分器”，以便完成这两种基本运算——\((x \pm y )/2\) 和 \(\int _{  }^{ t }{ x(t)dy(t) }\) 。这些圆盘，即计算机的“输入”与“输出”的圆盘，必须互相连结起来（或者，更确切地说，它们的轴必须连结起来），（在早期的模型中，用嵌齿齿轮连接，后来则用电从动装置自动同步机），以便模拟所需的计算。 应该指出，连接的方式是可以按照需要而组装起来的，即随需耍解算的问题而定，使用者的意图可以贯彻在机器设计里面。这种“连接”，在早期的机器中用机械的方法（如前述的嵌齿齿轮)，后来则用插接的方法（如前述的电连接）。但不管如何，在解题的整个过程中，任何这些形式的连接，都是一种固定的装置。
+</p>
+</div>
+
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> 插入式控制</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+在一些最新的模拟机中，采用了进一步的办法。它们使用电的“插件的”连接。这些插入连接实际上被电磁机械继电器所控制；电磁铁使继电器通路或断路，因而产生电的激励，使连接发生变换。这些电激励可以由穿孔纸带所控制；在计算中，在适当瞬间发出的电信号，可以使纸带移动和停止（再移动，再停止 \(\cdots \cdots\) 等等）。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> 逻辑带的控制</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+刚才我们所说的控制，就是指计算机中一定的数字器官达到某一预定条件的情况，比如，某一个数开始变为负号，或者是某一个数被另一个数所超过等等。应当注意，如果数是用旋转圆盘来表示，它是正号或负号，就从圆盘通过零点向左还是向右转动来判定；一个数被另一数超过，则可以从它们的差成为负数而察觉出来等等。这样“逻辑”带的控制（或者更恰当地说,一种“与逻辑带控制相结合的计算状态”），是在基本的“固定连结”控制的基础之上的。
+</p>
+
+<p>
+数字计算机就是从这些不同的控制系统开始的。但是，在讨论这个问题之前，我还要先对数字计算机作出一般的评述，并评述它和模拟计算机的关系。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> 毎一基本运算只需要一个器官的原理</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+在开始，必须强调，数字计算机中的每一基本运算，只需要一个器官。这和大多数的模拟机相反。大多数模拟计算机是每一基本运算需要有足够多的器官，需要多少要看待解算的问题的情况而定（前面已经讲过）。但是，应该指出，这只是一个历史的事实而不是模拟机的内在要求。模拟计算机（上面所讲过的电连结方式的模拟机），在原则上，也是能够做到每一基本运算只需要一个器官的，而且它也能够采用下文所讲到的任何数字型的逻辑控制。（读者自己可以不很因难地证明，上面已经讲到的“最新”型的模拟机的控制，已经标志着向运算方式<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>的转变。）
+</p>
+
+<p>
+应该进一步说明，某些数字计算机也会或多或少地脱离了“每一基本运算只需要一个器宫”的原则，但是，再作一些比较简单的解释，这些偏离也还是可以被纳入这个正统的方案中的。（在某些情况下，这只不过是用适当的相互通讯的方法来处理双重机（或三重机）的问题而已。）在这里，我不准备进一步讨论这个问题了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-4" class="outline-4">
+<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> 由此引起的特殊记忆器官的需要</h4>
+<div class="outline-text-4" id="text-2-3-4">
+<p>
+“每一基本运算只需要一个器官”的原则，需要有较大数量的器官才能被动地存储许多数，这些数是计算过程的中间结果或部分结果。就是说，每一个这种器官，都必须能“存储”一个数（在去掉这器官中前已存储的一个数之后）。它从另外一个当时与它有连结的其他器官，把这个数接受过来；而且当它受到“询问”时，它还能够把这个数“复述”出来，送给另外一个此时与它连结的器官。上述的这种器官，叫做“存储寄存器”。这些器官的全体，叫做“记忆”。在一个记忆中存储寄存器的数量，就是这个记忆的“容量”。
+</p>
+
+<p>
+我们现在能够进而讨论数字计算机的主要控制方式了。这个讨论，最好从描述两个基本类型入手，并且接着叙述把这些类型结合起来的若干明显的原则。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-5" class="outline-4">
+<h4 id="sec-2-3-5"><span class="section-number-4">2.3.5</span> 用“控制序列”点的控制</h4>
+<div class="outline-text-4" id="text-2-3-5">
+<p>
+第一个已被广泛采用的基本控制方法，可以叙述如下（这里已经作了若干简化与理想化）：
+</p>
+
+<p>
+计算机包括一定数量的逻辑控制器官，叫做“控制序列点”，它具有下面所讲的功能（这些控制序列点的数量相当可观，在某些较新型的计算机中，可以达到几百个）。
+</p>
+
+<p>
+在采用这一种系统时，最简单的方式是:每一个控制序列点连接到一个基本运算器官上，这个运算器官受它所驱动。它还连结到若干存储寄存器上，这些寄存器供给运算的数字输入；同时，又接到另一寄存器上，这个寄存器接受它的输出。经过一定时间的延滞（延滞时间必须足以完成运算），或者在接收到一个“运算已完成”的信号之后，这个控制序列点就驱动下一个控制序列点，即它的“承接者”。（如果运算时间是变量，它的最大值为不定值或者是不能允许地漫长的话，那么，这个过程当然就需要有与这个基本运算器官的另一个增添连结。）按照这样的连接，以相同的办法一直作用下去。一直到不需要再操作为止，这就构成了一个无条件的、不重复的计算方式。
+</p>
+
+<p>
+如果某些控制序列点连接到两个“承接者”上面(这叫做“分支点”），那么，就可能产生两种状态——A和B，从而得到更错综复杂的方式。A状态使过程沿第一个承接者的途径继续下去，B状态则使过程沿第二个承接者的途径继续下去。这个控制序列点，在正常时，是处在A状态的，但由于它接到两个存储寄存器上面，其中的某些情况会使过程从A变为B，或者反过来，从B变为A。比如：如果在第一个存储寄存器中出现负号，那就使过程从A转变到B；如果在第二个存储寄存器中出现负号，那就使过程从B转变到A。（注意：存锗寄存器除了存储数字之外，它还存储数字的正号或负号，因为这是任一两值符号的前置符号。）现在，就出现了各种可能性：这两个承接者可表示计算的两个析取分支。走哪个分支，取决于适当地预定的数字判据。（当“从B到A”是用来恢复进行一项新演算的原始状态时，则控制“从A到B”。）这两个待选择的分支也可能在后来重新统一起来，汇合到与下一个共同的承接者的连结上面。但是，还有一个可能性：两个分支之一，比如是被A所控制的那一个，实际上又引回到起初我们所说的那个控制序列点上（就是在这点上分为两分支的），在这种情况下，我们就遇到一个重复的过程。它一直迭代到发生一定的数字判据为止（这个判据就是从A转变到B的指令）。当然，这是一种基本的迭代过程。所有这些方法，都是可以互相结合和重叠的。
+</p>
+
+<p>
+在这种情况下，正如已经讲过的模拟机的插入式控制一样，电连接的整体，是按照问题的结构而定的，即按照要解算的问题的算式而定，也就是依照使用者的目的而定。因此，这也是一种插入式的控制。在这种方式中，插接的模式可随解算问题的不同而变化，但是，在解算一个问题的全部过程中，插入方式是固定的（至少在最简单的装置中是如此）。
+</p>
+
+<p>
+这个方法，可以从许多途径使它更精细起来。每一个控制序列点可以和好几个器官连接，可以激励起超过一次以上的运算。正如在上面讲过的模拟机的例子一样，这种插入连接实际上可以由电磁机械继电器去控制，而继电器又可通过纸带来控制，在计算中所产生的电讯号，使纸带移动。我在这里，就不进一步叙述这种方式所可能产生的各个变化了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-6" class="outline-4">
+<h4 id="sec-2-3-6"><span class="section-number-4">2.3.6</span> 记忆存储控制</h4>
+<div class="outline-text-4" id="text-2-3-6">
+<p>
+第二种基本的控制方法，是记忆存储控制，它的进展很快，已经将要取代第一种方法了。这个方法可以叙述如下（这也还是作了若干简化了的）。
+</p>
+
+<p>
+这种控制方式，在形式上和插入控制方法有若干相似之处。 但是，控制序列点现在由“指令”所代替了。就体现在这种方式中的大多数情况来说，一个“指令”，在物理意义上是和一个数相同的（指计算机所处理的数，参阅上文）。在一个十进制计算机中，它就是一序列十进制数字（在我们第二章中所举的例子里，它就是12个带有或不带有正、负号的十进制数字。有时，在标准的数的位置中，包含着一个以上的指令，但这种情况这里不必讨论）。
+</p>
+
+<p>
+—个指令，必须指出要执行的是哪一种基本运算，这个运算的输入将从哪一个记忆寄存器中取得，运算后的输出要送到哪一个记忆寄存器去。要注意，我们已预先假定，所有的记忆寄存器的编号是成系列的，每一记忆寄存器的编号数目，叫做它的“地址”。同时，给各个基本运算编上号码，也是很便当的。这样，一个指令，只要简单地包括运算的编号和记忆寄存器的地址就成了，它表现为一列十进制数字（而且它的顺序是固定的）。
+</p>
+
+<p>
+这种方式，还有一些变种。但是，在目前的叙述中，它们并不特别重要。比如，一个指令，用上面讲过的方法，也可以控制一个以上的运算；也可以指示它所包含的地址，在进入运算过程之前，以某一特定方法加以修改。（通常运用的、实际上也是最重要的修改地址的方法，是对各个地址增加一个特定的记忆寄存器。）或者，也可以用另外一些方法。如用特别的指令来控制这种修改，或者使一个指令只受上述各个操作中的某一组成部分的影响。
+</p>
+
+<p>
+指令的更重要的方面是: 如上面讲过的控制序列点的例子一样，一个指令必须决定它的承接者——是否有分支（参阅上文）。我曾指出过，一个指令通常在物理意义上是和一个数相同的。因此，存储指令的自然方法（在所控制的解题过程中），是把它存锗在记忆寄存器里。换句话说，每一指令都存锗在记忆中，即在一个规定的记忆寄存器中，也就是在一个确定的地址中。这样，就给我们对指令承接者的处理，提出了许多条特定的途径。因此，我们可以规定，如果一个指令的地址在 \(X\) ，其承接者的指令地址则在 \(X+1\) （除非指明是逆接的情况）。这里说的“逆接”，是一种“转移”，它是一种指明承接者在预定地址 \(Y\) 的特殊指令。或者，一个指令中也可以包括“转移”的子句，以规定它的承接者的地址。至于“分支”，可以很方便地被一个“有条件的转移”指令所掌握。这种有条件的转移指令，规定承接者的地址是 \(X\) 或 \(Y\) 。是 \(X\) ，还是 \(Y\) ？取决于一定的数字条件是否出现——也就是说，一个给定地址 \(Z\) 的数宇，是不是负数。这样的一种指令，必须包含着一个编号，作为这种特殊形式指令的特征（这个特别的数字符号，它在指令中所占的位置，以及它的作用，和上面讲过的标志基本运算的符号是一样的），而且地址 \(X, Y, Z\) 都表现为一序列的十进制数字（见上文所述）。
+</p>
+
+<p>
+应该注意本节所讲的控制方式和上文讲过的插入式控制的重要区别：插入控制序列点是眞实的、物质的对象，它们的插件连结表达了要计算的问题。本节所讲的这种控制的指令，则是一种概念上的东西，它储存在记忆中；记忆中的这一特定部分，表达了要计算的问题。由于这样，这种控制方式被称为“记忆存储控制”。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-7" class="outline-4">
+<h4 id="sec-2-3-7"><span class="section-number-4">2.3.7</span> 记忆存储控制的运算方式</h4>
+<div class="outline-text-4" id="text-2-3-7">
+<p>
+在上述情况下，由于进行全部控制的各项指令都在记忆中，因而能够取得比以往任何控制方式更高的灵活性。计算机在指令的控制下，能够从记忆中取出数（或指令），对它进行加工（好像数的运算一般），然后把它归还到记忆中去（回到它原来的或其他的位置上）。这也就是说，这种方式能够改变记忆的内容——这就是正常的运箅方式。特别是它能够改变指令（因为指令存在记忆里）， 改变控制它自己的动作的有关指令，所以，建立所有各种复杂的指令系统都是可能的。在系统中，可以相继地改变指令，整个计算过程在这样控制之下进行。因此，比仅仅是重复过程复杂得多的系统，都是可能办得到的。虽然这种方法十分勉强和十分复杂，它仍然被广泛采用了，而且在现代的机械计算——或者更恰当地说，在计算程序——的实践中，具有非常重要的作用。
+</p>
+
+<p>
+当然，指令系统——它意味着要解出的问题和使用者的意图是通过把指令“装放”进记忆里去的办法来同计算机互通信息。这通常是由预先准备好的纸带、磁带或其他相类似的媒介来完成的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-8" class="outline-4">
+<h4 id="sec-2-3-8"><span class="section-number-4">2.3.8</span> 控制的混合方式</h4>
+<div class="outline-text-4" id="text-2-3-8">
+<p>
+上面讲过的两种控制——插入式和记忆存储式，可以形成各种不同的组合。关于这方面，还可以说几句。
+</p>
+
+<p>
+考虑一台插入控制的计算机，如果它具有和记忆存储控制计算机所具有的那种记忆部分，它就可能用一序列数字（以适当的长度）来描述它的插接的全部状态。这个序列存储在记忆中，大体上占有几个数码的位置，即几个顺序的记忆存储器。换句话说，它可以从若干个顺序的地址中找到这个序列，其中头一个地址，可以作为这一串地址的缩写，代表整个序列。记忆部分可以负载几个这样的序列，表示几个不同的插接方案。
+</p>
+
+<p>
+此外，计算机也可能是完全的记忆存储的控制方式。但除这种系统的本来有的指令外（参见上述），还可以有下列形式的指示。第一，一种使插接件复位的指令，根据在规定的记忆地址中存储的数字序列，使插接件复位。第二，一种指令的系统，能够改变各插接件中的某一定的单项。（请注意，上面这两种指令，都要求插入件必须受电控制装置——如继电器，或真空管，或铁磁芯等的作用。）。第三，一种指令，能够使控制方式从记忆存储式转为插入式。
+</p>
+
+<p>
+当然，插入式方案还必须能够指定记忆存锗控制（它可预设为一规定的地址）作为一个控制序列点的承接者（如果在分支的情况下，则作为承接者之一）。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 混合数字方法</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+上面的这些评述，已经足以描绘出在各个控制方式及其相互组合中的灵活性。
+</p>
+
+<p>
+应该引起我们注意的更进一步的计算机的“混合”类型，是模拟原则和数字原则同时存在的计算机类型。更准确地说，在这种计算机的设计方案中，一部分是模拟的，一部分是数字的，两者互通信息（数字的材料），幷接受共同的控制。或者是，这两部分各有自己的控制，这两种控制必须互通信息（逻辑的材料）。当然，这种装置要求有能从已给定的数字转换成为模拟量的器官，也要求有从模拟量转换成为数字的器官。前者意味着从数字表达中建立起一个连续的量，后者意味着测量一个连绩的量幷将其结果以数字形式表现出来。完成这两个任务的各种元件，包括快速的电元件，是我们所熟知的。
+</p>
+</div>
+
+<div id="outline-container-sec-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> 数的混合表现，以及在此基础上建造的计算机</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+另一类重要的“混合”型计算机，是这样的一些计算机，它在计算程序中的每一个步骤（但是，不是它的逻辑程序）,都包含了模拟的原则和数字的原则。最简单的情况是：每一个数，部分地以模拟方法表示，部分地以数字方法表示。我在下面将描述这样的一个方案，它常常表现于元件和计算机的建造和设计以及一定类型的通讯中，虽然目前还没有一种大型机器是用这种方案来建造的。
+</p>
+
+<p>
+这种系统，我把它叫做“脉冲密度”系统，每一个数用一序列的顺次的电脉冲来表示（在一条线路上），因此序列的长度是各不相同的，但脉冲序列的平均密度（在时间上）就是要表达的数。当然，必须规定两个时间间隔 \(t_1\) 和 \(t_2\) （ \(t_2\) 应比 \(t_1\) 大得相当多），上述的平均数必须在 \(t_1\) 与 \(t_2\) 时间之内。问题中的数，如以这种密度表示时，必须先规定它的单位。或者，也可以让这个密度不等于这个数的本身，而等于它的适当的（固定的）单调函数（monotone function）——比如，它的对数（采用这一办法的目的，是当这个数很小时，可以得到较好的表达；但当这个数很大时，这种表达方法就较差了，而且会带来所有连续的阴影〔shadings〕）。
+</p>
+
+<p>
+我们可以设计出能把算术四则应用于这些数的器官。于是，脉冲密度表示数的本身，而两个数的相加，只要把这两个序列的脉冲加起来就成。其他的算术运算比较需要一点窍门，但是，适用的、多少也算是巧妙的方法也还是存在的。我在这里，将不讨论如何表示负数的问题，这个问题用适当的方法还是容易解决的。
+</p>
+
+<p>
+为了获得适当的准确度，每一序列在每一时间间隔 \(t_1\) 内，必须包括许多个脉冲。如果在计算过程中，需要改变一个数，则它的序列的密度须随之改变，这就使这一过程比上述的时间间隔 \(t_2\) 慢。
+</p>
+
+<p>
+在这种计算机中，数的条件之读出（为了逻辑控制的目的），可能带来相当的麻烦。但是，仍然有许多种装置可以把这样的数（一个时间间隔内的脉冲密度）转换为一个模拟的量。（比如，每个脉冲，可以向一个缓漏电容器供给一次标准充电〔通过一给定电阻〕，并将它控制在一个合理的稳定电压水平和电漏电流值上。这两者都是有用的模拟量。）上面已经讲过，这些模拟量能够用来进行逻辑控制。
+</p>
+
+<p>
+在叙述了计算机的功能和控制的一般原则之后，我将对它们的实际使用以及支配它的原理作若干述评。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 准确度</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+让我们首先比较模拟计算机和数字计算机的运用。
+</p>
+
+<p>
+除了其他各方面的考虑外，模拟计算机的主要局限性是它的准确度问题。电模拟机的准确度难得有超过 \(1:10^3\) 的，甚至机械的模拟机（象微分分析机）在最好的情况下也只能达到 \(1:10^4\) 至 \(1:10^5\) 。而另一方面，数字计算机却能达到任何我们所需要的准确度。比如，我们已经讲过，12位十进制计算机，就标志着 \(1:10^12\) 的准确度（我们在后面还要进一步讨论,这已经标志着现代计算机的相当典型的准确度水平）。还应该注意，数字计算机要提高准确度的话，比模拟机容易。对微分分析机来说，从 \(1:10^3\) 提高到 \(1:10^4\) 的准确度，还比较简单，从 \(1:10^4\) 要提高到 \(1:10^5\) ,就已经是现有技术所可能达到的最佳结果;用目前已有的方法，再要使准确度从 \(1:10^5\) 提髙到 \(1:10^6\) ,则是不可能的了。而另一方面，在数字计算机中，使准确度从 \(1:10^12\) 提高到 \(1:10^13\) ，仅仅是在12位数字上加上1位，这通常只意味着在设备上相对地增加 \(1/12 = 8.3%\) （而且还不是计算机装置的每一部分都要如此增加），同时在速度上只损失同一比例（也不是每一处的速度都要损失），这两者的变化，都是不严重的。拿脉冲密度系统和模拟系统来比较，脉冲密度系统的准确度更差。因为在脉冲密度系统中， \(1:10^2\) 的准确度要求在时间间隔 \(t_1\) 中，有 \(10^2\) 个脉冲，就是说，单单就这个因素来说，机器的速度就要减少100倍。速度按这样的数量级减少，是不妙的，如果要作更大的减少，一般就认为是不能允许的了。
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> 需要高度的准确度（数字的）之理由</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+可是，现在会产生另外一个问题，为什么这样高度的准确度（例如在数字计算机中为 \(1:10^{12}\) ） ，是必要的呢？为什么典型的模拟机( \(1:10^4\) )或甚至脉冲密度系统( \(1:10^2\) )的准确度是不够的呢？ 我们知道，在大多数应用数学问题和工程技术问题中，许多数据的准确度不会优于 \(1:10^3\) 或 \(1:10^4\) ，甚至有时还达不到 \(1:10^2\) 的水平。所以，它们的答案也用不着达到更髙的准确度，因为这样提高准确度是没有意义的。在化学、生物学或经济学的问题中，或在其他实际事务中，准确度的水平甚至还要低一些。可是，在现代高速计算方法的一贯经验中，都说明了：对于大部分的重要问题，甚至 \(1:10^5\) 的水平还是不够用的。具有像 \(1:10^{10}\) 和 \(1:10^{12}\) 准确度水平的数字计算机，在实践中已被证明很有必要。这个奇怪的现象之理由，是很有趣和很有意义的。它和我们现有的数学的与数值过程的固有结构有关。
+</p>
+
+<p>
+标志这些过程的特性的事实是：当这过程分析为它的各个组成元素时，过程就变得非常长了。对所有适于运用快速电子计算机的问题来说（即至少是具有中等复杂程度的问题），都是如此。根本的理由，是因为我们现在的计算过程，要求把所有的数学函数分析为基本运算的组合，即分析为算术四则或其他大致相当的运算程序。实际上，绝大多数的函数只能用这种方法求得近似值，而这种方法意味着在绝大多数情况下，需要很长的、可能是迭代的一序列基本运算（见前文所述）。换句话说，必要的运算之“算术深度”，一般是很大的。还应指出，它的“逻辑深度”则是更大的；同时，由于一个相当重要的原因——比如：算术四则必须分解为基本的逻辑步骤，因而每一次运算本身都是一条很长的逻辑链子。但是，我们这里只需要谈谈算术深度的问题。
+</p>
+
+<p>
+如果有很大量的算术运算，则每一次运算所出现的误差是叠加的。由于这种误差主要地（虽然还不是完全地）是随机的，如果有 \(N\) 次运算，误差将不是增加 \(N\) 倍，而是大约增加 \(\sqrt{N}\) 倍。仅从这一点道理来说，要得到一个 \(1:10^3\) 准确度的综合结果，还不需要每一步运算都要达到 \(1:10^{12}\) 的准确度。因为只有当 \(N\) 为 \(10^{18}\) 时， \(\frac { 1 }{ 10^{12} } \sqrt{N} \cong \frac { 1 }{ 10^3 }\) 。而在最快速的现代计算机中， \(N\) 也很难得大于 \(10^{10}\) 。（一个计算机，每一步算术运算只需要20微秒，充其量来说，每个问题大约要解48小时，即使这样， \(N\) 也只是 \(10^{10}\) 左右！）。但 是，我们还得考虑其他的情况。在计算过程中所进行的运算，会把前一歩运算所发生的误差放大了。这将会极快地超过于刚才讲过的每一步准确度与要求综合结果的准确度之间的数字差距。上面讲过， \(1:10^3\) 被 \(1:10^{12}\) 除，得 \(10^9\) ；但是，只要有425次顺次的运算，如果每一步运算只发生5%的误差，依次递增的结果，就会达到 \(10^9\) 的误差了。我在这里，不准备对此问题作具体的、实际的估计，特别是因为计算技术中已有不少办法减低这个效应。但不管怎样，从大量经验所得到的结论来看，只要我们遇到的是相当复杂的问题，上述的髙度准确度水平是完全必要的。
+</p>
+
+<p>
+在我们离开计算机的直接问题之前，我还要讲一下关于计算机的速度、大小以及诸如此类的事情。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 现代模拟计算机的特征</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+在现有的最大型的模拟计算机中，基本运算器官的数目，大体 上是一两百个左右。当然，这些器官的性质，取决于所采用的模拟 过程。在不久以前，这些器官已趋向于用电的丶至少也是电气-机 械的结构了（机械■级是用来提高精确度的，见上述)。如果具备了 周密细致的逻辑控制，这可以给这个系统加上一定的典型的数字 执行器官（象所有这种类型的控制系统一样)，^些器官是电磁机 械继电器或眞空管等（在这里，对眞空管没有用到最大的速度)。 这些元件的数目，可以多到几千个。这样的一台模拟计算机，其投 资甚至可能达到一百万美元的数量级。
+第七章现代数字计算机的特征
+</p>
+
+<p>
+大型数宇计算机的结构，更加复杂。它由“作用”器官和具有 “记忆”功能的器官组成。对于记忆器官，我将把“输入”和“输出” 的器官都包括在内，虽然这在实践中还不是普遍应用了的。
+</p>
+
+<p>
+作用器官是这样的。第一，这些器官进行基本的逻辑操作:读 出叠合，把各个豚冲结合起来，幷可能也要读出反叠合(此外，就不 • 22 •
+</p>
+
+
+<p>
+需要具有再多的功能了。虽然有时也还有更复杂的运辑运算器 官)。第二，这些器官可以再产生膝冲：恢复逐渐消耗的能量；或: 只把机器的这部分的豚冲，简单地提高到另一部分的较高的能量 水平上面来（这两种功能都叫做放大)。有些器官，还可以恢复豚 冲所需要的波:形和同步(使之在一定的允差和标准之内)。请注意， 我刚才所说的第一种逻辑运算，正是算术运算的基本要素（参阅上 文）〇
+作用元件，速度的问题
+所有上述的功能，从历史顺序上说，是由下列元件来完成的： 电-机械继电器,眞空管，晶体二极管，铁磁芯，晶体管，或各种包括 上述元件的小型綫路。继电器大约可以达到每个基本逻辑动作需 要1〇_2秒的速度。眞空管则可以把速度提髙到1CT6到10_6秒的 数量级(在最佳的情况下,可达到1〇_6秒的一半或四分之一)。铁磁 芯和晶体管等，即被归类为固态装置的元件，大约可以达到1〇_6 秒的水平(有时可达1〇_6秒的几分之一)；而且差不多可扩展到每 基本逻辑动作只需1CT7秒的速度领域内，甚至还可能更快一些。其 他还有一些装置（我们这里不拟讨论了），可以使速度更进一步提 高。我预期，在下一个十年，我们有可能达到10_8至1CT9秒的速 度水平。
+所沾的作用元件的数目
+在大型现代计算机中，作用器官的数目，随计算机类型之不同 而各异，大约从3,000个到30,000个左右。在其中,基本的算术运 算通常是由一种组件来完成的（更准确地说，是由一组或多或少地 合幷起来的组件来完成的)。它叫做“算术器官”。在一个大型的
+</p>
+
+
+<p>
+现代计算机中，这个器官，大约包括从300个到2,000个的作用元
+</p>
+
+<p>
+件，随型式不同而定。
+</p>
+
+<p>
+我们在下面还要说到，若干作用器官的一定耝合，可用来完成 某些记忆的功能。一般地说，这需要200个到21,000个作用器官。
+</p>
+
+<p>
+最后，适当的“记忆”集合，需要有辅助的子组件，它由作用器 官组成，用以为记忆集合服务和管理它们。对于那些不包括作用 器官的记忆集合来说(详见后文。用该处的术语来说，这是记忆分 级的第二级水平)，这个功能可能需要300至2,000个作用器官。 对于整个记忆的各个部分来说，相应需要的辅助的作用器官，可能 相当于整个计算机作用器官的50%左右。
+记忆器官的存珉时间和K忆容置
+记忆器官属于几种不同的类别。据以分类的特征是“存取时 间”。存取时间可定义如下:第一，存取时间是存锗已在计算机其他 部分出现的数的时间。（通常是在作用器官的寄存器中出现的，见 下文。)或者是移出记忆器官中已经存入的数的时间。第二，当被 “询问”时，记忆器官对机器的其他部分，“重述”已经存入的数所需 要的时间。这里所说的机器的其他部分，是指接受这个数的元件 (通常是指作用器官的寄存器)。为方便起见，可以把这两个时间 分别说明（叫做“存入”时间或“取出”时间）；或者就用一个数值，即 用这两个时间中较大的一个来代表，或者用它们的平均数。再者， 存取时间可能变化，也可能不变化，如果存取时间幷不取决于记忆 地址，它就叫做“随机存取”。即使存取时间是可变的，我们也只采 用它的一个数值，通常是用它的最大值，或用它的平均值。（当然， 存取时间的平均值，将取决于待解算问题的统计性质。）不管怎样， 为了简化起见，我在这里将只使用一个单一的存取时间值。
+</p>
+
+<p>
+以作用器官构成的记忆寄存器
+</p>
+
+<p>
+记忆寄存器可以用作用器官构成。它们具有最短的存取时间， 但却是最费钱的。这样的一个寄(存器，连同它的存取设备，对每一 个二进制数字（或每一个正号丶负号)，就需要至少是4个眞空管的 綫路（如用固态元件时，可以少一点儿）。，而对每个十进制数字来 说，眞空管的数目还要大4倍以上。我们上面讲过的12位十进制 数字（和正丶负符号）的系统，则一般需要196个眞空管的寄存器。 但另一方面，这样的寄存器具有一个或两个基本反应的存取时间， 这些时间和其他各种可能的时间比较起来，还是非常快的。同时， 有几个这样的寄存器可以为整个装置带来一定的经济效益；对于 其他形式的记忆器官来说，必须用这种作用器官构成的•寄存器，作 为“存入”和“取出”的器官；而且，作为算术器官的一部分，也需要 有一个或两个（某些设计中甚至还需要三个）的这种寄存器。总而 言之，如果这种寄存器的数目适当的话，它会比我们初看起来的估 计要经济一些，同时，在这个范围内，计算机的其他器官也很需要 这样的记忆寄存器作为其附属部分。可是，把这种作用器官构成 的记忆寄存器，用来配备大容量的记忆器官，看来是不适宜的。而 这样大容量的记忆器官是几乎所有的大型计算机都需要的。（请注 意，这个观察推论只是适用于现代的计算机，即在电子管时代及其 以后的计算机。在此以前的继电器计算机中，继电器就是作用器 官，而用继电器构成的记忆寄存器则是记忆的主要形式。因此，请 注意，以下的讨论，也请读者了解为仅是适用于现代计算机的。）
+</p>
+
+<p>
+记忆器官的嫌系原理
+</p>
+
+<p>
+如上所述，对于那些廊大的记忆容量，必须运用其他型式的
+</p>
+
+
+<p>
+记忆器官。因此，就引入了一个记忆的“谱系”原理（Hierarchic principle)。这个原理的意义可叙述如下：
+</p>
+
+<p>
+一个计算机，为了完成它的应有功能(解算要它解答的问题)， 它需要一定数目的记忆容量，比如说，在一定的存取时间〖时，需荽 记忆N个宇。要在存取时间£内提供这个字，可能存在着技术 上的困难，或者在经济上非常昂贵(技术上的困难，也往往是通过昂 贵的费用表示出来的)。但是，在这个存取时间《内，可能幷不需要 提供所有的这#个字，而只需要提供一个相当戚少了的数目—— 个字。而且，当在存取时间£内供应了        个字之后，整个容量
+</p>
+
+<p>
+的JV个字，只是在一个更长的存取时间，时才需要。这样分析下 去，我们可能进一步遇到这样的情况：在一个长于〖而短于，的存 取时间内,提供一定的中间容量——即少于N字而多于M宇，可能 是最经济的。最普通的方案，是规定一序列的记忆容量况丶凡丶… iV^丶况以及一序列的存取时间‘心…‘以*。这样的两个谱 系的序列，使全部记忆容量划分得更加精确；而存取时间的规定 则比较放松了一点。这两个谱系的序列是：
+</p>
+
+<p>
+&lt;^，和纟而且在存取时间6时，需要相应的 容量iV；个字，此处（为了使这两个序列和我们 刚才所说的一致，读者应该了解，凡=况“=，。） 在这个方案中，每一个*_的值，代表记忆谱系的一个水平；记忆的 谱系，共有个水平。
+B忆元件，存取间题
+在一个现代的大型高速计算机中，记忆谱系的水平总数，将至 少是三级，或可能是四级丶五级水平。
+</p>
+
+<p>
+第一级水平，常常就是指我们在上面讲过的寄存器的水平。这
+</p>
+
+
+<p>
+一级的风，在差不多所有的计算机设计中，都至少是3个字，或者 更多一些。有时甚至曾提出要达到20个字。存取时间则是计 算机的基本开关时间（或可能是这个时间的两倍)。.
+</p>
+
+<p>
+第二级的水平，常常是靠专门的记忆器官的帮助来达到的。这 些专门的记忆器官，和计算机其他部分用的开关器官不同，和用于 上述第一级水平的开关器官不同。这个水平所用的记忆器官，通 常须有记忆容量#2,约从几千个字到几万个字（几万个字的容量， 在目前还是在设计阶段中）。其存取时间&amp; 一般比上述第一级水 平的存取时间^长5倍至10倍。
+</p>
+
+<p>
+更髙级的各级水平，其记忆容量W的增加，一般是每级增加 10倍左右。存取时间6的增长，比这还要快一些。但是，同时还须 考虑限制和规定存取时间的若干规则C参见后文)。现在就进一步 详细讨论这个问题，似乎是过于具体了。
+</p>
+
+<p>
+最快速的记忆元件，即专门的记忆器官（不是作用器官，见前 述），是某些静电装置和磁心阵列。在目前来看，磁心阵列的使用， 肯定居于优势，虽则其他的技术方法（静电丶铁-电体等)也可能再 入或进入达个领域。在记忆谱系的较高的水平上面，目前使用磁 鼓和磁带的最多，磁盘也曾被建议采用幷加以探索。
+存取时两的槪念之复杂性
+上面所讲的三种装置，都受特殊的存取规则和限度所制约。磁 鼓的各个部分，是顺序地和循环地出现的，以供存取。磁带的记忆 容量实际上是无限制的，其各个部分的出现则按照一个固定的直 綫顺序，需要时，它还可以停下来或反向移动。所有这些方案，都 可以和各种不同的安排结合起来，以便使计算机的功能和固定的 记忆序列之间得到特定的同步。
+</p>
+
+
+<p>
+任何记忆谱系的最后一级，都必须和外间世界发生关系。所 谓外间世界，是计算机所关连的外界，也就是计算机能够直接互通 讯息的外界，换句话说，就是计算机的输入和输出器宫。计算机的 输入和输出器官，一般都是用穿孔纸带或卡片；在输出端，当然也 有用印刷纸片的。有时，磁带是计算机最后的输入-输出系统，而 把它翻译成为人们能够直接使用的媒介（穿孔卡片或印刷纸片）的 工作，则是在机器以外进行的。
+</p>
+
+<p>
+下面是若干存取时间的绝对值：现有的铁磁芯记忆装置，是 5〜15微秒。静电记忆装置，是8〜20微秒。磁鼓记忆装置，每分 钟2,500〜20,000转，即每转24〜3毫秒，在这24〜3毫秒内，可供 应1〜2,000个字。磁带的速度，已达每秒70,000綫，即毎14微秒 1綫，一个字约包含5〜15綫。
+</p>
+
+<p>
+直接地址的原理
+</p>
+
+<p>
+所有现有的计算机及其记忆装置，都使用“直接地址”。就是 说，记忆中的每一个字，都有一个自己的数码地址，作为这个字以 及它在记忆中的位置的唯一标志。（上面所说的记忆，是指记忆谱 丶系的各个水平的总体而言。）当记忆的字在读出或写出时，即须明 确规定它的数码地址。有时，幷不是记忆的所有部分都是在同一 时间里能够存取的。（见上述；在多级记忆中，可能不是所有的记 忆都在同一时间内被接受的，而是按一定的存取优先规定先后被 接受。）在这种情况下，对记忆的存取，取决于在需要存取时计算机 的一般状况。可是，对于地址和地址的指定位置，则永远不应该有 任何含糊之处。
+</p>
+
+
+<p>
+第二部分人脑
+我们在上面的讨论，已经提供了比较的基础，而比较则是本书 的目的。我曾相当详细地叙述了现代计算机的本质，以及组成计 算机的宽广的可供抉择的种种原理。现在，我们有可能转入另一 项比较，即与人类神经系统的此较。我将讨论这两类“自动机”之 间的相似与不相似之点。找出它们相类似的要素，将引向我们所 熟悉的领域。同时，还有若干不相类似的要素。这些相异之处，不 仅存在于大小尺寸和速度等比较明显的方面，而且存在于更深入丶 更根本的方面，包含:功能和控制的原理，总体的组织原理等等。我 的主要目的，是探讨后一方面。但是，为了对这些作出恰当的评 价，把相类似的地方和那些更表面的不同之处（如大小丶速度等）， 幷列和结合起来讨论，也是需要的。因此，下面的讨论，也同时对 这些内容给以相当的强调。
+第八章神经元功能简述
+</p>
+
+<p>
+对神经系统作最直接的观察，会觉得它的功能显时易见地是 数字型的。我们有必要比较充分地讨论这个事实，以及讨论作出 这一判断所依据的构造和功能。
+</p>
+
+<p>
+神经系统的基本元件，是神经细胞，或称神经元。神经元的正 常功能，是发出和传播神经脉冲。这个脉冲,是一种相当复杂的过 程，有着各种不同的表现——电的丶化学的和机械的。但是，看来
+</p>
+
+
+<p>
+它却是一个相当单一的规定的过程，就是说，它在任何条件下都是 一致的；对于变化范围相当广阔的刺激来说，它表现出一种在本质 上是可以再现的丶单一的反应。
+</p>
+
+<p>
+让我较详细地讨论和这本书的内容有关的神经豚冲的各个方
+</p>
+
+<p>
+面。
+第九章神经脉冲的本质
+</p>
+
+<p>
+神经细胞包含一个细胞体，从它那儿，还直接或间接地引出一 个或多个分支。每一个分支，叫做细胞的轴突（axon)。神经豚冲 就是沿着每一根轴突所传导的一种连绩的变化。传导一般是以固 定的速度进行的，这个速度也可能是神经细胞的一个功能。正如 前面所说，上述变化的情况，可以从多方面来看。它的特征之一是 必然存在着一种电扰动5事实上，人们往往也把这个变化描述为一 种电扰动。这个电的扰动，通常具有大约50毫伏的电位和约1毫 秒的时间。与电扰动同时，沿着轴突还发生着化学变化。即在豚 冲电位和经过的轴突面积内，细胞内液(intracellular fluid)的离子 构成起了变化，因而，轴突壁（细胞膜）的电化学性质——如电导 率丶磁导率等，也起了变化。在轴突的末端，化学性质的变化就更 加明显；在那里，当豚冲到达时，会出现一种特殊的具有标志性的 物质。最后，可能还有着机械变化。细胞膜各种离子导磁率的变 化，很可能只能从它的分子的重新取向排列才能发生，这就是一种 机械变化，即包括这些构成成分的相对位置的变化。
+</p>
+
+<p>
+应该说明，所有这些变化都是可逆的。就是说，当豚冲过去之 后，所有轴突周围的各种条件丶所有它的耝成部分，都可以恢复到
+</p>
+
+<p>
+原来的状态。
+</p>
+
+<p>
+因为所有这些效应，都在分子的水平上进行（细胞膜的厚度， 大约只有几个十分之一微米左右，即约l〇_B厘米。这就是细胞膜 所包括的大的有机分子的尺寸)。因此，上述电的丶化学的和机械 的效应，其间的区分是不很淸楚的。在分子水平上，在这些变化之 间，幷无截然的区别:每一次化学变化，都是由决定分子相对位置变 化的分子内力的变化而引起的，因此，它又是机械的诱发过程。而 且，每一个这样的分子内力的机械变化，都影响到分子的电性质， 因而引起电性质的变化和相对电位水平的变化。总之，在通常的 (宏观）尺度上，电的丶化学的丶机械的过程，是能够明确区分的，不 属于这一类，就属于那一类；但是，在接近分子水平的神经细胞膜 中，所有这些方面都合幷起来因此，很自然地，神经豚冲就成 为这样一种现象，我们可以从这几个方面中的任何一个方面去考 察它。
+剌激的过程
+</p>
+
+<p>
+如前所述，已经充分显现出来的神经豚冲是可以比较的，而不 管它是怎样被诱发出来的。由于它的特性幷不是非常明确的（它 可以被看作是电的过程,也可以看作是化学的过程等），因此，它的 诱发原因，同祥也可以旣归之于为电的原因，又归之于化学的原 因。而且，在神经系统内，大多数的神经豚冲，又是由一个或多个 其他神经豚冲所引起的。在这些情况下，这一诱发的过程(神经脉 冲的剌激)，可能成功，也可能不成功。如果它失败了，那就是最初 发生了一个扰动，而在几毫秒之后，扰动就消失了，沿着轴突幷没 有扰动的传导。如果它成功了，扰动很快就形成一种标准的形式 (近似于标准)，幷以此形式沿着轴突传导。这就是说，如上所述，
+</p>
+
+<p>
+这一标准的神经豚冲将沿着轴突移动，看来，不管诱发过程的具体 细节如何，神经脉冲在表现形式上是相当地独立的。
+</p>
+
+<p>
+神经脉冲的刺激，—般产生在神经细胞的细胞体内或其附近〇 它的传导，则是沿着轴突进行的。
+</p>
+
+<p>
+由脉冲引起的剌激脉冲的机制，它的数字特性
+</p>
+
+<p>
+我现在可以回到这一机制的数字性质上面来。神经豚冲可以 很淸楚地看作是两值符号，它的含意是：无豚冲时表示一个值（在 二进制数字中为0)，豚冲出现时表示另一个值（在二进制数字中 为1)。当然，它应该被描述为在某一特定轴突上的变化（或者，不 如说是在某一特定神经元上各轴突的变化)，幷且，可能在相关于 其他事件的一个特定时间内。因此，它们可以用一种特殊的丶逻辑 作用的符号（二进制数字中的0或1)来表示。        ‘
+</p>
+
+<p>
+上面已经讲过，在给定神经元的轴突上发生的豚冲，一般是由 冲击在神经元细胞体上的其他豚冲所激发的。这个剌激，通常是 有条件的，就是说，只有这些原发豚冲的一定组合和同步性，才能 激发出我们所讲过的派生豚冲，而其他条件是产生不了这种激发 作用的。这就是说，神经元是一个能够接受幷发出一定的物理实 体（豚冲）的器官。当它接受那些具有一定组合和同步性的豚冲 时，它会被刺激而产生自己的豚冲；反之，它就不能发出自己的豚 冲。描述对哪一类豚冲作出什么反应的规律，也就是支配这个作 为作用器官的神经元的规律。
+</p>
+
+<p>
+很明显，对数字计算机中一个器宫的功能之描述，对数字器宫 作用与功能的描述，都已经特征化了。这就支持了我们原先的断 定:神经系统具有着一种“最初看见的”①数字特性6
+①这个词，作者用了一句拉丁文——prima facie,按字典的诠释，原意是第一次
+</p>
+
+<p>
+让我对“最初看见的”这个形琴词多说几句。上述描述，包含 着某些理想化与简化，这在后面我们还要讨论的。如果考虑到这 些情况，神经系统的数字性质，就不是那么淸楚与毫无疑问的了。 但是，我们在前面所强调的那些特点，的确是首要的显着的特点。 所以，我从强调神经系统的数字特性来开始本章的讨论，看来还是 比较适宜的。
+神经反应丶癍乏和恢复的时间特性
+在讨论本题之前，需要对神经细胞的大小丶功率消耗和速度等 等，作出若干定向性的评述。当我们把神经细胞与它的主要的“人 造对手”（现代的逻辑与计算机器之典型作用器官)相比较时，这些 情况特别有启发意义。这些人造的典型作用器官，当然就是眞空 管和最近发展起来的晶体管了。
+</p>
+
+<p>
+上面已经讲过，神经细胞的刺激，一般都在它的细胞体附近发 生。事实上，一个完全的正常的刺激，可以沿着一条轴突进行。就 是说，一个适当的电位的或化学的刺激，如果适当地集中而施加到 轴突的一点上，将在那里引起一个扰动，它很快就会发展为一个标 准的豚冲，从被刺激的点，沿着轴突向上和向下进行。上面所讲的 通常的剌激，往往发生在从细胞体伸展出来一耝分支附近，虽然这 些分支的尺寸更小，但它基本上还是轴突，刺激从这组分支传到神 经细胞体去，（然后又传到正常的轴突上去）。这一组刺激接收器， 叫做树状突起(dendrites)。由其他豚冲(或其他多个豚冲）而来的 正常的刺激，是从传导这豚冲的轴突（或多个轴突）的一个特殊末 端发射出来的。这个末端叫做突触(synapse)。（一个豚冲，不管它
+看见或第一次观察(on the Hrst view)。作者这样说，是因为按本书以后的分析，神经
+</p>
+
+<p>
+系统的数字性质幷不是完全没有问题的■&gt;——译注
+</p>
+
+
+<p>
+只能通过一个突触引起刺激，或者是当它沿轴突传导时，它都可以 直接刺激别的轴突，只有封闭的轴突除外。这个问题，在这里不需 要讨论。但从这一现象来说，是有利于这样一个短路过程的假定 的。）刺激穿过突触的时间，大约是1CT4秒的几倍。这个时间被定 义为：从豚冲抵达突触开始，一直到在被刺激的神经元的轴突之 最近点上发生刺激脉冲为止。但是，如果我们把神经元作为逻辑 机的作用器官来看，上述规定幷不是表示神经元反应时间的最有 意义的方法。理由是：当刺激豚冲实现之后，被刺激的神经元幷不 能立即恢复到它原有的丶被刺激前的状态。这就叫做癍乏，即：它 不能立即接受另一豚冲的刺激，不能作出标准的反应。从机器的 经济观点来说，更重要的是量度这样一个速度：当一个引起了标准 反应的刺激发生之后，需要多少时间，另一刺激才能引起另一个标 准反应。这个时间，大约为1.5 xl(T2秒。从以上两个不同数字， 很明显地可以看出，实际上刺激通过突触的时间，只需要这个时间 (1CT2秒)的百分之一丶二，其余时间都是恢复时间，即神经元从刺激 刚过后的疲乏状态恢复到在刺激前的正常状态。应该指出，疲乏 的恢复，是逐渐的，在更早一点的时间（大约在0.5 xl(T2秒时），神 经元就能够以非标准的形式作出反应，也就是说，它也可以产生一 个标准的反应，不过必须新的剌激比在标准条件下所需要的刺激 更加强烈。这种情形，还具有更加广泛的意义，在后面我们还要再 讲到的。
+</p>
+
+<p>
+因此，讲到神经元的反应时间，要看我们采用什么样的定义， 大体上在1(T4到1CT2秒之间，而后面的那个定义，意义更大一些。 和这个时间相比，在大型逻辑机中使用的现代眞空管和晶体管，它 们的反应时间约在1CT6和10_7秒左右（当然，我在这里也是指完 全恢复时间，即器官恢复到它的刺激前状态的时间）。这就是说，在
+</p>
+
+<p>
+这方面，我们的人造元件比相应的天然元件优越，大约快104〜l〇6 倍左右。
+</p>
+
+<p>
+至于大小尺寸的此较，就和这个结论很不相同。估计大小的 途径有许多，但是最好的方法还是拿它们一个一个地估计。
+</p>
+
+<p>
+神经元的大小，它和人造元件的比较
+</p>
+
+<p>
+神经元的綫形尺寸，对这一种神经细胞和对另一种神经细胞， 是各不相同的。某些神经细胞，彼此很紧密地集合成一大团，因 此，轴突就很短；而另外一些神经细胞，要在人体中距离较远的部 分之间传递豚冲，因而它们的綫形长度可以与整个人体的长度相 比较。为了要得到不含糊的和有意义的比较，一个办法是把神经 细胞中逻辑作用部分与眞空管丶晶体管的逻辑作用部分相比。对 于神经细胞，逻辑作用部分是细胞膜，它的厚度大约是1(T5厘米 的几倍。至于眞空管的逻辑作用部分，是栅极到阴极的距离，大约 是10*"1厘米到1(T2厘米的几倍&gt; 对晶体管来说,这就是“触须电极” 间的距离，即非欧姆电极——“发射极”和“控制电极”的距离，大约 为这些零件的直接作用环境的三分之一，其数值约为略小于1〇-2 厘米。因此，从綫形尺寸来说，天然元件要比我们的人造元件小 103倍左右。
+</p>
+
+<p>
+其次，比较它们的体积也是可能的。中央神经系统所占空间， 大约是处在一公升左右的数量级上（在人脑中），亦即103立方厘 米。在中央神经系统中所包括的神经元数目，一般估计在l〇1G个 的数量级上，或者还要多一些。因此，每个神经原的体积，可估算 为l〇H立方厘米。
+</p>
+
+<p>
+眞空管或晶体管的装配密度，也是可以估计的,虽则这一估计 幷不能绝对地毫无疑问。看来，在双方的比较中，各个眞空管或晶
+</p>
+
+
+<p>
+体管装配起来的密度，要比单一元件的实际体积，能够更好地衡畺 元件大小的效率。按今天的技术水平，把几千个眞空管装配在一 起，大约需要占据几十立方呎的容积;而把几千个晶体管装配在一 起，则需要占据一个或几个立方呎的容积。以后者（晶体管）的数 字，作为今天的最佳纪录，则几千个（1〇3)作用器官需要占据1〇5立 方厘米的容积，故毎一个作用器官的体积为10〜1〇2立方厘米。因 此，在占用容积（体积）方面，天然元件比人造元件要小1〇8〜1〇9 倍。把这个比数，同上述綫形尺寸的比数对比时，綫形尺寸的比 数，最好是把它看作为体积比数的根据，它应该是体积比数的立方 根。把体积比数1〇8〜1〇9开立方，其立方根是0.5〜IX 1〇3,这个 推算结果，和上节我们直接求得的綫形尺寸比数是相当吻合的。
+</p>
+
+<p>
+能置的消耗，与人造元件的比较
+</p>
+
+<p>
+最后，应该进行能量消耗的比较。一个作用的逻辑器官，从它 的性质来说，是不作任何功的：刺激脉冲，比起它激发起来的豚冲 来说，只要有几分之一的能量就足够了。在任何情况下，在这些能 量之间，幷不存在着内在的与必要的关系。因此，这些元件中的能 量，差不多都是散逸了，即转变为热能而不作相应的机械功。因 此，能量的需用量，实际上就是能量的消耗量，所以我们可以谈这 些器官的消耗量。
+</p>
+
+<p>
+在人类的中央神经系统(人脑）中，能量消耗大约在10瓦特的 数量级。因为人脑中约有1〇1(&gt;个神经元，所以毎个神经元的能量 消耗约为1CT9瓦特。而一个眞空管的典型能量消耗量约在5〜10 瓦特的数量级上。一个晶体管的典型能量消耗量约在10—1瓦特的 数量级上。由此可以看到，天然元件的能量消耗比人造元件要 小108〜109倍。这个比例，和刚才所说的体积比较的比例，是相
+</p>
+
+<p>
+同的。
+比较的总结
+</p>
+
+<p>
+把上面的比较总结一下。按大小对比，天然元件比人造元件 的相对比较系数是1〇8〜1〇9，天然元件远较人造元件优越。这个 系数是从綫形尺寸的比例乘立方求得，它们的体积比较和能量消 耗比较，也是这个系数。和这个情况相反，人造元件的速度，比天 然元件快，两者的比较系数是：人造元件比天然元件快1〇4〜1〇&amp; 倍。
+</p>
+
+<p>
+我们现在可以根据上述数量的评价来作出一定的结论。当 然，应该记住，我们前面的讨论还是很肤浅的，因而现在所得出的 结论，随着今后讨论的展开，将需要作出很多修正。可是，无论如 何，值得在现在就提出一定的结论。这几个结论如下：
+</p>
+
+<p>
+第一，在同样时间内，在总容量相等的作用器宫中（总容量相 等，是以体积或能量消耗相等来作定义），天然元件比人造元件所 能完成的动作数目，大约要多1〇4倍。这个系数，是由上面已求得 的两个比例数相除而得出来的商数，即1〇8〜1〇9/1〇4〜105。
+</p>
+
+<p>
+第二，这些系数还说明，天然元件比自动机器优越，是它具有 更多的但却是速度较慢的器官。而人造元件的情况却相反，它比 天然元件具有较少的丶但速度较快的器官。所以，一个有效地组织 起来的大型的天然的自动系统（如人的神经系统），它希望同时取 得尽可能多的逻辑的（或信息的）项目，而且同时对它们进行加工 处理。而一个有效地组织起来的大型人造自动机（如大型的现代 计算机)，则以连续顺序地工作为有利，即一个时间内只处理一项， 或至少是一个时间_内处理的项目不多。这就是说，大型丶有效的天 然自动机，以高度“幷行”的綫路为有利；大型丶有效的人造自动机，
+</p>
+
+
+<p>
+则幷行的程度要小，宁愿以采取“串行”綫路为有利(此处请参阅本 书第一部分关于幷行与串行綫路的叙述）。
+</p>
+
+<p>
+第三，应该注意，幷行或串行的运算，幷不是随便可以互相替 代的（象我们在前面的第一点结论中，为了取得一个单一的“效率 评分”，简单地把天然元件在大小上的有利系数，除以它在速度上 的不利系数那样)。更具体地说，幷不是任何串行运算都是能够直 接变为幷行的，因为有些运算只能在另一些其他运算完成之后才 能进行，而不能同时进行（即它们必须运用其他运算的结果)。在 这种情况下，从串行型式转换为幷行型式，是不可能的，或者是只 有在同时变化了它的逻辑途径和过程的耝织之后才有可能。相反 地，如果要把幷行型式改为串行，也将对自动系统提出新的要求。 具体地说，这常常产生出新的记忆需要，因为前面进行的运算的答 案，必须先储存起来，其后的运算才能进行。所以，天然的自动机 的逻辑途径和结构，可能和人造的自动机有相当大的区别。而且， 看来人造自动机的记忆要求，需要比天然自动机更有系统丶更严密 得多。
+</p>
+
+<p>
+所有这些观点，在我们以后的讨论中，还会再提出的。
+</p>
+
+<p>
+第十章刺激的判据
+</p>
+
+<p>
+最简单的——基本的逻辑判据
+我现在能够进而讨论在前面叙述神经作用时所作的理想化与 简单化了。我当时就曾经指出，在叙述中是存在着这两方面的，而 且在前面简化掉的内容，幷非都是无关宏旨而是应该给以评价的。 正如前面已指出的，神经元的正常输出，是标准的神经豚冲。
+</p>
+
+<p>
+它可以由各种形式的刺激诱发出来，其中包括从其他神经元传递 来的一个或多个脉冲。其他可能的刺激，是外界世界的一些现象， 这些现象是某些特定的神经元特别敏威的（如光丶声丶压力丶温度 等），同时，它们还使这神经元所在的机体发生物理的和化学的变 化。我现在从上述第一种情况开始，即从讨论其他神经元传递来 的剌激豚冲幵始。
+</p>
+
+<p>
+在前面曾经观察到，这个特定的机制（由于其他神经豚冲的适 当组合而引起的神经脉冲刺激)，使我们可以把神经元和典型的基 本的数字作用器宫相比较。进一步说，如果一个神经元，和两个其 他神经元的轴突接触（通过它的突触），而且它的最低刺激需求C即 引起一个反应脉冲的最小要求）就是两个同时进来的豚冲，则这个 神经元实际上就是一个“与”器官，它进行合取的逻辑运算（文宇上 就是“与”)，因为它只在两个刺激同时作用时才能发生反应。另一 方面，如果上述神经元的最低刺激需求是仅R有一个豚冲到达就 够了，那么，这个神经元就是一个“或”器官，就是说，它进行析取的 逻辑运算（文字上就是“或”），因为在两个刺激之中只要有一个发 生作用，就能产生反应。
+</p>
+
+<p>
+“与”和“或”是基本的逻辑运算。它们和“无”在一起（“无”是 否定的逻辑运算)，就构成’基本逻辑运算的完整体系。一切其他的 逻辑运算，不管多么复杂，都可以从这三者的适当组合而完成。我 在这里，将不讨论神经元怎样能够刺激出“无”运算，或者我们用什 么办法来完全避免这种运算。这里所讲的，已经足以说明前面所 强调的推论：如此看来，神经元可以当作是基本的逻辑器官，因而 它也是基本的数字器官。
+</p>
+
+
+<p>
+更复杂的剌激判据
+但是，这还是对现实情况的一种简化与理想化。实际的神经 元，作为系统中的一部分,幷不是这样简单地耝织的。
+</p>
+
+<p>
+有一些神经元，在它们的细胞体上，确实只有一丶两个（或者只 有为数不多的几个)其他神经元的突触。但是，更常见的情况却是 一个神经元的细胞体上，有着其他许多神经元轴突的突触。甚至 有时有这种情况，一个神经元出来的好几个轴突，形成对其他一个 神经元的好几个突触。因而，可能的刺激源是很多的。同时，可能 生效的刺激方式，比上述简单的“与”和“或”的系统具有更加复杂 的定义。如果在一个单独的神经细胞上，有许多个突触，则这个神 经元的最简单的行为规律，是只有当它同时地接收到一定的最低 要求数目的（或比这更多的)神经脉冲时，才产生反应。但是，很有 理由设想，在实际中，神经元的活动情况，要比这个更加复杂。某 些神经脉冲的组合之所以能刺激某一给定神经元，可能不只是由 于豚冲的数目，而且是由于传递它的突触的空间位置关系。就是 说，我们可能遇到在一个神经元上有几百个突触的情况，而剌激的 组合之是否有效（使这神经元产生反应豚冲)，不只是由刺激的数 目来规定，而且取决于它在神经元的某一特定部位的作用范围（在 它的细胞体或树状突起系统上)，取决于这些特定部位之间的位置 关系，甚至还取决于有关的更复杂的数量上和几何学上的关系。
+</p>
+
+<p>
+M 值
+</p>
+
+<p>
+如果刺激的有效程度的判据是上面讲过的最简单的一种：（同 时地）出现最低需求数目的刺激豚冲，那么，这个最低需求的刺激 数目叫做这个神经元的闽值。我们经常用这种判据（即阈值)，来 • 40 •
+</p>
+
+
+<p>
+叙述一个给定神经元的刺激需求。可是，必须记住，剌激的需求幷 不限于这个简单的特性，它还有着比仅仅是达到阈值(即最小数目 的同时剌激)复杂得多的关系。
+</p>
+
+<p>
+总和时间
+</p>
+
+<p>
+除此之外，神经元的性质，还会显示出其他的复杂性，这是仅 仅用标准神经脉冲叙述刺激-反应关系时所没有讲到的。
+</p>
+
+<p>
+我们在上面讲到的“同时性”，它不能也不意味着实际上准确 的同时性。在各种情况下，有一段有限的时间——总和时间，在这 段时间内到达的两个豚冲，仍然象它们是同时到达的那样作用。 其实，事情比这里所说的还要复杂，总和时间也可以不是一个非常 明确的槪念。甚至在稍为长一点的时间以后，前一个豚冲仍然会 加到后一个紧接着的豚冲上面去，只不过是在逐渐戚弱的和部分 的范围内而已。一序列的脉冲，即使已超出总和时间，只要在一定 的限度内，由于它们的长度，其效应还是比单独的豚冲大。疲乏和 恢复现象的重叠，可以使一个神经元处于非正常的状态，即：它的 反应特性和它在标准条件下的反应特性不同。对所有这些现象， 已经取得了一批观察结果（虽然这些观察是或多或少地不完全 的）。这些观察都指出，单个的神经元可能具有（至少在适当的特 殊条件下)一个复杂的机制，比用简单的基本逻辑运算型式所作出 的刺激-反应的敎条式叙述,要复杂得多。
+接收器的剌激判据
+除了由于其他神经元的输出（神经脉冲）而引起的神经元刺激 之外，对于其他神经元刺激的因素，我们只需要说几件事情。正如 已经讨论过的，这些其他因素是外界世界的现象（即在机体表面的
+</p>
+
+<p>
+现象），对这些现象，某些特定的神经元是特别敏威的(如光丶声丶压 力丶温度等)，幷在这神经元所在的机体内引起物理的与化学的变 化。对其他神经元的输出豚冲能作出反应的神经元，通常叫做接 收器。但是，我们可以更适当地把能够对其他剌激因素作出反应 的神经元，也叫做接收器。幷且对这两类范嗪的神经元，分别称为 外接收器和内接收器以示区别。
+</p>
+
+<p>
+从上述情况，刺激判据的问题又重新发生了。现在，需要给出 在什么条件下，神经豚冲的剌激才发生作用的判据。
+</p>
+
+<p>
+最简单的剌激判据，仍然是用闽值表示的判据，这就是前面讲 过的由于神经豚冲而引起的神经元剌激的情况。这就是说，剌激 的有效性之判据，可以用剌激因子的最小强度来表示。比如，对于 外接收器来说，这种判据是光照的最小强度,或在一定的频率带内 所包含的声能的最小强度，或过压力的最小强度，或温度升髙的最 小强度等等。或者，对内接收器来说，是临界化学因素集中的最小 变化，相关物理参数值的最小变化等等。
+</p>
+
+<p>
+但是，应该注意，阈值的刺激判据，不是唯一可能的判据。在 光学现象中，许多神经元所具有的反应，是对光照度变化的反应 (有时是从亮到暗，有时是从暗到亮)，而不是对光照度达到的特定 水平。这些反应，可能不是一个单独的神经元的，而是在更复杂的 神经系统中神经元的输出。我不拟在这里详细讨论这个问题。观 察上述已有的论据，已足以指出，对接收器来说，阈值的刺激判据， 不是在神经系统中唯一的判据。
+</p>
+
+<p>
+现在，让我重复一下上面所讲的典型例子。我们都知道，在威 光神经中，某些神经纤维不是对光照的任何特定（最小）水平作出 反应，而是只对水平的变化产生反应;就是说，在某些神经纤维中， 是由于从暗到亮发生反应，•有些则是由于从亮到暗发生反应。换
+</p>
+
+<p>
+句话说，形成刺激判据的，是水平的增长或戚低，即水平的微商之 大小，而不是水平本身之髙低。
+</p>
+
+<p>
+神经系统的这些“复杂性”对神经系统功能结构及对功能的作 用，看来应当在这里讲一下。有一种看法是：我们很可以想象，这 些复杂性没有起到任何功能上的作用。但是，我们应该更有兴趣 地指出，我们可以想象这些复杂性有着功能上的作用。应该对这 些可能性说几点。
+</p>
+
+<p>
+我们可以设想，在基本上是按数字原则组织的神经系统中，上 述复杂性会起着“模拟”的作用，或至少是“混合”式的作用。曾经 有人提出，由于这些机制，有着更为奥妙的综合的电效应，可能对 神经系统的功能发生影响。在这里，某些一般的电位起着重要的 作用，神经系统则按电位理论问题的解答而作出反应。这些问题 比通常用数字判据丶剌激判据等来描述的问题，具有更基本的丶不 那么直接的性质。由于神经系统的特性仍然可能基本上就是数字 性质的，因此，上述这些效应如果眞是存在的话，它们会和数字效 应相互作用；这就是说，它可能是一种“混合系统”的问题，而不是 一个纯粹的模拟系统的问题。好几位作者很热心地沿着这个方向 作出种种推测，如果在一般文献中，应该引述这些作者的工作；但 是，在这里，我就不准备用专门术语来进一步讨论这个问题了。
+</p>
+
+<p>
+上述的这种类型的复杂性，如果象前面讲过的那样，用基本作 用器官的数目来说，可以说，一个神经细胞不只是一个单一的基本 作用器官;计算这些作用器官数目的任何有意义的努力，都使我们 认识这一点。很明显地，甚至比较复杂的刺激判据，也具有这个效 应。如果神经细胞被细胞体上各突触的一定组合的刺激所作用 (而不是被别的形式的刺激所作用)，那么，基本作用器官的数目， 必须推定为突触数目，而不是神经细胞的数目。如果上述“混合”
+</p>
+
+<p>
+型的现象被进一步地澄淸了，这种作用器宫数目的计算还要更困 难一些。用突触的数目来代替神经细胞的数目，会使基本作用器 官的数目增加相当大的倍数，比如10倍到100倍。这种情况，当 我们考虑基本作用器宫的数目时，是应该记住的。
+</p>
+
+<p>
+虽然，我们现在已经讲过的各个复杂性，可能是不相关的，但 是，它们会给系统带来部分地模拟的性质，或者一种混合的性质。 在任何情况下，这些复杂性都会增加基本作用器官的数目，如果这 个数目是由任何相当的判据所决定的话。这个增加，可能是大约 10倍到100倍。
+第十一章神经系统内的记t乙问题
+</p>
+
+<p>
+我们的讨论，直到现在，还未考虑到一种元件，它在神经系统 中的存在是具有相当根据的，如果不是已经肯定了的话。这种元 件在一切人造计算机中起着极其重要的作用，而且它的意义，可能 是原则上的而不是偶然的。这种元件就是记忆。因此，我现在要 讨论在神经系统中的这个元件，或者更准确地说，是这个耝件。
+</p>
+
+<p>
+刚才说过，在神经系统内，存在着一个记忆部分(或者，也可能 是几个记忆部分)。这是一种推测和假设，但是，我们在人造计算自 动机方面的所有经验，都提出了和证实了这个推测。同样，在讨 论开始时，我们应该承认，关于这个组件（或这些耝件）的本质丶物 理体现及其位置，都还是一个假说。我们还不知道，从实物上来 看，神经系统中的记忆器官究竟在哪里？我们也不知道，记忆是一 个独立的器官呢，还是其他已知器官的特定部分之集合？它也许 存在于一个特殊的神经系统中，而且这可能是一个相当大的系统。
+</p>
+
+<p>
+它可能和细胞体的遗传学机制有某些关系。总而言之，我们对记 忆的本质及其位置，现在仍然是无知的，象古希腊人以为心脏在横 隔膜里面一样无知。我们所知道的唯一事情，就是在神经系统中， 一定有着相当大容量的记忆；因为很难相信，象人类的神经系统这 样复杂的自动机，怎么能够没有一个大容量记忆。
+估计神经系统中记忆容置的原理
+让我谈一下这个记忆可能有的容量。
+</p>
+
+<p>
+对于人造自动机（如计算机)，已经有了相当一致的确定记忆 “容量”的标准方法。因此，把这个方法推广到神经系统上面来，看 来也是合理的。一个记忆，能够保持一定的最大数量的信息，而信 息都能够转换成为二进位数字的集合，它的单位叫做“位”（bit)% 对一个能够保存一千个十进制的8位数目字的记忆，我们说，它的 容量是l，〇〇〇x 8 X3.32兰2.66X104位。因为一个十进制数字，大 体相当于l〇g210兰3.32位。（上述十进制数字转换为位的方法，是 由G. E.申南〔G. E. Shannon〕和其他学者在关于信息论的经典着 作中建立的。）很明显，十进制的三位数字，大约相当于10位，因为 二1，024,这个数近似于10s。（故按此计算，一个十进制数字，大 致相当于¥~兰3.33位。）所以，上例中记忆的容量是2.66X104 位。根据同样的推理，一个印刷体或打字机体字母的信息容量是 log2SSg6.45位（一个字母，有2 x26 + 35=88个选择。式中的2 是表示大写或小写两种可能;26是字母的数目；35是常用的标点符 号丶数学符号和间隔的数目。当然，上述这些数目是和信息的文字 内容有关系的)。所以，一个保持一千个字母的记忆，其容量即为
+bit，即二进制的位，在计算技术名词中简称为11位％——译注
+</p>
+
+<p>
+6,450 = 6.45xl〇3位。按照同样的槪念，对于更复杂的信息的记忆 容量，也是可以用这个标准信息单位——位来表示的，比如对几何 形状的记忆容量（当然，给定的几何形状必须具有一定程度的准确 幷且是肯定了的），或对颜色差别的记忆容量（其要求与上述对几 何形状的相同）等等。按照上述原理，我们就可以运用简单的加 法，计算各类信息的各个组合数目，从而规定它们的记忆容量。
+运用上述规则估计记忆容置
+</p>
+
+<p>
+一台现代计算机所需要的记忆容量，一般约在105到106位的 数量级上。至于神经系统功能所需要的记忆容量，据推测要比计 算机的记忆容量大得多。因为我们在前面已经看到，神经系统是 比人造自动机(如计算机)大得多的自动系统。神经系统的记忆容 量，比上面这个1〇6到1〇6位的数字究竟要大多少，我们现在还很难 说。但是，提出一些祖略的定向性的估计，还是可以做得到的。
+</p>
+
+<p>
+一个标准的接收器，大约每秒可以接受14个不同的数字印 象，我们可以把它算作是同样数目的位（即14位)。这样，假定101G 个神经细胞都是在适当情况下作为接收器（内接收器或外接收 器），则每秒钟的信息总输入为14xl〇w位。我们还进一步假定， 在神经系统中幷没有眞正的遗忘，我们所接受的印象会从神经活 动中的重要领域里(即注意力中心)转移出去,但是它幷没有眞正被 完全抹去(关于这个假定，已经有了一些证据)。那么，我们就需要 估计一个通常的人类的生活期间，比如说，我们算这个期间是60 年吧，这就是2 X109秒左右。按照上节的推算方法，在这期间需 要的总记忆容量则为：14xl〇1Gx2xl〇9=2.8&gt;&lt;l〇2G位。这个容 量，比我们承认的现代计算机的典型记忆容量1〇6到1〇6位大得多 了。神经系统的记忆容量比计算机超过这么多的数量级，看来也
+</p>
+
+<p>
+不是不合理的，因为我们在前面已经观察到,神经系统的基本作用 器官的数目，与计算机的相比，也是超过许多个数量级的。
+记忆的各种可能的物理体现
+</p>
+
+<p>
+记忆的物质体现，还是一个未解决的问题。对于这个问题，许 多作者提出了许多不同的解答。有人假设，各个不同神经细胞的阈 值(或者更广泛地说，刺激判据)，是随时间而变化的，它是这个细 胞的以前历史的函数。因此，经常使用一个神经细胞，会降低它的 阈值，就是说，戚低它的剌激需求，等等。如果这个假设是眞的话， 记忆就存在于刺激判据的可变性之中。这无疑是一种可能性，但 是我在这里不准备去讨论这个问题。
+</p>
+
+<p>
+这个槪念的一个更强烈的表现，是假定神经细胞的连接(即传 导轴突的分布）随时间而变化。这就意味着以下的状况是存在的。 —个轴突如果长久废弃不用，在后来用时就会不发生作用了。另 一方面，如果很频繁地（比起正常使用来说）使用一个轴突，那么， 就会在这个特定的途径上形成一个有着较低的阈值（过敏的刺激 判据）的连接。在这种情况下，神经系统的某一部分就会随时间及 其以前的历史而变化，这样，它自己就代表着记忆。
+</p>
+
+<p>
+记忆的另一种形式，它是明显地存在的，是细胞体的遗传部 分：染色体以及组成它的基因显然是记忆要素，它们的状态，影响 着幷在一定程度上决定着整个系统的功能。因此，可能存在着一 个遗传的记忆系统。
+</p>
+
+<p>
+此外，可能还有一些其他的记忆形式，其中的一些也是似乎颇 有道理的。在细胞体的一定面积上，有某些特殊的化合物，它们是 可以自我保持不变的，这也可能是记忆的要素。人们可以设想，这 是一种记忆，如果他认为有遗传的记忆系统的话。因为在基因中
+</p>
+
+
+<p>
+存在的这些自我保持不变的性质，看来也可以位于基因之外，即在 细胞的其他部分。
+</p>
+
+<p>
+在这里，我就不列举所有这些可能的推测了，虽然这些其他的 许多可能性，和上面所说的可能性具有相等的丶甚至是更多的道 理。我只在这里指出，虽然我们还不能找到记忆究竟在神经细胞 的哪一些特殊部分，但是，我们仍然能够提出记忆的许多种物理体 现，而且这些推断都有着不同程度的理由。
+</p>
+
+<p>
+和人造计算机相比拟
+</p>
+
+<p>
+最后，我应该说明，各个神经细胞系统，彼此通过各个可能的 循环途径相互剌激，也可以构成记忆。这就是由作用要素（神经细 胞）做成的记忆。在我们的计算机技术中，这类记忆是常常使用 的，幷且具有重要意义。事实上，它还是首先在计算机上采用的一 种记忆形式。在眞空管型的计算机中，“触发器”就是这种记忆的 元件。这些触发器是成对的眞空管，相互起着开关和控制的作用^ 在晶体管技术中，实际上还在其他各种型式的高速电子技术中，都 允许和要求使用这些像触发器一类的组件，这些组件，正如早期眞 空管计算机中的触发器一样，也可以作记忆要素之用。
+K忆的基础元件不需要和基本作用器官的元件相闻
+</p>
+
+<p>
+必须注意，神经系统使用基本作用器官作为记忆元件，是不适 宜的。这样的记忆，可以标志为‘‘用基本作用器官组成的记忆”，它 从各方面的意义来说，都是很浪费的。但是，现代的计算机技术却 是从这样的装置开始的。第一台大型的眞空管计算机ENIAC的 第一级记忆（即最快和最直接的记忆），就是完全运用触发器的。 然而，ENIAC虽然是很大型的计算机(有22,000个眞空管），但从
+</p>
+
+<p>
+今天的标准来看，它的第一级记忆的容量却是很小（只保持几打10 位的十进制数字)。这样的记忆容量，只不过相当于几百个位，肯 定小于103位。今天的计算机，为要在计算机的规模和记忆容量之 间保持适当的平衡，它大体上有1〇4个基本作用元素，而记忆容量 则为106至1〇6位。达到这个要求，是靠运用在技术上与基本作用 器官完全不同的记忆方式。眞空管的或晶体管的计算机，它的记 忆都是用一种静电系统（阴极射綫管），或者用经过适当布置的大 量的铁磁芯等。在这里，我将不作出这些记忆方式的完全分类，因 为还有其他的重要的记忆方式，很不容易归入这些分类，比如，声 延迟式丶铁电体式丶磁致伸缩延迟式等等(这里所列举的方式，还可 以大大增加）。我在这里只不过企图指出，记忆部分所使用的元件， 是和基本作用器官的元件完全不同的。
+</p>
+
+<p>
+上述这些事实，对于我们理解神经系统的结构，看来是非常重 要的a这个问题，现在还是基本上没有得到解答。我们已经知道 神经系统的基本作用器官（神经细胞)。所以，我们很有理由相信， 一个容量很大的记忆是和这个系统联合在一起的。但是，我们应 该极大地强调，我们现在还T知道，神经系统的记忆基本元件，它 们的物理实体究竟是什么型 k的。
+第十二章神经系统的数字部分 和模拟部分
+我们在上面已经指出神经系统记忆部分的若干深入广泛的根 本问题，现在最好是进而讨论其它的题目了。但是，对于神经系统 中尙不淸楚的记忆组件，还有一个比较次要的方面，应该在这里说
+</p>
+
+
+<p>
+几句。这就是关于神经系统中模拟部分与数字部分（或“混合”部 分）间的关系。对于这些问题，我将在下面作一个简短的丶不完备 的补充讨论，然后，我们就进入与记忆无关的问题的探讨了。
+</p>
+
+<p>
+在这里，我想观察的问题是：在神经系统中的过程，它的性质 可以变化，从数字的变为模拟的，从模拟的又变回来成为数字的， 如此反复变化，这是我们在前面指出过的。神经脉冲(即神经机制 中的数字部分），可以控制这样一个过程的特别阶段：比如某一特 定肌肉的收缩或某一特定化学物质的分泌。这个现象，是属于模 拟类型的，但它可能是神经豚冲序列的根源：由于适当的内接收器 感受到这个现象而发生豚冲。当这样的豚冲发生之后，我们又回 到过程的数字方面来了。刚才说过，从数字过程变为模拟过程，又 从模拟过程变回到数字过程，这样的变化，可以往复好几次。所以 说，系统中的神经脉冲部分，其性质是数字的；而系统中化学的变 化或机械的位置变化（由于肌肉收缩)，则是属于模拟的性质，这两 者互相变换，因而使任何特定的过程带上混合的性质。
+遣传机制在上述问题中的作用
+在上面所讲的过程中，遗传现象起着特别典型的作用。基因 本身，很显然地是数字系统元件的一部分。但是，基因所发生的各 个效应，包括刺激形成一些特殊的化学物质，即各种特定的酶（它 是基因的标志），而这却是属于模拟的领域的。这就是模拟和数字 过程的相互变化的一个特别显着的例子。也就是说，基因可以归 入模拟和数字交互变化类型中的一个因素；这个更广阔的类型，我 们在上节中已经更槪括地谈过了。
+</p>
+
+
+<p>
+第十三章代码，及其在机器功能 的控制中之作用
+</p>
+
+<p>
+让我们现在转入记忆以外的其他问题。我要讲的是组织成逻 辑指令的某些原理。这些原理，在任何复杂自动系统的功能中，都
+</p>
+
+<p>
+是相当重要的。
+</p>
+
+<p>
+首先，我要引入讨论这个问题所需要的一个术语。使一个自 动机能够承接幷按此完成若干有组织的任务的逻辑指令系统，就 叫做代码。所谓逻辑指令，是指象在适当的轴突上出现的神经脉 冲之类的东西，事实上，这可以指任何诱发一个数字逻辑系统C如 神经系统）幷使它能够重复地丶有目的地作用的东西。
+完全码的槪念
+在讲到代码时，下列的代码的区分问题就突出来了。一个代 码，可以是完全的，用神经豚冲的术语来说，它规定了一序列的豚 冲和发生豚冲的轴突。这种完全码，完全规定了神经系统的一定 的行为，或者，正如上面比较过的那样，规定了相应的人造自动机 的一定行为。在计算机中，这些完全码是许多指令组，它给出了一 切必要的规则。如果自动机要通过计算解出一个特定的问题，它 必须由一套完全码来控制。现代计算机的运用，要依仗使用者的 一种能力：发展和规定出任何给定问题(这个问题是要这个机器解 算的）所必需的完全码。
+短码的槪念
+和完全码相对的，还存在着另一类代码，我们最好把它叫做
+</p>
+
+
+<p>
+短码。它是根据以下的槪念形成的。
+</p>
+
+<p>
+英国的逻辑学家R.图灵在1927年证明（在图灵以后，许多 计算机专家把图灵的原理以各种特定方法用于实践)：有可能发展 一种代码指令系统，这种指令能够使一个计算机象另一个特定的 计算机那样操作。这种使一个计算机换仿另一计算机的操作的指 令系统，就叫做短码。让我们现在稍为具体地来讨论这些短码的 发展及其运用的典型问题。
+</p>
+
+<p>
+我已经讲过，一个计算机是被代码丶符号序列（通常是二进制 符号，即一序列位)所控制的。在任何支配某特定计算机的运用的 指令中，必须明确：哪些位（一序列的信息）是机器的指令，这些指 令将使机器做些什么？
+</p>
+
+<p>
+对于两个不同的计算机来说，这些有意义的位序列（二进制信 息序列）是不必相同的，它们对于各自相应的计算机运算的作用， 也是可以完全不相同的。所以，如果对一个机器，给以一耝专用于 另一个机器的指令，这样，对这个机器来说，这些指令就是无意义 的（至少是部分地无意义的）。也就是说，这些信息序列，对于这台 机器来说，是不完全属于有意义的信息序列的范围。或者，如果这 台机器“服从”这些无意义的指令时，这些指令会使它作出在原来 设计为解出某一问题的耝织方案以外的操作。一般地说，它将使 这台机器不能进行有目的的操作;这种操作是解决一个具体的丶有 组织的任务，即解出需要解算的问题的答案所要求的。
+短码的功能
+</p>
+
+<p>
+按照图灵的方案，一个代码，如果要使一台机器象另一台特定 的机器那样操作的话（即；使前者捵仿后者)，必须要做到以下各 点。它必须包括这祥的指令(指令是代码的进一步的具体细节，这
+</p>
+
+<p>
+• 52 •
+</p>
+
+<p>
+个指令是这台机器所能理解幷有目的地服从的），它能够使机器检
+</p>
+
+<p>
+查毎一个收到的指令，幷决定这个指令是否具有适用于第二台机 器的结构。它必须包括足够的指令(用第一机器的指令系统表达)， 使这台机器发生动作，这些动作，和第二台机器在这一指令影晌之 下发生的动作相同。
+</p>
+
+<p>
+上述图灵方案的一个重要结果是：用这个方法，第一台机器可 以模仿任何其他一台机器的行为。这种使机器跟着另一台机器做 的指令结构，可能和第一台机器所实际包含的一种特性完全不同。 就是说，这种指令结构的性质，实际上可以此第一 _台机器所具有的 性质复杂得多，即：第二台机器的指令中的每一个指令，可以包括 第一台机器所完成的许多次运算。它可以包括复杂的丶重复的过 程和任何多次的动作。一般地说，第一台机器在任何时间长度内 和在任何复杂程度的可能的指令系统控制之下，能够完成任何运 算，只要这些运算是由“基本”的操作构成的就成（所谓基本的操 作，就是指基础的丶非复合的和原始的操作)。
+</p>
+
+<p>
+把这种派生的代码，叫做短码，是由于历史的原因。这些短 码，当初是作为编码的辅助方法发展起来的。由于需要给一台机 器编出比它自己本来的指令系统更简短的代码，因此，就用这样的 处理方法:把它当作是一台完全不同的机器，这台机器具有更方便 的丶更充分的指令系统，它能允许更简单丶不那么琐碎的丶更直率的 编码。
+第十四章神经系统的逻辑结构
+</p>
+
+<p>
+现在，我们的讨论最好再引向其他复杂的问题。我前面讲过，
+</p>
+
+
+<p>
+这就是和记忆或和完全码与短码无关的问题。这些问题，是有关 于任何复杂自动系统(特别是神经系统）的功能中逻辑学和算术的
+</p>
+
+<p>
+作用。
+数字方法的鬣要性
+</p>
+
+<p>
+这里要讨论的一个相当重要的问题，是这样的:任何为人类所 使用，特别是为控制复杂过程使用而建造起来的人造自动化系统， 一般都具有纯粹逻辑的部分和算术部分，也就是说，一个算术过程 完全不起作用的部分和一个算术过程起着重要作用的部分。这是 由于这样的事实.•按照我们思惟的习惯和表达思惟的习惯，如果要 表达任何眞正复杂的情况而不依赖公式和数字，是极其困难的。
+</p>
+
+<p>
+一个自动化系统，要控制象恒定的温度丶或恒定的压力丶或人 体内化学平衡等类型的问题，如果一个人类的设计者要把这些任 务列成公式时，他就必须运用数字的等式或不等式来表达这些任 务。
+数字方法和逻辑的相互作用
+而在另一方面，要完成上述任务，又必须有和数字关系无关的 方面，即必须有纯粹的逻辑方面。这就是某些定性的原理，包括不 依赖数字表达的生理反应或不反应，比如我们只需要定性地叙述： 在什么环境条件的组合下，会发生什么事件，而哪些条件的耝合，
+</p>
+
+<p>
+则是不需要的。
+预计需要高准确度的理由
+上述叙述说明，神经系统，当被看作是一个自动系统时，肯定 具有算术的部分和逻辑的部分，而且算术的需要，和逻辑的需要同
+样重要。这意味着说，在硏究神经系统时，从一定意义上来说，我 们是和计算机打交道，同时，用计算机理论中熟悉的槪念来讨论神 经系统，也是需要的。
+</p>
+
+<p>
+用这样的观点来看，立刻就会出现以下的问题:当我们把神经 系统看作是一台计算机时，神经系统中的算术部分，需要有什么样 的准确度呢？
+</p>
+
+<p>
+这个问题之所以极为重要，是由于以下理由：所有我们在计算 机上面的经验都证明，如果一台计算机，要处理象神经系统所处理 的那些复杂的算术任务，很明显，计算机必须要由准确度水平相当 高的装置组成。原因是计算的过程是很长的，在很长的计算过程 中，各个步骤的误差不但会相加起来，而且，在前面的计算误差还 会被后面的各个部分所放大。因此，计算机所需要达到的准确度 水平，要比这个计算问题的物理本质所要求的准确度水平高得相 当多。
+</p>
+
+<p>
+因此，人们可以作出这样一种推测：当神经系统被看作是一台 计算机时，它必须有算术的部分，而且，它必须以相当高的准确度 来进行运算。因为在我们所熟悉的人造计算机中，在复杂的条件下， 准确度需要达到10位或12位的十进制数字，这还是不算过分的。
+</p>
+
+<p>
+上面这个推测结论，肯定是不合道理的。虽然这样，或者说正 是由于这样，我们值得把这样的推论提出来。
+第十五章使用的记数系统之本质：
+</p>
+
+<p>
+它不是数字的而是统计的
+</p>
+
+<p>
+前面已指出过，我们知道了神经系统怎样传送数字材料的一
+</p>
+
+<p>
+些事情。它们通常是用周期性的或近似周期性的豚冲序列来传送 的。对接收器施加的每一个强烈的激励，会使接收器在绝对失效 限度过去之后毎次很快地作出反应。一个较弱的激励，也将使接 收器以周期性或近似周期性的方法来反应，但是反应豚冲的频率 比较低，因为，在下一个反应成为可能之前，不仅要等绝对失效限 度过去，而且甚至要一定的相对失效限度过去之后才能再有反应。 因此，定量的激励之强度，是由周期性的或近似周期性的豚冲序列 来表示的，而豚冲的频率，则恒为激励强度的单调函数。这是一种 信号的调频系统，信号强度被表达为频率。这些事实，人们在亲觉 神经的某些神经织维中直接观察到了，同时，在传送关于压力的信 息的神经中，也直接观察到这些现象。
+</p>
+
+<p>
+值得注意的是:上面所讲的频率，不是直接等于刺激的任何强 度，而是刺激强度的单调函数。这就可以引进各种标度效应，幷且 可以很方便而恰当地用这些标度来作出准确度的表达式。
+</p>
+
+<p>
+应该注意，上面所讲的频率，一般在每秒50至200个豚冲左 右。
+</p>
+
+<p>
+很淸楚，在这些条件下，象我们在上面讲到的那种精确度（10 位至20位十进制数字!）是超出可能范围的了。因此，神经系统是 这样一台计算机，它在一个相当低的准确度水平上，进行非常复杂 的工作。根据刚才说的，它只可能达到2位至3位十进制数字的 准确度水平。这个事实，必须再三强调，因为我们还不知道，有哪 一种计算机在这样低的准确度水平上却能可靠地丶有意义地进行 运算的。
+</p>
+
+<p>
+我们还要指出另一个事实。上述系统不但带来较低的准确度 水平，而且，它还有相当髙水平的可靠程度。很显然，在一个数字 系统的记数中，如果失掉了一个豚冲，那么，其结果必然是信息的
+</p>
+
+
+<p>
+意义完全歪曲了，就是说，成为无意义的。但是，如果上面所讲的 这一种类型的系统，即使失掉了一个豚冲，甚至失掉了好几个豚冲 (或者是不必要地丶错误地插入了一些脉冲），其结果是：与此有关 的频率（即信息的意义）只是有一点不要紧的畸变而已。
+</p>
+
+<p>
+现在，就产生了一个需要解答的重要问题：对于神经系统，作 为计算机，从它的算术结构和逻辑结构的相互矛盾的现象中，我们 可以得出什么重要推论来呢？
+</p>
+
+<p>
+算术运算中的恶化现象;算术深度和 逻鞲深度的作用
+</p>
+
+<p>
+上面提出的这个问题，对于曾经硏究过在一长串计算过程中 准确度的恶化现象的人来说，答案是很淸楚的。如上所述，这种恶 化，是由于误差叠加起来的积累，更重要的是由于前面计算的误差 被后面各计算步骤所放大了。这种误差的放大，原因在于这些步 骤相当多的算术运算是顺次串行的，换句话说，在于运算过程的 “算术深度”很大。
+</p>
+
+<p>
+许多运算按顺序系列进行的事实，不只是这种程序的算术结 构的特点，而且也是它的逻辑结构的特点。这就可以说，准确度的 恶化现象，和前面讲过的情况一样，也是由于运算程序的很大的 “逻辑深度”而产生的。
+</p>
+
+<p>
+算术的准确度或逻鞲的可靠度，它们的相互转换
+</p>
+
+<p>
+应该指出，正如前面讲过的，神经系统中所使用的信息系统， 其本质是统计性质的。换句话说，它不是规定的符号丶数字的精确 位置的问题，而是信息出现的统计性质问题，即周期性或近似周期 性的豚冲序列的频率问题等等。
+</p>
+
+
+<p>
+所以，看来神经系统所运用的记数系统，和我们所熟悉的一般 的算术和数学的系统根本不同。它不是一种准确的符号系统，在 符号系统中，符号的记数位置丶符号的出现或不出现等，对消息的 意义具有决定性。它是一种另外的记数系统，消息的意义由消息 的统计性质来传送。我们已经看到，这种办法怎样带来了较低的 算术准确度水平，但却得到较高的逻辑可靠度水平。就是说，算术 上的恶化，换来了逻辑上的改进。
+可以运用的信息系统的其他统计特性
+从上面已经讲过的内容，很明显地提出了另一个问题。我们 已经说过，一定的周期性或近似周期性的豚冲序列，传送着淌息， 亦即信息。这是消息的显着的统计性质。是不是还有其他的统计 性质可以同样地作为传送信息的工具呢？
+</p>
+
+<p>
+到目前为止，用来传送信息的消息，它的唯一统计性质，就是 豚冲的频率（每秒钟的脉冲数)，我们已经知道，消息是一种周期性 或近似周期性的豚冲序列。
+</p>
+
+<p>
+很明显，消息的其他统计特性也是可以被运用的:刚才讲的频 率，是一个单一的豚冲序列的性质，但是，每一个有关的神经，都包 含有大量的神经织维，而每一根神经谶维，都能传送许多的豚冲序 列。所以，完全有理由设想，这些豚冲序列之间的一定的（统计的） 关系，也是可以传送信息的。在这一点上，我们很自然地会想到各 种相关系数以及诸如此类的办法。
+</p>
+
+
+<p>
+第十六章人脑的语言不是数学的语言
+</p>
+
+<p>
+继续追踪这个课题，使我们必须探讨e首的问题。我曾指出， 神经系统是基于两种类型的通讯方式的。一种是不包含有算术形 式体系的，一种是算术形式体系的。这就是说:一种是指令的通讯 (逻辑的通讯)，一种是数字的通讯（算术的通讯)。前者可以用语 言叙述，而后者则是数学的叙述。
+</p>
+
+<p>
+我们应该认识：语言在很大程度上只是历史的事件。人类的 多种基本语言，是以各种不同的形式，传统地传递给我们的。这些 语言的多样性，证明在这些语言里，幷没有什么绝对的和必要的 东西。正象希腊语或梵语只是历史的事实而不是绝对的逻辑的必 要一样，我们也只能合理地假定，逻辑和数学也同样是历史的丶偶 然的表达形式。它们可以有其他的本质上的变异，就是说，它们也 可以存在于我们所熟悉的形式以外的其他形式之中。确实地，中 央神经系统的本质及其所传送的信息系统的本质，都指明了它们 是这样的。我们现在已经积累了足够的证据，不论中央神经系统 用什么语言，但是它的标志是:它比我们愤常的逻辑深度和算术深 度都要小。下面是一个最明显的例子。人类眼睛上的视网膜，对 于眼睛所威受到的视像，进行了相当的重新组织。这种重新组织， 是在视网膜面上实现的；或者更准确地说，是在视觉神经入口的点 上，由三个顺序相连的突触实现的；这就是设，只有三个连绩的逻 辑步骤。在中央神经系统的算术部分所用的消息系统中，其统计 性质和它的低准确度也指出：准确度的恶化(前面已经讲过），在这 信息系统中也进行得不远。由此可知，这里存在着另外一种逻辑
+</p>
+
+
+<p>
+结构，它和我们在逻辑学丶数学中通常使用的逻辑结构是不同的。 前面也讲过，这种不同的逻辑结构，其标志是更小的逻辑深度和算 术深度C这比我们在其他同样条件下所用的逻辑深度和算术深度 小得多）。因此&gt; 中央神经系统中的逻辑学和数学，当我们把它作 为语言来看时，它一定在结构上和我们日常经验中的语言有着本 质上的不同。
+</p>
+
+<p>
+还应该指出，这里所说的神经系统中的语言，可能相当于我们 前面讲过的短码，而不是相当于完全码。当我们讲到数学时，我们 是讨论一种第二语言，它是建筑在中央神经系统所眞正使用的第 一语言的基础之上的。因此，对评价中央神经系统眞正使用什么 样的数学语言或逻辑语言的观点来说，我们的数学的外在形式，幷 不是完全相当的。但是，上面关于可靠度和逻辑深度丶数学深度的 评论证明：无论这个系统如何，把我们所自觉地丶明确地认为是数 学的东西，和这个系统适当地区分开来，这是不会错的。
+</p>
+
+
+<p>
+附录关于本书着者冯•诺意曼
+</p>
+
+<p>
+冯•诺意曼于1903年生于布达佩斯，先后在苏黎世高等技术 学校丶布达佩斯大学学习化学和数学。1927年在柏林大学作硏究 和敎学工作，其后在汉堡大学任敎。1930年，赴美国普林斯顿大学 任讲师丶敎授，1933年起任普林斯顿大学高等硏究院数学敎授。在 第二次大战期间，他参加了许多军事方面的硏究工作。战后仍然 参与美国的军事硏究工作。1952年兼任美国原子能委员会总頋问 委员会的委员，1955年离开普林斯顿大学，担任原子能委员会约委 员。他是一贯地为美国战后的扩军备战反动政策服务的科学家之 ~*〇
+</p>
+
+<p>
+在二十年代和三十年代，冯•诺意曼的工作大体上在数学和 物理学的理论硏究领域内，他的硏究工作涉及量子论丶数理逻辑丶 各态历经理论丶连续几何丶算符环丶集合理论等许多方面。三十年 代后期，他从事理论流体力学的工作，幷参与军事方面的硏究，开 始对数学和物理的应用方面发生很大的兴趣。当时用已知的分析 方法去解偏微分方程遇到许多困难问题，特别是他在硏究骇波的 相互作用（这和航空技术有关）等问题中，需要作极为大量的计算 工作，这促使他硏究计算技术的问题。第二次大战的后期，为了计 算弹道，艾克特（Eckert)和毛彻莱（Mauchley)等首先设计建造 了一台电子数字计算机——ENIAC (电子数字积分器和自动计算 器)，与此同时，冯•诺意曼则着重硏究计算机的最适当的组织形 式的问题，幷提出了运用电子计算机在解出需要大量计算工作的 问题上面有很大潜力。在战后，冯•诺意曼及其合作者在普林斯顿
+设计建造了一台实验性的电子数字计算机——JONICA，其中所 发展的若干基本原理，成为现代高速电子数字计算机的重要依 据。在设计建造当中，冯•诺意曼试图模拟人脑的已知的运算过 程，这引起他硏习神经学和精神病理学，幷和这些方面的专家们讨 论。他曾参加了 N.维纳（N. Wiener)等在创立控制论过程中的 讨论，对控制论的形成有一些影响。在战后七丶八年中，他在自动 机理论丶自动机和人脑思惟过程比较等方面，进行了一些硏究，写 了一些论文和报吿。冯•诺意曼于1955年秋患癌症，1957年2 月病故。《计算机和人脑》这本书，是患病前后所着，是他最后的一 本着作。
+</p>
+
+<p>
+除了计算技术和自动机理论之外，他对博奕论做了一些工作， 曾和摩尔根斯坦(O. Morgenstern)合着《博奕理论和经济行为》一 书(1948年版）％在博奕论数学方法上有些成就，但在应用于经济 活动的观点上面,以资产阶级经济学的边际效用理论为基础，则是 完全谬误的。
+</p>
+
+<p>
+译者 * •
+*中译本••《竞寮论与经济行为)&gt;，王建华等译，科学出版社1963年6月初版〇
+• 62 •
+</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>运算方式，原文是modus operandi（拉丁文），原意为运算状态或运算方法，因用此译名。——译者。</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 冯·诺伊曼; 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-14 21:57.</p></div>
+</body>
+</html>

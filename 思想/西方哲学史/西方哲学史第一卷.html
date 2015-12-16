@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>西方哲学史第一卷</title>
+<!-- 2015-11-14 21:58 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="伯特兰·罗素">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+
+<script type="text/javascript" src="http://orgmode.org/org-info.js">
+/**
+ *
+ * @source: http://orgmode.org/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "5");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js","TeX/mhchem.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        },
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">西方哲学史第一卷</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a>
+<ul>
+<li><a href="#sec-1-1">1.1. 美国版序言</a></li>
+<li><a href="#sec-1-2">1.2. 绪论</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. 前苏格拉底哲学家</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 希腊文明的兴起</a></li>
+<li><a href="#sec-2-2">2.2. 米利都学派</a></li>
+<li><a href="#sec-2-3">2.3. 毕达哥拉斯</a></li>
+<li><a href="#sec-2-4">2.4. 赫拉克利特</a></li>
+<li><a href="#sec-2-5">2.5. 巴门尼德</a></li>
+<li><a href="#sec-2-6">2.6. 恩培多克勒</a></li>
+<li><a href="#sec-2-7">2.7. 雅典与文化的关系</a></li>
+<li><a href="#sec-2-8">2.8. 阿那克萨哥拉</a></li>
+<li><a href="#sec-2-9">2.9. 原子论者</a></li>
+<li><a href="#sec-2-10">2.10. 普罗泰戈拉</a></li>
+<li><a href="#sec-2-11">2.11. 苏格拉底</a></li>
+<li><a href="#sec-2-12">2.12. 斯巴达的影响</a></li>
+<li><a href="#sec-2-13">2.13. 柏拉图见解的来源</a></li>
+<li><a href="#sec-2-14">2.14. 柏拉图的乌托邦</a></li>
+<li><a href="#sec-2-15">2.15. 理念论</a></li>
+<li><a href="#sec-2-16">2.16. 柏拉图的不朽论</a></li>
+<li><a href="#sec-2-17">2.17. 柏拉图的宇宙生成论</a></li>
+<li><a href="#sec-2-18">2.18. 柏拉图哲学中的知识与知觉</a></li>
+<li><a href="#sec-2-19">2.19. 亚里士多德的形而上学</a></li>
+<li><a href="#sec-2-20">2.20. 亚里士多德的伦理学</a></li>
+<li><a href="#sec-2-21">2.21. 亚里士多德的政治学</a></li>
+<li><a href="#sec-2-22">2.22. 亚里士多德的逻辑</a></li>
+<li><a href="#sec-2-23">2.23. 亚里士多德的物理学</a></li>
+<li><a href="#sec-2-24">2.24. 希腊早期的数学与天文学</a></li>
+<li><a href="#sec-2-25">2.25. 希腊化世界</a></li>
+<li><a href="#sec-2-26">2.26. 犬儒学派与怀疑派</a></li>
+<li><a href="#sec-2-27">2.27. 伊壁鸠鲁派</a></li>
+<li><a href="#sec-2-28">2.28. 斯多葛主义</a></li>
+<li><a href="#sec-2-29">2.29. 罗马帝国与文化的关系</a></li>
+<li><a href="#sec-2-30">2.30. 普罗提诺</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 附录</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 参考资料</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 美国版序言</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+目前已经有不少部哲学史了，我的目的并不是要仅仅在他们之中再加上一部。我的目的是要揭示，哲学乃是社会生活与政治生活的一个组成部分: 他【这里使用他和他们是故意为之，我们约定一般情况“人”使用他或她，但某些事物我们如同人一样看待以示尊敬看重同样可以使用他或她，如此加入了额外的感情。有时我们对于某些人加上厌恶表达，会使用它。】并不是卓越的个人所做出的孤立的思考，二是曾经有各种体系盛行过的各种社会性格的产物与成因。这一目的就要求我们对于一般历史的叙述，比通常哲学史家所做的为多。我还发觉这一点对于一般读者未必是很熟悉的那几段时期，尤其必要。经院哲学的大时代乃是十一世纪改革的产物，而这些改革又是对于前一时期的颓废腐化的反作用。如果对于罗马罗马灭亡与中古政权兴起之间的那几个世纪没有一些知识的话，就会难于理解十二、三世纪知识界的气氛。在处理这段时期时，正如处理其他时期一样，我的目的是在必要的对于那些哲学家的同情和理解之下，如此多的一般历史时期之下，那些哲学家是如何和那些形成他们的时代相连，同时他们又是如何帮助构建那些时代的。【In dealing with this period, as with others, I have aimed at giving only so much general history as I thought necessary for the sympathetic comprehension of philosophers in relation to the times that formed them and the times that they helped to form.】
+</p>
+
+<p>
+这种观点的后果之一就是: 它给予一个哲学家的地位，往往并不就是他的哲学的优异性所应得的地位。例如，就我来说，我认为斯宾诺莎是比洛克更伟大的哲学家，但是他的影响却小得多；因此我处理他就要比处理洛克简略得多。有些人——例如卢梭和拜伦——虽然在学术的意义上完全不是什么哲学家，但是他们却是如此深远地影响了哲学思潮的气质，以致于如果忽略了他们，便不可能理解哲学的发展。就这一方面而论，甚至于纯粹的行动家们有时也具有很大的重要性；很少哲学家对于哲学的影响之大是能比得上亚历山大大帝、查德曼或者拿破仑的。莱库格斯如果确有其人的话，就更是一个显著的例子了。
+</p>
+
+<p>
+企图包罗的时期既然是如此之广，就必须要有大刀阔斧的选择原则。我读过一些标准的哲学史之后，得到了这样一个结论: 过分简短的叙述是不会给读者以什么有价值的东西的；因此我就把那些我认为似乎不值得详尽处理的人物（除了极少数的例外）完全略过不提。在我所讨论的人物中，我只提到看来是与他们的生平以及他们的社会背景有关的东西；有时候，我甚至于把某些本身无关重要的细节也记录下来，只要我认为它们足以说明一个人或者他的时代。
+</p>
+
+<p>
+最后，对研究我的庞大题材中的任何一部分的专家们，我还该说几句辩解的话。关于任何一个哲学家，我的知识显然不可能和一个研究范围不太广泛的人所能知道的相比。我毫不怀疑，很多人对于我所述及的任何一个哲学家，——除了莱布尼兹之外——都比我知道得多。然而，如果这就成为应该谨守缄默的充分理由，那么结果就会没有人可以论述某一狭隘的历史片段范围以外的东西了。斯巴达对于卢梭的影响、柏拉图对于十三世纪以前基督教哲学的影响、奈斯脱流斯教派对于阿拉伯人以及从而对于阿奎那的影响、自从伦巴底诸城的兴起直到今天为止圣安布洛斯对于自由主义的政治哲学的影响，这都是一些只有在一部综合性的历史著作里才能处理的题材。根据这些理由，我要求发现我对于自己题目中某些部分的知识显得不足的读者们鉴谅，如果不需要记住“时间如飞车”的话，我在这些方面的知识本来是会比较充分的。
+</p>
+
+<p>
+本书得以问世要归功于巴恩斯(Dr. Albert C. Barnes)博士，原稿是为宾夕法尼亚大学的巴恩斯基金讲座而写的，其中有一部分曾讲授过。
+</p>
+
+<p>
+正如在最近十三年以来我的大部分工作一样，我的妻子巴特雷西亚·罗素在研究方面以及在许多其他方面都曾大大地帮助过我。
+</p>
+
+<p>
+<strong>伯特兰·罗素</strong>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 绪论</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+我们所说的“哲学的”人生观与世界观乃是两种因素的产物：一种是传统的宗教与伦理观念，另一种是可以称之为“科学的”那种研究，这是就科学这个词的最广泛的意义而言的。至于这两种因素在哲学家的体系中所占的比例如何，则各个哲学家大不相同；但是唯有这两者在某种程度上同时存在，才能构成哲学的特征。
+</p>
+
+<p>
+哲学这个词曾经被人以各种方式使用过，有的比较广泛，有的则比较狭隘。我是在一种很广泛的意义上使用这个词的，现在就把这一点解释一下。
+</p>
+
+<p>
+哲学，就我对这个词的理解来说，乃是某种介乎神学与科学之间的东西。它和神学一样，包含着人类对于那些事物的思考，其应该是确定的，只是目前还不太肯定。【Like theology, it consists of speculations on matters as to which definite knowledge has, so far, been unascertainable】；但是他又像科学一样是诉之于人类的理性而不是诉之于权威的，不管是传统的权威还是启示的权威。一切 <span class="underline">确切的</span> 知识——我是这样主张的——都属于科学；一切涉及超乎确切知识之外的 <span class="underline">教条</span> 都属于神学。但是介乎神学与科学之间还有一片受到双方攻击的无人之域；这片无人之域就是哲学。思辩的心灵所最感到兴趣的一切问题，几乎都是科学所不能回答的问题；而神学家们的信心百倍的答案，也已不再象它们在过去的世纪里那么令人信服了。世界是分为心和物吗？如果是这样，那么心是什么？物又是什么？心是从属于物的吗？还是它具有独立的能力呢？宇宙有没有任何的统一性或者目的呢？它是不是朝着某一个目标演进的呢？究竟有没有自然律呢？还是我们信仰自然律仅仅是出于我们爱好秩序的天性呢？人是不是天文学家所看到的那种样子，是由不纯粹的碳和水化合成的一块微小的东西，无能地在一个渺小而又不重要的行星上爬行着呢？还是他是哈姆雷特所看到的那种样子呢？也许他同时是两者吗？有没有一种生活方式是高贵的，而另一种是卑贱的呢？还是一切的生活方式全属虚幻无谓呢？假如有一种生活方式是高贵的，它所包含的内容又是什么？我们又如何能够实现它呢？善，为了能够值得受人尊重，就必须
+是永恒的吗？或者说，哪怕宇宙是坚定不移地趋向于死亡，它也还是值得加以追求的吗？究竟有没有智慧这样一种东西，还是看来仿佛是智慧的东西，仅仅是极精炼的愚蠢呢？对于这
+些问题，在实验室里是找不到答案的。各派神学都曾宣称能够做出极其确切的答案，但正是他们的这种确切性才使近代人满腹狐疑地去观察他们。对于这些问题的研究——如果不是对于它们的解答的话，——就是哲学的业务了。
+</p>
+
+<p>
+你也许会问，那么为什么要在这些不能解决的问题上面浪费时间呢？对于这个问题，我们可以以一个历史学家的身分来回答，也可以以一个面临着宇宙孤寂的恐怖感的个人的身分来回答。
+</p>
+
+<p>
+历史学家所作的答案，在我力所能及的范围内，将在本书内提出来。自从人类能够自由思考以来，他们的行动在许多重要方面都有赖于他们对于世界与人生的各种理论，关于什么是善什么是恶的理论。这一点在今天正像在已往任何时候是同样地真确。要了解一个时代或一个民族，我们必须了解它的哲学；要了解它的哲学，我们必须在某种程度上自己就是哲学家。这里就有一种互为因果的关系，人们生活的环境在决定他们的哲学上起着很大的作用，然而反过来他们的哲学又在决定他们的环境上起着很大的作用。这种贯穿着许多世纪的交互作用就是本书的主题。
+</p>
+
+<p>
+然而，也还有一种比较个人的答案。科学告诉我们的是我们所能够知道的事物，但我们所能够知道的是很少的；而我们如果竟忘记了我们所不能知道的是何等之多，那么我们就会对许多极重要的事物变成麻木不仁了。另一方面，神学带来了一种武断的信念，说我们对于事实上我们是无知的事物具有知识，这样一来就对于宇宙产生了一种狂妄的傲慢。在鲜明的希望与恐惧之前而不能确定，是会使人痛苦的；可是如果在没有令人慰藉的神话故事的支持下，我们仍希望活下去的话，那么我们就必须忍受这种不确定。无论是想把哲学所提出的这些问题忘却，还是自称我们已经找到了这些问题的确凿无疑的答案，都是无益的事。教导人们在不能确定时怎样生活下去而又不致为犹疑所困扰，也许这就是哲学在我们的时代仍然能为学哲学的人所做出的主要事情了。
+</p>
+
+<p>
+与神学相区别的哲学，开始于纪元前六世纪的希腊。在它经过了古代的历程之后，随着基督教的兴起与罗马的灭亡，它就又浸没于神学之中。哲学的第二个伟大的时期自十一世纪起至十四世纪为止，除了像皇帝弗里德里希二世（1195—1250）那样极少数的伟大的叛逆者而外，是完全受天主教会支配着的。这一时期以种种混乱而告结束，宗教改革就是这些混乱的最后结果。第三个时期，自十七世纪至今天，比起前两个时期的任何一个来，更受着科学的支配；传统的宗教信仰仍占重要地位，但却感到有给自己作辩护的必要了；而每当科学似乎是使改造成为必要的时候，宗教信仰总是会被改造的。这一时期很少有哲学家在天主教立场上是正统派，而且在他们的思想里世俗的国家也要比教会重要得多。
+</p>
+
+<p>
+社会团结与个人自由，也象科学与宗教一样，在一切的时期里始终是处于一种冲突状态或不安的妥协状态。在希腊，社会团结是靠着对城邦的忠诚而得到保证的；即使是亚里士多德（虽则在他那时候亚力山大正在使得城邦成为过时的陈迹），也看不出任何其他体制能有更多的优点。个人自由因个人对城邦的责任而被缩减的程度，是大有不同的。在斯巴达，个人所享有的自由要和在现在的德国或俄国一样地少；在雅典，则除了有时候有迫害以外，公民在最好的时代里曾享有过不受国家所限制的极大的自由。希腊思想直到亚里士多德的时代为止，一直为希腊人对城邦的宗教热诚与爱国热诚所支配；它的伦理体系是适应于 <span class="underline">公民们</span> 的生活的，并且有着很大的政治成份在内。当希腊人最初臣服于马其顿人，而后又臣服于罗马人的时候，与他们独立的岁月相适应的那些概念就不能再适用了。这就一方面，由于与传统断绝而丧失了蓬勃的生气，而另一方面又产生了一种更为个人化的、更缺少社会性的伦理。斯多葛派认为有德的生活乃是一种灵魂对上帝的关系，而不是公民对国家的关系。这样他们便为基督教准备了道路，因为基督教和斯多葛主义一样，起初也是非政治性的，在它最初的三个世纪里，它的信徒们都是对政府毫无影响的。从亚力山大到君士坦丁的六个半世纪里，社会团结既不是靠哲学，也不是靠古代的忠诚，而是靠强力，最初是靠军队的强力，尔后则是靠行政机构的强力，才获得保障的。罗马军队、罗马道路、罗马法与罗马官吏首先创立了，随后又维系了一个强大的中央集权的国家。没有什么是可以归功于罗马哲学的，因为根本就没有什么罗马哲学。
+</p>
+
+<p>
+在这个漫长的时期里，从自由的时代所继承下来的希腊观念经历了一番逐渐转化的过程。某些古老的观念，尤其是那些我们认为最富于宗教色彩的观念，获得了相对的重要性；而另外那些更富理性主义色彩的观念则因为它们不再符合时代的精神，就被人们抛弃了。后来的异教徒们就是以这种方式整理了希腊的传统，使它终于能够被吸收到基督教的教义里来。
+</p>
+
+<p>
+基督教把一个早已为斯多葛派学说所包含了的、然而对古代的一般精神却是陌生的重要见解给普及化了。我指的就是认为一个人对上帝的责任要比他对国家的责任更为必要的那种见解。象苏格拉底和使徒们所说的“我们应该服从神更甚于服从人”的这种见解，在君士坦丁皈依基督教以后一直维持了下来，因为早期基督徒的皇帝们都是阿利乌斯教派倾向于阿利乌斯主义。当皇帝变成了正统的教徒以后，这种见解就中断了。在拜占廷帝国它却仍然潜存着，正如后来它在俄罗斯帝国一样，俄罗斯帝国的基督教本是从君士坦丁堡传来的。但是在西方，天主教的皇帝们几乎是立即（除了高卢的某几部分而外）就被异教徒的蛮人征服者所取而代之，于是宗教忠贞应优越于政治忠贞的思想就保存了下来，而且在某种程度上迄今依然保存着。
+</p>
+
+<p>
+野蛮人的入侵中断了西欧文明达六个世纪之久。但它在爱尔兰却不绝如缕，直到九世纪时丹麦人才摧毁了它；在它灭亡之前它还在那里产生过一位出色的人物，即司各脱·厄里根纳。在东罗马帝国，希腊文明以一种枯朽的形式继续保存下去，好象在一所博物馆里面一样，一直到1453年君士坦丁堡的陷落为止。然而除了一种艺术上的传统以及查士丁尼的罗马法典而外，世界上并没有什么重要的东西是出自君士坦丁堡的。
+</p>
+
+<p>
+在黑暗时代，自五世纪末叶至十一世纪中叶，西罗马世界经历了一些非常有趣的变化。基督教所带来的对上帝的责任与对国家的责任两者之间的冲突，采取了教会与国王之间的冲突的形式。教皇的教权伸展到意大利、法国与西班牙、大不列颠与爱尔兰、德国、斯堪的那维亚与波兰。起初，除了在意大利和法国南部以外，教皇对于主教们和修道院长们的控制力量本是很薄弱的；但自从格雷高里第七的时代（十一世纪末）以来，教皇对他们就有了实际而有效的控制力量。从那时候起，教士在整个西欧就形成一个受罗马指挥的单一组织，巧妙地而又无情地追逐着权势；一直到公元1300年以后，他们在与世俗统治者的斗争之中通常总是胜利的。教会与国家之间的冲突不仅是一场教士与俗人的冲突。同时也是一场地中海世界与北方蛮族之间的冲突的重演。教会的统一就是罗马帝国统一的反响；它的祷文是拉丁文，它的首脑人物主要是意大利人西班牙人和南部法国人。他们的教育（当教育恢复起来之后）也是古典的；他们的法律观念和政府观念在马尔库斯·奥勒留皇帝看来要比近代的君主们看来恐怕更容易理解。教会同时既代表着对过去的继续，又代表着当时最文明的东西。
+</p>
+
+<p>
+反之，世俗权力则掌握在条顿血统的王侯们的手中，他们企图尽力保持他们从日耳曼森林里所带出来的种种制度。绝对的权力与这些制度是格格不入的；对于这些生气勃勃的征服者们说来显得是既沉闷而又毫无生气的那些法律制度，情形也是如此。国王必须和封建贵族分享自己的权力，但是大家都希望不时地可以采取战争、谋杀、掠夺或者奸淫的形式以发泄激情。君主们也可以忏悔，因为他们衷心里是虔敬的，而且忏悔本身毕竟也是激情的一种形式。可是教会却永远也不能使他们有近代雇主所要求的，而且通常可以获得于他的雇工们的那种循规蹈矩的良好品行。当精神激动的时候，如果他们不能喝酒、杀人、恋爱，那么征服全世界又有什么用呢？而且他们有勇敢的骑士队伍，为什么要听命于发誓独身而又没有兵权的书呆子呢？尽管教会不同意，他们仍然保存着决斗和比武的审判方法，而且他们还发展了马上比武和献殷勤的恋爱。有时候，他们甚至一阵狂暴发作还会杀死显赫的教士。
+</p>
+
+<p>
+所有的武装力量都在国王这方面，然而教会还是胜利的。教会获得胜利，部分地是因为它几乎享有教育的独占权，部分地是因为国王们彼此经常互相作战；但是除了极少数的例外，主要地却是因为统治者和人民都深深地相信教会掌握着升天堂的钥匙的权力。教会可以决定一个国王是否应该永恒地升天堂还是下地狱；教会可以解除臣民们效忠的责任，从而就可以鼓动反叛。此外，教会还代表着足以代替无政府状态的秩序，因而就获得了新兴的商人阶级的支持。尤其在意大利，这最后的一点是有决定意义的。
+</p>
+
+<p>
+条顿人至少要保持教会一部分的独立性的企图，不仅表现在政治上，也表现在艺术、传奇、骑士道和战争上。但这一点却很少表现在知识界，因为教育差不多是完全限于教士阶级的。中古时代所公开表现出来的哲学并不就是一面精确的时代镜子，而仅是一党一派的思想镜子。然而，就在教士里面——尤其是弗兰西斯教团的修道士们——却有相当数目的人，为了各种原因，是和教皇有分歧的。此外，在意大利，文化传播到俗人方面来要比在阿尔卑斯以北早上好几个世纪。弗里德里希第二曾试图建立一种新宗教，这代表着反教廷文化的极端；而托马斯·阿奎那诞生于弗莱德利克第二具有无上权威的那不勒斯王国，却直到今天始终是教廷哲学的典型阐扬者。大约五十年之后，但丁成就了一套综合，并且给整个的中古观念世界做出了唯一的一套均衡的发挥。
+</p>
+
+<p>
+但丁以后，由于政治上的以及理智上的种种原因，中古哲学的综合便破灭了。当中古哲学存在的时候，它具有一种整齐而又玲珑完整的性质，这个体系所论述到的任何一点都是和它那极其有限的宇宙中的其他内容摆在一个非常精确的关系之上的。但是宗教大分裂、宗教大会运动以及文艺复兴的教廷终于导向宗教改革，宗教改革便摧毁了基督教世界的统一性以及经院学者以教皇为中心的政府理论。在文艺复兴时代，新的知识，无论是关于古代的或是关于地球表面的，都使人厌倦于理论体系；人们感到理论体系是座心灵的监狱。哥白尼天文学赋给地球的地位与人类的地位，远比他们在托勒密的理论中所享有的地位要卑微得多。在知识分子中间，对新事物的乐趣代替了对于推理、分析、体系化的乐趣；虽然在艺术方面文艺复兴仍然崇尚整齐有序，但是在思想方面它却喜欢大量而繁富的混乱无章。在这方面，蒙台涅是这一时代最典型的代表人物。
+</p>
+
+<p>
+在政治理论方面，正象除了艺术而外的任何其他事物一样，也发生了秩序的崩溃。中世纪，虽然事实上是动荡不宁的，但在思想上却被一种要求合法性的热情、被一种非常严谨的政权理论所支配着。一切权力总归是出自上帝；上帝把神圣事物的权力交给了教皇，把俗世事情的权力交给了皇帝。但在十五世纪，教皇和皇帝同样地都丧失了自己的重要性。教皇变成了仅仅是意大利诸侯的一员，他在意大利的强权政治里面从事于种种令人难以置信的复杂而又无耻的勾当。在法国、西班牙和英国，新的君主专制的民族国家在他们自己的领土上享有的权力，是无论教皇或者皇帝都无力加以干涉的。民族国家，主要是由于有了火药的缘故，对人们的思想和感情获得了一种前所未有的影响，并且渐次地摧毁了罗马所遗留下来的对于文明统一性的信念。
+</p>
+
+<p>
+这种政治上的混乱情形在马基雅弗利的《君王论》一书中得到了表现。政治已没有任何指导的原则，而变成为赤裸裸的争夺权力了；至于怎样才能把这种赌博玩得很成功，《君王论》一书也提出了很精明的意见。在希腊的伟大时代里出现过的事，再一次出现于文艺复兴的意大利：传统的道德束缚消失了，因为它们被人认为是与迷信结合在一起的；从羁绊中获得的解放，使得个人精力旺盛而富于创造力，从而便产生了极其罕见的天才的奔放；但是由于道德败坏而不可避免地造成的无政府状态与阴谋诡诈，却使得意大利人在集体方面成为无能的了，于是他们也像【约定单字用像，组合词用象。】希腊人一样，倒在了别的远不如他们文明、但不像他们那样缺乏社会团结力的民族的统治之下了。
+</p>
+
+<p>
+然而结局并不像在希腊那么惨重，因为许多新的强而有力的民族表现出来他们自己也像意大利人已往那样地能够有伟大的成就，只有西班牙是例外。
+</p>
+
+<p>
+从十六世纪以后，欧洲思想史便以宗教改革占主导地位。宗教改革是一场复杂的多方面的运动，它的成功也要归功于多种多样的原因。大体上，它是北方民族对于罗马东山再起的统治的一种反抗。宗教曾经是征服了欧洲北部的力量，但是宗教在意大利已经衰颓了：教廷作为一种体制还存在着，并且从德国和英国吸取大量的贡赋，但是这些仍然虔诚的民族却对于波尔嘉家族和梅狄奇家族不能怀有什么敬意，这些家族借口要从炼狱里拯救人类的灵魂，而收敛钱财大肆挥霍在奢侈和不道德上。民族的动机、经济的动机和道德的动机都结合在一起，就格外加强了对罗马的反叛。此外，君王们不久就看出来，如果他们自己领土上的教会完全变成为本民族的，他们便可以控制教会；这样，他们在本土上就要比以往和教皇分享统治权的时候更加强而有力。由于这一切的原因，所以路德的神学改革在北欧的大部分地区，既受统治者欢迎，也受人民欢迎。
+</p>
+
+<p>
+天主教教会有三个来源：它的圣教历史是犹太的，它的神学是希腊的，它的政府和教会法，至少间接地是罗马的。宗教改革摒除了罗马的成份，冲淡了希腊的成份，但是大大地加强了犹太的成份。它就这样和民族主义的力量展开了合作。这些民族主义的力量正在摧毁着最初由罗马帝国而后又被罗马教会所造成的那种社会团结的成果。在天主教的学说里，神圣的启示并不因为有圣书而结束，而是一代一代地通过教会的媒介继续传下来的；因此，个人的意见之服从于教会，就成为每个人的责任。反之，新教徒则否认教会是传达启示的媒介；真理只能求之于圣经，每一个人都可以自己解释圣经。如果人们的解释有了分歧，那么也并没有任何一个由神明所指定的权威可以解决这种分歧。实际上国家已经要求着曾经是属于教会的权利了，但这乃是一种篡夺。在新教的理论里，灵魂与上帝之间是不该有任何尘世的居间人的。
+</p>
+
+<p>
+这一变化所起的作用是极其重大的。真理不再需要请权威来肯定了，真理只需要内心的思想来肯定。于是很快地就发展起来了一种趋势，在政治方面趋向于无政府主义，而在宗教方面则趋向于神秘主义。这和天主教的正统体系始终是难于适应的。这时出现的并不只是一种新教而是许多的教派；不是一种与经院派相对立的哲学而是有多少位哲学家就有多少种哲学；不是像在十三世纪那样，有一个皇帝与教皇相对立，而是有许许多多的异端的国王。结果无论在思想上还是在文学上，就都有着一种不断加深的主观主义；起初这是作为一种从精神奴役下要求全盘解放的活动，但它却朝着一种不利于社会健康的个人孤立倾向而稳步前进了。
+</p>
+
+<p>
+近代哲学始于笛卡儿，他基本上所肯定为可靠的就是他自己和他的思想的存在，外在世界是由此而推出来的。这只是那个通过贝克莱、康德直到费希特的总的发展过程的第一个阶段。到了费希特遂认为万物都只是自我的流溢。这是不健康的；从此之后，哲学一直在企图从这种极端逃到日常生活的常识世界里去。
+</p>
+
+<p>
+政治上的无政府主义和哲学上的主观主义携手并进。早在路德在世的时候，就有些不受欢迎又不被承认的弟子们已经发展了再洗礼的学说了，这种学说有一个时期统治了闵斯特城。再洗礼派摒弃一切的法律，因为他们认为好人是无时无刻不被圣灵所引导的，而圣灵又是不可能受任何公式的束缚的。从这个前提出发，他们就达到了共产主义与两性杂交的结论；因此，他们在经过一段英勇抗抵之后终于被人消灭了。但是他们的学说却采取了更柔和的形式而流传到荷兰、英国和美国；这就是历史上贵格会的起源。在十九世纪又产生了另一种形式更激烈的、已经和宗教不再有联系的无政府主义。在俄国、在西班牙、以及较小的程度上也在意大利，它都有过相当的成功；并且直到今天，它在美国移民当局的眼里还是个可怕的怪物。这种近代的形式虽然是反宗教的，但是仍然具有很多的早期新教的精神；它的不同点主要就在于把路德针对着教皇的那种仇恨转过来针对着世俗的政府。
+</p>
+
+<p>
+主观主义一旦脱缰之后，就只能一泻到底而不能再被束缚于任何的界限之内。新教徒在道德上之强调个人的良心，本质上乃是无政府主义的。但习惯与风俗却是如此之有力，以致于除了像闵斯特那样暂时的爆发而外，个人主义的信徒们在伦理方面仍然是按照传统所认为的道德方式来行动，但这是一种不稳定的平衡。十八世纪的“感性”崇拜开始破坏了这种平衡：一种行为之受到赞美并不是因为它有好结果或者因为它与一种道德教条相符合，而是因为它有那种把它激发起来的情操。从这种态度就发展了像卡莱尔和尼采所表现的那种英雄崇拜，以及拜伦式的对于任何激情的崇拜。
+</p>
+
+<p>
+浪漫主义运动在艺术上、在文学上以及在政治上，都是和这种对人采取主观主义的判断方式相联系着的，亦即不把人作为集体的一个成员而是作为一种美感上的愉悦的观照对象。猛虎比绵羊更美丽，但是我们宁愿把它关在笼子里。典型的浪漫派却要把笼子打开来，欣赏猛虎消灭绵羊时那幕壮丽的纵身一跃。他鼓励着人们想象他们自己是猛虎，可是如果他成功的话，结果并不会是完全愉快的。
+</p>
+
+<p>
+针对着近代主观主义的比较不健康的形式，曾经出现过各种不同的反应。首先是一种折衷妥协的哲学，即自由主义的学说，它企图给政府和个人指定其各自的领域。这种学说的近代形式是从洛克开始的，洛克对于“热情主义”——即再洗礼派的个人主义——和对于绝对的权威以及对传统的盲目服从，是同样地反对的。另一种更彻底的反抗则导致了国家崇拜的理论，这种理论把天主教所给予教会，甚至于有时候是给予上帝的那种地位给了国家。霍布斯、卢梭和黑格尔代表了这种理论的各个不同方面，而他们的学说在实践上就体现为克伦威尔、拿破仑和近代的德国。共产主义在理论上是和这些哲学距离得非常遥远的，但是在实践上也趋向于一种与国家崇拜的结果极其相似的社会形态。
+</p>
+
+<p>
+自从公元前600年直到今天这一全部漫长的发展史上，哲学家们可以分成为希望加强社会约束的人与希望放松社会约束的人。与这种区别相联系着的还有其他的区别。纪律主义分子宣扬着某种或新或旧的教条体系，并且因此在或多或少的程度上就不得不仇视科学，因为他们的教条并不能从经验上加以证明。他们几乎总是教训人说，幸福并不就是善，而惟有“崇高”或者“英雄主义”才是值得愿望的。他们对于人性中的非理性的部分有着一种同情，因为他们感到理性是不利于社会团结的。另外一方面，则自由主义分子，除了极端的无政府主义者而外，都倾向于科学、功利与理性而反对激情，并且是一切较深刻形式的宗教的敌人。这种冲突早在我们所认为的哲学兴起之前就在希腊存在着了，并且在早期的希腊思想中已经十分显著。它变成为各种形式，一直持续到今天，并且无疑地将会持续到未来的时代。
+</p>
+
+<p>
+很显然，在这一争论中——就像所有经历了漫长时期而存留下来的争论一样——每一方都是部分正确的而又部分错误的。社会团结是必要的，但人类迄今还不曾有过单凭说理的论辩就能加强团结的事。每一个社会都受着两种相对立的危险的威胁：一方面是由于过分讲纪律与尊敬传统而产生的僵化，另一方面是由于个人主义与个人独立性的增长而使得合作成为不可能，因而造成解体或者是对外来征服者的屈服。一般说来，重要的文明都是从一种严格和迷信的体系出发，逐渐地松弛下来，在一定的阶段就达到了一个天才辉煌的时期；这时，旧传统中的好东西继续保存着，而在其解体之中所包含着的那些坏东西则还没有来得及发展。但是随着坏东西的发展，它就走向无政府主义，从而不可避免地走向一种新的暴政，同时产生出来一种受到新的教条体系所保证的新的综合。自由主义的学说就是想要避免这种无休止的反复的一种企图。自由主义的本质就是企图不根据非理性的教条而获得一种社会秩序，并且除了为保存社会所必须的束缚而外，不再以更多的束缚来保证社会的安定。这种企图是否可以成功，只有未来才能够断定了。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 前苏格拉底哲学家</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 希腊文明的兴起</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+在全部的历史里，最使人感到惊异或难于解说的莫过于希腊文明的突然兴起了。构成文明的大部分东西已经在埃及和美索不达米亚存在了好几千年，又从那里传播到了四邻的国家。但是其中却始终缺少着某些因素，直等到希腊人才把它们提供出来。希腊人在文学艺术上的成就是大家熟知的，但是他们在纯粹知识的领域上所做出的贡献还要更加不平凡。他们首创了数学<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>、科学和哲学；他们最先写出了有别于纯粹编年表的历史书；他们自由地思考着世界的性质和生活的目的，而不为任何因袭的正统观念的枷琐所束缚。所发生的一切都是如此之令人惊异，以至于直到最近的时代，人们还满足于惊叹并神秘地谈论着希腊的天才。然而现在已经有可能用科学的观念来了解希腊的发展了，而且的确也值得我们这样去做。
+</p>
+
+<p>
+哲学是从泰勒斯开始的，他预言过一次日蚀，所以我们就很幸运地能够根据这件事来断定他的年代了；据天文学家说，这次日蚀出现于公元前585年。哲学和科学原是不分的，因此它们是一起诞生于公元前六世纪的初期。在这之前，希腊及其邻国曾发生过什么事情呢？任何一种回答都必然有一部分是揣测性的，但考古学在本世纪里所给我们的知识已经比我们祖先们所掌握的要多得多了。
+</p>
+
+<p>
+文字的发明在埃及大约是在公元前4000年左右，在巴比伦也晚不了太多。两国的文字都是从象形的图画开始的。这些图画很快地就约定俗成，因而语词是用会意文字来表示的，就象中国目前所仍然通行的那样。在几千年的过程里，这种累赘的的体系发展成了拼音的文字【this cumbrous system developed into alphabetic writing】。
+</p>
+
+<p>
+埃及和美索不达米亚早期文明的发展是由于有尼罗河、底格里斯河和幼发拉底河，它们使得农业易于进行而又产量丰富。这些文明在许多方面都有些像西班牙人在墨西哥和秘鲁所发现的文明，这里有一个具有专制权力的神圣国王；在埃及，他还领有全部的土地。这里有一种多神教，国王和这种多神教的至高无上的神有着特殊亲密的关系。有军事贵族，也有祭司贵族。如果君主懦弱或者战争不利，祭司贵族往往能够侵凌王权。土地的耕种者是农奴，隶属于国王、贵族或祭司。
+</p>
+
+<p>
+埃及的神学和巴比伦的神学颇为不同。埃及人主要的关怀是死亡，他们相信死者的灵魂要进入阴间，在那里，奥西里斯要根据他们在地上的生活方式来审判他们。他们以为灵魂终会回到身体里面来的；这就产生了木乃伊以及豪华的陵墓建筑。金字塔群就是公元前4000年末叶和3000年初叶的历代国王们所建造的。这一时期以后，埃及文明就变得越来越僵化了，并且宗教上的保守主义使得进步成为不可能。约公元前1800年，埃及被称为喜克索斯人的闪族人所征服，他们统治埃及约有两个世纪。他们在埃及并没有留下持久的痕迹，但是他们在这里的出现一定曾经有助于埃及文明在叙利亚和巴勒斯坦的传播。
+</p>
+
+<p>
+巴比伦的发展史比埃及更带有黩武好战的性质。最初的统治种族并不是闪族，而是“苏玛连”人，这种人的起源我们还不清楚。他们发明了楔形文字，征服者的闪族就是从他们这里接受了楔形文字的。曾经有一个时期，有许多独立的城邦彼此互相作战；但是最后巴比伦称霸，并且建立了一个帝国。其他城邦的神就变成了附属的神，而巴比伦的神马尔督克便获得了有如后来宙斯在希腊众神之中所占的那种地位。在埃及也出现过同样的情形，只是时间更早得多。
+</p>
+
+<p>
+埃及与巴比伦的宗教正像其他古代的宗教一样，本来都是一种生殖崇拜(fertility cults)。大地是阴性的，而太阳是阳性的。公牛通常被认为是阳性生殖能力的化身，牛神是非常普遍的。在巴比伦，大地女神伊什塔尔(Ishtar)在众女神之中是至高无上的。这位“伟大的母亲”在整个西亚以各种不同的名称而受人崇拜。当希腊殖民者在小亚细亚为她建筑神殿的时候，他们就称她为阿尔蒂米斯，并且把原有的礼拜仪式接受过来。这就是“以弗所人的狄阿娜”<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>的起源。基督教又把她转化成为童贞女玛利亚，但是到了以弗所宗教大会上才规定把“圣母”这个头衔加给我们的教母。
+</p>
+
+<p>
+只要一种宗教和一个帝国政府结合在一起，政治的动机就会大大改变宗教的原始面貌。一个男神或一个女神便会和国家联系起来，他不仅要保证丰收，而且还要保证战争胜利。富有的祭司阶级规定出一套教礼和神学，并且把帝国各个组成部分的一些神都安排在一个万神殿里。
+</p>
+
+<p>
+通过与政府的联系，神也就和道德有了联系。立法者从神那里接受了他们的法典，因此犯法就是亵渎神明。现在所知的最古老的法典，就是公元前2100年左右巴比伦王罕姆拉比(Hammurabi)的法典；国王宣告这一法典是由马尔督克交付给他的。在整个的古代，道德与宗教之间的这种联系变得越来越密切。
+</p>
+
+<p>
+巴比伦的宗教与埃及的宗教不同，它更关心的是现世的繁荣而不是来世的幸福。巫术、卜筮和占星术虽然并不是巴比伦所特有的，然而在这里却比在其他地方更为发达，并且主要地是通过巴比伦它们才在古代的后期获得了它们的地位。从巴比伦也流传下来了某些属于科学的东西：一日分为24小时，圆周分为360度；以及日月蚀周期的发现。这就使他们能够准确地预言月蚀，并能以某种可能性来预言日蚀【which enabled lunar eclipses to be predicted with certainty, and solar eclipses with some probability】。巴比伦的这种知识，我们下面将会看到，泰勒斯是得到了的。
+</p>
+
+<p>
+埃及与美索不达米亚的文明是农业的文明，而周围民族的文明最初则是畜牧的文明。商业的发展起初几乎完全是海上的，随着商业的发展就出现了一种新的因素。直到公元前1000年左右，武器还是用青铜制造的，有些国家自己本土上并不具备这种必要的金属，便不得不从事贸易或者海盗掠夺以求获得它们。海盗掠夺只是一时的权宜，而在社会与政治条件相当稳定的地方，商业就被人认为更加有利可图。在商业方面，克里特岛似乎是先驱者。大约有十一个世纪之久，可以说从公元前2500至公元前1400年，在克里特曾存在过一种艺术上极为先进的文化，被称为米诺文化。克里特艺术的遗物给人以一种欢愉的、几乎是颓废奢靡的印象，与埃及神殿那种令人可怖的阴郁是迥然不同的。
+</p>
+
+<p>
+关于这一重要的文明，在阿瑟·伊万斯爵士以及其他诸人的发掘以前，人们几乎是一无所知。那是一种航海民族的文明，与埃及保持着密切的接触（除了喜克索斯人统治的时代是例外）。从埃及的图画里显然可以看出，克里特的水手们在埃及和克里特之间进行过相当可观的商业，这种商业约于公元前1500年左右达到了它的顶峰。克里特的宗教似乎与叙利亚和小亚细亚的宗教有着许多的相同之点，但是在艺术方面则与埃及的相同之点更多些，虽然克里特的艺术是非常有独创性的，并且是充满了可惊讶的生命力的。克里特文明的中心是所谓诺索斯的“米诺宫”，古典希腊的传说里一直流传着对它的追忆。克里特的宫殿是极其壮丽的，但是大约在公元前十四世纪的末期被毁掉了，或许是被希腊的侵略者所毁掉的。克里特历史的纪年，是从在克里特所发现的埃及器物以及在埃及所发现的克里特器物而推断出来的；我们的知识全都是靠着考古学上的证据。
+</p>
+
+<p>
+克里特人崇拜一个女神，也许是几个女神。最为明确无疑的女神就是“动物的女主人”，她是一个女猎人，或许就是古典的阿尔蒂米斯的起源<sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup>。她或者另一女神，也是一位母亲；除了“动物的男主人”而外，唯一的男神就是她的少子。有证据可以说明克里特人是信仰死后的生命的，正如埃及的信仰一样，认为人死之后，生前的作为就要受到赏罚。但是总的说来，从克里特的艺术上看，似乎他们是欢愉的民族，并没有受到阴沉的迷信的很大压迫。他们喜欢斗牛，斗牛时女斗士和男斗士一样地表演出惊人的绝技。斗牛是宗教仪式，阿瑟·伊万斯爵士以为斗牛者属于最高的贵族。传下来的图画都是非常生动而逼真的。
+</p>
+
+<p>
+克里特人有一种直线形的文字，但是还没有人能够辨识。他们在国内是和平的，他们的城市没有城墙；他们无疑是被大海的力量保护着的【no doubt they were defended by sea power】。
+</p>
+
+<p>
+在米诺文明毁灭之前，约公元前1600年左右，它传到了希腊大陆，在大陆上经历了逐渐蜕化的阶段直至公元前900年为止。这种大陆文明就叫迈锡尼文明；它是由于发掘帝王的陵墓以及发掘山顶上的堡垒而被人发现的，这说明了他们比克里特岛上的人更害怕战争。陵墓及堡垒始终都给古典希腊的想象力以强烈的印象。宫殿里的较古老的艺术品若不是确乎出于克里特工匠之手，也是与克里特工艺密切接近的。隔着一层朦胧的传说所见到的迈锡尼文明，正是荷马诗歌所描写的文明。
+</p>
+
+<p>
+关于迈锡尼人还有许多不清楚的地方。他们的文明是他们被克里特人所征服的结果吗？他们说希腊语呢，抑或他们是一种较早的土著种族呢？对于这些问题还不可能有确切的答案，但是总的说来，他们很可能是说希腊语的征服者，并且至少贵族是来自北方的头发漂亮的侵入者，这些人带来了希腊的语言<sup><a id="fnr.4" name="fnr.4" class="footref" href="#fn.4">4</a></sup>。希腊人前后以三次连续的浪潮进入希腊，最初是伊奥尼亚人，然后是亚该亚人，最后是多利亚人。伊奥尼亚人虽然是征服者，但似乎相当完整地采纳了克里特的文明，正象后来罗马人采纳了希腊的文明一样。但是伊奥尼亚人被他们的后继者亚该亚人所侵扰，并且大部分被赶走了。从波伽兹－科易所发掘出来的喜特人的书版里，我们可以知道亚该亚人在公元前十四世纪曾有过一个庞大的有组织的帝国。迈锡尼文明已经被伊奥尼亚和亚该亚人的战争所削弱，实际上就被最后的希腊侵略者多利亚人所毁灭了。以前的侵入者大部分采纳了米诺的宗教，但是多利亚人却保存了他们祖先的原始的印度－欧罗巴宗教。然而迈锡尼时代的宗教却仍然不绝如缕，尤其是在下层阶级之中；而古典时代希腊的宗教就是这两种宗教的混合物。
+</p>
+
+<p>
+虽然上叙的情况可能是事实，但是我们必须记得我们并不知道迈锡尼人究竟是不是希腊人。我们所知道的只是他们的文明毁灭了，在它告终的时候，铁就代替了青铜；并且有一个时期海上霸权转到腓尼基人的手里。
+</p>
+
+<p>
+在迈锡尼时代的后期及其结束之后，有些入侵者定居下来变成了农耕者；而另有些入侵者则继续推进，首先是进入希腊群岛和小亚细亚，然后进入西西里和意大利南部，他们在这些地方建立了城市，靠海上贸易为生。希腊人最初便是在这些海上城市里作出了对于文明的崭新的贡献；雅典的霸权是后来才出现的，而当它出现的时候也同样地是和海权【naval power】结合在一起的。
+</p>
+
+<p>
+希腊大陆是多山地区，而且大部分是荒瘠不毛的。但是它有许多肥沃的山谷，通海便利，而彼此间方便的陆地交通则为群山所阻隔。在这些山谷里，小小的各自分立的区域社会就成长起来，它们都以农业为生，通常环绕着一个靠近海的城市。在这种情况之下很自然的，任何区域社会的人口只要是增长太大而国内资源不敷时，在陆地上无法谋生的人就会去从事航海。大陆上的城邦就建立了殖民地，而且往往是在比本国更容易谋生得多的地方。因此在最早的历史时期，小亚细亚、西西里和意大利的希腊人都要比大陆上的希腊人富有得多。
+</p>
+
+<p>
+希腊不同地区的社会制度也是大有不同的。在斯巴达，少数贵族就靠着压迫另一种族的农奴的劳动而过活；在较贫穷的农业区，人口主要的是那些靠着自己的家庭来耕种自己土地的农民们。但是在工商业繁荣的地区，自由的公民则由于使用奴隶而发财致富——采矿使用男奴隶，纺织则使用女奴隶。在伊奥尼亚，这些奴隶都是四邻的野蛮人，照例最初都是战争中的俘获。随着财富的积累，人们让体面的妇女变得越来越与世隔绝，后来她们在希腊的文明生活里几乎没有地位了【With increasing wealth went increasing isolation of respectable women,】，只有斯巴达是例外。
+</p>
+
+<p>
+一般的发展情况是最初由君主制过渡到贵族制，然后又过渡到僭主制与民主制的交替出现。国王们并不象埃及的和巴比伦的国王那样具有绝对的权力，他们须听从元老会议的劝告，他们违背了习俗便不会不受惩罚。“僭主制”并不必然地意味着坏政府，而仅仅指一个不是由世袭而掌权的人的统治。“民主制”即指全体公民的政府，但其中不包括奴隶与女人。早期的僭主正象梅狄奇家族那样，乃是由于他们是财阀政治中最富有的成员而获得权力的。他们的财富来源往往是占有金银矿，并且由于伊奥尼亚附近吕底亚王国传来了新的铸币制度而大发其财。铸币似乎是公元前700年以前不久被人发明的<sup><a id="fnr.5" name="fnr.5" class="footref" href="#fn.5">5</a></sup>。
+</p>
+
+<p>
+商业或海盗掠夺——起初这两者是很难分别的——对于希腊人最重要的结果之一，就是使他们学会了书写的艺术。虽然书写在埃及和巴比伦已经存在过几千年了，而且米诺的克里特人也曾有过一种文字（这种文字还没有人能识别），然而并没有任何决定性的证据可以证明希腊人在公元前十世纪左右以前是会写字的。他们从腓尼基人那里学到书写的技术；腓尼基人正像其他叙利亚的居民一样，受着埃及和巴比伦两方面的影响，而且在伊奥尼亚、意大利和西西里的希腊城市兴起之前，他们一直握有海上商业的霸权。公元前十四世纪时，叙利亚人给伊克纳顿（埃及的异端国王）写信仍然使用巴比伦的楔形文字；但是推罗的西拉姆（公元前969-936年）已经用腓尼基字母了，腓尼基字母或许就是从埃及文字中发展出来的。最初埃及人使用一种纯粹的图画文字；这些图画日益通行以后就逐渐地代表音节（即图形所代表的事物的名字的第一个音节），终于根据“A是一个射青蛙的射手”<sup><a id="fnr.6" name="fnr.6" class="footref" href="#fn.6">6</a></sup>的原则而代表单独的字母了。最后的这一步埃及人自己并没有完成，而是由腓尼基人完成的，而这就给了字母以一切的便利。希腊人又从腓尼基人那里借来这种字母加以改变以适合他们自己的语言，并且加入了母音而不是象以往那样仅有子音，从而就作出了重要的创造。毫无疑问，获得了这种便利的书写方法就大大促进了希腊文明的兴起。
+</p>
+
+<p>
+希腊文明第一个有名的产儿就是荷马。关于荷马的一切全都是推测，但是最好的意见似乎是认为，他是一系列的诗人而并不是一个诗人。或许依里亚特和奥德赛两书完成的期间约占200年的光景，有人说是从公元前750-550年，<sup><a id="fnr.7" name="fnr.7" class="footref" href="#fn.7">7</a></sup>而另有人认为《荷马》在公元前八世纪末就差不多已经写成了<sup><a id="fnr.8" name="fnr.8" class="footref" href="#fn.8">8</a></sup>。荷马诗现存的形式是被比西斯垂塔斯带给雅典的，他在公元前560至527年（包括间断期）执政。从他那时以后，雅典的青年就背诵着荷马，而这就成为他们教育中最重要的部分。但在希腊的某些地区，特别是在斯巴达，荷马直到较晚的时期，才享有同样的声望。
+</p>
+
+<p>
+荷马的诗歌好像后期中世纪的宫廷传奇一样，代表着一种已经开化了的贵族阶级的观点，它把当时在人民群众中依然流行的各种迷信看成是下等人的东西而忽略过去。但是到了更后来的时期，许多这些迷信又都重见天日了。近代作家根据人类学而得到的结论是：荷马决不是原著者，而是一个删定者，他是一个十八世纪式的古代神话的诠释家，怀抱着一种上层阶级文质彬彬的启蒙理想。在荷马诗歌中，代表宗教的奥林匹克的神祇，无论是在当时或是在后世，都不是希腊人唯一崇拜的对象。在人民群众的宗教中，还有着更黑暗更野蛮的成份，它们虽然在希腊智慧的盛期被压抑下去了，但是一等到衰弱或恐怖的时刻就会迸发出来。所以每逢衰世便证明了，被荷马所摈弃的那些宗教迷信在整个古典时代里依然继续保存着，只不过是半隐半显罢了。这一事实说明了许多事情，否则的话，这些事情便似乎是矛盾而且令人感到惊异的了。
+</p>
+
+<p>
+任何地方的原始宗教都是部族的，而非个人的。人们举行一定的仪式，通过同情的力量【by sympathetic magic】以增进部族的利益，尤其是促进植物、动物与人口的繁殖。冬至的时候，一定要祈求太阳不要再减少威力；春天与收获季节也都要举行适当的祭礼。这些祭礼往往能鼓动伟大的集体的热情，个人在其中消失了自己的孤立感而觉得自己与全部族合为一体。在全世界，当宗教演进到一定阶段时，做牺牲的动物和人都要按照祭礼被宰杀吃掉的。在不同的地区，这一阶段出现的时期也颇为不同。以人献祭的习俗通常比把牺牲的人吃掉的习俗要长一些【Human sacrifice usually lasted longer than the sacrificial eating of human victims;】；就是古希腊历史刚开始的时候这种习俗也未消失。不带有这种残酷的景象的生殖崇拜的仪式(Fertility rites)，在全希腊也很普遍；特别是伊留希斯神秘教，其象征符号就是农业的。【the Eleusinian mysteries, in particular, were essentially agricultural in their symbolism.】
+</p>
+
+<p>
+必须承认，荷马诗歌中的宗教并不很具有宗教气味。神祇们完全是人性的，与人不同的只在于他们不死，并具有超人的威力。在道德上，他们没有什么值得称述的，而且也很难看出他们怎么能够激起人们很多的敬畏。在被人认为是晚出的几节诗里，是用一种伏尔泰式的不敬在处理神祇们的。在荷马诗歌中所能发现与真正宗教感情有关的，并不是奥林匹克的神祇们，而是连宙斯也要服从的“运命”、“必然”与“定数”这些冥冥的存在。运命对于整个希腊的思想起了极大的影响，而且这也许就是科学之所以能得出对于自然律的信仰的渊源之一。
+</p>
+
+<p>
+荷马的神祇们乃是征服者的贵族阶级的神祇，而不是那些实际在耕种土地的人们的有用的丰产之神。正如吉尔伯特·穆莱所说的<sup><a id="fnr.9" name="fnr.9" class="footref" href="#fn.9">9</a></sup>：“大多数民族的神都自命曾经创造过世界，奥林匹克的神并不自命如此。他们所做的，主要是征服世界。 \(\cdots \cdots\) 当他们已经征服了王国之后，它们又干什么呢？他们关心政治吗？他们促进农业吗？他们从事商业和工业吗？一点都不。他们为什么要从事任何老实的工作呢？依靠租税并对不纳税的人大发雷霆，在他们看来倒是更为舒适的生活。他们都是些嗜好征服的首领，是些海盗之王。他们既打仗，又宴饮，又游玩，又作乐；他们开怀痛饮，并大声嘲笑那伺候着他们的瘸铁匠。他们只知怕自己的王，从来不知惧怕别的。除了在恋爱和战争中而外，他们从来不说谎。”
+</p>
+
+<p>
+荷马笔下的人间英雄们，在行为上也一样地不好。第一家庭当是庇勒普斯家族，但是它并没有能够成功地建立起一个幸福的家庭生活的榜样。
+</p>
+
+<p>
+“这个王朝的建立者，亚洲人坦达鲁斯，是以直接对于神祇的进攻而开始其事业的；有人说，他是以试图诱骗神祇们吃人肉，吃他自己的儿子庇勒普斯的肉而开始的。庇勒普斯在奇迹般地复活了之后，也向神祇们进攻。他那场对比萨王奥诺谟斯的有名的车赛，是靠了后者的御夫米尔特勒斯的帮助而获得胜利的。然后他又把他原来允许给以报酬的同盟者干掉，把他扔到海里去。于是诅咒便以希腊人所称为'阿特'（ate）①的形式——如果实际上那不是完全不可抗拒的、至少也是一种强烈的犯罪冲动——传给了他的儿子阿特鲁斯和泰斯提司。泰斯提司奸污了他的嫂子，并且因而便把家族的幸运，即有名的金毛羊，偷到了手中。阿特鲁斯反过来设法放逐了他的兄弟，而又在和解的藉口之下召他回来，宴请他吃自己孩子的肉。这种诅咒又由阿特鲁斯遗传给他的儿子阿加米侬。阿加米侬由于杀了一只作牺牲的鹿而冒犯了阿尔蒂米斯；于是他牺牲自己的女儿伊妃格尼亚来平息这位女神的盛怒，并得以使他的舰队安全到达特罗伊。阿加梅侬又被他的不贞的妻子和她的情夫，即泰斯提司所留下来的一个儿子厄极斯特斯，谋杀了。阿加米侬的儿子奥瑞斯提斯又杀死了他的母亲和厄极斯特斯，为他的父亲报了仇”。①荷马的诗作为一部完成的定稿，乃是伊奥尼亚的产物，伊奥尼亚是希腊小亚细亚极其邻近岛屿的一部分。至迟当公元前六世纪的时候，荷马的诗歌已经固定下来成为目前的形式。也正是在这个世纪里，希腊的科学、哲学与数学开始了。在同一个时期，世界上的其他部分也在发生着具有根本重要意义的事件。孔子、佛陀和琐罗亚斯特，如果他们确有其人的话，大概也是属于这个世纪的。②在这个世纪的中叶，波斯帝国被居鲁士建立起来了；到了这个世纪的末叶，曾被波斯人允许过有限度的自主权的伊奥尼亚的希腊城市举行过一次未成功的叛变，这次叛变被大流士镇压下去，其中最优秀的人物都成了逃亡者。有几位这个时期的哲学家就是流亡者，他们在希腊世界未遭奴役各部分，从一个城流浪到另一个城，传播了直迄当时为止主要地是局限于伊奥尼亚的文明。他们在周游的时候受到殷勤的款待。色诺芬尼也是一个流亡者，鼎盛期约当公元前六世纪后期，他说过：“在冬天的火旁，我们吃过一顿很好的饭，喝过美酒，嚼着豆子，躺在柔软的床上的时候，我们就要谈下面的这些话了：‘您是哪一国人？您有多大年纪，老先生？米底人出现的时候，您是多大年纪？’”希腊的其他部分，在沙拉米战役和平拉提亚战役中，继续保持了自己的独立。此后，伊奥尼亚也获得了一个时期的自由。①希腊分为许多独立的小国家，每个国家都包括一个城市及其附近的农业区。在希腊世界的各个不同地区，文明的水平是大有不同的，仅有少数的城市对于希腊成就的整体有过贡献。关于斯巴达，我在后面还要详细谈到，它仅在军事意义上是重要的，而并不是在文化上。哥林多是富庶而又繁荣的，是一个巨大的商业中心，但是并没有出现过多少伟大的人物。
+</p>
+
+<p>
+其次，也有纯粹农乡的地区，例如脍炙人口的阿加底亚，城市人都把它想象为牧歌式的，但它实际上却充满了古代的野蛮恐怖。
+</p>
+
+<p>
+居民们崇拜牧神潘，他们有许多种丰收的祭仪，并且往往是以一根方柱代替神象来进行仪式的。山羊是丰收的象征，因为农民们太穷，不可能有牛。当粮食不够的时候，人们就殴打潘的神象（在偏僻的中国乡村里，至今还仍然有类似的事情）。有一种想象中的狼人族，或许是与以人作牺牲以及吃人肉的风气有关。那时以为谁若是吃了作牺牲的人的祭肉，就会变成一个狼人。有一个供奉宙斯·里凯欧斯（即狼宙斯）的洞；在这个洞里，人是没有影子的，走进去的人在一年之内便要死掉。这一切迷信在古典时代还都仍然盛行着。①潘原来的名字是“帕昂”，意思是饲养人或牧人；在公元前五世纪波斯战争之后，雅典人也采用了对潘的崇拜，于是他便获得了这个更为人所熟悉的名字，而这个名字的意义翻译出来就是“全神”②。
+</p>
+
+<p>
+然而在古代的希腊也有许多东西，我们可以感觉到就是我们所理解的宗教。那不是和奥林匹克诸神联系在一起的，而是与狄奥尼索斯或者说巴库斯相联系的，我们极其自然地把这个神想象成多少是一个不名誉的酗酒与酩酊大醉之神。由于对他崇拜便产生了一种深刻的神秘主义，它大大地影响了许多哲学家，甚至对于基督教神学的形成也起过一部分的作用；这种崇拜发展的途径是极其值得注目的，任何一个想要研究希腊思想发展的人都必须好好加以理解。
+</p>
+
+<p>
+狄奥尼索斯或者说巴库斯，原来是色雷斯的神。色雷斯人远比不上希腊人文明，希腊人把色雷斯人看成是野蛮人。正象所有的原始农耕者一样，他们也有各种丰收的祭仪和一个保护丰收之神。他的名字便是巴库斯。巴库斯究竟是人形还是牛形，这一点始终不太清楚。当他们发现了制造麦酒的方法时，他们就认为酣醉是神圣的，并赞美着巴库斯。后来他们知道了葡萄而又学会了饮葡萄酒的时候，他们就把巴库斯想像得更好了。于是他保护丰收的作用，一般地就多少变成从属于他对于葡萄以及因酒而产生的那种神圣的颠狂状态所起的作用了。
+</p>
+
+<p>
+对于巴库斯的崇拜究竟是什么时候从色雷斯传到希腊来的，我们并不清楚，但它似乎是刚刚在历史时期开始之前。对巴库斯的崇拜遇到了正统派的敌视，然而这种崇拜毕竟确立起来了。它包含着许多野蛮的成份，例如，把野兽撕成一片片的，全部生吃下去。它有一种奇异的女权主义的成份。有身分的主妇们和少女们成群结队地在荒山上整夜欢舞欲狂，那种酣醉部分地是由于酒力，但大部分却是神秘性的。丈夫们觉得这种做法令人烦恼，但是却不敢去反对宗教。这种又美丽而又野蛮的宗教仪式，是写在幼利披底的剧本《酒神》之中的。
+</p>
+
+<p>
+巴库斯在希腊的胜利并不令人惊异。正象所有开化得很快的社会一样，希腊人，至少是某一部分希腊人，发展了一种对于原始事物的爱慕，以及一种对于比当时道德所裁可的生活方式更为本能的、更加热烈的生活方式的热望。对于那些由于强迫因而在行为上比在感情上来得更文明的男人或女人，理性是可厌的，道德是一种负担与奴役。这就在思想方面、感情方面与行为方面引向一种反动。这里与我们特别有关的是思想方面的反动，但是关于感情与行为方面的反动要先谈几句话。
+</p>
+
+<p>
+文明人之所以与野蛮人不同，主要的是在于审慎，或者用一个稍微更广义的名词，即深谋远虑。他为了将来的快乐，哪怕这种将来的快乐是相当遥远的，而愿意忍受目前的痛苦。这种习惯是随着农业的兴起而开始变得重要起来的；没有一种动物，也没有一种野蛮人会为了冬天吃粮食而在春天工作，除非是极少数纯属本能的行动方式，例如蜜蜂酿蜜，或者松鼠埋栗子。在这种情况下，并没有深谋远虑；它只有一种直接行动的冲动，这对一个人类观察者来说，显然在后来证明了是有用的。唯有当一个人去做某一件事并不是因为受冲动的驱使，而是因为他的理性告诉他说，到了某个未来时期他会因此而受益的时候，这时候才出现了真正的深谋远虑。打猎不需要深谋远虑，因为那是愉快的；但耕种土地是一种劳动，而并不是出于自发的冲动就可以做得到的事。
+</p>
+
+<p>
+文明之抑制冲动不仅是通过深谋远虑（那是一种加于自我的抑制），而且还通过法律、习惯与宗教。这种抑制力是它从野蛮时代继承来的，但是它使这种抑制力具有更少的本能性与更多的组织性。某些行动被认为是犯罪的，要受到惩罚，另外又有些行动虽然不受法律惩罚，但被视为是邪恶的，并且使犯有这种罪行的人遭受社会的指责。私有财产制度带来了女性的从属状态，同时通常还创造出来一个奴隶阶级。一方面是把社会的目的强加给个人，而另一方面，个人已经获得了一种习惯把自己的一生视为是一个整体，于是越来越多地为着自己的未来而牺牲自己的目前。
+</p>
+
+<p>
+很显然的，这种过程可以推行得很过分，例如守财奴便是如此。但是纵使不推行到这样的极端，审慎也很容易造成丧失生命中某些最美好的事物。巴库斯的崇拜者就是对于审慎的反动。在沉醉状态中，无论是肉体上或者是精神上，他都又恢复了那种被审慎所摧毁了的强烈感情；他觉得世界充满了欢愉和美；他的想象从日常顾虑的监狱里面解放了出来。举行巴库斯礼便造成了所谓的“激情状态”，这个名词在字源上是指神进入了崇拜者的体内，崇拜者相信自己已经与神合而为一。人类成就中最伟大的东西大部分都包含有某种沉醉的成份①，某种程度上的以热情来扫除审慎。没有这种巴库斯的成份，生活便会没有趣味；有了巴库斯的成份，生活便是危险的。审慎对热情的冲突是一场贯穿着全部历史的冲突。在这场冲突中，我们不应完全偏袒任何一方。
+</p>
+
+<p>
+在思想的领域内，清醒的文明大体上与科学是同义语。但是毫不搀杂其他事物的科学，是不能使人满足的；人也需要有热情、艺术与宗教。科学可以给知识确定一个界限，但是不能给想象确定一个界限。在希腊哲学家之中，正象在后世哲学家中一样，有些哲学家基本上是科学的，也有些哲学家基本上是宗教的；后者大部分都直接地或间接地受到巴库斯宗教的影响。这特别适用于柏拉图，并且通过他而适用于后来终于体现为基督教神学的那些发展。
+</p>
+
+<p>
+狄奥尼索斯的原始崇拜形式是野蛮的，在许多方面是令人反感的。它之影响了哲学家们并不是以这种形式，而是以奥尔弗斯为名的精神化了的形式，那是禁欲主义的，而且以精神的沉醉代替肉体的沉醉。奥尔弗斯是一个朦胧但有趣的人物，有人认为他实有其人，另外也有人认为他是一个神，或者是一个想象中的英雄。传说上认为他象巴库斯一样也来自色雷斯，但是他（或者说与他的名字相联系着的运动）似乎更可能是来自克里特。可以断定，奥尔弗斯教义包括了许多最初似乎是渊源于埃及的东西，而且埃及主要地是通过克里特而影响了希腊的。据说奥尔弗斯是一位改革者，他被巴库斯正统教义所鼓动起来的狂热的酒神侍女们（maenads）撕成碎片。在这一传说的古老形式中，他对音乐的嗜好并没有象后来那么重要。他基本上是一个祭司和哲学家。
+</p>
+
+<p>
+无论奥尔弗斯本人（如果确有其人的话）的教义是什么，但奥尔弗斯教徒的教义是人所熟知的。他们相信灵魂的轮回；他们教导说，按照人在世上的生活方式，灵魂可以获得永恒的福祉或者遭受永恒的或暂时的痛苦。他们的目的是要达到“纯洁”，部分地依靠净化的教礼，部分地依靠避免某些种染污。他们中间最正统的教徒忌吃肉食，除非是在举行仪式的时候做为圣餐来吃。他们认为人部分地属于地，也部分地属于天；由于生活的纯洁，属于天的部分就增多，而属于地的部分便减少。最后，一个人可以与巴库斯合一，于是便称为“一个巴库斯”。曾有过一种很精致的神学，按照那种神学的说法，巴库斯曾经诞生过两次，一次是从他的母亲西弥丽诞生的，另一次是从他父亲宙斯的大腿里诞生的。
+</p>
+
+<p>
+狄奥尼索斯①的神话有许多种形式。有一种说，狄奥尼索斯是宙斯和波息丰的儿子；他还是小孩子的时候就被巨人族撕碎，他们吃光了他的肉，只剩下来他的心。有人说，宙斯把这颗心给了西弥丽，另外有人说，宙斯吞掉了这颗心；无论哪一种说法，都形成了狄奥尼索斯第二次诞生的起源。巴库斯教徒把一只野兽撕开并生吃它的肉，这被认为是重演巨人族撕碎并吃掉狄奥尼索斯的故事，而这只野兽在某种意义上便是神的化身。巨人族是地所生的，但是吃了神之后，他们就获有一点神性。所以人是部分地属于地的，部分地属于神的，而巴库斯教礼就是要使人更完全地接近神性。
+</p>
+
+<p>
+幼利披底让一个奥尔弗斯祭司的口中唱出的一段自白是有教育意义的：①
+</p>
+
+<p class="verse">
+&#xa0;&#xa0;&#xa0;&#xa0;主啊，你是欧罗巴泰尔的苗裔，<br >
+　　宙斯之子啊，在你的脚下<br >
+　　是克里特千百座的城池，<br >
+　　我从这个黯淡的神龛之前向你祈祷，<br >
+　　雕栏玉砌装成的神龛，<br >
+　　饰着查立布的剑和野牛的血。<br >
+　　天衣无缝的柏木栋梁矻然不动。<br >
+　　我的岁月在清流里消逝。<br >
+　　我是伊地安宙夫②神的仆人，<br >
+　　我得到了秘法心传；<br >
+　　我随着查格鲁斯③中夜游荡，<br >
+　　我已听惯了他的呼声如雷；<br >
+　　成就了他的红与血的宴会，<br >
+　　守护这伟大母亲山头上的火焰；<br >
+　　我获得了自由，而被赐名为<br >
+　　披甲祭司中的一名巴库斯。<br >
+　　我全身已装束洁白，我已<br >
+　　洗净了人间的罪恶与粪土<br >
+　　我的嘴头从此禁绝了<br >
+　　再去触及一切杀生害命的肉食。<br >
+</p>
+
+
+<p>
+奥尔弗斯教徒的书版已经在坟墓中被发现，那都是一些教诫，告诉死掉的灵魂如何在另一个世界里寻找出路，以及为了要证明自己配得上得救应该说些什么话。这些书版都是残阙不全的；其中最为完整的一份（即裴特利亚书版）如下：
+</p>
+
+<p class="verse">
+&#xa0;&#xa0;&#xa0;&#xa0;你将在九泉之下地府的左边看到一泓泉水，<br >
+　　泉水旁矗立着一株白色的柏树，<br >
+　　这条泉水你可不要走近。<br >
+　　但你在记忆湖边将看到另一条泉水<br >
+　　寒水流涌，旁边站着卫士。<br >
+　　你要说：“我是大地与星天的孩子；<br >
+　　但我的氏族却仅属于天，这你也知道。<br >
+　　看哪，我焦渴得要死了。请快给我<br >
+　　记忆湖中流涌出来的寒泉冷冽”。<br >
+　　他们自会给你饮那神圣的泉水<br >
+　　从此你就将君临其他的英雄。……<br >
+</p>
+
+
+<p>
+另一个书版说道，“欢迎你，忍受了苦难的人。……你将由人变为神”。另外又有一个说道：“欢乐而有福的人，你将成为神，再也不会死亡”。
+</p>
+
+<p>
+灵魂所不能喝的泉水就是列特，它会使人遗忘一切的；另一股泉水是聶摩沁，它会使人记忆一切。另一个世界的灵魂，如果想要得救，就不可遗忘，而相反地必须能有一种超乎自然的记忆力。
+</p>
+
+<p>
+奥尔弗斯教徒是一个苦行的教派；酒对他们说来只是一种象征，正象后来基督教的圣餐一样。他们所追求的沉醉是“激情状态”的那种沉醉，是与神合而为一的那种沉醉。他们相信以这种方式可以获得以普通方法所不能得到的神秘知识。这种神秘的成份随着毕达哥拉斯一起进入到希腊哲学里面来，毕达哥拉斯就是奥尔弗斯教的一个改革者，正如奥尔弗斯是巴库斯教的一个改革者一样。奥尔弗斯的成份从毕达哥拉斯进入到柏拉图的哲学里面来，又从柏拉图进入了后来大部分多少带有宗教性的哲学里面来。
+</p>
+
+<p>
+只要是奥尔弗斯教有影响的地方，就一定有着某种巴库斯的成份。其中之一便是女权主义的成份，毕达哥拉斯便有许多这种成份，而在柏拉图，这种成份竟达到了要求女子在政治上完全与男子平等的地步。毕达哥拉斯说“女性天然地更近于虔诚”。另一种巴库斯的成份是尊重激烈的感情。希腊悲剧是从狄奥尼索斯的祭祀之中产生的。幼利披底尤其尊重奥尔弗斯教的两个主要的神，即巴库斯与伊洛思。但他对于那种冷静地自以为是而且行为端正的人，却是毫无敬意的；在他的悲剧里，那种人往往不是被逼疯了，便是由于神愤怒他们的亵渎神明而沦于忧患。
+</p>
+
+<p>
+关于希腊人，传统的看法是他们表现了一种可钦可敬的静穆，这种静穆使得他们能置身局外地来观赏热情，来观察热情所表现的一切美妙，而他们自己却不动感情，有如奥林匹克的神明一般。这是一种非常片面的看法。也许荷马、索福克里斯与亚里士多德是这样，但是对那些直接间接地接触了巴库斯和奥尔弗斯的影响的希腊人，情形就确乎不是这样的了。爱留希斯的神话构成了雅典国教的最神圣部分，在爱留希斯，有一首颂歌唱道：
+</p>
+
+<p class="verse">
+&#xa0;&#xa0;&#xa0;&#xa0;你的酒杯高高举起，<br >
+　　你欢乐欲狂<br >
+　　万岁啊！你，巴库斯，潘恩。你来在<br >
+　　爱留希斯万紫千红的山谷。<br >
+</p>
+
+
+<p>
+在幼利披底的《酒神》里，酒神侍女的合唱显示了诗与野蛮的结合，那与静穆是截然相反的。她们庆贺支解野兽的欢乐，当场把它生吃了下去，并且欢唱着：
+</p>
+
+<p class="verse">
+&#xa0;&#xa0;&#xa0;&#xa0;啊，欢乐啊，欢乐在高山顶上，<br >
+　　竞舞得精疲力尽使人神醉魂消，<br >
+　　只剩下来了神圣的鹿皮<br >
+　　而其余一切都一扫精光，<br >
+　　这种红水奔流的快乐，<br >
+　　撕裂了的山羊鲜血淋漓，<br >
+　　拿过野兽来狼吞虎噬的光荣，<br >
+　　这时候山顶上已天光破晓，<br >
+　　向着弗里吉亚、吕底亚的高山走去，<br >
+　　那是布罗米欧在引着我们上路。<br >
+</p>
+
+
+<p>
+（布罗米欧是巴库斯的许多名字之一）。酒神侍女们在山坡上的舞蹈不仅是犷野的；它还是一种逃避，是从文明的负担和烦忧里逃向非人间的美丽世界和清风与星月的自由里面去。他们以另一种不很狂热的情调又唱道：
+</p>
+
+<p class="verse">
+&#xa0;&#xa0;&#xa0;&#xa0;它们会再来，再度的来临吗？<br >
+　　那些漫长、漫长的歌舞，<br >
+　　彻夜歌舞直到微弱的星光消逝。<br >
+　　我的歌喉将受清露的滋润，<br >
+　　我的头发将受清风的沐浴？我们的白足<br >
+　　将在迷朦的太空中闪着光辉？<br >
+　　啊，绿原上奔驰着的麋鹿的脚<br >
+　　在青草中是那样的孤独而可爱；<br >
+　　被猎的动物逃出了陷阱和罗网，<br >
+　　欢欣跳跃再也不感到恐怖。<br >
+　　然而远方仍然有一个声音在呼唤<br >
+　　有声音，有恐怖，更有一群猎狗<br >
+　　搜寻得多凶猛，啊，奔驰得多狂猂<br >
+　　沿着河流和峡谷不断向前——<br >
+　　是欢乐呢还是恐惧？你疾如狂飚的足踵啊，<br >
+　　你奔向着可爱的邃古无人的寂静的土地，<br >
+　　那儿万籁俱寂，在那绿荫深处，<br >
+　　林中的小生命生活得无忧无虑。<br >
+</p>
+
+
+<p>
+在拾人牙慧地说什么希腊人是“静穆的”之前，你不妨想想假如费拉德尔斐亚的妇女们也是这样的行径吧，哪怕就是在欧根·奥尼尔的剧本里。
+</p>
+
+<p>
+奥尔弗斯的信徒并不比未经改造过的巴库斯崇拜者更为“静穆”。对于奥尔弗斯的信徒来说，现世的生活就是痛苦与无聊。我们被束缚在一个轮子上，它在永无休止的生死循环里转动着；我们的真正生活是属于天上的，但我们却又被束缚在地上。唯有靠生命的净化与否定以及一种苦行的生活，我们才能逃避这个轮子，而最后达到与神合一的天人感通。这绝不是那些能感到生命是轻松愉快的人的观点。它更有似于黑人的灵歌：
+</p>
+
+<p class="verse">
+&#xa0;&#xa0;&#xa0;&#xa0;当我回到了老家，<br >
+　　我要向神诉说我的一切的烦恼。<br >
+</p>
+
+
+<p>
+虽非所有的希腊人，但有一大部分希腊人是热情的、不幸的、处于与自我交战的状态，一方面被理智所驱遣，另一方面又被热情所驱遣，既有想象天堂的能力，又有创造地狱的那种顽强的自我肯定力。他们有“什么都不过分”的格言；但是事实上，他们什么都是过分的，——在纯粹思想上，在诗歌上，在宗教上，以及在犯罪上。当他们伟大的时候，正是热情与理智的这种结合使得他们伟大的。单只是热情或单只是理智，在任何未来的时代都不会使世界改变面貌，有如希腊人所做过的那样。他们在神话上的原始典型并不是奥林匹克的宙斯而是普罗米修斯，普罗米修斯从天上带来了火，却因此而遭受着永恒的苦难。
+</p>
+
+<p>
+然而、如果把它当做全体希腊人的特征时，那末上文所说的就会和以“静穆”作为希腊人的特征的那种观点是同样的片面性了。事实上，在希腊有着两种倾向，一种是热情的、宗教的、神秘的、出世的，另一种是欢愉的、经验的、理性的，并且是对获得多种多样事实的知识感到兴趣的。希罗多德就代表后一种倾向；最早的伊奥尼亚的哲学家们也是如此；亚里士多德在一定的限度内也是如此。贝洛赫（前引书，第1卷，第1章，第434页）描写奥尔弗斯教说道：“但是希腊民族是非常充满青春活力的，它不能普遍接受任何一种否定现世并把现实的生命转到来世上面去的信仰。因此奥尔弗斯的教义始终局限于入教者的相当狭小的圈子之内，对于国教并没有任何一点影响，甚至于在象雅典那样已经在国家祭祀之中采用了神秘教的祭礼并且使之获得法律的保障的地区，也是没有一点影响的。整整过了一千年之后，这些观念——当然在一种截然不同的神学外衣之下——才在希腊世界获得了胜利”。
+</p>
+
+<p>
+看起来，这似乎是过分的夸大，特别以对于饱和着奥尔弗斯教义的爱留希斯神秘教为然。大致可以说，具有宗教气质的人都倾向于奥尔弗斯教，而理性主义者则都鄙视它。我们可以把它的地位和十八世纪末十九世纪初英国的卫理教派相比。
+</p>
+
+<p>
+我们多少知道点一个有教养的希腊人从他的父亲那里学到什么，但是在他的早年从他的母亲那里学到什么，我们就知道得很少了；在很大的程度上希腊女人是与男人们所享受的文明隔绝开来的。即使在其全盛时代，无论有教养的雅典人的明确的自觉的心理过程是怎样地理性主义，然而他们似乎从传统中、从幼年时代起就保存着一种更为原始的思想感情的方式，这种方式常常在严重的关头很容易占优势。因此，简单地分析希腊的面貌就会是不恰当的了。
+</p>
+
+<p>
+宗教，尤其是非奥林匹克的宗教，对于希腊思想的影响，直到最近才被人们所充分地认识到。有一本革命性的书，哈里逊的《希腊宗教研究导言》，着重指出了普通希腊人宗教中的原始的成份与狄奥尼索斯的成份；康福德（E．M．Corneord）的《从宗教到哲学》一书，力图使研究希腊哲学的学者们注意到宗教对于哲学家的影响，但是这本书中的解释，或者这本书中的人类学，却有很多地方是不能完全作为信史接受的。我所知道的最公允的叙述要算是约翰·伯奈特的《早期希腊哲学》，尤其是第二章：《科学与宗教》。伯奈特说，科学与宗教的冲突产生于“公元前六世纪席卷了全希腊的宗教复兴”，同时，历史舞台也从伊奥尼亚转到了西方。他说，“大陆希腊宗教的发展与伊奥尼亚的方式是很不相同的。特别是对狄奥尼索斯的崇拜——那是从色雷斯传来的，荷马诗歌中仅不过是提到而已——包含着一种萌芽中的对于人与世界关系的全新的观察方式。把任何崇高的观点都归之于色雷斯人本身当然是错误的；但是毫无疑问，对希腊人来说，天人感通的现象提示他们说灵魂决不止于是自我的微弱的复本而已，而且唯有在‘灵魂脱离肉体’的时候才能显示出来它的真正的性质。……”看起来，希腊宗教似乎是正将进入东方宗教所已达到的同样阶段；而且若不是由于科学的兴起，我们很难看出有什么东西能够阻止这种趋势。通常都说由于希腊人没有祭司阶级，所以使他们得免于东方式的宗教；然而这是倒果为因的说法。祭司阶级并不制造教条，虽然一旦有了教条之后，他们是要保存教条的；东方民族在他们发展的早期阶段，也没有上述意义的祭司阶级。挽救了希腊的并不是由于没有一个祭司阶级，而是由于有科学的学派存在。
+</p>
+
+<p>
+“新的宗教——在某种意义上，它是新的，虽然在另一种意义上，它和人类是同样地古老——随着各个奥尔弗斯教团的建立而达到它发展的最高峰。就我们所能知道的而论，它们的发源地是亚底加；但是它们传播得异常迅速，尤其是在意大利南部和西西里。首先它们都是属于崇拜狄奥尼索斯的组织；但是它们具有两种特征，这两种特征是希腊人中的新东西。他们渴望着有一种启示作为宗教权威的根源，他们还组成了人为的社团。那些包含着他们的神学的诗篇据说是色雷斯的奥尔弗斯所作的，这位奥尔弗斯本人曾进入过地狱，因此他是一个稳妥的引导者，能够使脱离了躯壳的灵魂在另一个世界里渡过种种危险。”
+</p>
+
+<p>
+伯奈特继续说，奥尔弗斯教派的信仰和大约同时在印度所流行的信仰，两者之间有着惊人的相似之点，虽然他认为它们不会有过任何的接触。然后他就说到“orgy”（狂欢）这个字的原义，奥尔弗斯教派用这个字来指“圣礼”，并且以此来净化信徒的灵魂使之得以避免生之巨轮。奥尔弗斯教徒与奥林匹克宗教的祭司不同，他们建立了我们所谓的教会，即宗教团体，不分种族或性别，人人可以参加；而且由于他们的影响，便出现了作为一种生活方式的哲学观念。
+</p>
+
+<p>
+①埃及和巴比伦人已经有了算术和几何学了，但主要地是凭经验。从一般的前提来
+进行演绎的推理，这是希腊人的贡献。
+    ①狄阿娜是阿尔蒂米斯的拉丁文的对称。在希腊文的圣经里提到的是阿尔蒂米斯，
+而英译本则称为狄阿娜。
+    ①她有一个孪生弟兄或配偶，就是“动物的男主人”。但是他比较不重要。把阿尔
+蒂米斯与小亚细亚的伟大的母亲当成一个人，乃是后来的事。
+    ①见尼尔逊（MartinP．Nilsson）：《米诺－迈锡尼宗教极其在希腊宗教中的残余》，
+第11页以下。
+    ①见乌雷（P．N．Ure）：《僭主制的起源》。
+    ①例如希伯来字母的第三个字“gimel”指“骆驼”，而这个字的符号就是一幅约定
+俗成的骆驼图形。
+    ②贝洛赫：《希腊史》第12章。
+    ③罗斯多夫采夫：《古代世界史》卷一，第399页。
+    ①《希腊宗教的五个阶段》，第67页。
+    ①按此字希腊文为“αAη”，指由天谴而招致的一种愚昧和对于是非善恶的模糊而
+言。——中译本编者
+　　①鲁斯（H．G．Rose）：《希腊的原始文化》1925年版，第193页。
+    ②但是琐罗亚斯特的年代揣测的成份很大。有人把他推早到公元前1000年左右。见
+《剑桥古代史》卷4，第207页。
+    ①雅典被斯巴达人击败的结果，是波斯人又获得了小亚细亚的全部海岸，波斯人对
+该地的权利在安达希达斯和约（公元前387-386年）中得到了承认。大约五十年以后，它
+们被并入亚历山大帝国。
+    ①罗斯：《原始希腊》第65页以下。
+    ②哈里逊（J．E．Harrison）：《希腊宗教研究导言》第651页。
+    ①我是指精神的沉醉而不是指酗酒的沉醉。
+    ①美国版作“巴库斯”，下同——译者
+　　①本章中的诗歌系采用英国穆莱教授的英译。
+    ②被人很神秘地认为即巴库斯。
+    ③巴库斯的许多名字之一。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 米利都学派</h3>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 毕达哥拉斯</h3>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 赫拉克利特</h3>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 巴门尼德</h3>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 恩培多克勒</h3>
+</div>
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 雅典与文化的关系</h3>
+</div>
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 阿那克萨哥拉</h3>
+</div>
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> 原子论者</h3>
+</div>
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> 普罗泰戈拉</h3>
+</div>
+
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> 苏格拉底</h3>
+</div>
+
+<div id="outline-container-sec-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> 斯巴达的影响</h3>
+</div>
+
+<div id="outline-container-sec-2-13" class="outline-3">
+<h3 id="sec-2-13"><span class="section-number-3">2.13</span> 柏拉图见解的来源</h3>
+</div>
+
+<div id="outline-container-sec-2-14" class="outline-3">
+<h3 id="sec-2-14"><span class="section-number-3">2.14</span> 柏拉图的乌托邦</h3>
+</div>
+
+<div id="outline-container-sec-2-15" class="outline-3">
+<h3 id="sec-2-15"><span class="section-number-3">2.15</span> 理念论</h3>
+</div>
+
+<div id="outline-container-sec-2-16" class="outline-3">
+<h3 id="sec-2-16"><span class="section-number-3">2.16</span> 柏拉图的不朽论</h3>
+</div>
+
+<div id="outline-container-sec-2-17" class="outline-3">
+<h3 id="sec-2-17"><span class="section-number-3">2.17</span> 柏拉图的宇宙生成论</h3>
+</div>
+
+<div id="outline-container-sec-2-18" class="outline-3">
+<h3 id="sec-2-18"><span class="section-number-3">2.18</span> 柏拉图哲学中的知识与知觉</h3>
+</div>
+
+<div id="outline-container-sec-2-19" class="outline-3">
+<h3 id="sec-2-19"><span class="section-number-3">2.19</span> 亚里士多德的形而上学</h3>
+</div>
+
+<div id="outline-container-sec-2-20" class="outline-3">
+<h3 id="sec-2-20"><span class="section-number-3">2.20</span> 亚里士多德的伦理学</h3>
+</div>
+
+<div id="outline-container-sec-2-21" class="outline-3">
+<h3 id="sec-2-21"><span class="section-number-3">2.21</span> 亚里士多德的政治学</h3>
+</div>
+
+<div id="outline-container-sec-2-22" class="outline-3">
+<h3 id="sec-2-22"><span class="section-number-3">2.22</span> 亚里士多德的逻辑</h3>
+</div>
+
+<div id="outline-container-sec-2-23" class="outline-3">
+<h3 id="sec-2-23"><span class="section-number-3">2.23</span> 亚里士多德的物理学</h3>
+</div>
+
+<div id="outline-container-sec-2-24" class="outline-3">
+<h3 id="sec-2-24"><span class="section-number-3">2.24</span> 希腊早期的数学与天文学</h3>
+</div>
+
+<div id="outline-container-sec-2-25" class="outline-3">
+<h3 id="sec-2-25"><span class="section-number-3">2.25</span> 希腊化世界</h3>
+</div>
+
+<div id="outline-container-sec-2-26" class="outline-3">
+<h3 id="sec-2-26"><span class="section-number-3">2.26</span> 犬儒学派与怀疑派</h3>
+</div>
+
+<div id="outline-container-sec-2-27" class="outline-3">
+<h3 id="sec-2-27"><span class="section-number-3">2.27</span> 伊壁鸠鲁派</h3>
+</div>
+
+<div id="outline-container-sec-2-28" class="outline-3">
+<h3 id="sec-2-28"><span class="section-number-3">2.28</span> 斯多葛主义</h3>
+</div>
+
+<div id="outline-container-sec-2-29" class="outline-3">
+<h3 id="sec-2-29"><span class="section-number-3">2.29</span> 罗马帝国与文化的关系</h3>
+</div>
+
+<div id="outline-container-sec-2-30" class="outline-3">
+<h3 id="sec-2-30"><span class="section-number-3">2.30</span> 普罗提诺</h3>
+<div class="outline-text-3" id="text-2-30">
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 附录</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 参考资料</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>埃及和巴比伦人已经有了算术和几何学了，但主要地是凭经验。从一般的前提来进行演绎的推理，这是希腊人的贡献。</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p>狄阿娜是阿尔蒂米斯的拉丁文的对称。在希腊文的圣经里提到的是阿尔蒂米斯，而英译本则称为狄阿娜。</p></div>
+
+<div class="footdef"><sup><a id="fn.3" name="fn.3" class="footnum" href="#fnr.3">3</a></sup> <p>她有一个孪生弟兄或配偶，就是“动物的男主人”。但是他比较不重要。把阿尔蒂米斯与小亚细亚的伟大的母亲当成一个人，乃是后来的事。</p></div>
+
+<div class="footdef"><sup><a id="fn.4" name="fn.4" class="footnum" href="#fnr.4">4</a></sup> <p>见尼尔逊（MartinP．Nilsson）：《米诺－迈锡尼宗教极其在希腊宗教中的残余》，第11页以下。</p></div>
+
+<div class="footdef"><sup><a id="fn.5" name="fn.5" class="footnum" href="#fnr.5">5</a></sup> <p>见乌雷（P．N．Ure）：《僭主制的起源》。</p></div>
+
+<div class="footdef"><sup><a id="fn.6" name="fn.6" class="footnum" href="#fnr.6">6</a></sup> <p>例如希伯来字母的第三个字“gimel”指“骆驼”，而这个字的符号就是一幅约定俗成的骆驼图形。</p></div>
+
+<div class="footdef"><sup><a id="fn.7" name="fn.7" class="footnum" href="#fnr.7">7</a></sup> <p>贝洛赫：《希腊史》第12章。</p></div>
+
+<div class="footdef"><sup><a id="fn.8" name="fn.8" class="footnum" href="#fnr.8">8</a></sup> <p>罗斯多夫采夫：《古代世界史》卷一，第399页。</p></div>
+
+<div class="footdef"><sup><a id="fn.9" name="fn.9" class="footnum" href="#fnr.9">9</a></sup> <p>罗斯多夫采夫：《古代世界史》卷一，第399页。</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 伯特兰·罗素; 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-14 21:58.</p></div>
+</body>
+</html>
