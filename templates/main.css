@@ -1,0 +1,14 @@
+/*--------------
+
+一般会考虑集成到org自动生成的html中，但是可能某些个别的会考虑单独刷某些css配置。推荐是和html
+置于一处，然后若该文件夹的html共享该css文件，则如下引用。
+
+#+HTML_HEAD: <link rel="stylesheet"  href="main.css"/>
+
+若某个html文件另外需要更加独特的css配置，则引用放入backups文件夹里面的具体对应该文件名的css。
+
+#+HTML_HEAD: <link rel="stylesheet"  href="backups/filename.css"/>
+
+
+----------------*/
+
