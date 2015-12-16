@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>c++语言学习笔记</title>
+<!-- 2015-11-02 17:40 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js","TeX/mhchem.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        },
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">c++语言学习笔记</h1>
+<p>
+\chapter{C++}
+C语言在某些情况下可以弥补python语言的不足，那么我们为什么还要学习C++语言呢？因为前人写的很多模块包，程序等等都是用C++语言写的。这里不去讨论C++和其他语言的PK或者函数编程和面向对象编程的PK，这里讨论C++，只是立足于最精简的C++和着眼于阅读别人代码的C++，并不刻意要求读者一定要用C++来写代码。
+</p>
+
+<p>
+下面的内容是在熟悉python语言和C语言的基础上进行的。
+</p>
+
+<p>
+\section{hello world}
+C++在加载模块&lt;iostream&gt;之后可以使用如下的语法：
+</p>
+\begin{tcbcode}[]{cpp}
+#include <iostream>
+
+int main(){
+    std::cout << "hello world" <<std::endl;
+    std::cout << "the second line";
+    return 0;
+}
+\end{tcbcode}
+
+<p>
+一般C++的标准模块头文件推荐用尖括号这样的形式载入进来。然后常规的双引号形式引入进来的头文件会优先从当前目录开始查找。
+</p>
+
+<p>
+上面的\textbf{std::cout}表示C++标准输出流，此外还有\textbf{std::cerr}为C++标准错误输出流。然后\textbf{<<}后面跟着往流里面添加的内容，字符串，字符串变量都可，然后换行符号一般写作\textbf{std::endl}。
+</p>
+
+<p>
+\textbf{std::cout}这样的语法::前面的std是所谓的命名空间，标准C++库的所有函数和大部分对象都在std这个命名空间之下。可以把std看作一个标准模块，然后std::cout翻译成为python语言就是std.cout。——当然这只是方便理解的做法。
+</p>
+
+<p>
+\section{头文件}
+</p>
+\begin{tcbcode}[]{cpp}
+#ifndef SQUARE_H
+#define SQUARE_H
+
+double square(double);
+
+#endif
+\end{tcbcode}
+
+<p>
+头文件常见格式如上所示，\verb+#ifndef+的意思是如果没有定义某个头文件，\verb+#define+的意思是那么定义该头文件，\verb+#endif+即结束定义的意思。
+</p>
+
+<p>
+头文件里通常写着一些变量或函数声明。
+</p>
+
+<p>
+\section{类的定义}
+</p>
+\begin{tcbcode}[]{cpp}
+#ifndef POINT2D_H
+#define POINT2D_H
+
+class Point2D{
+public:
+    Point2D();
+    Point2D(double x, double y);
+    void setX(double x);
+    void setY(double y);
+    double x() const;
+    double y() const;
+
+private:
+    double xVal;
+    double yVal;
+};
+
+#endif
+\end{tcbcode}
+
+<p>
+实现文件如下：
+</p>
+\begin{tcbcode}[]{cpp}
+#include "point2d.h"
+
+Point2D::Point2D(){
+    xVal = 0.0;
+    yVal = 0.0;
+}
+
+Point2D::Point2D(double x, double y){
+    xVal = x;
+    yVal = y;
+}
+
+void Point2D::setX(double x){
+    xVal = x;
+}
+
+void Point2D::setY(double y){
+    yVal = y;
+}
+
+double Point2D::x() const{
+    return xVal;
+}
+
+double Point2D::y() const{
+    return yVal;
+}
+\end{tcbcode}
+
+<p>
+通过class命令定义一个类，其中和类名相同的函数类似python的\\ \verb+__init__+初始函数的概念。然后其他变量名和函数的定义都好理解。
+</p>
+
+<p>
+class声明即使带有花括号也需要用分号来结尾，还不清楚是不是一定要，但在C语言或者C++中变量声明都加上分号来结束是一个好习惯。
+</p>
+
+<p>
+\subsection{访问权限修饰符}
+然后就是这几个关键词：\textbf{public}，\textbf{private}和\textbf{protected}。这几个关键词通常会将C++的类分成几段，如果没有声明，那么都是默认的private段，C++也有类似C语言的结构体struct概念，类似的也有分段，其中默认的都是public段。public段下的变量和函数是大家都可以用，都可以访问；而private段下的变量和函数是本类的私人的东西（相当于函数的局部作用域），别人不可以直接访问和修改，比如上面的xVal和yVal这两个变量就是私有变量，是不能直接调用和修改的，只能通过共用函数setX和setY来间接修改它们。
+</p>
+
+<p>
+protected修饰符和private修饰符有点像，除了在继承机制上表现的不同。protected段下的变量和函数是本类和子类都可以访问，相当于\udot{本继承树上}大家共有的东西。
+</p>
+
+<p>
+python中并无这样的概念。
+</p>
+
+<p>
+\subsection{const修饰成员函数}
+const（常数）修改符如果修饰某个变量，那么这个变量的值是不能被修改的。这里修饰在了Point2D::x()和Point2D::y()这两个成员函数上了，这样将确保本成员函数将不会改动本类的存在状态（在这个函数里面，直接修改不行，即使调用setX等函数间接修改也不行。）。
+</p>
+
+<p>
+python中并无这样的概念。
+</p>
+
+<p>
+\subsection{点号索引}
+C++中点号\emph{.}用来访问一个类或对象的成员，这一点和python是类似的，不同的是前面提及C++对于某个命名空间（C++的命名空间类似python的模块概念，当然只是粗糙的类似。）是使用的这样的语法\verb+std::cout+，两个冒号连接的。假设在python中也有一个类似的std模块包的话，那么对应的在python中应该写作\verb+std.cout+。
+</p>
+
+<p>
+\subsection{virtual关键字}
+如果C++类的成员函数如下声明：
+</p>
+\begin{Verbatim}
+virtual void  draw() =0;
+\end{Verbatim}
+<p>
+那么表明这个draw函数是一个可能会被子类重新实现（重载）的函数，默认情况下C++类中的成员函数是不能被重载的，然后后面跟着\verb+=0+即表明这个函数是\textbf{纯虚函数}，一个默认没有实现代码必须在子类中实现的函数。
+</p>
+
+<p>
+python中的子类函数如果和父类函数名字相同，那么必然发生重载，如果不想发生重载那么需要指明父类的名字来调用。
+</p>
+
+<p>
+\subsection{类的继承}
+C++类的继承语法如下所示：
+</p>
+\begin{tcbcode}[]{cpp}
+class DerivedClass : public BaseClass1, public BaseClass2, ...,
+                public BaseClassN{
+    ...
+};
+\end{tcbcode}
+
+
+<p>
+其中public就是前面提及的访问权限修饰符：\textbf{public}，\textbf{private}和\textbf{protected}。一般是public，也就是所谓的\textbf{公有继承}，然后private是所谓的\textbf{私有继承}，protected是所谓的\textbf{保护继承}。这里的public等等并不是说所谓的我只继承基类的public部分，基类的public能访问和protected段能访问还是能访问，而private段不能访问的部分我还是不能访问，这些访问权限修饰符主要是来控制我的子类来访问我从基类（父类）继承来的属性的权限。如果将继承简单理解为复制（当然不是），那么前面修饰符是public的基类的我能用的代码就复制到了我的public段，然后其他类推。就好比一个桥梁，如果加上private，我继承来的东西我的子类不能使用的。
+</p>
+
+<p>
+上面代码的大致对应python代码如下：
+</p>
+\begin{tcbcode}[]{python}
+class DerivedClass(BaseClass1,BaseClass2):
+    ...
+\end{tcbcode}
+
+
+
+<p>
+\subsection{初始化函数的继承}
+请看下面的代码，其为Circle类的初始化函数，第一个参数是Point2D类的center，第二个参数是double类型的radius，其默认参数是0.5。
+</p>
+\begin{Verbatim}
+Circle(Point2D center, double radius = 0.5)
+    : Shape(center) {
+        myRadius = radius;
+    }
+\end{Verbatim}
+<p>
+接下来的部分是重点，冒号表示继承关系，然后本函数继承了Shape类的构造函数，然后本初始化内部对myRadius这个变量进行了赋值。
+</p>
+
+<p>
+下面这种形式比较冷门，是上面写法的等价，最好不这样写，不太好懂，会看就行了。
+</p>
+\begin{Verbatim}
+Circle(Point2D center, double radius = 0.5)
+    : Shape(center), myRadius(radius) { }
+\end{Verbatim}
+
+<p>
+上面的C++代码的大致对应的python写法如下：
+</p>
+\begin{Verbatim}
+def __init__(center, radius = 0.5):
+    super().__init__(center)
+    myRadius = radius
+\end{Verbatim}
+
+<p>
+\subsection{static修饰符}
+类中的变量或者函数在声明的时候如果前面加上\textbf{static}修饰符，那么这些变量或函数可以在类没有实例化的情况下被调用，这个对应到python正是我们熟悉的静态函数装饰器（\verb+@staticmethod+）。
+</p>
+
+<p>
+这样定义的静态变量就是类变量而不是实例变量。只要加上\uwave{类名前缀}（再加上双冒号分隔）如：
+</p>
+\begin{Verbatim}
+Truck::instanceCount()
+\end{Verbatim}
+<p>
+就可以在外面直接访问这个变量或者函数了。
+</p>
+
+
+
+<p>
+\section{指针和引用}
+C++中指针的概念和C语言中的指针概念是一脉相承的，指针简单理解就是一个存储对象的内存地址的变量（而不是直接存储这个对象）。
+</p>
+
+<p>
+请看下面这个例子：
+</p>
+\begin{tcbcode}[]{cpp}
+#include "point2d.h"
+
+int main(){
+    Point2D alpha;
+    Point2D beta;
+    Point2D *ptr;
+    ptr = &alpha;
+    ptr->setX(1.0);
+    ptr->setY(2.5);
+    ptr = &beta;
+    ptr->setX(4.0);
+    ptr->setY(4.5);
+    ptr = 0;
+    return 0;
+}
+\end{tcbcode}
+
+<p>
+\subsection{箭头索引符号}
+上面代码的ptr就是一个指向Point2D对象的指针，其先赋值alpha的内存地址，然后调用alpha对象的setX方法等等，后面的过程类似。这里的箭头符号\emph{->}类似于点索引操作，不同的是前面不是对象，而是一个指向对象的指针，其就是一个语法糖，实际等价于这样的形式：\verb+(*ptr).setX+。加上圆括号是因为点运算符默认优先级要高于星号运算符。
+</p>
+
+<p>
+指针通常用于存储使用 new 动态分配的对象。在 C++ 术语中,我们把这样的对象称为是分配在“堆”(heap) 上,而局部变量（在一个函数中定义的变量）则存储在“栈”(stack) 里。
+</p>
+
+<p>
+\subsubsection{在堆上分配对象}
+上面的代码用指针管理对象就是把对象分配在\textbf{堆}上，这种管理方法通常的代码写法如下：
+</p>
+\begin{tcbcode}[]{cpp}
+#include "point2d.h"
+
+int main(){
+    Point2D *point = new Point2D;
+    point->setX(1.0);
+    point->setY(2.5);
+    delete point;
+    return 0;
+}
+\end{tcbcode}
+<p>
+C++分配在\textbf{堆}上的对象指针最后记得一定要手动\textbf{delete}该指针。否则对象占用的内存将直到主程序退出才会释放。
+</p>
+
+<p>
+\subsubsection{在栈上分配对象}
+如下这样的方式就是所谓的在栈上分配对象，即和函数的本地变量一样的管理方式。
+</p>
+\begin{Verbatim}
+Point2D point;
+point.setX(1.0);
+point.setY(2.5);
+\end{Verbatim}
+<p>
+这种方式程序块末尾就会自动释放该对象占用的内存。
+</p>
+
+<p>
+\subsection{const修饰符}
+同样，让指针变为不可修改，即所谓的常量型指针。如果不打算修改指针，那么就把这个指针声明为const型，如果该指针指向一个const变量，那么就一定要用const来修饰。
+</p>
+
+<p>
+\subsection{*一元运算符}
+和C语言意义一致。
+</p>
+
+<p>
+\subsection{什么是引用}
+C语言和C++语言中引用的概念应该说是这么底层语言所特有的，前面谈及指针的时候提及变量有两种类型，其中的直接数据变量类型如下：
+</p>
+\begin{Verbatim}
+int x =  1;
+int &y = x;
+\end{Verbatim}
+<p>
+上面的x就是所谓的\textbf{直接数据变量}，其内存储的数据就是本体。而第二行y就是所谓的\textbf{引用变量}，引用变量这个概念应该说是C语言和C++语言特有的很独特的东西，其他高级语言的变量概念更接近C语言或C++语言的间接数据变量类型（比如指针）的概念。引用变量简单来说就是某个变量的别名，比如上面代码的y实际上就是x的别名，仅此而已。既然上面的x是直接数据变量，那么y当然也就是直接数据变量。
+</p>
+
+<p>
+从理论上讲引用变量的概念还可以继续扩展到对于指针变量的引用，这样就似乎有点对于某个数据引用的引用的概念，似乎过于复杂了。所以一般人们使用引用变量就是直接引用某个实体数据，这样就形成了所谓的引用概念和指针概念的对比。
+</p>
+
+<p>
+比如引用可以直接访问对象，指针要使用-&gt;或者*之类的语法，这是好理解的，因为引用变量说白了就是数据本体，当然可以直接访问啊。然后引用不能为空，而指针可以为0或者NULL即表示空指针。还有引用必须初始化而且后面不能再重新赋值了，这些规定不深究就简单把引用看作某个变量的别名还是很好理解的，既然我是别人的别人，当然首先你要告诉我是谁的别名吧，然后我就是它的别名了，仅此而已。
+</p>
+
+
+<p>
+\subsection{函数参数的三种传递方式}
+C语言或C++语言函数的参数有三种传递方式： 对象值传递，对象指针传递和对象引用传递。具体如下所示：
+</p>
+\begin{enumerate}
+\item \textbf{按值传递}，具体函数在调用的时候接受的是参数的一个副本，也就是程序执行了额外的复制操作，对于小数据没什么问题，一般大型复杂的对象都不建议采取这种参数传递方式了。
+
+\begin{Verbatim}
+#include <cstdlib>
+double manhattanDistance(Point2D a, Point2D b)
+{
+    return std::abs(b.x() - a.x()) + std::abs(b.y() - a.y());
+}
+\end{Verbatim}
+
+\item \textbf{指针传递}，指针传递避免了额外的复制操作，但只在某些特殊情况下才推荐使用指针传递，毕竟指针作为函数参数还是比较难懂的。
+
+\begin{Verbatim}
+double manhattanDistance(const Point2D *ap, const Point2D *bp)
+{
+    return std::abs(bp->x() - ap->x()) + std::abs(bp->y() - ap->y());
+}
+\end{Verbatim}
+
+\item \textbf{引用传递}，引用传递可以简单看作传递的是实实在在的数据本体，同时又没有额外的复制操作。
+
+\begin{Verbatim}
+double manhattanDistance(const Point2D &a, const Point2D &b)
+{
+    return std::abs(b.x() - a.x()) + std::abs(b.y() - a.y());
+}
+\end{Verbatim}
+\end{enumerate}
+
+<p>
+\subsection{指针和引用互换}
+\subsubsection{引用转指针}
+</p>
+\begin{Verbatim}
+Point2D point;
+Point2D &ref = point;
+Point2D *ptr = &ref;
+\end{Verbatim}
+<p>
+如上所示，ref是对point对象的引用，就是本体数据，然后ref取地址然后将地址值传递给ptr，这样ptr就是对本体数据的指针了。
+</p>
+
+<p>
+\subsubsection{指针转引用}
+</p>
+\begin{Verbatim}
+Point2D point;
+Point2D *ptr = &point;
+Point2D &ref = *ptr;
+\end{Verbatim}
+<p>
+指针转引用用星号*运算即可，不过其中的含义很耐人寻味，我现在还拿捏不准。似乎*ptr在这里就是point的别名，接下来ref也是它们的别名了。
+</p>
+
+
+<p>
+\section{数组和字符串}
+数组声明语法和初始化数据语法如下所示：
+</p>
+\begin{Verbatim}
+int fib[10];
+int fib[] = {1,1,2,3,5,8};
+\end{Verbatim}
+
+<p>
+字符串实际就是以\verb+\0+结尾的字符数组。字符串声明语法和初始化语法如下所示：
+</p>
+\begin{Verbatim}
+char str[] = {'h','e','l','l','o','\0'};
+char str[] = "hello";
+char *str = "hello"; 
+\end{Verbatim}
+
+<p>
+在C语言和C++语言中，有所谓的“指针和数组的等价性”。比如上面的char str[]实际上就等价于char *str，而str<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>就等价于*(str+4)。总之数组和指针这两个概念是密不可分的。
+</p>
+
+<p>
+\subsubsection{动态数组}
+</p>
+\begin{Verbatim}
+#include <QVector>
+
+QVector<int> fibonacci(n);
+\end{Verbatim}
+<p>
+如上用QVector&lt;T&gt;模板类来创建。所谓的模板类具体细节这里略过，这里知道这个T是数据类型(type)就行了。
+</p>
+
+<p>
+\subsubsection{字符串数组}
+</p>
+\begin{Verbatim}
+char **argv;
+char *argv[];
+\end{Verbatim}
+
+<p>
+在数组和字符串问题上，python的内置变量列表，元组，字符串等，会让你的生活变得很轻松。
+</p>
+
+<p>
+\section{枚举}
+python并没有枚举这个概念，这是C语言和C++语言特有的概念，如下所示就是一个枚举值的声明：
+</p>
+\begin{Verbatim}
+enum DayOfWeek {
+    Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+};
+\end{Verbatim}
+
+<p>
+默认的计数是从0开始的，比如后面的程序你输入Sunday就是数字0，后面以此类推。
+</p>
+
+<p>
+然后DayOfWeek枚举值可以用来声明其他变量：
+</p>
+\begin{Verbatim}
+DayOfWeek day = Sunday;
+\end{Verbatim}
+<p>
+这里day的值实际就是数字0。
+</p>
+
+<p>
+一种常见的枚举数值设定方法是它们分别取2的幂次方：
+enum FindOption {
+    NoOptions = 0x00000000,
+    WildcardSyntax = 0x00000001,
+    CaseSensitive = 0x00000002,
+    SearchBackward = 0x00000004,
+    WrapAround = 0x00000008,
+};
+</p>
+
+<p>
+这样这些选项的组合可以用按位或“|”来迭加出来（因为按位或00得0，01或10得1，上面的数字分别取2的幂次方，也就是依次每位各占一个1位，这样某个综合选项就是多个选项的按位或的迭加。）。
+</p>
+
+<p>
+可以用按位与“\&amp;{}”来测试某个综合选项是否含有某个选项，如果综合选项含有该选项，则它们在某一位比如都是1，于是11得1，于是运算后的结果必然不是0。
+</p>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>DEFINITION NOT FOUND.</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>); 最后修改时间: 2015-10-19 05:49.</p></div>
+</body>
+</html>

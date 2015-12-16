@@ -1,0 +1,367 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: c++语言学习笔记
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+\chapter{C++}
+C语言在某些情况下可以弥补python语言的不足，那么我们为什么还要学习C++语言呢？因为前人写的很多模块包，程序等等都是用C++语言写的。这里不去讨论C++和其他语言的PK或者函数编程和面向对象编程的PK，这里讨论C++，只是立足于最精简的C++和着眼于阅读别人代码的C++，并不刻意要求读者一定要用C++来写代码。
+
+下面的内容是在熟悉python语言和C语言的基础上进行的。
+
+\section{hello world}
+C++在加载模块<iostream>之后可以使用如下的语法：
+\begin{tcbcode}[]{cpp}
+#include <iostream>
+
+int main(){
+    std::cout << "hello world" <<std::endl;
+    std::cout << "the second line";
+    return 0;
+}
+\end{tcbcode}
+
+一般C++的标准模块头文件推荐用尖括号这样的形式载入进来。然后常规的双引号形式引入进来的头文件会优先从当前目录开始查找。
+
+上面的\textbf{std::cout}表示C++标准输出流，此外还有\textbf{std::cerr}为C++标准错误输出流。然后\textbf{<<}后面跟着往流里面添加的内容，字符串，字符串变量都可，然后换行符号一般写作\textbf{std::endl}。
+
+\textbf{std::cout}这样的语法::前面的std是所谓的命名空间，标准C++库的所有函数和大部分对象都在std这个命名空间之下。可以把std看作一个标准模块，然后std::cout翻译成为python语言就是std.cout。——当然这只是方便理解的做法。
+
+\section{头文件}
+\begin{tcbcode}[]{cpp}
+#ifndef SQUARE_H
+#define SQUARE_H
+
+double square(double);
+
+#endif
+\end{tcbcode}
+
+头文件常见格式如上所示，\verb+#ifndef+的意思是如果没有定义某个头文件，\verb+#define+的意思是那么定义该头文件，\verb+#endif+即结束定义的意思。
+
+头文件里通常写着一些变量或函数声明。
+
+\section{类的定义}
+\begin{tcbcode}[]{cpp}
+#ifndef POINT2D_H
+#define POINT2D_H
+
+class Point2D{
+public:
+    Point2D();
+    Point2D(double x, double y);
+    void setX(double x);
+    void setY(double y);
+    double x() const;
+    double y() const;
+
+private:
+    double xVal;
+    double yVal;
+};
+
+#endif
+\end{tcbcode}
+
+实现文件如下：
+\begin{tcbcode}[]{cpp}
+#include "point2d.h"
+
+Point2D::Point2D(){
+    xVal = 0.0;
+    yVal = 0.0;
+}
+
+Point2D::Point2D(double x, double y){
+    xVal = x;
+    yVal = y;
+}
+
+void Point2D::setX(double x){
+    xVal = x;
+}
+
+void Point2D::setY(double y){
+    yVal = y;
+}
+
+double Point2D::x() const{
+    return xVal;
+}
+
+double Point2D::y() const{
+    return yVal;
+}
+\end{tcbcode}
+
+通过class命令定义一个类，其中和类名相同的函数类似python的\\ \verb+__init__+初始函数的概念。然后其他变量名和函数的定义都好理解。
+
+class声明即使带有花括号也需要用分号来结尾，还不清楚是不是一定要，但在C语言或者C++中变量声明都加上分号来结束是一个好习惯。
+
+\subsection{访问权限修饰符}
+然后就是这几个关键词：\textbf{public}，\textbf{private}和\textbf{protected}。这几个关键词通常会将C++的类分成几段，如果没有声明，那么都是默认的private段，C++也有类似C语言的结构体struct概念，类似的也有分段，其中默认的都是public段。public段下的变量和函数是大家都可以用，都可以访问；而private段下的变量和函数是本类的私人的东西（相当于函数的局部作用域），别人不可以直接访问和修改，比如上面的xVal和yVal这两个变量就是私有变量，是不能直接调用和修改的，只能通过共用函数setX和setY来间接修改它们。
+
+protected修饰符和private修饰符有点像，除了在继承机制上表现的不同。protected段下的变量和函数是本类和子类都可以访问，相当于\udot{本继承树上}大家共有的东西。
+
+python中并无这样的概念。
+
+\subsection{const修饰成员函数}
+const（常数）修改符如果修饰某个变量，那么这个变量的值是不能被修改的。这里修饰在了Point2D::x()和Point2D::y()这两个成员函数上了，这样将确保本成员函数将不会改动本类的存在状态（在这个函数里面，直接修改不行，即使调用setX等函数间接修改也不行。）。
+
+python中并无这样的概念。
+
+\subsection{点号索引}
+C++中点号\emph{.}用来访问一个类或对象的成员，这一点和python是类似的，不同的是前面提及C++对于某个命名空间（C++的命名空间类似python的模块概念，当然只是粗糙的类似。）是使用的这样的语法\verb+std::cout+，两个冒号连接的。假设在python中也有一个类似的std模块包的话，那么对应的在python中应该写作\verb+std.cout+。
+
+\subsection{virtual关键字}
+如果C++类的成员函数如下声明：
+\begin{Verbatim}
+virtual void  draw() =0;
+\end{Verbatim}
+那么表明这个draw函数是一个可能会被子类重新实现（重载）的函数，默认情况下C++类中的成员函数是不能被重载的，然后后面跟着\verb+=0+即表明这个函数是\textbf{纯虚函数}，一个默认没有实现代码必须在子类中实现的函数。
+
+python中的子类函数如果和父类函数名字相同，那么必然发生重载，如果不想发生重载那么需要指明父类的名字来调用。
+
+\subsection{类的继承}
+C++类的继承语法如下所示：
+\begin{tcbcode}[]{cpp}
+class DerivedClass : public BaseClass1, public BaseClass2, ...,
+                public BaseClassN{
+    ...
+};
+\end{tcbcode}
+
+
+其中public就是前面提及的访问权限修饰符：\textbf{public}，\textbf{private}和\textbf{protected}。一般是public，也就是所谓的\textbf{公有继承}，然后private是所谓的\textbf{私有继承}，protected是所谓的\textbf{保护继承}。这里的public等等并不是说所谓的我只继承基类的public部分，基类的public能访问和protected段能访问还是能访问，而private段不能访问的部分我还是不能访问，这些访问权限修饰符主要是来控制我的子类来访问我从基类（父类）继承来的属性的权限。如果将继承简单理解为复制（当然不是），那么前面修饰符是public的基类的我能用的代码就复制到了我的public段，然后其他类推。就好比一个桥梁，如果加上private，我继承来的东西我的子类不能使用的。
+
+上面代码的大致对应python代码如下：
+\begin{tcbcode}[]{python}
+class DerivedClass(BaseClass1,BaseClass2):
+    ...
+\end{tcbcode}
+
+
+
+\subsection{初始化函数的继承}
+请看下面的代码，其为Circle类的初始化函数，第一个参数是Point2D类的center，第二个参数是double类型的radius，其默认参数是0.5。
+\begin{Verbatim}
+Circle(Point2D center, double radius = 0.5)
+    : Shape(center) {
+        myRadius = radius;
+    }
+\end{Verbatim}
+接下来的部分是重点，冒号表示继承关系，然后本函数继承了Shape类的构造函数，然后本初始化内部对myRadius这个变量进行了赋值。
+
+下面这种形式比较冷门，是上面写法的等价，最好不这样写，不太好懂，会看就行了。
+\begin{Verbatim}
+Circle(Point2D center, double radius = 0.5)
+    : Shape(center), myRadius(radius) { }
+\end{Verbatim}
+
+上面的C++代码的大致对应的python写法如下：
+\begin{Verbatim}
+def __init__(center, radius = 0.5):
+    super().__init__(center)
+    myRadius = radius
+\end{Verbatim}
+
+\subsection{static修饰符}
+类中的变量或者函数在声明的时候如果前面加上\textbf{static}修饰符，那么这些变量或函数可以在类没有实例化的情况下被调用，这个对应到python正是我们熟悉的静态函数装饰器（\verb+@staticmethod+）。
+
+这样定义的静态变量就是类变量而不是实例变量。只要加上\uwave{类名前缀}（再加上双冒号分隔）如：
+\begin{Verbatim}
+Truck::instanceCount()
+\end{Verbatim}
+就可以在外面直接访问这个变量或者函数了。
+
+
+
+\section{指针和引用}
+C++中指针的概念和C语言中的指针概念是一脉相承的，指针简单理解就是一个存储对象的内存地址的变量（而不是直接存储这个对象）。
+
+请看下面这个例子：
+\begin{tcbcode}[]{cpp}
+#include "point2d.h"
+
+int main(){
+    Point2D alpha;
+    Point2D beta;
+    Point2D *ptr;
+    ptr = &alpha;
+    ptr->setX(1.0);
+    ptr->setY(2.5);
+    ptr = &beta;
+    ptr->setX(4.0);
+    ptr->setY(4.5);
+    ptr = 0;
+    return 0;
+}
+\end{tcbcode}
+
+\subsection{箭头索引符号}
+上面代码的ptr就是一个指向Point2D对象的指针，其先赋值alpha的内存地址，然后调用alpha对象的setX方法等等，后面的过程类似。这里的箭头符号\emph{->}类似于点索引操作，不同的是前面不是对象，而是一个指向对象的指针，其就是一个语法糖，实际等价于这样的形式：\verb+(*ptr).setX+。加上圆括号是因为点运算符默认优先级要高于星号运算符。
+
+指针通常用于存储使用 new 动态分配的对象。在 C++ 术语中,我们把这样的对象称为是分配在“堆”(heap) 上,而局部变量（在一个函数中定义的变量）则存储在“栈”(stack) 里。
+
+\subsubsection{在堆上分配对象}
+上面的代码用指针管理对象就是把对象分配在\textbf{堆}上，这种管理方法通常的代码写法如下：
+\begin{tcbcode}[]{cpp}
+#include "point2d.h"
+
+int main(){
+    Point2D *point = new Point2D;
+    point->setX(1.0);
+    point->setY(2.5);
+    delete point;
+    return 0;
+}
+\end{tcbcode}
+C++分配在\textbf{堆}上的对象指针最后记得一定要手动\textbf{delete}该指针。否则对象占用的内存将直到主程序退出才会释放。
+
+\subsubsection{在栈上分配对象}
+如下这样的方式就是所谓的在栈上分配对象，即和函数的本地变量一样的管理方式。
+\begin{Verbatim}
+Point2D point;
+point.setX(1.0);
+point.setY(2.5);
+\end{Verbatim}
+这种方式程序块末尾就会自动释放该对象占用的内存。
+
+\subsection{const修饰符}
+同样，让指针变为不可修改，即所谓的常量型指针。如果不打算修改指针，那么就把这个指针声明为const型，如果该指针指向一个const变量，那么就一定要用const来修饰。
+
+\subsection{*一元运算符}
+和C语言意义一致。
+
+\subsection{什么是引用}
+C语言和C++语言中引用的概念应该说是这么底层语言所特有的，前面谈及指针的时候提及变量有两种类型，其中的直接数据变量类型如下：
+\begin{Verbatim}
+int x =  1;
+int &y = x;
+\end{Verbatim}
+上面的x就是所谓的\textbf{直接数据变量}，其内存储的数据就是本体。而第二行y就是所谓的\textbf{引用变量}，引用变量这个概念应该说是C语言和C++语言特有的很独特的东西，其他高级语言的变量概念更接近C语言或C++语言的间接数据变量类型（比如指针）的概念。引用变量简单来说就是某个变量的别名，比如上面代码的y实际上就是x的别名，仅此而已。既然上面的x是直接数据变量，那么y当然也就是直接数据变量。
+
+从理论上讲引用变量的概念还可以继续扩展到对于指针变量的引用，这样就似乎有点对于某个数据引用的引用的概念，似乎过于复杂了。所以一般人们使用引用变量就是直接引用某个实体数据，这样就形成了所谓的引用概念和指针概念的对比。
+
+比如引用可以直接访问对象，指针要使用->或者*之类的语法，这是好理解的，因为引用变量说白了就是数据本体，当然可以直接访问啊。然后引用不能为空，而指针可以为0或者NULL即表示空指针。还有引用必须初始化而且后面不能再重新赋值了，这些规定不深究就简单把引用看作某个变量的别名还是很好理解的，既然我是别人的别人，当然首先你要告诉我是谁的别名吧，然后我就是它的别名了，仅此而已。
+
+
+\subsection{函数参数的三种传递方式}
+C语言或C++语言函数的参数有三种传递方式： 对象值传递，对象指针传递和对象引用传递。具体如下所示：
+\begin{enumerate}
+\item \textbf{按值传递}，具体函数在调用的时候接受的是参数的一个副本，也就是程序执行了额外的复制操作，对于小数据没什么问题，一般大型复杂的对象都不建议采取这种参数传递方式了。
+
+\begin{Verbatim}
+#include <cstdlib>
+double manhattanDistance(Point2D a, Point2D b)
+{
+    return std::abs(b.x() - a.x()) + std::abs(b.y() - a.y());
+}
+\end{Verbatim}
+
+\item \textbf{指针传递}，指针传递避免了额外的复制操作，但只在某些特殊情况下才推荐使用指针传递，毕竟指针作为函数参数还是比较难懂的。
+
+\begin{Verbatim}
+double manhattanDistance(const Point2D *ap, const Point2D *bp)
+{
+    return std::abs(bp->x() - ap->x()) + std::abs(bp->y() - ap->y());
+}
+\end{Verbatim}
+
+\item \textbf{引用传递}，引用传递可以简单看作传递的是实实在在的数据本体，同时又没有额外的复制操作。
+
+\begin{Verbatim}
+double manhattanDistance(const Point2D &a, const Point2D &b)
+{
+    return std::abs(b.x() - a.x()) + std::abs(b.y() - a.y());
+}
+\end{Verbatim}
+\end{enumerate}
+
+\subsection{指针和引用互换}
+\subsubsection{引用转指针}
+\begin{Verbatim}
+Point2D point;
+Point2D &ref = point;
+Point2D *ptr = &ref;
+\end{Verbatim}
+如上所示，ref是对point对象的引用，就是本体数据，然后ref取地址然后将地址值传递给ptr，这样ptr就是对本体数据的指针了。
+
+\subsubsection{指针转引用}
+\begin{Verbatim}
+Point2D point;
+Point2D *ptr = &point;
+Point2D &ref = *ptr;
+\end{Verbatim}
+指针转引用用星号*运算即可，不过其中的含义很耐人寻味，我现在还拿捏不准。似乎*ptr在这里就是point的别名，接下来ref也是它们的别名了。
+
+
+\section{数组和字符串}
+数组声明语法和初始化数据语法如下所示：
+\begin{Verbatim}
+int fib[10];
+int fib[] = {1,1,2,3,5,8};
+\end{Verbatim}
+
+字符串实际就是以\verb+\0+结尾的字符数组。字符串声明语法和初始化语法如下所示：
+\begin{Verbatim}
+char str[] = {'h','e','l','l','o','\0'};
+char str[] = "hello";
+char *str = "hello"; 
+\end{Verbatim}
+
+在C语言和C++语言中，有所谓的“指针和数组的等价性”。比如上面的char str[]实际上就等价于char *str，而str[4]就等价于*(str+4)。总之数组和指针这两个概念是密不可分的。
+
+\subsubsection{动态数组}
+\begin{Verbatim}
+#include <QVector>
+
+QVector<int> fibonacci(n);
+\end{Verbatim}
+如上用QVector<T>模板类来创建。所谓的模板类具体细节这里略过，这里知道这个T是数据类型(type)就行了。
+
+\subsubsection{字符串数组}
+\begin{Verbatim}
+char **argv;
+char *argv[];
+\end{Verbatim}
+
+在数组和字符串问题上，python的内置变量列表，元组，字符串等，会让你的生活变得很轻松。
+
+\section{枚举}
+python并没有枚举这个概念，这是C语言和C++语言特有的概念，如下所示就是一个枚举值的声明：
+\begin{Verbatim}
+enum DayOfWeek {
+    Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+};
+\end{Verbatim}
+
+默认的计数是从0开始的，比如后面的程序你输入Sunday就是数字0，后面以此类推。
+
+然后DayOfWeek枚举值可以用来声明其他变量：
+\begin{Verbatim}
+DayOfWeek day = Sunday;
+\end{Verbatim}
+这里day的值实际就是数字0。
+
+一种常见的枚举数值设定方法是它们分别取2的幂次方：
+enum FindOption {
+    NoOptions = 0x00000000,
+    WildcardSyntax = 0x00000001,
+    CaseSensitive = 0x00000002,
+    SearchBackward = 0x00000004,
+    WrapAround = 0x00000008,
+};
+
+这样这些选项的组合可以用按位或“|”来迭加出来（因为按位或00得0，01或10得1，上面的数字分别取2的幂次方，也就是依次每位各占一个1位，这样某个综合选项就是多个选项的按位或的迭加。）。
+
+可以用按位与“\&{}”来测试某个综合选项是否含有某个选项，如果综合选项含有该选项，则它们在某一位比如都是1，于是11得1，于是运算后的结果必然不是0。
+
+
+
+
