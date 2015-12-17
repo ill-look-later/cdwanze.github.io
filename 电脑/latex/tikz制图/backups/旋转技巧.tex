@@ -1,0 +1,37 @@
+% !Mode:: "TeX:UTF-8"%確保文檔utf-8編碼
+\documentclass{standalone}
+
+\usepackage{tikz}
+
+
+\usepackage{pgfplots}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=Adobe 黑体 Std,ItalicFont=Adobe 楷体 Std]
+    {Adobe 宋体 Std}%影響rmfamily字體
+\setCJKsansfont{Adobe 黑体 Std}%影響sffamily字體
+\setCJKmonofont{Adobe 楷体 Std}%影響ttfamily字體
+
+\usetikzlibrary{intersections,calc,positioning}
+
+\begin{document}
+%参考网站：http://tex.stackexchange.com/questions/67300/rotate-entire-tikzpicture-without-using-graphics-sty
+
+\begin{tikzpicture}[rotate=45]
+\draw (-4,-4) rectangle (4,4);
+\node[draw] (a) {旋转画法};
+\node[draw,transform shape]  (b) [below = of a] {看我转};
+\node[draw,transform shape]  (e) [left = of a] {10 20 30};
+
+
+\pgflowlevel{\pgftransformrotate{-45}}%整个画布都转动了
+\node[draw] (c)[above =of a] {我转了没};
+
+\pgflowlevel{\pgftransformrotate{45}}%转回来
+\node[draw,transform shape] (c)[below =of b] {整个画布旋转不推荐，不太确定了。};
+
+
+\end{tikzpicture}
+
+
+\end{document}

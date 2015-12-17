@@ -1,0 +1,19 @@
+\definecolor{cff1117}{RGB}{255,17,23}
+\begin{tikzpicture}
+
+
+
+\begin{scope}[scale=2]
+
+\fill[color=cff1117] (0,0) circle (1);
+
+
+\foreach \angle in { 0,36,...,360 }{
+\fill [color=cff1117,rotate around={\angle:(0,0)}] (-5:1.5) -- (-1:2.5)  -- (1:2.5) -- (5:1.5)  -- cycle;
+}
+
+\end{scope}
+
+
+
+\end{tikzpicture}

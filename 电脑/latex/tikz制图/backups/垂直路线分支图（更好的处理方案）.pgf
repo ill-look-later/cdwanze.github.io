@@ -1,0 +1,13 @@
+\usetikzlibrary{trees,shapes}
+\begin{tikzpicture}
+[grow=right,edge from parent fork right, sibling distance=5em, level distance=20ex,
+every node/.style={rounded corners,draw,fill=gray!20},
+edge from parent/.style={-latex,draw}]
+\node {ç©è´¨}
+child {node {çº¯åç©}
+child {node {åè´¨}}
+child {node {ååç©}}
+}
+child {node {æ··åç©}
+};
+\end{tikzpicture}

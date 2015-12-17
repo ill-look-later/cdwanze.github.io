@@ -1,0 +1,11 @@
+\begin{tikzpicture}
+\draw[->] (-2,0) -- (5,0);
+\node[right]  at (5,0) {$x$};
+\shade[ball color=red] (0,0) circle  (0.08) ;
+\shade[ball color=red] (1,0) circle  (0.08) ;
+\shade[ball color=red] (2,0) circle  (0.08) ;
+\draw [blue] plot [smooth] coordinates {(0,0) (0.75,1) (1,0) (1.5,-0.5) (2,0)};
+
+\draw[red] (0,0) to[out=90,in=115]  (0.75,1) to[out=-65,in=90] (1,0);
+\end{tikzpicture}
+

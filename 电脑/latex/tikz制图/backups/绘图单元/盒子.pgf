@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+\newcommand{\rbox}[3][]{
+\begin{scope}[#1]
+\def\boxlen{#2}
+\def\boxhei{#3}
+%\draw[color=black!70,fill = black!40,ultra thick] (0,0) -- (\boxlen,0) -- (\boxlen,\boxlen) -- (0,\boxlen) --cycle;
+\draw[color=black!70,fill = black!40,ultra thick] (0,0) rectangle (\boxlen,\boxhei);
+\end{scope}}
+
+\rbox{2cm}{2cm}
+
+
+\end{tikzpicture}

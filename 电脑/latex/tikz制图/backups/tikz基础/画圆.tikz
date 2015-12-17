@@ -1,0 +1,6 @@
+\begin{tikzpicture}
+\draw[step=1,color=gray!40] (-2,-2) grid (2,2);
+\draw[->] (-3,0) -- (3,0);
+\draw[->] (0,-3) -- (0,3);
+\draw (0,0) circle (1); 
+\end{tikzpicture}

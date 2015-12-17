@@ -1,0 +1,17 @@
+\usetikzlibrary{positioning}
+\begin{tikzpicture}
+\node[rectangle,draw] (jixieneng) {a};
+\node[rectangle,draw] (dongneng) [above right = of jixieneng] {b};
+\node[rectangle,draw] (shineng) [below right = of jixieneng] {c};
+\draw[-latex] (jixieneng) -- (dongneng);
+\draw[-latex] (jixieneng) -- (shineng);
+
+\draw[-latex] (dongneng) to[bend right=15] node[above left,sloped] {test} (shineng);
+\draw[-latex] (shineng) to[bend right=15] node[below right,sloped] {test} (dongneng);
+
+\node[rectangle,draw] (tanxingshineng) [above right = of shineng] {d};
+\node[rectangle,draw] (zhonglishineng) [below right = of shineng] {e};
+\draw[-latex] (shineng) -- (tanxingshineng);
+\draw[-latex] (shineng) -- (zhonglishineng);
+
+\end{tikzpicture}

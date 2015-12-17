@@ -1,0 +1,20 @@
+% !Mode:: "TeX:UTF-8"%確保文檔utf-8編碼
+\documentclass[border=2pt]{standalone}
+
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+\begin{document}
+
+
+    \begin{circuitikz}
+      \draw (0,0)
+      to[V,v=$U_q$] (0,2) % The voltage source
+      to[short] (2,2)
+      to[R=$R_1$] (2,0) % The resistor
+      to[short] (0,0);
+    \end{circuitikz}
+
+
+
+\end{document}

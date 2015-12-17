@@ -1,0 +1,17 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: xelatex指南
+#+AUTHOR: 万泽
+#+CREATOR: 编者:万泽
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+我试图收集整理各方面来的 xelatex 相关的信息,包括自己的实践经验总结,作为后学者的指南手册。
+
+* 资源
+因为内容要时不时的更新，所以pdf文档还有tex源码都在github上 [[https://github.com/a358003542/xelatex-guide-book][请点击这里来获取最新的内容]] 。
+

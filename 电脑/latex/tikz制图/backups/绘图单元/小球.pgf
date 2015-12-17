@@ -1,0 +1,12 @@
+%use pdflatex engine æ¨¡æ¿2
+\begin{tikzpicture}
+\newcommand{\ball}[2][]{
+\begin{scope}[#1]
+\def\ballradius{#2}
+\shade (0,0) circle  (\ballradius);
+\end{scope}}
+
+\ball[ball color=gray]{1cm}
+
+
+\end{tikzpicture}

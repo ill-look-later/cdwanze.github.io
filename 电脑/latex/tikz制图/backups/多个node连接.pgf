@@ -1,0 +1,17 @@
+\usetikzlibrary{positioning}
+\tikzset{place/.style={circle,draw=blue!50,fill=blue!20,thick,inner sep=0pt,minimum size=6mm}}
+\tikzset{transition/.style={rectangle,draw=black!50,fill=black!20,thick,inner sep=0pt,minimum size=4mm}}
+\tikzset{every label/.style=red}
+\begin{tikzpicture}[bend angle=45]
+\node[place] (waiting)  {};
+\node[place] (critical) [below=of waiting] {};
+\node[place](semaphore) [below=of critical,label=above:$s\le3$] {};
+\node[transition](leave critical) [right=of critical]{};
+\node[transition] (enter critical)[left=of critical]{};
+\draw [->] (enter critical) to (critical);
+\draw [->] (waiting) to [bend right] (enter critical);
+\draw [->] (enter critical) to [bend right] (semaphore);
+\draw [->] (semaphore) to [bend right] (leave critical);
+\draw [->] (critical) to (leave critical);
+\draw [->] (leave critical) to [bend right] (waiting);
+\end{tikzpicture}

@@ -1,0 +1,12 @@
+\usetikzlibrary{turtle}
+
+
+    \begin{tikzpicture}[turtle/distance=1cm]
+        \draw [thick,red,turtle={home,forward,right,forward,left,forward,left,forward}];
+
+        \filldraw [thick,blue,fill=blue!20][turtle=home]
+        \foreach \i in {1,...,5}
+        {
+            [turtle={forward,right=144}]
+        };
+    \end{tikzpicture}

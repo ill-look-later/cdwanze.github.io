@@ -1,0 +1,13 @@
+
+\begin{tikzpicture}
+\newcommand{\convexlens}[2][]{
+\begin{scope}[#1]
+\def\lensr{#2}
+
+\draw (0,0.5*\lensr) arc (90+60:270-60:\lensr) arc (270+60:360-60+90:\lensr);
+\end{scope}}
+
+\convexlens[color=blue!50,ultra thick,fill=gray!10]{4cm}
+
+
+\end{tikzpicture}

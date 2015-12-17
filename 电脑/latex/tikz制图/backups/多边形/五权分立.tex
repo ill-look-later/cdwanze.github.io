@@ -1,0 +1,50 @@
+\documentclass[tikz,border=2pt,12pt]{standalone}
+
+
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=Adobe 黑体 Std,ItalicFont=Adobe 楷体 Std]
+    {Adobe 宋体 Std}%影響rmfamily字體
+\setCJKsansfont{Adobe 黑体 Std}%影響sffamily字體
+\setCJKmonofont{Adobe 楷体 Std}%影響ttfamily字體
+
+
+
+\begin{document}
+
+
+\usetikzlibrary{intersections,calc,positioning}
+
+\begin{tikzpicture}[scale=1]
+\begin{scope}[rotate=18]
+\def\n{5}
+\pgfmathsetmacro\i{\n-1}
+\foreach \x in {0,...,\i}
+{
+\def\pointname{\x}
+\coordinate (\pointname) at ($(0,0) +(\x*360/\n:4cm)$)  ;
+}
+\end{scope}
+
+\node[circle,draw,fill=red] (huo) at (0) {\Large 民};
+\node[circle,draw,fill=cyan]  (mu) at (1) {\Large 法};
+\node[circle,draw,fill=black] (shui) at (2) {\Large 政};
+\node[circle,draw,fill=white] (jin) at (3) {\Large 商};
+\node[circle,draw,fill=yellow] (tu) at (4) {\Large 军};
+
+\draw [-latex] (mu) to [bend left] node[above] {\large 生}  (huo);
+\draw [-latex] (huo) to [bend left=15] node[right] {\large 生} (tu);
+\draw [-latex] (tu) to [bend left=5] node[below] {\large 生}   (jin);
+\draw [-latex] (jin) to [bend left=15] node[left] {\large 生} (shui);
+\draw [-latex] (shui) to [bend left] node[above] {\large 生} (mu);
+
+\draw [-latex] (mu) to node[right] {\large 克}  (tu);
+\draw [-latex] (huo) to  node[below] {\large 克} (jin);
+\draw [-latex] (tu) to  node[below] {\large 克}   (shui);
+\draw [-latex] (jin) to  node[left] {\large 克} (mu);
+\draw [-latex] (shui) to  node[above] {\large 克} (huo);
+
+\end{tikzpicture}
+
+
+\end{document}

@@ -1,0 +1,7 @@
+\pgfmathsetseed{10}
+\begin{tikzpicture}
+\draw [rounded corners] (0,0)
+  \foreach \i in {1,...,300} {
+    -- ++(rnd*360:rnd)
+};
+\end{tikzpicture}

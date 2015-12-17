@@ -1,0 +1,23 @@
+\pgfplotsset{width=7cm,compat=newest}
+
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel=$t$/s,
+ylabel=$s$/m,
+axis x line=bottom,
+axis y line =left,
+xtick={0,10,20,30,40,50,60},
+ytick={0,50,100,150,200,250,300},
+legend pos=outer north east,
+xmin=0,xmax=60,ymin=0,ymax=300,grid=major]
+\addplot+[sharp plot,mark=*] coordinates {
+(0,0) (20,300) 
+};
+\addlegendentry{ç²}
+\addplot+[sharp plot,mark=square*] coordinates {
+(0,0) (50,300) 
+};
+\addlegendentry{ä¹}
+\end{axis}
+\end{tikzpicture}

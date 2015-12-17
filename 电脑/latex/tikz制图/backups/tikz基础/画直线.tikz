@@ -1,0 +1,5 @@
+\begin{tikzpicture}
+\draw[help lines] ( -5,-5 ) grid ( 5, 5);
+\draw[red] (-3,0) -- (3,0);
+\draw[red] (0,-3) -- (0,3);
+\end{tikzpicture}

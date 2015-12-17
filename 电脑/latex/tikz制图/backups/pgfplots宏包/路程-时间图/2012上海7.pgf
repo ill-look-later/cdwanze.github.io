@@ -1,0 +1,28 @@
+\pgfplotsset{width=7cm,compat=newest}
+
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel=$t$/s,
+ylabel=$s$/m,
+axis x line=bottom,
+axis y line =left,
+xtick={0,2,4,6,8,10,12},
+minor tick num=1,
+tick align=inside,
+legend pos=outer north east,
+xmin=0,xmax=13,ymin=0,ymax=9,grid=both]
+\addplot+[sharp plot,mark=*] coordinates {
+(0,0) (4,4) (8,8) 
+};
+\addlegendentry{a}
+\addplot+[sharp plot,mark=square*] coordinates {
+(0,0) (6,3) (12,6) 
+};
+\addlegendentry{b}
+\addplot+[sharp plot,mark=triangle*] coordinates {
+(0,0) (5,1) (10,2) 
+};
+\addlegendentry{c}
+\end{axis}
+\end{tikzpicture}

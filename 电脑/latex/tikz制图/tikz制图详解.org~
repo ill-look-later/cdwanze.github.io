@@ -1,0 +1,32 @@
+#+LATEX_CLASS: book
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{book}
+
+#+HTML_HEAD: <link rel="stylesheet"  href="http://www.cdwanze.org/templates/main.css"/>
+
+
+#+TITLE: python数据处理
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+** 前言
+本文主要讨论了如何利用python来进行数据处理以及其他相关的问题。
+
+
+#+LaTeX: \mainmatter
+* part one
+** chapter one
+
+
+
+#+LaTeX: \appendix
+* 附录
+
+#+LaTeX: \backmatter
+** 参考资料
+1. Python for Data Analysis ，作者：Wes McKinney 。
+
+

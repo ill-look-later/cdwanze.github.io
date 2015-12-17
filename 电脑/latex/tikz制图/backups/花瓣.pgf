@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+\def\n{13}
+\foreach \i in {1,...,\n}
+{
+\begin{scope}[rotate=\i*360/\n]
+\fill [xshift=-2cm,yshift=2cm,red!30] plot [smooth cycle] coordinates {(0,0) (-0.75,1) (-0.75,2) (0,2) (0.75,1) (2,-2) };
+\end{scope}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{tikzpicture}

@@ -1,0 +1,29 @@
+\usetikzlibrary{calc,intersections,through,backgrounds}
+
+\begin{tikzpicture}
+\coordinate[label=left:\textcolor{blue}{$A$}] (A) at ($(0,0) +0.1*(rand,rand)$) ;
+\coordinate[label=right:\textcolor{blue}{$B$}] (B) at ($(1.25,0.25) +0.1*(rand,rand)$) ;
+
+\draw [name path=A--B] (A) -- (B);
+
+\node [name path=D,draw,circle through=(B),label=left:$D$] at (A) {};
+\node [name path=E,draw,circle through=(A),label=right:$E$] at (B) {};
+
+\path [name intersections={of=D and E, by={[label=above:$C$]C, [label=below:$C'$]C'}}];
+
+\draw [red] (A) -- (C);
+\draw [red] (B) -- (C);
+
+\draw [name path=C--C',red] (C) -- (C');
+\path [name intersections={of=A--B and C--C',by=F}];
+
+\node [fill=red,inner sep=1,label=-45:$F$] at (F) {};
+
+\foreach \point in {A,B,C,C'}
+\fill [black,opacity=.5] (\point) circle (2pt);
+
+\begin{pgfonlayer}{background}
+\fill[orange!80] (A) -- (C) -- (B) -- cycle;
+\end{pgfonlayer}
+
+\end{tikzpicture}

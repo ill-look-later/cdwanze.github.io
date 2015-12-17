@@ -1,0 +1,14 @@
+\pgfplotsset{width=7cm,compat=1.8}
+
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel=$t(s)$,
+ylabel=$s(m)$,
+xtick=data,
+grid=major]
+\addplot+[sharp plot] coordinates {
+(0,0) (2,0) (3,1) (4,2) (5,4) (6,6)
+};
+\end{axis}
+\end{tikzpicture}
