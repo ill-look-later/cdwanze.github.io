@@ -1,0 +1,137 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: 小分子结构显示
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:万泽(德山书生)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 使用mhchem宏包
+latex可以用基于tikz的chemfig宏包来处理小分子结构显示问题，包括大型有机分子的结构显示问题，但考虑到后面和html的协调性，这里推荐使用 *mhchem* 宏包来生成小分子结构。
+
+mhchem看得出来是通过latex的数学环境来显示小分子结构的，所以马上就被html上的mathjax支持了，而chemfig是通过tikz机制，这可能以后永远都不会被mathjax支持（或者通过svg途径？）。首先是加载宏包：
+
+#+BEGIN_SRC latex
+\usepackage[version=3]{mhchem}
+#+END_SRC
+
+目前是第三版，作者说第四版正在开发中（2015年2月）。
+
+就作为一般使用来说，假定读者对latex的数学环境内的语法都很熟悉了，那么可以简单理解为mhchem宏包就是在数学环境下，加入了一个新命令 ~\ce{ }~ ，在这个ce命令里面上标和下标语法是类似数学环境内的语法表示的，不过对于具体化学表达式的显示会更加美观一些。
+
+比如 ~$\ce{H_2O}$~ 将显示为 $\ce{H_2O}$ ，然后 ~$\ce{AgCl_2^-}$~ 将显示为 $\ce{AgCl_2^-}$ 。
+
+此外还有一种简写写法：比如 ~$\ce{H2O}$~ 将显示为 $\ce{H2O}$ ，然后 ~$\ce{AgCl2-}$~ 将显示为 $\ce{AgCl2-}$ 。
+
+我们可以看一下没有经过ce命令包装的纯数学环境表达的显示效果： $H_2O$ 和 $AgCl_2^-$ 。区别还是有点的。
+
+关于上面的简写表达，我暂时还没找到规律，如果不在这个ce命令中，你使用这样的语句 ~$H_2_{(aq)}$~ 是会报错的，但是放入ce命令中就不会了， $\ce{H_2_{(aq)}}$ ，同时我们看到 ~\ce{H_{2(aq)}}~ $\ce{H_{2(aq)}}$ 和上面的 ~\ce{H_2_{(aq)}}~ 显示效果稍微有点差异（在pdf即latex那边又没有区别！）。初步的理解是，后面跟着的数字默认进入下标，然后加减号默认进入上标，这在输入上确实带来了很大的便捷，因为化学表达式的数学很多都是进入下标的。
+
+关于数字进入上标和加减号自动情况见这两个例子： ~$\ce{Y^{99}+}$~  $\ce{Y^{99}+}$ 和  ~$\ce{Y^{99+}}$~  $\ce{Y^{99+}}$ 。同样在latex那边这两个表达式的显示效果没有差异，而在html这边加减号自动处理（第一个）的情况显示效果稍微美观一点。
+
+** 数字
+数字就直接写上即可 ~$\ce{0.5H2O}$~  $\ce{0.5H2O}$ ，值得一提的是，前面的数字分数形式会自动处理： ~$\ce{1/2 H2O}$~ $\ce{1/2 H2O}$ 。 你会看到带上小数点的数字显示有点古怪。之前小数点会被解释成为配位化合物和结晶水中间的那个分隔点。如 ~$\ce{KCr(SO4)2.12H2O}$~ $\ce{KCr(SO4)2.12H2O}$ 。为了正确显示前面的例子，如果是在大数学环境下，把这个0.5放入数学环境中即可： ~$$\ce{$0.5$H2O}$$~ $$\ce{$0.5$H2O}$$ 
+
+而对于段落内数学环境，暂时类似的处理只能在 ~\( \)~ 环境下如上处理，即 ~\(\ce{$0.5$H2O}\)~  \(\ce{$0.5$H2O}\) ，而对于 ~$ $~ 这样的段落内数学环境表达则不行了。
+
+** 数学环境
+同样，如上所示，mathjax目前是支持ce命令里面再加入数学环境 ~$ $~ 的，但外部的段落内数学环境需要使用 ~\( \)~ 这样的形式。
+
+** 键
+~- = #~ 分别表示单键，双键和三键。 $\ce{A-A B=B C#C}$ 然后使用 \bond命令还可以加入其他一些额外的键，其中 ~$\ce{\bond{~}}$~ 对应 $\ce{\bond{~}}$ ，然后 ~$\ce{\bond{~-}}$~ 对应 $\ce{\bond{~-}}$ ，其他类推。 
+
+** 化学反应式
+#+BEGIN_EXAMPLE
+\ce{CO2 + C <- 2CO}
+#+END_EXAMPLE
+
+$$\ce{CO2 + C <- 2CO}$$
+
+#+BEGIN_EXAMPLE
+\ce{CO2 + C ->[\text{加入text命令}] 2CO}
+\ce{CO2 + C ->T[是支持][中文的] 2CO}
+#+END_EXAMPLE
+
+$$
+\ce{CO2 + C ->[\text{加入text命令}] 2CO}$$
+
+$$
+\ce{CO2 + C ->T[是支持][中文的] 2CO}
+$$
+
+如果不使用text命令，那么中文在latex那一边不会正常显示。上面例子第二个没有使用text命令，是因为前面加上了T，然后箭头上下文字都不需要了。
+
+** 上下箭头
+#+BEGIN_EXAMPLE
+\ce{SO4^2- + Ba^2+ -> BaSO4 v ^}
+#+END_EXAMPLE
+
+$$
+\ce{SO4^2- + Ba^2+ -> BaSO4 v ^}
+$$
+
+下降箭头是v，上式箭头是^，需要和前面的内容有一个空格。
+
+
+* org模式的问题讨论
+在emacs的org模式下，因为能够对数学环境正确解析，所以常规操作即可。这里主要的问题还是org模式需要加入mhchem.js这个插件。
+
+你可以重新定义org-html-mathjax-template这个变量，主要是extensions那里加入Tex的mhchem.js扩展即可，然后我把mathjax的源修改为了官方源。
+
+#+BEGIN_SRC emacs-lisp
+(defcustom org-html-mathjax-template
+  "<script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML\"></script>
+<script type=\"text/javascript\">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        :MMLYES: config: [\"MMLorHTML.js\"], jax: [\"input/TeX\"],
+        :MMLNO: jax: [\"input/TeX\", \"output/HTML-CSS\"],
+        extensions: [\"tex2jax.js\",\"TeX/AMSmath.js\",\"TeX/AMSsymbols.js\",
+                     \"TeX/noUndefined.js\",\"TeX/mhchem.js\"],
+
+................same as the origin ox-html.el file 
+
+#+END_SRC
+
+
+** 引用网络CDN服务的mathjax
+网页中加上如下代码即可：
+#+BEGIN_SRC html
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+#+END_SRC
+
+然后org模式下一般要使用latex，推荐后面跟上配置：
+
+#+BEGIN_SRC html
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=Tex-AMS_HTML">
+</script>
+#+END_SRC
+
+
+这里的TeX-AMS_HTML的意思是：允许使用 TeX 或者 LaTeX 符号书写公式。使用Html和Css渲染。
+
+更多信息请参考 [[https://mathjax-chinese-doc.readthedocs.org/en/latest/configuration.html][这个网页]] 。
+
+** mathjax加载其他扩展
+如下语法在extensions里面加载一些扩展，其中mhchem在 ~TeX/mhchem.js~ 那里。
+#+BEGIN_SRC html
+MathJax.Hub.Config({
+  jax: ["input/TeX","output/HTML-CSS"],
+  extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
+  TeX: {
+    extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+  }
+});
+#+END_SRC
+
+
+* 参考资料
+1. [[https://docs.moodle.org/27/en/Chemistry_notation_using_mhchem][这个网站]] 对于这一块内容讲解很详细。
