@@ -34,3 +34,7 @@ body{
 .outline-6{
     margin-left:2em;
 }
+
+li {
+    margin-bottom: 0.618em; /*增大li之间的垂直space*/
+}

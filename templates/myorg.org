@@ -2,6 +2,8 @@
 #+LATEX_CLASS_OPTIONS:[11pt,oneside]
 #+LATEX_HEADER: \usepackage{article}
 
+#+INFOJS_OPT: view:showall
+
 
 #+TITLE: title
 #+AUTHOR: 万泽(德山书生)
