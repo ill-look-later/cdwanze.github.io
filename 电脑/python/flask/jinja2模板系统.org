@@ -1,0 +1,240 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: jinja2模块系统
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+因为我们使用jinja2模板系统主要是在flask框架里面，所以jinja2提供的api接口我们不需要太多了解了，只需要知道在flask框架中如何使用模板文件即可。本文主要讨论如何编写模板文件的细节。另外jinja2模板系统也不一定局限于html文件，只要是任何txt文本即可，所以如果读者有兴趣，利用jinja2模块系统弄出一个latex或者emacs的org生成器也是可以的。
+
+* 注释
+这里面的内容是模板文件的注释内容。
+#+BEGIN_EXAMPLE
+{# ... #}
+#+END_EXAMPLE
+
+
+* 变量
+这里算是jinja2模板的主体内容了，里面的变量可以直接使用，在render的时候传进去即可。然后 ~object.a~ 这样的dot法引用，或者 ~object['a']~ 这样的利用对象 ~__getitem__~ 内置方法来调用值的形式也支持。
+#+BEGIN_EXAMPLE
+{{ ... }}
+#+END_EXAMPLE
+
+变量的值在jinja2模板系统中调用之后将会变成字符串然后插入在文档中，这就不多说了。
+
+
+
+* for语句
+for语句结构如下所示:
+#+BEGIN_EXAMPLE
+<ul>
+{% for user in users %}
+  <li>{{ user.username }}</li>
+{% endfor %}
+</ul>
+#+END_EXAMPLE
+
+此外jinja2还有一种写法，这两种写法是等价的:
+#+BEGIN_EXAMPLE
+<ul>
+# for user in users
+  <li>{{ user.username }}</li>
+# endfor
+</ul>
+#+END_EXAMPLE
+
+* 条件分支
+条件分支主要用于有条件的显示某些内容。
+
+
+** tests
+测试器
+
+
+
+* html特殊符号问题
+如果你的变量有这些html的特殊符号:
+#+BEGIN_EXAMPLE
+<  >  &  " 
+#+END_EXAMPLE
+
+假设你没有在flask中使用jinja2模板系统，那么这些字符是没有经过特殊处理的，那么比如说 ~<b>test</b>~ 这段字符串到了html文档中就将以粗体的形式显示。如果你希望显示这些符号，那么可以使用 *escape* 过滤器来做到这点:
+
+#+BEGIN_EXAMPLE
+{{ test|escape }}
+#+END_EXAMPLE
+
+或者:
+#+BEGIN_EXAMPLE
+{{ test|e }}
+#+END_EXAMPLE
+都是一样的。
+
+这里的过滤器有点类似bash的管道的意思，意思是将输出的字符串经过额外的操作。
+
+但一般推荐的风格是html标签都放在jinja2模板系统的外面，jinja2模板系统只处理最核心的那些字符串。所以flask是设置为全局auto escape的，这是正确的思路。如果你确实有某些html标签就希望是html标签的形式显示出来，而不经过escape，那么可以采用 *safe* 过滤器[fn::参考了 [[http://stackoverflow.com/questions/3206344/passing-html-to-template-using-flask-jinja2][这个网页]] 。] 。
+
+#+BEGIN_EXAMPLE
+{{ "<b>test</b>"|safe }}
+#+END_EXAMPLE
+
+
+* 模板文件继承机制
+jinja2的模板文件有一种继承机制，可以让你基于某个模板文件来建构出另外一个模板文件，前面那个模板文件大概可以称作模板文件的模板文件吧。具体使用是在父模板（模板文件的模板文件）构建一些block区块，如下所示:
+#+BEGIN_EXAMPLE
+<title>{% block title %} {% endblock %}</title>
+#+END_EXAMPLE
+
+这里构建了一个title区块。
+
+然后子模板首先继承父模板所有的内容:
+#+BEGIN_EXAMPLE
+{% extends "base.html" %}
+#+END_EXAMPLE
+
+然后一些需要定制的部分，比如说这里的title部分，做成block之后，子模板文件可以重新定义这个title block:
+#+BEGIN_EXAMPLE
+{% extends "base.html" %}
+{% block title}books - the classic books of  which you want to collected
+{% endblock %}
+#+END_EXAMPLE
+
+此外子模块在block重载的时候，你还可以用
+#+BEGIN_EXAMPLE
+{{ super() }}
+#+END_EXAMPLE
+来加载父模块在该block中的一些定义。
+
+上面title block的内容你可以如下引用之:
+#+BEGIN_EXAMPLE
+{{ self.title() }}
+#+END_EXAMPLE
+
+
+* jinja2提供的一些全局函数
+
+
+* filters
+过滤器就是一些额外的字符串操作函数，一般推荐还是在python代码中把要输出显示的字符串处理好吧，下面列出一些函数简单了解下即可。
+
+
+* 国际化
+
+
+
+
+* jinja2模板系统
+{{ x }}   x是个变量，等下将被替换为字符串。
+
+rend_template(what,key=value)
+
+
+Hello, {{ name|capitalize }} 
+
+
+safe  后面再详解   
+capitalize  首字母大写，其他字母小写。
+lower
+upper
+title 每个word都capitalize
+trim 前后空格去除
+striptags html tags 去除
+
+
+safe  比如说 <h1> ... 将不会被解析
+
+分支
+#+BEGIN_EXAMPLE
+{% if user %}
+Hello, {{ user }}!
+{% else %}
+Hello, Stranger!
+{% endif %}
+#+END_EXAMPLE
+
+
+for语句
+#+BEGIN_EXAMPLE
+<ul>
+{% for comment in comments %}
+<li>{{ comment }}</li>
+{% endfor %}
+</ul>
+#+END_EXAMPLE
+
+宏 和python的函数类似，遇到即将其展开。
+
+#+BEGIN_EXAMPLE
+{% macro render_comment(comment) %}
+<li>{{ comment }}</li>
+{% endmacro %}
+<ul>
+{% for comment in comments %}
+{{ render_comment(comment) }}
+{% endfor %}
+</ul>
+#+END_EXAMPLE
+
+外部宏文件 引入
+#+BEGIN_EXAMPLE
+{% import 'macros.html' as macros %}
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+{% import 'macros.html' as macros %}
+<ul>
+{% for comment in comments %}
+{{ macros.render_comment(comment) }}
+{% endfor %}
+</ul>
+#+END_EXAMPLE
+
+
+引入
+#+BEGIN_EXAMPLE
+{% include 'common.html' %}
+#+END_EXAMPLE
+
+模板的继承
+base.html
+#+BEGIN_EXAMPLE
+<html>
+<head>
+{% block head %}
+<title>{% block title %}{% endblock %} - My Application</title>
+{% endblock %}
+</head>
+<body>
+{% block body %}
+{% endblock %}
+</body>
+</html>
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+</style>
+{% endblock %}
+{% block body %}
+<h1>Hello, World!</h1>
+{% endblock %}
+#+END_EXAMPLE
+
+后面重定义的block就是原地插入的意思，super()来保留原来的内容。
+
+
+** 加入错误页面
+#+BEGIN_EXAMPLE
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'),404
+#+END_EXAMPLE
