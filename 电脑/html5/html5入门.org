@@ -1,0 +1,523 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: html5入门
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 万泽(德山书生)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* html的第一个模板
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet"  href="templates/index.css"/>
+
+    <title>your awesome title</title>
+
+    </head>
+
+
+    <body>
+        
+    </body>
+</html>
+#+END_SRC
+
+
+** doctype声明
+现在html5的doctype声明非常简单了，开头加入如下简单一行即可:
+#+BEGIN_EXAMPLE
+<!DOCTYPE html>
+#+END_EXAMPLE
+
+然后进入 *html* 标签，然后进入 *head* 标签，在head标签里面的内容不会显示在网页上，主要是一些关于本网页的配置信息。
+
+** 字符集设置为utf-8
+现在html5使用如下更简洁的语法了:
+#+BEGIN_EXAMPLE
+<meta charset="utf-8" />
+#+END_EXAMPLE
+
+
+然后 *body* 标签里面存放这实际要显示的网页内容。
+
+
+* 一个基本的html网页
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <title>basic html</title>
+    </head>
+
+    <body>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+
+    <header>
+        <h1><a href="#">Very Basic Document</a></h1>
+        <h2>A tag line might go here</h2>
+    </header>
+
+    <section>
+        <article>
+            <h3><a href="#">First Article Title</a></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. </p>
+        </article>
+
+        <article>
+            <h3><a href="#">Second Article Title</a></h3>
+            <p>Praesent libero. Sed cursus ante dapibus diam.</p>
+            </article>
+        </section>
+
+        <aside>
+            <h4>Connect With Us</h4>
+            <ul>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+            </ul>
+        </aside>
+
+        <footer>
+            <p>All rights reserved.</p>
+        </footer>
+    </body>
+</html>
+#+END_SRC
+
+html5新加入了很多关于文档结构的标签，这些标签并没有任何布局含义，相当于一个自带名字的div，也就是默认标签的意思。其主要作用就是html内容分组(group)。
+
+下面是常用的这些标签含义，在实际使用中，应该尽量规范使用这些标签。
+- header :: 一个网页总要有个头，推荐都使用这个标签。
+- nav :: 一般是目录或者导航菜单。
+- section :: 一般是本网页的主体信息部分或者主页面——类似于GUI的主要显示窗口。
+- article :: section下面的某一独立内容部分。
+- aside :: 和网页主体信息不太相关的其他信息。
+- footer :: 一般是关于作者，版权或者其他比如脚注等信息。
+
+这些都可以通过div然后class或者id写法来取代，在实际使用中如果上面的默认标签能够满足需求，那么就应该使用html5的这些默认标签。
+
+上面的例子已经出现了一些标签，然后还有一些很常用的标签，下面承接上面所将的继续补充写一个常用html标签清单。
+
+** 常用html标签清单
+- ul :: 不编号列表，也叫无序列表（Unordered list）。里面的item用 *li* 标签封装。
+- ol :: 编号列表，也叫有序列表（Ordered list）。里面的item用 *li* 标签封装。
+- a :: 引用链接标签，其中常用的属性是 *href* ，指明具体的引用地址。
+- h1,h2,h3... :: 标题标签，数字表示各个标题的层级。 
+- p :: 段落标签。
+- b :: 文字加粗
+- i :: 文字斜体
+- <br /> :: 换行
+- <hr /> :: 水平线
+- img :: 加入图片，其中最常用的属性是 *src* ，指明具体图片引用地址。
+
+** 文字强调的html5规范
+按照html5提出的规范，并不推荐用<b>标签作为文字的强调用途（我一般使用的文字加粗是那个词提醒读者这个词需要特别记忆）。其推荐的是<em>标签作为一级强调，然后<strong>标签作为更进一步的强调。在默认样式中，<em>是斜体，然后<strong>是粗体。显然html5的意思是将表达文字的样式这样的标签<b><i>尽可能不用直到废弃，然后对于文字强调都推荐使用<em>和<strong>标签。其设计思路是html完全成为一个描述文档内容结构的标签系统，而不带有任何内容表现形式的东西。还是推荐按照html5规范来，少用<b>标签和<i>标签。请参看 [[http://stackoverflow.com/questions/271743/whats-the-difference-between-b-and-strong-i-and-em][这个网页]] 的讨论。
+
+** 绝对路径和相对路径
+
+
+
+* 从html到css
+** 注释
+#+BEGIN_SRC html
+<!-- Make me into a comment. -->
+#+END_SRC
+
+** 有序列表里面带无序列表
+就是把无序列表嵌套进去即可。
+#+BEGIN_SRC html
+	<ol>
+	    <li>ol li1</li>
+	    <li>ol li2</li>
+	    <ul>
+	        <li>ul li1</li>
+	        <li>ul li2</li>
+	    </ul>
+	</ol>
+#+END_SRC
+
+
+** table
+table表格有时也可用于布局，不过不推荐这种风格，因为html标签应该尽可能是文本结构层而非表现形式层。一个完整的table模板如下所示:
+
+#+BEGIN_SRC html
+<table>
+<caption>表格的标题用caption标签</caption>
+<thead>
+<tr><th>标签</th><th>fullname</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>tr</td><td>table row</td><td>表格中的一行</td></tr>
+<tr><td>th</td><td>table head</td><td>表格的列名</td></tr>
+<tr><td>td</td><td>table data</td><td>表格具体要展示的数据</td></tr>
+</tbody>
+</table>
+#+END_SRC
+
+#+BEGIN_HTML
+<table>
+<caption>表格的标题用caption标签</caption>
+<thead>
+<tr><th>标签</th><th>fullname</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>tr</td><td>table row</td><td>表格中的一行</td></tr>
+<tr><td>th</td><td>table head</td><td>表格的列名</td></tr>
+<tr><td>td</td><td>table data</td><td>表格具体要展示的数据</td></tr>
+</tbody>
+</table>
+#+END_HTML
+
+这里的三线表样式使用下面的简单css配置完成的:
+#+BEGIN_SRC css
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+#+END_SRC
+
+大体在html上画表格就如上所示了，其他一些更漂亮的表格制作都是通过css来完成的，这里先略过了。
+
+
+
+** div和span
+div（division）在html标记语言中主要是区块的意思。我们知道html页面要显示的元素就好比一个个盒子逐步排布下来，而 ~div~ 可以看作一个这样自定义的盒子。html中有两种显示风格的盒子，一种是块状区块，比如p段落标签；还有一种是inline盒子，比如说em标签，其不会换行。
+
+div标签更确切的表达是块状区块，可以看作其display属性是 ~block~ （但不一定，不过推荐接受这样的设定）；此外还有所谓的inline区块，用 ~span~ 标签来表示这样的元素，可以理解为改标签元素的display属性是 ~inline~ 。
+
+
+
+
+
+** inline css
+最基本的css属性可以通过inline css模式直接在html标签中通过 *style* 属性来加上。
+
+*** font-size
+字体大小
+#+BEGIN_SRC html
+    <p style="font-size:12pt">paragraph</p>
+#+END_SRC
+
+*** color
+字体颜色， 这是css支持的 [[http://www.w3.org/TR/css3-color/#svg-color][color关键词清单]] 。
+
+#+BEGIN_SRC html
+    <h2 style="color:green">paragraph</h2>
+#+END_SRC
+
+*** font-family
+字族， 这是css一般支持的 [[http://www.w3.org/TR/CSS21/fonts.html#generic-font-families][字族信息]] 。
+
+#+BEGIN_SRC html
+    <ol>
+        <li style="font-family:Arial">Arial</li>
+    </ol>
+#+END_SRC
+
+一般有文字的标签都可以用上面的三个属性来控制其内文字的大小，颜色和字族。虽然现在都推荐用css来控制，但思路顺序应该是优先inline css，太过普遍多次出现的情况下才考虑单独css控制。
+
+*** background-color
+背景颜色。如果读者熟悉LaTeX排版系统的，那么我们都清楚LaTeX排版很核心的一个概念就是盒子。在html这里，我们似乎也可以把一个个标签看作一个个排版用的盒子。然后这里的background-color就是控制这一个盒子的背景颜色。
+
+#+BEGIN_SRC html
+    <body style="background-color:yellow">
+    </body>
+#+END_SRC
+
+*** text-align
+文字在标签盒子里的对齐方式。可选参数有: left, right, center。
+
+#+BEGIN_SRC html
+    <h3 style="text-align:center">居中对齐的标题</h3>
+#+END_SRC
+
+
+** 外部css
+有一种说法，是将放在html <head> 标签里面的css和具体外部的css文件引用区分开来，在我看来区别不大吧。然后网络上还有一种说法认为html <head> 标签里面应该多用id的css定义，而外部css文件应该只用class定义好做到普适性，在我看来也有点削足适履了。额，目前的国内网络环境大家都懂的，所以我喜欢少用css文件引用，尽量将一些css定义都放在 <head> 标签里面，就是为了加载快一点，至于其他，倒没什么特别好讲究的。不过在使用css定义前应该用class，只有觉得某些元素需要个别处理的时候才用id属性控制，我想这是没有问题的。
+
+放在<head>标签里面的css大致如下格式引入进来:
+#+BEGIN_SRC html
+<style type="text/css">
+这里的格式和外部css文件格式完全一致
+</style>
+#+END_SRC
+
+引入外部文件css如下:
+#+BEGIN_SRC html
+<link rel="stylesheet"  href="main.css"/>
+#+END_SRC
+
+然后在外部css文件里面你还可以如下进一步引用其他的css文件:
+#+BEGIN_SRC css
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+#+END_SRC
+
+这种引用语句后面的分号不太清楚是不是必须的，不太关心这个，没事就加上吧。参考了 [[http://stackoverflow.com/questions/147500/is-it-possible-to-include-one-css-file-in-another][这个网页]] 。
+
+
+* css入门
+前面谈到的inline css因为肯定是作用于本标签，所以写法就简化了，style引入之后后面加入一些属性即可。然后前面谈到的外部css，其写法都是如下所示:
+
+#+BEGIN_SRC css
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+#+END_SRC
+
+第一个元素我们可以简单称之为css选择器，在网络抓取中也有类似的概念。然后花括号里面就是类似 inline css 一样的格式了，用分号隔开，换行不换行都是无所谓的，具体为了美观一般都一个属性占一行吧。
+
+** css选择器
+这里以html5为例，html5内置的标签都是可以直接引用的，比如body，article，video，table，figure等等。如果你在css中引用section，那么意思就是整个文档的section标签那些元素被选中了。
+
+我们知道html5中可以通过 *class* 属性来将某个元素归于某一类，现在假设有:
+#+BEGIN_EXAMPLE
+<p class="emph">hello</p>
+#+END_EXAMPLE
+
+那么我们使用 ~p.emph~ 其意思就是将选中p标签然后class属性为emph的那些标签。
+
+我们在css中经常看到这样的形式：
+#+BEGIN_SRC html
+.hightlight
+#+END_SRC
+其完整形式为 ~*.hightlight~ ，也就是所有class属性为hightlight的元素都将被选中。
+
+然后id属性可用来定义某个标签的唯一id，一般就用 ~#idname~ 选中那个标签即可。
+
+*** 多级选择
+在前面选择标签的基础上，加个空格继续写上其他标签就成了多级选择的意思了。也就是前一选择的标签之下（结构包含关系）的某个标签。比如 ~figure p~ 其选择的就是所有figure标签元素里面的p标签元素。前面谈及的那些标签元素表示方法你都可以用的，比如 ~#footer .emph~ 选择的就是id为footer的那个标签里面class属性为emph的标签。
+
+此外还有一种更为严格的多级选择（可以称之为逐级选择）， 比如 ~h1 > strong~ ，其只严格选择h1标签下strong标签，这里的下是严格意义上的父子标签包含关系的下，如果某个strong标签在em标签里面，然后这个em标签在h1标签里面，则该strong元素是不会被这里所谓的严格逐级选择选中的。
+
+更多css选择信息请参看w3school的 [[http://www.w3school.com.cn/css/css_selector_type.asp][css元素选择详解部分]] ，但这一块最好不要弄得太复杂。实际上这样的选择逻辑弄得越复杂后面css代码的维护就越困难，最好的实践还是用 *class* 和 *id* 来管理各个css属性。
+
+
+*** 带上其他属性选择
+有href属性的a标签才应用样式:
+#+BEGIN_EXAMPLE
+a[href] {color:red;}
+#+END_EXAMPLE
+
+有href属性和title属性的a标签才应用样式:
+#+BEGIN_EXAMPLE
+a[href][title] {color:red;}
+#+END_EXAMPLE
+
+具体属性是什么值也指定了:
+#+BEGIN_EXAMPLE
+a[href="http://www.w3school.com.cn/about_us.asp"] {color: red;}
+#+END_EXAMPLE
+
+*** 伪类选定
+带个:冒号后面跟着该标签的伪类，主要是值该标签的某种特殊状态，最常见的是a标签的各个状态，如下所示:
+#+BEGIN_EXAMPLE
+a:link {color: #FF0000}		/* 未访问的链接 */
+a:visited {color: #00FF00}	/* 已访问的链接 */
+a:hover {color: #FF00FF}	/* 鼠标移动到链接上 */
+a:active {color: #0000FF}	/* 选定的链接 */
+#+END_EXAMPLE
+
+**** first-child伪类
+#+BEGIN_EXAMPLE
+p:first-child {
+    color: red;
+}
+#+END_EXAMPLE
+只有是父标签的第一个子标签元素才会被选定。
+
+**** nth-child伪类
+#+BEGIN_EXAMPLE
+p:nth-child(2) {
+    color: red;
+}
+#+END_EXAMPLE
+是父标签的第几个子标签元素才会被选定。
+
+
+** css的长度单位
+css有很多长度单位，这些单位如果你熟悉 $\LaTeX$ 的话你就会对这些单位很眼熟。其中绝对长度单位有：1in = 2.54cm = 25.4mm = 72pt = 6pc ，这些并不推荐使用。[[http://www.w3.org/Style/Examples/007/units.en.html][这篇网页]] 推荐多使用 ~px~ ， ~em~ 和 ~%~ 这样的长度单位。其中"px"和"%"是css特有的，其会根据显示屏而变动，然后1em我们知道就是当前字体M的宽度（TeX里面的情况）。其中px值得引起我们的注意，其会根据显示设备而有很好的调整，更多信息请参看上面提到的那个参考网页。
+
+
+** css的盒子模型
+html的显示布局和 $TeX$ 的显示布局一样也是采用的浮动盒子模型，从上到下，从左到右，一个个盒子排下来，只是 $TeX$ 更复杂，还有一个分页算法。简言之就是每一个标签元素都是一个盒子[fn::我还不太确定一个个字是不是一个盒子，在 $TeX$ 里面一个个字都是一个盒子。] 。
+
+下面这个图片来自 [[http://www.hicksdesign.co.uk/boxmodel/][这个网页]] 。
+#+CAPTION: html_box_model 
+[[file:images/html_box_model.png]]
+
+[[https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model][这篇文章]] 讲解得很好，下面简要介绍之，下面放在短代码环境的都是可以用作css属性的。盒子最中心的是content区域，如果该盒子的 ~box-sizing~ 是默认值的话，那么 ~width~ 控制的就是content区域的宽度。如果将 ~box-sizing~ 设置为 ~border-box~ ，那么 ~width~ 对应的就是整个盒子的宽度。这个只是一点简单的数学加减法把戏罢了，没什么大不了的。
+
+然后类似的 ~height~ 默认是控制content区域的高度，然后有 ~min-width~ , ~min-height~ 来控制盒子content区域的最小宽度和最小高度，然后有 ~max-width~ , ~max-height~ 来控制盒子content区域的最大宽度和最大高度，类似的这几个属性如果 ~box-sizing~ 设置为 ~border-box~ ，那么对应的都是整个盒子的宽度或高度。
+
+content区域外围是padding区域，padding区域是透明的，如果整个盒子设置 ~background-color~ 或 ~backgroud-image~ ，这是你会看到他们。padding区域有如下属性来控制上面下面左边右边的长度: ~padding-top~ , ~padding-bottom~ , ~padding-left~ , ~padding-right~ 。 还有一个简便的写法 ~padding~ ，这种写法设置一个值控制上面四个量还是很方便的，但其还可以接多个值，有一定顺序，不太喜欢这种用法。
+
+padding区域外面是border区域，通常我们在网页中看到的一条条边框线就是它了， 用 ~border-width~ 来控制边框线的宽度。这实际上是一个简写，类似上面的 ~padding~ ，可以跟四个值:
+
+上，右，下，左:
+#+BEGIN_EXAMPLE
+border-width: 1px 2em 0 4rem;
+#+END_EXAMPLE
+
+或者三个值:
+
+上，右和左，下:
+#+BEGIN_EXAMPLE
+border-width: 1px 2em 1.5cm;
+#+END_EXAMPLE
+
+或者两个值:
+
+上下，左右:
+#+BEGIN_EXAMPLE
+border-width: 2px 1.5em;
+#+END_EXAMPLE
+
+此外还有: ~border-top-width~ 对应上宽度， ~border-bottom-width~ 等。
+
+border区域外面就是margin边距区域。其有如下属性，含义大家一看应该就明白了: ~margin-top~ , ~margin-bottom~ , ~margin-left~ , ~margin-right~ , ~margin~ 。
+
+*** border属性
+border属性可以跟上三个值，分别是: border-width border-style border-color
+#+BEGIN_EXAMPLE
+img {
+border: 1px solid #4682b4
+}
+#+END_EXAMPLE
+
+border-style情况比较多，常见的有 *solid* 实线 *dashed* 虚线 *double* 双线 *dotted* 点线等，更多请参看 [[http://www.w3school.com.cn/cssref/pr_border-style.asp][这个网页]] 。
+
+
+** css布局 
+这个网站专门介绍 [[http://zh.learnlayout.com/][css布局]] ，深入浅出讲的还是很好的，css布局是css里面很重要的课题，建立认真学习一下。
+
+*** display属性
+**** 块级元素
+块级元素，占满自身右边所有行的行空间。 div元素和p默认就是所谓的block元素，display属性为 *block* 。
+#+BEGIN_EXAMPLE
+display:block;
+#+END_EXAMPLE
+
+**** inline元素
+span元素默认是 *inline* 。
+#+BEGIN_EXAMPLE
+display:inline;
+#+END_EXAMPLE
+
+就占据我需要的宽度，其他盒子元素可以继续填满这一行。
+
+比如:
+#+BEGIN_EXAMPLE
+li{
+    display:inline;
+}
+#+END_EXAMPLE
+这样你的无序列表和有序列表的各个item不会另起一行了。其默认的是 ~display:list-item;~ 。
+
+**** inline-block
+inline-block的意思是块级元素还是块级元素，只是几个块级元素对外排布是 inline 模式排布的，这是css较新的一个特性。如果对块状元素设置display属性为 *inline* ，则这些块状元素都会失去自己内部的尺寸布局，这可能不是你想要的。
+
+
+**** none
+#+BEGIN_EXAMPLE
+display:none
+#+END_EXAMPLE
+
+该元素不会显示。和 ~visibility:hidden~ 的区别是其本该显示的空间不会保留了。
+
+
+*** float属性
+元素居右放置
+#+BEGIN_EXAMPLE
+float:right;
+#+END_EXAMPLE
+
+*** clear属性
+两侧都不能出现浮动元素
+#+BEGIN_EXAMPLE
+clear:both;
+#+END_EXAMPLE
+
+*** position属性
+css布局控制中，positon是一个很关键的属性。参考了 [[http://zh.learnlayout.com/position.html][这个网页]] 和 [[http://www.cnblogs.com/polk6/p/3214847.html][这个网页]] 。position属性有如下四个值可以设置:
+
+**** static
+static是默认值，没有什么其他额外的位置调整行为，表示它不会被"positioned"。
+
+**** relative
+relative和static类似，除非你还有其他的属性设置。比如 ~top~ , ~right~ , ~bottom~ , ~left~ 这些属性来调整，具体相对的含义是相对于原本它应该在的地方。相对调整之后留下来的地方会被保留下来，没有后续处理动作了。
+
+
+**** fixed
+fixed的应用就是将某个元素总是显示在页面上，比如说某些弹窗广告。  ~top~ , ~right~ , ~bottom~ , ~left~ 这些属性可以辅助来调整这个弹窗具体的位置。
+
+
+**** absolute
+absolute类似于fixed，不过其不是相对于视窗固定，而是相对于页面固定。比如下面这个aside设置:
+
+#+BEGIN_SRC html
+aside {
+    margin-left: -200px;
+    width: 181px;
+    position: absolute;
+    background-color:#FDF6E3;
+}
+#+END_SRC
+
+这个aside是个目录，就放在正文的左边的，如果不用absolute布局的话，右边空间就不会释放出来。请参看 [[http://zh.learnlayout.com/position-example.html][这个网页的那个nav标签元素]] 。
+
+
+
+
+
+** 其他零零碎碎的css属性
+其他零零碎碎的css属性不建议初学者真的专门去学，在后面的探索过程中遇到了就查一下即可，一般 [[http://www.w3school.com.cn/index.html][w3school]] 网站上都会有的。
+
+** css框架
+再了解上面的概念基础上，实际开发还是要利用前人做出来的一些css框架，好做出更加美观和专业的网页。
+
+- Bootstrap似乎很流行评价也不错，有点重量级。
+- Pure在github上很流行，很轻量级，我似乎更加喜欢这个一点。
+
+
+本文html5入门到此就告一段落吧。
+
+
+* 附录
+** !important 用法
+css设置有时不可避免会发生样式重叠覆盖，当然一般是尽可能统一css设置，但有时嫌麻烦懒得弄了，你可以用 ~!important~ 来手工提高某个css设置的优先级[fn::参考了  [[http://www.cnblogs.com/qieqing/articles/1224085.html][这个网页]] 。]。如下所示：
+
+#+BEGIN_SRC css
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center !important ;
+    padding: 5px;
+}
+#+END_SRC
+
+上面严格控制表格各项都居中对齐。
+
+
+** 参考资料
+1. [[http://zh.html.net/][html.net]] 网站提供的入门教程。
+2. [[http://www.w3school.com.cn/index.html][w3school]] 网站。

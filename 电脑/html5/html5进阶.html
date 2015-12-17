@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>html5进阶</title>
+<!-- 2015-11-25 14:36 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">html5进阶</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 简介</a></li>
+<li><a href="#sec-2">2. 背景图片设置</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 设置背景图片</a></li>
+<li><a href="#sec-2-2">2.2. 设置背景图片位置</a></li>
+<li><a href="#sec-2-3">2.3. 设置背景图片是否重复</a></li>
+<li><a href="#sec-2-4">2.4. 设置背景图片不随页面滚动</a></li>
+<li><a href="#sec-2-5">2.5. 设置背景图片尺寸</a></li>
+<li><a href="#sec-2-6">2.6. 设置背景颜色</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 控制文本大小写</a></li>
+<li><a href="#sec-4">4. 控制文本对齐方式</a></li>
+<li><a href="#sec-5">5. 边框画一个圆</a></li>
+<li><a href="#sec-6">6. z-index属性</a></li>
+<li><a href="#sec-7">7. 表单</a>
+<ul>
+<li><a href="#sec-7-1">7.1. 单行文本输入</a></li>
+<li><a href="#sec-7-2">7.2. 多行文本输入</a></li>
+<li><a href="#sec-7-3">7.3. 按钮</a></li>
+<li><a href="#sec-7-4">7.4. required属性</a></li>
+<li><a href="#sec-7-5">7.5. 单选按钮</a></li>
+<li><a href="#sec-7-6">7.6. 复选按钮</a></li>
+<li><a href="#sec-7-7">7.7. 其他type类型</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8. bootstrap简介</a>
+<ul>
+<li><a href="#sec-8-1">8.1. 安装js脚本</a></li>
+<li><a href="#sec-8-2">8.2. viewport元数据声明</a></li>
+<li><a href="#sec-8-3">8.3. container类</a></li>
+<li><a href="#sec-8-4">8.4. 栅格系统</a></li>
+<li><a href="#sec-8-5">8.5. 其他常规css设置</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9. lead盒子</a></li>
+<li><a href="#sec-10">10. jumbotron盒子</a></li>
+<li><a href="#sec-11">11. thumbnail盒子</a></li>
+<li><a href="#sec-12">12. bootstrap的表单</a></li>
+<li><a href="#sec-13">13. pull-left和pull-right</a></li>
+<li><a href="#sec-14">14. tabs的制作</a>
+<ul>
+<li><a href="#sec-14-1">14.1. pill形状tabs制作</a></li>
+</ul>
+</li>
+<li><a href="#sec-15">15. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 简介</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文将在 <a href="html5入门.html">html5入门</a> 一文的基础上，进一步深入学习html5前端知识。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 背景图片设置</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 设置背景图片</h3>
+<div class="outline-text-3" id="text-2-1">
+<pre class="example">
+background-image:url("https://theurl/tothe/image.jpg");
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 设置背景图片位置</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+设置背景图片位置，可能的值有top，center，right，left，top，bottom等，如下所示:
+</p>
+<pre class="example">
+top left
+top center
+top right
+center left
+center center
+center right
+bottom left
+bottom center
+bottom right
+</pre>
+
+<p>
+如果只给出一个值，则第二个值是默认值center。
+</p>
+
+<pre class="example">
+background-position: center center;
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 设置背景图片是否重复</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+默认是repeat，如下设置为 <code>no-repeat</code> ，则背景图片不会重复以铺满整个背景了。
+</p>
+<pre class="example">
+background-repeat: no-repeat;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 设置背景图片不随页面滚动</h3>
+<div class="outline-text-3" id="text-2-4">
+<pre class="example">
+background-attachment:fixed;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 设置背景图片尺寸</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+如下设置为 <code>cover</code> ，则背景图片会拉伸到足够大，以覆盖整个区域，图片某些部位可能不会显示在背景中。
+</p>
+
+<pre class="example">
+background-size: cover;
+</pre>
+
+<p>
+如果设置为 <code>contain</code> ，则背景图片会拉伸至最大长度或最大宽度不超过背景为止。
+</p>
+
+<p>
+此外还可以如下指定宽高比，下面是宽100px，高150px: 
+</p>
+<pre class="example">
+background-size:100px 150px;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 设置背景颜色</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+这里是html各个标签盒子的背景颜色，而color设置的是里面字体的颜色。
+</p>
+<pre class="example">
+background-color:red;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 控制文本大小写</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+如下所示，依次为: 大写，首字母大写，小写。
+</p>
+<pre class="example">
+h1 {text-transform:uppercase}
+h2 {text-transform:capitalize}
+p {text-transform:lowercase}
+</pre>
+
+<p>
+bootstrap提供了 <code>text-lowercase</code> , <code>text-uppercase</code> , <code>text-capitalize</code> class:
+</p>
+
+<pre class="example">
+&lt;p class="text-lowercase"&gt;HELLO world&lt;/p&gt;
+&lt;p class="text-uppercase"&gt;hello world&lt;/p&gt;
+&lt;p class="text-capitalize"&gt;hello world&lt;/p&gt;
+</pre>
+
+<p class="text-lowercase">HELLO world</p>
+<p class="text-uppercase">hello world</p>
+<p class="text-capitalize">hello world</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 控制文本对齐方式</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+主要作用于p段落盒子的属性支持: &lt;strong&gt;text-left&lt;/strong&gt; ,  &lt;strong&gt;text-center&lt;/strong&gt; ,  &lt;strong&gt;text-right&lt;/strong&gt; ,  &lt;strong&gt;text-justify&lt;/strong&gt; , &lt;strong&gt;text-nowrap&lt;/strong&gt; 。
+</p>
+
+<p>
+具体这些css都很简单:
+&lt;pre class="pre-scrollable"&gt;
+    .text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.text-nowrap {
+  white-space: nowrap;
+}
+&lt;/pre&gt;
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 边框画一个圆</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+这样边框就成为一个圆了。
+</p>
+<pre class="example">
+border-radius:50%;
+</pre>
+
+<pre class="example">
+&lt;div style="border:1pt solid blue;border-radius:50%;width:100px;height:100px;margin:auto;"&gt;&lt;/div&gt;
+</pre>
+
+<div style="border:1pt solid blue;border-radius:50%;width:100px;height:100px;margin:auto;"></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> z-index属性</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+css中某个标签盒子设置z-index属性，将影响这些标签盒子的堆叠顺序。比如说如下将header标签的 <code>z-index</code> 属性设置为1，而其他的都不设置，则保证header网页头部分总是第一个先堆放。:
+</p>
+<pre class="example">
+header{
+    z-index:1;
+}
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 表单</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+之前并没有对html中的表单各个情况进行说明，这里详细说明之。这里所谓的表单是指 <code>form</code> 标签加上其内包含的 <code>input</code> 等元素。这些input元素构成了我们熟知的文本输入框，下拉列表，单选框，复选框等等。
+</p>
+
+<pre class="example">
+&lt;form&gt;
+    &lt;input&gt;    &lt;/input&gt;
+&lt;/form&gt;
+</pre>
+
+<p>
+具体表单元素的类型由input标签的 <code>type</code> 元素定义，下面分别详细说明之:
+</p>
+</div>
+
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 单行文本输入</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+单行文本输入用input标签，type类型为 <code>text</code> ，然后具体说明文字推荐用 <code>label</code> 标签。
+</p>
+
+<div class="highlight"><pre><span class="nt">&lt;form&gt;</span>
+<span class="nt">&lt;label&gt;</span>name:<span class="nt">&lt;/label&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;yourname&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+<p>
+然后input的 <code>name</code> 属性很重要，其值具体对应该文本输入的值的变量名（比如python的wsgi机制就将其刷成 <code>form.yourname</code> 这样的引用）。 
+</p>
+
+<form>
+<label>name:</label>
+<input type="text" name="yourname"></input>
+</form>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> 多行文本输入</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+多行文本输入使用 <code>textarea</code> 标签生成的，现在先简单了解下即可。
+</p>
+
+<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>:before<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;textarea</span> <span class="na">rows=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>
+the textarea you say something
+<span class="nt">&lt;/textarea&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>:after<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+
+<p>:before</p>
+
+<textarea rows="5">
+the textarea you say something
+</textarea>
+
+<p>:after</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> 按钮</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+html有好几种方法创建一个按钮，w3school不推荐button标签，然后如下a标签里面加上input标签type为button的风格我也不太喜欢。
+</p>
+<pre class="example">
+&lt;a href="https://www.google.com"&gt;
+&lt;input type="button" value="click to google"&gt;&lt;/input&gt;
+&lt;/a&gt;
+</pre>
+
+<p>
+而如上面所示的input标签type为button的只是输出一个标签，并不支持额外的行为，这和我们通常意义上理解的按钮作用有点初入，所以我更喜欢用input标签然后type为 <code>submit</code> 来创建一个按钮。如下所示:
+</p>
+<div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;https://www.google.com&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;click to google&quot;</span><span class="nt">&gt;&lt;/input&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+<form action="https://www.google.com" method="get">
+<input type="submit" value="click to google"></input>
+</form>
+<p>
+其 <code>value</code> 属性定义了具体按钮上显示的文字。然后具体跳转行为用form标签的 <code>action</code> 属性来定义，你还可以定义 <code>method</code> 属性来具体定义HTTP的method，比如下面是一个表单提交的例子:
+</p>
+
+<div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;http://httpbin.org/post&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label&gt;</span>name:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;label&gt;</span>password:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;提交&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+<form action="http://httpbin.org/post" method="post">
+    <label>name:</label>
+    <input type="text" name="name" />
+    <label>password:</label>
+    <input type="password" name="password" />
+    <input type="submit" value="提交" />
+</form>
+
+<p>
+然后我们注意到上面还出现了一个新的type类型 <code>password</code> ，其类似单行文本输入，不同的是你是在输入密码，所以不会在屏幕上显示出来。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-4" class="outline-3">
+<h3 id="sec-7-4"><span class="section-number-3">7.4</span> required属性</h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+上面的input标签元素你还可以如下所示设置 <code>required</code> 属性好让这个输入是必须填上某个信息的。
+</p>
+<pre class="example">
+&lt;input type="text" name="name" required="required"/&gt;
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-7-5" class="outline-3">
+<h3 id="sec-7-5"><span class="section-number-3">7.5</span> 单选按钮</h3>
+<div class="outline-text-3" id="text-7-5">
+<div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;http://httpbin.org/get&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label&gt;</span>Male<span class="nt">&lt;/label&gt;</span> 
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">name=</span><span class="s">&quot;Sex&quot;</span> <span class="na">value=</span><span class="s">&quot;Male&quot;</span> <span class="na">checked=</span><span class="s">&quot;checked&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;label&gt;</span>Female<span class="nt">&lt;/label&gt;</span> 
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">name=</span><span class="s">&quot;Sex&quot;</span> <span class="na">value=</span><span class="s">&quot;Female&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type =</span><span class="s">&quot;submit&quot;</span> <span class="na">value =</span><span class="s">&quot;提交&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+<form action="http://httpbin.org/get" method="get">
+    <label>Male</label> 
+    <input type="radio" name="Sex" value="Male" checked="checked" />
+    <label>Female</label> 
+    <input type="radio" name="Sex" value="Female" />
+    <input type ="submit" value ="提交">
+</form> 
+
+<p>
+上面新出现的 <code>checked</code> ，默认单选按钮和下面的复选按钮是没有选中的，而设置成为 "checked" 则默认为选中了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-6" class="outline-3">
+<h3 id="sec-7-6"><span class="section-number-3">7.6</span> 复选按钮</h3>
+<div class="outline-text-3" id="text-7-6">
+<div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;http://httpbin.org/get&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>你喜欢吃的水果:<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;label&gt;</span>apple<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name=</span><span class="s">&quot;fruits&quot;</span> <span class="na">value=</span><span class="s">&quot;apple&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;label&gt;</span>banana<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name=</span><span class="s">&quot;fruits&quot;</span> <span class="na">value=</span><span class="s">&quot;banana&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;label&gt;</span>pear<span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name=</span><span class="s">&quot;fruits&quot;</span> <span class="na">value=</span><span class="s">&quot;pear&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;提交&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+<form action="http://httpbin.org/get" method="get">
+    <p>你喜欢吃的水果:</p>
+    <label>apple</label><input type="checkbox" name="fruits" value="apple"/>
+    <label>banana</label><input type="checkbox" name="fruits" value="banana" />
+    <label>pear</label><input type="checkbox" name="fruits" value="pear" />
+    <input type="submit" value="提交" />
+</form> 
+</div>
+</div>
+
+<div id="outline-container-sec-7-7" class="outline-3">
+<h3 id="sec-7-7"><span class="section-number-3">7.7</span> 其他type类型</h3>
+<div class="outline-text-3" id="text-7-7">
+<dl class="org-dl">
+<dt> file </dt><dd>选择文件按钮
+</dd>
+<dt> image </dt><dd></dd>
+</dl>
+
+<hr >
+<p>
+下面是html5新加的type类型:
+</p>
+
+<ul class="org-ul">
+<li>email
+</li>
+<li>url
+</li>
+<li>number
+</li>
+<li>range
+</li>
+<li>Date pickers (date, month, week, time, datetime, datetime-local)
+</li>
+<li>search
+</li>
+<li>color
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> bootstrap简介</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+bootstrap是一个非常流行的前端开发框架，其实就是一些预先定义好的css文件和js文件和部分资源文件。可以直接下载源码之后加载到html文件里面。一开始我更喜欢这种方式，这样刚开始不用费心什么其他的配置和方便阅读源码。
+</p>
+
+
+<p>
+大致结构如下所示:
+</p>
+<pre class="example">
+├── css
+│   ├── bootstrap.css
+│   ├── bootstrap.css.map
+│   ├── bootstrap.min.css
+│   ├── bootstrap-theme.css
+│   ├── bootstrap-theme.css.map
+│   └── bootstrap-theme.min.css
+├── fonts
+│   ├── glyphicons-halflings-regular.eot
+│   ├── glyphicons-halflings-regular.svg
+│   ├── glyphicons-halflings-regular.ttf
+│   ├── glyphicons-halflings-regular.woff
+│   └── glyphicons-halflings-regular.woff2
+└── js
+    ├── bootstrap.js
+    ├── bootstrap.min.js
+    └── npm.js
+</pre>
+
+<p>
+其中 <code>.map</code> 文件有其他用途，这里先不管。所以我们主要看的目前就是这三个文件:
+</p>
+
+<ul class="org-ul">
+<li>bootstrap.css
+</li>
+<li>bootstrap-theme.css
+</li>
+<li>bootstrap.js
+</li>
+</ul>
+
+<p>
+然后具体加载使用最好用那个什么 <code>.min.</code> 什么的文件，这样加载速度更快。具体本地使用的话如下所示:
+</p>
+
+<pre class="example">
+&lt;link rel="stylesheet" type="text/css" href="thepath/to/bootstrap.min.css" /&gt;
+</pre>
+</div>
+
+<div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> 安装js脚本</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+bootstrap的javascript脚本依赖于jquery，这里先把jquery安装简单说一下，这里是jquery的 <a href="http://jquery.com/download/">官网下载链接</a> ，就下载那个 <code>jquery.min.js</code> 单js文件即可（版本号的话一般选一点几的，二点几的区别就是取消支持IE6IE8之类的了）。然后在本网页body标签最末尾加载:
+</p>
+
+<pre class="example">
+&lt;script scr="js/jquery.min.js"&gt;&lt;/script&gt;
+</pre>
+
+
+<p>
+然后在安装bootstrap自身的javascript脚本:
+</p>
+<pre class="example">
+&lt;script scr="js/bootstrap.min.js"&gt;&lt;/script&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> viewport元数据声明</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+为了确保适当的绘制和触屏缩放，需要加上如下viewport元数据声明:
+</p>
+<pre class="example">
+&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-8-3" class="outline-3">
+<h3 id="sec-8-3"><span class="section-number-3">8.3</span> container类</h3>
+<div class="outline-text-3" id="text-8-3">
+<p>
+通过container class的 <code>div</code> 来获得一个固定宽度的响应式容器。
+</p>
+
+<pre class="example">
+&lt;div class="container" style="background:#FFF0F5"&gt;
+我在container类里面。
+&lt;/div&gt;
+</pre>
+
+<div class="container" style="background:#FFF0F5">
+我在container类里面。
+</div>
+
+<p>
+此外还有一个 <code>container-fluid</code> class，区别就是container类会根据当前设备的尺寸来自动调整自身大小。一般推荐页面的某部分都应该被包围在container盒子里面。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-8-4" class="outline-3">
+<h3 id="sec-8-4"><span class="section-number-3">8.4</span> 栅格系统</h3>
+<div class="outline-text-3" id="text-8-4">
+<p>
+栅格系统是bootstrap框架里面很有用的一个特性了，其基本思路如下:
+</p>
+<ol class="org-ol">
+<li>每一行 <code>row</code> 类都放在上面谈及的 <code>container</code> 类里面。
+</li>
+<li>然后在每一行row类里面（这里所谓的什么类实际上就是该类属性的div盒子）再添加行类。
+</li>
+</ol>
+
+<p>
+具体行类有很多种，请参看 <a href="http://getbootstrap.com/examples/grid/">这个网页</a> 和官方文档的 <a href="http://getbootstrap.com/css/#grid">这里</a> 来具体设计之。
+</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span> <span class="na">style=</span><span class="s">&quot;background:#FFF0F5&quot;</span><span class="nt">&gt;</span>
+我在container类里面。
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span> <span class="na">style=</span><span class="s">&quot;background-color:yellow&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-8&quot;</span> <span class="na">style=</span><span class="s">&quot;background-color:red&quot;</span><span class="nt">&gt;</span>
+  我在col-md-8盒子里面，黄色是row盒子。
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-4&quot;</span> <span class="na">style=</span><span class="s">&quot;background-color:blue&quot;</span><span class="nt">&gt;</span>
+我在col-md-4盒子里面，8+4=12，bootstrap最多12列。
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<div class="container" style="background:#FFF0F5">
+我在container类里面。
+<div class="row" style="background-color:yellow">
+<div class="col-md-8" style="background-color:red">
+  我在col-md-8盒子里面，黄色是row盒子。
+</div>
+<div class="col-md-4" style="background-color:blue">
+我在col-md-4盒子里面，8+4=12，bootstrap最多12列。
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-8-5" class="outline-3">
+<h3 id="sec-8-5"><span class="section-number-3">8.5</span> 其他常规css设置</h3>
+<div class="outline-text-3" id="text-8-5">
+<p>
+其他常规css设置比如说h1-h6字体大小啊，等等其他常规标签的字体大小啊颜色啊代码背景的设置啊等等，这些都可以通过浏览器的开发者工具来查看具体的css代码设置，如果觉得默认设置不好则另外再弄个css文件重载也是可以的，这些就不多说了。
+</p>
+
+<p>
+bootstrap将全局font-size 设置为 14px，line-height 设置为 1.428。这些属性直接赋予 body元素和所有段落元素。另外，p（段落）元素还被设置了等于 1/2 行高（即 10px）的底部外边距（margin）。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> lead盒子</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+后面都如此约定，所谓的 <strong>lead盒子</strong> 是指class属性为lead的div标签，即:
+</p>
+<pre class="example">
+&lt;div class="lead" &gt;
+    ...
+&lt;/div&gt;
+</pre>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lead&quot;</span> <span class="na">style=</span><span class="s">&quot;border:1px solid&quot;</span><span class="nt">&gt;</span>
+hi ，我在lead盒子里面，边框是额外加上去的。可以用来作为某个特别重要的话的强调。
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<div class="lead" style="border:1px solid">
+hi ，我在lead盒子里面，边框是额外加上去的。可以用来作为某个特别重要的话的强调。
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> jumbotron盒子</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+bootstrap提供的jumbotron盒子一般在首页用于展示某个特别重要希望读者阅读的信息。
+</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;jumbotron&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;p&gt;</span>大家好，我在jumbotron盒子里面。<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<div class="jumbotron">
+<p>大家好，我在jumbotron盒子里面。</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> thumbnail盒子</h2>
+</div>
+
+
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> bootstrap的表单</h2>
+</div>
+
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> pull-left和pull-right</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+bootstrap用这个class属性来左对齐或右对齐某个标签元素。
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> tabs的制作</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+利用bootstrap制作tabs，就是建立一个ul无序列表，然后class属性设置为 <strong>nav nav-tabs</strong> ，这样就制作了一个简单的tabs了。
+</p>
+
+<div class="highlight"><pre><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;nav nav-tabs&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>Features<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>Details<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#">Features</a></li>
+  <li><a href="#">Details</a></li>
+</ul>
+</div>
+
+<div id="outline-container-sec-14-1" class="outline-3">
+<h3 id="sec-14-1"><span class="section-number-3">14.1</span> pill形状tabs制作</h3>
+<div class="outline-text-3" id="text-14-1">
+<div class="highlight"><pre><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;nav nav-pills&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>Features<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>Details<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Features</a></li>
+  <li><a href="#">Details</a></li>
+</ul>
+
+
+
+
+
+<p>
+&lt;h3&gt;list-inline属性&lt;/h3&gt;
+给ul或ol加上 &lt;strong&gt;list-inline&lt;/strong&gt; 属性，来是li列表元素水平inline-block显示，如下所示:
+&lt;ul class="list-inline"&gt;
+&lt;li&gt;第一个li&lt;/li&gt;
+&lt;li&gt;第二个li&lt;/li&gt;
+&lt;/ul&gt;
+</p>
+
+<p>
+&lt;h3&gt;kbd标签&lt;/h3&gt;
+kbd标签用来显示按键组合: &lt;kbd&gt;Ctrl+X&lt;/kbd&gt;
+</p>
+
+<p>
+&lt;h3&gt;pre-scrollable属性的pre&lt;/h3&gt;
+代码加上滚动条了，具体显示效果见上面。
+</p>
+
+<p>
+&lt;h3&gt;表格&lt;/h3&gt;
+表格的类属性支持很多，这里就不多说了。具体看到 &lt;a href="<a href="http://v3.bootcss.com/css/#tables">http://v3.bootcss.com/css/#tables</a>"&gt;这里&lt;/a&gt; 。
+</p>
+
+
+<p>
+一些表单元素最好都放入&lt;strong&gt;form-group&lt;/strong&gt;盒子里面。
+</p>
+
+
+
+<p>
+&lt;h4&gt;form-inline属性的form&lt;/h4&gt;
+&lt;strong&gt;form-inline&lt;/strong&gt;的form标签将使其内容左对齐，并具有&lt;code&gt;inline-block&lt;/code&gt;的布局。但只适用于视口（viewport）至少在 768px 宽度时，再小表单就会折叠了。
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div id="outline-container-sec-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> 参考资料</h2>
+<div class="outline-text-2" id="text-15">
+<ol class="org-ol">
+<li><a href="http://www.w3school.com.cn/">w3school cn</a>
+</li>
+<li><a href="https://www.codecademy.com"><a href="https://www.codecademy.com">https://www.codecademy.com</a></a>
+</li>
+<li><a href="https://www.youtube.com/watch?v=2W03ZymI46g">这个网页</a> 来学习如何本地安装bootstrap
+</li>
+</ol>
+
+<script scr="js/jquery.min.js"></script>
+<script scr="js/bootstrap.min.js"></script>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>); 最后修改时间: 2015-11-25 14:36.</p></div>
+</body>
+</html>

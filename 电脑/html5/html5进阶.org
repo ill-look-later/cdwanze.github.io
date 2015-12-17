@@ -1,0 +1,556 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: html5进阶
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+本文将在 [[file:html5入门.html][html5入门]] 一文的基础上，进一步深入学习html5前端知识。
+
+* 背景图片设置
+** 设置背景图片
+#+BEGIN_EXAMPLE
+background-image:url("https://theurl/tothe/image.jpg");
+#+END_EXAMPLE
+
+** 设置背景图片位置
+设置背景图片位置，可能的值有top，center，right，left，top，bottom等，如下所示:
+#+BEGIN_EXAMPLE
+top left
+top center
+top right
+center left
+center center
+center right
+bottom left
+bottom center
+bottom right
+#+END_EXAMPLE
+
+如果只给出一个值，则第二个值是默认值center。
+
+#+BEGIN_EXAMPLE
+background-position: center center;
+#+END_EXAMPLE
+
+
+** 设置背景图片是否重复
+默认是repeat，如下设置为 ~no-repeat~ ，则背景图片不会重复以铺满整个背景了。
+#+BEGIN_EXAMPLE
+background-repeat: no-repeat;
+#+END_EXAMPLE
+
+** 设置背景图片不随页面滚动
+#+BEGIN_EXAMPLE
+background-attachment:fixed;
+#+END_EXAMPLE
+
+** 设置背景图片尺寸
+如下设置为 ~cover~ ，则背景图片会拉伸到足够大，以覆盖整个区域，图片某些部位可能不会显示在背景中。
+
+#+BEGIN_EXAMPLE
+background-size: cover;
+#+END_EXAMPLE
+
+如果设置为 ~contain~ ，则背景图片会拉伸至最大长度或最大宽度不超过背景为止。
+
+此外还可以如下指定宽高比，下面是宽100px，高150px: 
+#+BEGIN_EXAMPLE
+background-size:100px 150px;
+#+END_EXAMPLE
+
+** 设置背景颜色
+这里是html各个标签盒子的背景颜色，而color设置的是里面字体的颜色。
+#+BEGIN_EXAMPLE
+background-color:red;
+#+END_EXAMPLE 
+
+* 控制文本大小写
+如下所示，依次为: 大写，首字母大写，小写。
+#+BEGIN_EXAMPLE
+h1 {text-transform:uppercase}
+h2 {text-transform:capitalize}
+p {text-transform:lowercase}
+#+END_EXAMPLE
+
+bootstrap提供了 ~text-lowercase~ , ~text-uppercase~ , ~text-capitalize~ class:
+
+#+BEGIN_EXAMPLE
+<p class="text-lowercase">HELLO world</p>
+<p class="text-uppercase">hello world</p>
+<p class="text-capitalize">hello world</p>
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+<p class="text-lowercase">HELLO world</p>
+<p class="text-uppercase">hello world</p>
+<p class="text-capitalize">hello world</p>
+#+END_HTML
+
+* 控制文本对齐方式
+
+主要作用于p段落盒子的属性支持: <strong>text-left</strong> ,  <strong>text-center</strong> ,  <strong>text-right</strong> ,  <strong>text-justify</strong> , <strong>text-nowrap</strong> 。
+
+具体这些css都很简单:
+<pre class="pre-scrollable">
+    .text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.text-nowrap {
+  white-space: nowrap;
+}
+</pre>
+
+
+* 边框画一个圆
+这样边框就成为一个圆了。
+#+BEGIN_EXAMPLE
+border-radius:50%;
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+<div style="border:1pt solid blue;border-radius:50%;width:100px;height:100px;margin:auto;"></div>
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+<div style="border:1pt solid blue;border-radius:50%;width:100px;height:100px;margin:auto;"></div>
+#+END_HTML
+
+
+* z-index属性
+css中某个标签盒子设置z-index属性，将影响这些标签盒子的堆叠顺序。比如说如下将header标签的 ~z-index~ 属性设置为1，而其他的都不设置，则保证header网页头部分总是第一个先堆放。:
+#+BEGIN_EXAMPLE
+header{
+    z-index:1;
+}
+#+END_EXAMPLE
+
+
+
+* 表单
+之前并没有对html中的表单各个情况进行说明，这里详细说明之。这里所谓的表单是指 ~form~ 标签加上其内包含的 ~input~ 等元素。这些input元素构成了我们熟知的文本输入框，下拉列表，单选框，复选框等等。
+
+#+BEGIN_EXAMPLE
+<form>
+    <input>    </input>
+</form>
+#+END_EXAMPLE
+
+具体表单元素的类型由input标签的 ~type~ 元素定义，下面分别详细说明之:
+
+** 单行文本输入
+单行文本输入用input标签，type类型为 ~text~ ，然后具体说明文字推荐用 ~label~ 标签。
+
+#+BEGIN_SRC html
+<form>
+<label>name:</label>
+<input type="text" name="yourname"></input>
+</form>
+#+END_SRC
+
+然后input的 ~name~ 属性很重要，其值具体对应该文本输入的值的变量名（比如python的wsgi机制就将其刷成 ~form.yourname~ 这样的引用）。 
+
+#+BEGIN_HTML
+<form>
+<label>name:</label>
+<input type="text" name="yourname"></input>
+</form>
+#+END_HTML
+
+
+** 多行文本输入
+多行文本输入使用 ~textarea~ 标签生成的，现在先简单了解下即可。
+
+#+BEGIN_SRC html
+<p>:before</p>
+
+<textarea rows="5">
+the textarea you say something
+</textarea>
+
+<p>:after</p>
+#+END_SRC
+
+#+BEGIN_HTML
+<p>:before</p>
+
+<textarea rows="5">
+the textarea you say something
+</textarea>
+
+<p>:after</p>
+#+END_HTML
+
+** 按钮
+html有好几种方法创建一个按钮，w3school不推荐button标签，然后如下a标签里面加上input标签type为button的风格我也不太喜欢。
+#+BEGIN_EXAMPLE
+<a href="https://www.google.com">
+<input type="button" value="click to google"></input>
+</a>
+#+END_EXAMPLE
+
+而如上面所示的input标签type为button的只是输出一个标签，并不支持额外的行为，这和我们通常意义上理解的按钮作用有点初入，所以我更喜欢用input标签然后type为 ~submit~ 来创建一个按钮。如下所示:
+#+BEGIN_SRC html
+<form action="https://www.google.com" method="get">
+<input type="submit" value="click to google"></input>
+</form>
+#+END_SRC
+
+#+BEGIN_HTML
+<form action="https://www.google.com" method="get">
+<input type="submit" value="click to google"></input>
+</form>
+#+END_HTML
+其 ~value~ 属性定义了具体按钮上显示的文字。然后具体跳转行为用form标签的 ~action~ 属性来定义，你还可以定义 ~method~ 属性来具体定义HTTP的method，比如下面是一个表单提交的例子:
+
+#+BEGIN_SRC html
+<form action="http://httpbin.org/post" method="post">
+    <label>name:</label>
+    <input type="text" name="name" />
+    <label>password:</label>
+    <input type="password" name="password" />
+    <input type="submit" value="提交" />
+</form>
+#+END_SRC
+
+#+BEGIN_HTML
+<form action="http://httpbin.org/post" method="post">
+    <label>name:</label>
+    <input type="text" name="name" />
+    <label>password:</label>
+    <input type="password" name="password" />
+    <input type="submit" value="提交" />
+</form>
+#+END_HTML
+
+然后我们注意到上面还出现了一个新的type类型 ~password~ ，其类似单行文本输入，不同的是你是在输入密码，所以不会在屏幕上显示出来。
+
+** required属性
+上面的input标签元素你还可以如下所示设置 ~required~ 属性好让这个输入是必须填上某个信息的。
+#+BEGIN_EXAMPLE
+ <input type="text" name="name" required="required"/>
+#+END_EXAMPLE
+
+
+** 单选按钮
+#+BEGIN_SRC html
+<form action="http://httpbin.org/get" method="get">
+    <label>Male</label> 
+    <input type="radio" name="Sex" value="Male" checked="checked" />
+    <label>Female</label> 
+    <input type="radio" name="Sex" value="Female" />
+    <input type ="submit" value ="提交">
+</form> 
+#+END_SRC
+
+#+BEGIN_HTML
+<form action="http://httpbin.org/get" method="get">
+    <label>Male</label> 
+    <input type="radio" name="Sex" value="Male" checked="checked" />
+    <label>Female</label> 
+    <input type="radio" name="Sex" value="Female" />
+    <input type ="submit" value ="提交">
+</form> 
+#+END_HTML
+
+上面新出现的 ~checked~ ，默认单选按钮和下面的复选按钮是没有选中的，而设置成为 "checked" 则默认为选中了。
+
+** 复选按钮
+#+BEGIN_SRC html
+<form action="http://httpbin.org/get" method="get">
+    <p>你喜欢吃的水果:</p>
+    <label>apple</label><input type="checkbox" name="fruits" value="apple"/>
+    <label>banana</label><input type="checkbox" name="fruits" value="banana" />
+    <label>pear</label><input type="checkbox" name="fruits" value="pear" />
+    <input type="submit" value="提交" />
+</form> 
+#+END_SRC
+
+#+BEGIN_HTML
+<form action="http://httpbin.org/get" method="get">
+    <p>你喜欢吃的水果:</p>
+    <label>apple</label><input type="checkbox" name="fruits" value="apple"/>
+    <label>banana</label><input type="checkbox" name="fruits" value="banana" />
+    <label>pear</label><input type="checkbox" name="fruits" value="pear" />
+    <input type="submit" value="提交" />
+</form> 
+#+END_HTML
+
+** 其他type类型
+
+- file :: 选择文件按钮
+- image :: 
+
+-------------
+下面是html5新加的type类型:
+
+- email
+- url
+- number
+- range
+- Date pickers (date, month, week, time, datetime, datetime-local)
+- search
+- color
+
+
+
+* bootstrap简介
+bootstrap是一个非常流行的前端开发框架，其实就是一些预先定义好的css文件和js文件和部分资源文件。可以直接下载源码之后加载到html文件里面。一开始我更喜欢这种方式，这样刚开始不用费心什么其他的配置和方便阅读源码。
+
+
+大致结构如下所示:
+#+BEGIN_EXAMPLE
+├── css
+│   ├── bootstrap.css
+│   ├── bootstrap.css.map
+│   ├── bootstrap.min.css
+│   ├── bootstrap-theme.css
+│   ├── bootstrap-theme.css.map
+│   └── bootstrap-theme.min.css
+├── fonts
+│   ├── glyphicons-halflings-regular.eot
+│   ├── glyphicons-halflings-regular.svg
+│   ├── glyphicons-halflings-regular.ttf
+│   ├── glyphicons-halflings-regular.woff
+│   └── glyphicons-halflings-regular.woff2
+└── js
+    ├── bootstrap.js
+    ├── bootstrap.min.js
+    └── npm.js
+#+END_EXAMPLE
+
+其中 ~.map~ 文件有其他用途，这里先不管。所以我们主要看的目前就是这三个文件:
+
+- bootstrap.css
+- bootstrap-theme.css
+- bootstrap.js
+
+然后具体加载使用最好用那个什么 ~.min.~ 什么的文件，这样加载速度更快。具体本地使用的话如下所示:
+
+#+BEGIN_EXAMPLE
+<link rel="stylesheet" type="text/css" href="thepath/to/bootstrap.min.css" />
+#+END_EXAMPLE
+
+** 安装js脚本
+bootstrap的javascript脚本依赖于jquery，这里先把jquery安装简单说一下，这里是jquery的 [[http://jquery.com/download/][官网下载链接]] ，就下载那个 ~jquery.min.js~ 单js文件即可（版本号的话一般选一点几的，二点几的区别就是取消支持IE6IE8之类的了）。然后在本网页body标签最末尾加载:
+
+#+BEGIN_EXAMPLE
+<script scr="js/jquery.min.js"></script>
+#+END_EXAMPLE
+
+
+然后在安装bootstrap自身的javascript脚本:
+#+BEGIN_EXAMPLE
+<script scr="js/bootstrap.min.js"></script>
+#+END_EXAMPLE
+
+** viewport元数据声明
+为了确保适当的绘制和触屏缩放，需要加上如下viewport元数据声明:
+#+BEGIN_EXAMPLE
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+#+END_EXAMPLE
+
+
+** container类
+通过container class的 ~div~ 来获得一个固定宽度的响应式容器。
+
+#+BEGIN_EXAMPLE
+<div class="container" style="background:#FFF0F5">
+我在container类里面。
+</div>
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+<div class="container" style="background:#FFF0F5">
+我在container类里面。
+</div>
+#+END_HTML
+
+此外还有一个 ~container-fluid~ class，区别就是container类会根据当前设备的尺寸来自动调整自身大小。一般推荐页面的某部分都应该被包围在container盒子里面。
+
+
+** 栅格系统
+栅格系统是bootstrap框架里面很有用的一个特性了，其基本思路如下:
+1. 每一行 ~row~ 类都放在上面谈及的 ~container~ 类里面。
+2. 然后在每一行row类里面（这里所谓的什么类实际上就是该类属性的div盒子）再添加行类。
+
+具体行类有很多种，请参看 [[http://getbootstrap.com/examples/grid/][这个网页]] 和官方文档的 [[http://getbootstrap.com/css/#grid][这里]] 来具体设计之。
+
+#+BEGIN_SRC html
+<div class="container" style="background:#FFF0F5">
+我在container类里面。
+<div class="row" style="background-color:yellow">
+<div class="col-md-8" style="background-color:red">
+  我在col-md-8盒子里面，黄色是row盒子。
+</div>
+<div class="col-md-4" style="background-color:blue">
+我在col-md-4盒子里面，8+4=12，bootstrap最多12列。
+</div>
+</div>
+</div>
+#+END_SRC
+
+#+BEGIN_HTML
+<div class="container" style="background:#FFF0F5">
+我在container类里面。
+<div class="row" style="background-color:yellow">
+<div class="col-md-8" style="background-color:red">
+  我在col-md-8盒子里面，黄色是row盒子。
+</div>
+<div class="col-md-4" style="background-color:blue">
+我在col-md-4盒子里面，8+4=12，bootstrap最多12列。
+</div>
+</div>
+</div>
+#+END_HTML
+
+
+
+** 其他常规css设置
+其他常规css设置比如说h1-h6字体大小啊，等等其他常规标签的字体大小啊颜色啊代码背景的设置啊等等，这些都可以通过浏览器的开发者工具来查看具体的css代码设置，如果觉得默认设置不好则另外再弄个css文件重载也是可以的，这些就不多说了。
+
+ bootstrap将全局font-size 设置为 14px，line-height 设置为 1.428。这些属性直接赋予 body元素和所有段落元素。另外，p（段落）元素还被设置了等于 1/2 行高（即 10px）的底部外边距（margin）。
+
+
+* lead盒子
+后面都如此约定，所谓的 *lead盒子* 是指class属性为lead的div标签，即:
+#+BEGIN_EXAMPLE
+<div class="lead" >
+    ...
+</div>
+#+END_EXAMPLE
+
+#+BEGIN_SRC html
+<div class="lead" style="border:1px solid">
+hi ，我在lead盒子里面，边框是额外加上去的。可以用来作为某个特别重要的话的强调。
+</div>
+#+END_SRC
+
+#+BEGIN_HTML
+<div class="lead" style="border:1px solid">
+hi ，我在lead盒子里面，边框是额外加上去的。可以用来作为某个特别重要的话的强调。
+</div>
+#+END_HTML
+
+
+
+
+* jumbotron盒子
+bootstrap提供的jumbotron盒子一般在首页用于展示某个特别重要希望读者阅读的信息。
+
+#+BEGIN_SRC html
+<div class="jumbotron">
+<p>大家好，我在jumbotron盒子里面。</p>
+</div>
+#+END_SRC
+
+#+BEGIN_HTML
+<div class="jumbotron">
+<p>大家好，我在jumbotron盒子里面。</p>
+</div>
+#+END_HTML
+
+
+
+* thumbnail盒子
+
+
+
+* bootstrap的表单
+
+
+* pull-left和pull-right
+bootstrap用这个class属性来左对齐或右对齐某个标签元素。
+
+
+
+
+* tabs的制作
+利用bootstrap制作tabs，就是建立一个ul无序列表，然后class属性设置为 *nav nav-tabs* ，这样就制作了一个简单的tabs了。
+
+#+BEGIN_SRC html
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Features</a></li>
+    <li><a href="#">Details</a></li>
+  </ul>
+#+END_SRC
+
+#+BEGIN_HTML
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Features</a></li>
+    <li><a href="#">Details</a></li>
+  </ul>
+#+END_HTML
+
+** pill形状tabs制作
+#+BEGIN_SRC html
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#">Features</a></li>
+    <li><a href="#">Details</a></li>
+  </ul>
+#+END_SRC
+
+#+BEGIN_HTML
+  <ul class="nav nav-pills">
+    <li class="active"><a href="#">Features</a></li>
+    <li><a href="#">Details</a></li>
+  </ul>
+#+END_HTML
+
+
+
+
+
+<h3>list-inline属性</h3>
+给ul或ol加上 <strong>list-inline</strong> 属性，来是li列表元素水平inline-block显示，如下所示:
+<ul class="list-inline">
+<li>第一个li</li>
+<li>第二个li</li>
+</ul>
+
+<h3>kbd标签</h3>
+kbd标签用来显示按键组合: <kbd>Ctrl+X</kbd>
+
+<h3>pre-scrollable属性的pre</h3>
+代码加上滚动条了，具体显示效果见上面。
+
+<h3>表格</h3>
+表格的类属性支持很多，这里就不多说了。具体看到 <a href="http://v3.bootcss.com/css/#tables">这里</a> 。
+
+
+一些表单元素最好都放入<strong>form-group</strong>盒子里面。
+
+
+
+<h4>form-inline属性的form</h4>
+<strong>form-inline</strong>的form标签将使其内容左对齐，并具有<code>inline-block</code>的布局。但只适用于视口（viewport）至少在 768px 宽度时，再小表单就会折叠了。
+
+
+
+
+
+
+* 参考资料
+1. [[http://www.w3school.com.cn/][w3school cn]]
+2. [[https://www.codecademy.com][https://www.codecademy.com]]
+3. [[https://www.youtube.com/watch?v=2W03ZymI46g][这个网页]] 来学习如何本地安装bootstrap
+
+#+BEGIN_HTML
+<script scr="js/jquery.min.js"></script>
+<script scr="js/bootstrap.min.js"></script>
+#+END_HTML
+

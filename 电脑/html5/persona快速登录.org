@@ -1,0 +1,66 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: persona快速登录
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 加载js
+#+BEGIN_EXAMPLE
+<script src="https://login.persona.org/include.js"></script>
+#+END_EXAMPLE
+
+其提供了 ~watch()~ , ~request()~ 和 ~logout()~ 这些方法，放在 ~navigator.id~ 对象里面的。
+
+* 简单的js支持
+#+BEGIN_SRC js
+var signinLink = document.getElementById('signin');
+if (signinLink) {
+  signinLink.onclick = function() { navigator.id.request(); };
+};
+
+var signoutLink = document.getElementById('signout');
+if (signoutLink) {
+  signoutLink.onclick = function() { navigator.id.logout(); };
+};
+#+END_SRC
+
+* ajax行为
+#+BEGIN_SRC js
+var currentUser = 'bob@example.com';
+
+navigator.id.watch({
+  loggedInUser: currentUser,
+  onlogin: function(assertion) {
+    // 一个用户已经登入！这是你需要做的：
+    // 1. 把断言发送到后端验证并创建一个会话。
+    // 2. 更新你的 UI。
+    $.ajax({ /* <-- 本例使用了 jQuery，但你也可以用你想用的 */
+      type: 'POST',
+      url: '/auth/login', // 这是你网站上的一个 URL
+      data: {assertion: assertion},
+      success: function(res, status, xhr) { window.location.reload(); },
+      error: function(res, status, xhr) { alert("登入失败" + res); }
+    });
+  },
+  onlogout: function() {
+    // 一个用户已经登出！这是你需要做的：
+    // 销毁用户的会话并重定向用户或做后端的调用。
+    // 同样，让 loggedInUser 在下个页面加载时变为 null。
+    // （这是一个字面的 JavaScript null。不是 false、 0 或 undefined。null。)
+    $.ajax({
+      type: 'POST',
+      url: '/auth/logout', // 这是你网站上的一个 URL
+      success: function(res, status, xhr) { window.location.reload(); },
+      error: function(res, status, xhr) { alert("登出失败" + res); }
+    });
+  }
+});
+#+END_SRC
+
+* 参考资料
+1. [[https://developer.mozilla.org/zh-CN/docs/Mozilla/Persona/Quick_Setup][官方文档]]
