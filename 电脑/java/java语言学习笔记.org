@@ -1,0 +1,104 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: java语言学习笔记
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+虽然java开发主要是在eclipse这样的编辑器下进行，但还是要简单了解下命令行编译的细节:
+
+新建一个文本 Hello.java （注意这里的文件名必须是Hello对应里面的类Hello）
+#+BEGIN_SRC java
+public class Hello {
+    public static void main(String[] args){
+    	System.out.println("hello java");
+    }
+}
+#+END_SRC
+
+然后运行:
+#+BEGIN_SRC bash
+javac Hello.java
+#+END_SRC
+
+这样你就得到 ~Hello.class~ 这个编译码文件了，这个编译码文件能够直接在java虚拟机上运行:
+#+BEGIN_SRC bash
+java Hello
+#+END_SRC
+
+注意后面不要写 ~.class~ 了。如果不出意外的话应该会打印一段字符串信息。这算是你的第一个java小程序了吧。
+
+本文的假设是读者已经懂得一门编程语言了，所以行文会越来越言简意赅，点到为止，觉得该说的才说一下。看上面的例子，具体就是定义了一个类 Hello，然后在这个类里面定义了一个main方法，main方法前面和括号里的东西暂时先不管，main方法是一个特殊的方法，大体程序的入口就在这里。然后就是调用 ~System.out.println~ 函数来打印一段字符串，然后记得行结尾用分号 ~;~ 。
+
+** 命令行脚本的参数
+你可以用java语言写点命令行小脚本之类的东西，然后我们将前面的Hello.java程序改造一下:
+#+BEGIN_SRC java
+public class Hello {
+    public static void main(String[] args){
+        System.out.println("hello, " + System.getenv("USER"));
+	    for (int i = 0; i<args.length;i++){
+    	System.out.println(args[i]);
+    	}
+    }
+}
+#+END_SRC
+
+这里main方法接受的 ~args~ 是一个字符串数组，其类似于c语言的 ~argv~ ，里面装填着你往这个java小脚本里塞进去的一些参数。然后c语言的 ~argc~ 可以通过 ~args.length~ 来获得。然后上面演示的简单的for迭代语言结构，然后可以通过 ~System.getenv()~ 函数来获取当前脚本运行的一些背景环境参数，类似于c语言的 ~envp~ ，但显然更好用了。
+
+** 脚本接受管道输入
+在linux系统下脚本接受管道输入，最关键的一点就是判断 ~istty~ ，这个java的支持并不是很好，只能通过 ~System.console()~ 来达到某种近似的判断，请参看 [[http://stackoverflow.com/questions/1403772/how-can-i-check-if-a-java-programs-input-output-streams-are-connected-to-a-term][这个网页]] 。
+
+下面这个小脚本更加的大型了:
+#+BEGIN_SRC java
+import java.util.Scanner;
+
+public class Echo{
+    public static void main(String[] args){
+        boolean istty;
+        if (System.console() == null){
+            istty = true;
+        }else{
+            istty = false;
+        }
+
+        if (args.length != 0){
+            System.out.print("some parameters:");
+            for (int i=0;i<args.length;i++){
+                System.out.print(args[i] + " ");
+            }
+            System.out.println();
+        }
+
+        if (istty){
+            Scanner sc = new Scanner(System.in);
+            while (sc.hasNext()){
+                System.out.println(sc.nextLine());
+            }
+        }
+    }
+}
+#+END_SRC
+首先引入 ~Scanner~ 类，其对于输入有很好的支持，相似细节后面再细讲。然后 ~System.console()~ 用来判断是否输入流是终端，并不是很完美的解决方案。Scanner类的 ~hasNext()~ 方法用于判断下面还有内容没有， ~nextLine()~ 方法用于取出输入流的下面的一行内容。
+
+实际写java程序都在eclipse编辑器下，一般安装好就设置好了，点击那个运行按钮即可。一些eclipse的细节知识放在本文的附录那里了。
+
+
+* 符号常量
+#+BEGIN_SRC java
+final double PI = 3.1415926;
+#+END_SRC
+
+
+
+* 附录
+** eclipse编辑器
+
+
+** 参考资料
+1. java语言程序设计基础篇; Author: Y.Daniel Liang ; 李娜译 ;version:第8版
+2. Learn Java for Android Development; Author: Jeff Friesen; version:third
