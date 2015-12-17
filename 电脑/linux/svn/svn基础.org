@@ -1,0 +1,91 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+HTML_HEAD: <link rel="stylesheet"  href="http://www.cdwanze.org/templates/main.css"/>
+
+#+TITLE: svn基础
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+svn版本控制是一种基于client/server模型很自然的发展，其中server在svn中是一个很重要的概念。而git相比svn更加的去中心化了，这种去中心化是有代价的，那就是git相比svn更加复杂了。
+
+本文只讨论linux下的使用情况。然后作者写这篇文章的时候已经有一定的git使用经验了，可能本文并不适合对版本控制没有任何概念的读者。
+
+
+** 安装
+在windwos下推荐使用 [[http://tortoisesvn.net/][tortoisesvn]] ，就是那只萌哒哒的乌龟。
+
+在ubuntu下则是:
+#+BEGIN_EXAMPLE
+sudo apt-get install subversion
+#+END_EXAMPLE
+
+一般用户就使用svn命令，读者可以使用 ~svn --help~ 来简单看一下用法。和管理员操作相关的还有两个命令 ~svnadmin~ 和 ~svnserve~ ，同样可用 ~--help~ 来看一下用法。
+
+
+* 管理员新建一个仓库
+#+BEGIN_EXAMPLE
+svnadmin create testsvn
+#+END_EXAMPLE
+
+
+* 客户端检出仓库
+客户端第一次和服务器交互，需要使用checkout命令来检出仓库。
+
+#+BEGIN_EXAMPLE
+svn checkout theurl
+#+END_EXAMPLE
+
+
+* 客户端将某个文件或文件夹加入索引
+客户端将某个文件或文件夹加入索引:
+
+#+BEGIN_EXAMPLE
+svn add doc 
+#+END_EXAMPLE
+这里将文件夹doc里面的所有内容加入索引。
+
+** --force
+如果某个文件夹内某些文件已经add了某些文件还没有add，然后你希望这个文件夹里面所有的文件都add进去，那么可以通过加上选项 ~--force~ 来达到这个目的。
+
+#+BEGIN_EXAMPLE
+svn add --force doc
+#+END_EXAMPLE
+
+* 客户端提交本地修改
+客户端提交本地修改使用commit命令。
+#+BEGIN_EXAMPLE
+svn commit -m 'say something'
+#+END_EXAMPLE
+
+
+* 更新服务器仓库的修改到本地
+更新服务器仓库的修改到本地，相当于git 的pull命令，svn对应的是update命令。
+#+BEGIN_EXAMPLE
+svn update
+#+END_EXAMPLE
+
+
+* 文件夹约定
+一般约定trunck是开发主线（相当于git的master），然后branches文件夹是开发支线，然后tags文件夹是标签副本。
+
+
+* 一般客户端的工作流程
+1. svn update ，将服务器端的最新内容更新到本地
+2. 本地修改项目文件，此外还有svn add；svn delete；svn copy；svn move。
+
+
+3. 检视你的修改，svn status ； svn diff。
+4. 撤消你的修改，svn revert 
+5. 发布你的更改，svn commit。
+
+
+
+* 参考资料
+1. svn 官方文档 1.7版。
+2. 基本的入门信息 [[http://www.flyne.org/article/851][这篇网页]] 介绍得挺好的。

@@ -1,0 +1,25 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: ubuntu找不到软件包
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 找不到ffi.h
+参考了 [[http://stackoverflow.com/questions/12982486/glib-compile-error-ffi-h-but-libffi-is-installed][这个网页]] 。
+
+#+BEGIN_EXAMPLE
+fatal error: ffi.h: No such file or directory
+#+END_EXAMPLE
+
+解决方案:
+#+BEGIN_EXAMPLE
+sudo apt-get install libffi-dev
+#+END_EXAMPLE
+
+
+

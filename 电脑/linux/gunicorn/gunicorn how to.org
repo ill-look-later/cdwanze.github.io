@@ -1,0 +1,52 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: gunicorn how to
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 安装
+用pip安装之，同时也支持pip3。
+
+#+BEGIN_EXAMPLE
+sudo pip install gunicorn
+#+END_EXAMPLE
+
+
+
+
+* 基本的使用
+#+BEGIN_EXAMPLE
+gunicorn [OPTIONS] APP_MODULE
+#+END_EXAMPLE
+
+如:
+#+BEGIN_EXAMPLE
+gunicorn test:app
+#+END_EXAMPLE
+
+test是指那个 test.py文件，然后里面的变量app就是flask的app。
+
+常用的选项有:
+
+- ~-w~ :: worker processes数，一般一个CPU核分配2-4个，默认是1。
+- ~-b~ :: 具体绑定的host和port，如: ~-b 127.0.0.1:8000~
+- ~-c~ :: 指定一个配置文件
+- ~--threads~ :: 每一个worker分配的线程数，默认是1，推荐分配 ~2-4 x $(NUM_CORES)~ 
+- ~-u~ :: run as this user
+- ~-g~ :: run as this group
+- ~--access-logfile~ :: 设置logging写入到那个文件
+- ~--log-level~ :: 设置logging的level，默认是info，还可以是debug,warning,error,critical等等
+
+
+
+
+更多信息请参看 [[http://docs.gunicorn.org/en/latest/index.html][官方文档]] 。
+
+
+
+* 和nginx一起

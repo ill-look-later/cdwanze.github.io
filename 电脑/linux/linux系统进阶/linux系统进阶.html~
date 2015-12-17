@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>linux系统进阶</title>
+<!-- 2015-11-12 09:39 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">linux系统进阶</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. ssh命令</a>
+<ul>
+<li><a href="#sec-1-1">1.1. ssh远程登录</a></li>
+<li><a href="#sec-1-2">1.2. ssh连接远程虚拟机(ubuntu系统)然后调用mongo时报错</a></li>
+<li><a href="#sec-1-3">1.3. ssh连接进行某个长时间的任务</a></li>
+<li><a href="#sec-1-4">1.4. 实现ssh跳转</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. sftp命令</a></li>
+<li><a href="#sec-3">3. scp命令</a></li>
+<li><a href="#sec-4">4. ln命令</a></li>
+<li><a href="#sec-5">5. cron后台服务</a></li>
+<li><a href="#sec-6">6. flock命令</a></li>
+<li><a href="#sec-7">7. wc命令</a>
+<ul>
+<li><a href="#sec-7-1">7.1. 统计行数</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8. lsof命令</a></li>
+<li><a href="#sec-9">9. 终端开启代理</a></li>
+<li><a href="#sec-10">10. curl命令</a>
+<ul>
+<li><a href="#sec-10-1">10.1. 查看本机的外网ip</a></li>
+</ul>
+</li>
+<li><a href="#sec-11">11. linux系统用户管理</a>
+<ul>
+<li><a href="#sec-11-1">11.1. 新建用户</a></li>
+<li><a href="#sec-11-2">11.2. 删除用户</a></li>
+<li><a href="#sec-11-3">11.3. 修改用户密码</a></li>
+<li><a href="#sec-11-4">11.4. 用户其他参数修改</a></li>
+<li><a href="#sec-11-5">11.5. 以某用户身份登录</a></li>
+<li><a href="#sec-11-6">11.6. 让某个用户是sudoer</a></li>
+</ul>
+</li>
+<li><a href="#sec-12">12. netstat命令</a></li>
+<li><a href="#sec-13">13. ifconfig命令</a></li>
+<li><a href="#sec-14">14. date命令</a></li>
+<li><a href="#sec-15">15. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> ssh命令</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> ssh远程登录</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+SSH协议用于计算机之间的加密远程登录。本小节主要参考了阮一峰的 <a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html">这篇日志</a> 。
+</p>
+
+<p>
+ubuntu下似乎都自带 <code>ssh</code> 命令了，windows下一般使用 <code>PuTTY</code> 这个软件。
+</p>
+
+<p>
+ssh登录命令格式如下:
+</p>
+<pre class="example">
+ssh username@host
+</pre>
+
+<p>
+其中ssh默认的端口号是22，你可以通过 <code>-p</code> 来指定其他端口号。这里的username是远程计算机的用户名，这里的host是ip地址包括局域网的192.168&#x2026;之类的。
+</p>
+
+<p>
+具体第一次用ssh命令登录会提示你输入密码，这个密码不是远程计算机的登录密码，而是连接密码。可以不设置。如果设置了对于终端登录似乎影响不大，后面设置公钥登录之后仍会不需要输入密码就会登录了，但如果通过python的paramiko模块进行ssh登录，那么还需要一些额外的配置，这块这里先略过，在python的paramiko模块那里做进一步的讨论。
+</p>
+
+<p>
+默认情况下ssh登录远程终端是需要输入远程计算机的密码的，你也可以通过一种将自己的公钥上传到远程计算机的方法来实现不用输入密码来登录之。首先你需要生成自己的公钥:
+</p>
+<pre class="example">
+ssh-keygen
+</pre>
+
+<p>
+具体生成的公钥文件文件在 <code>$HOME/.ssh</code> 那里，其为 <code>id_rsa.pub</code> ，还有一个 <code>id_rsa</code> 是什么私钥文件。然后将公钥文件上传上去即可:
+</p>
+<pre class="example">
+ssh-copy-id username@host
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> ssh连接远程虚拟机(ubuntu系统)然后调用mongo时报错</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+ssh连接远程虚拟机(ubuntu系统)然后调用mongo时报错，具体错误信息如下所示:
+</p>
+<pre class="example">
+Failed global initialization: BadValue Invalid or no user locale set. Please ensure LANG and/or LC_* environment variables are set correctly
+</pre>
+
+<p>
+这个问题很简单，就是语言没设置好，解决方案参见 <a href="http://askubuntu.com/questions/536875/error-in-installing-mongo-in-virtual-machine">这个网页</a> 。具体就是在当前终端输入:
+</p>
+
+<pre class="example">
+export LC_ALL=en_US.UTF-8
+</pre>
+<p>
+即可。最好把这行命令放在主文件夹的 <code>.bashrc</code> 文件那里。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> ssh连接进行某个长时间的任务</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+ssh连接远程主机，然后要执行某个长时间的命令任务，如果你有一段时间没去管那个终端窗口了，ssh连接就可能会自动中断，终端之后远程的相关进程也会被kill掉。这是会返回什么 <code>Broken pipe</code> 错误。
+</p>
+
+<p>
+一个简单的解决方案是在远程主机上执行某个命令，然后这个命令前面加上 <code>nohup</code> 这个命令，类似下面这种格式:
+</p>
+<pre class="example">
+nohup thecommand
+</pre>
+
+<p>
+更好地解决方案是在远程安装（ubuntu下用apt-get安装之） <code>screen</code> 这个小工具，然后在远程通过screen命令来开启一个执行某个shell命令的全屏窗口（这样其就不会被自动关闭了），哪怕你本地的那个终端窗口关闭了，远程主机相关进程还是会在那里运行的。screen命令常见的用法有:
+</p>
+
+<dl class="org-dl">
+<dt> screen -S name </dt><dd>创建一个screen进程，并给他取个名字，后面的screen进程可以直接使用这个名字。
+</dd>
+<dt> screen -ls </dt><dd>看看当前电脑里面都有那些screen进程。
+</dd>
+<dt> screen -r thename_or_thepid </dt><dd>重连某个screen进程，默认只能连Detached（失连）的进程。
+</dd>
+<dt> screen -wipe </dt><dd>清除某些Dead的screen进程。
+</dd>
+<dt> screen -D -r </dt><dd>有的时候某个screen进程可能已经断开连接了，但其还是显示的Attached，可以用这样的选项组合来强制某个screen进程失连，然后再重连。
+</dd>
+</dl>
+
+<p>
+更多细节请参看 <a href="http://www.ibm.com/developerworks/cn/linux/l-cn-screen/">这个网页</a> 。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 实现ssh跳转</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+语法如下:
+</p>
+<pre class="example">
+ssh -t root@100.100.100.100 ssh root@192.168.0.100
+</pre>
+<p>
+这将先对外网ip100.100.100.100（随便捏造的）进行ssh登录，然后再通过那台远程主机跳转到他们局域网的192.168.0.100那台机器上。这里的两个ssh命令都可以跟上其他一些参数，比如-p来控制端口等。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> sftp命令</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+ftp协议(File Transfer Protocol, 文件传输协议)是用于在网络上进行文件传输的一套标准协议。sftp命令是基于ssh命令来进行上传和下载文件的。本小节参考了 <a href="http://codingstandards.iteye.com/blog/985744">这个网页</a> 。
+</p>
+
+<p>
+sftp命令的使用有点类似于ssh命令:
+</p>
+<pre class="example">
+sftp root@100.100.100.100
+</pre>
+
+<p>
+这样就将试图连接那个远程主机，sftp的可选参数和ssh命令的可选参数有一些类似，但又有所不同。比如端口设置选项是大写字母P <code>-P</code> 。进入sftp&gt;提示符之后，有一些命令可以用，其中最重要的两个命令是: <code>put</code> ， <code>get</code> 。
+</p>
+
+<p>
+put是上传文件，get是下载文件。如果在顶层python程序中，指定好文件名，是不需要了解其他的命令的。不过下面这些命令读者可以稍微了解一下，比如pwd，查看远程服务器当前目录，cd，更远远程服务器目录，ls，mkdir等。然后类似的还有lpwd，查看本地系统当前目录，lcd更换本地当前目录和lls，lmkdir等。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> scp命令</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+一般还是优先使用sftp命令来在远程主机上进行拷贝或上传文件操作，但如果远程主机没开ftp服务，那么就不能使用sftp命令了。这是你可以使用scp命令来实现这些功能。本小节参考了 <a href="http://coolnull.com/1264.html">这个网页</a> 。
+</p>
+
+<p>
+从名字看得出来scp命令可以理解为基于ssh命令的cp命令。在使用方法上也类似，除了文件或文件夹路径前加上了ssh标识，如下所示:
+</p>
+<pre class="example">
+scp test.txt root@100.100.100.100:~
+</pre>
+
+<p>
+如上所示，如果是本地路径，则可以不加":"冒号前面那串。然后最常用的选项有:
+</p>
+
+<dl class="org-dl">
+<dt> -r </dt><dd>递归复制整个目录
+</dd>
+<dt> -P </dt><dd>控制端口号
+</dd>
+<dt> -p </dt><dd>保留原文件的修改时间，访问时间和访问权限
+</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> ln命令</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+本小节参考了 <a href="http://kingplesk.org/2011/06/linux-ln-%E7%AC%A6%E5%8F%B7%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%B1%82%E6%95%B0%E8%BF%87%E5%A4%9A/">这个网页</a> 。
+</p>
+
+<p>
+具体例子如下所示:
+</p>
+<pre class="example">
+sudo ln -s ~/工作空间/liteide/bin/liteide /usr/local/bin/liteide
+</pre>
+<p>
+默认是硬连接，如果加上-s则是符号连接。一般使用符号连接吧。然后注意符号连接都要使用绝对路径表示，否则会返回符号连接层数过多错误。
+</p>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> cron后台服务</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+有的ubuntu下可能还没有安装cron后台服务，通过
+</p>
+<pre class="example">
+sudo apt-get install cron
+</pre>
+<p>
+安装之。
+</p>
+
+<p>
+cron的后台服务程序，可以用来让系统执行一些计划内的周期性任务。具体这个服务的操作如下:
+</p>
+<pre class="example">
+sudo service cron status  #查看状态
+sudo service cron start   #启动服务
+sudo service cron stop    #停止服务
+sudo service cron restart #重启动服务
+</pre>
+
+<p>
+然后具体这个服务的配置文件似乎有几个，但一般都通过crontab这个命令查看或修改之，这样配置是会立即生效的。具体crontab的命令用法如下:
+</p>
+<pre class="example">
+crontab -l  #列出配置文件内容
+crontab -e  #进入配置文件编辑
+</pre>
+
+
+<p>
+一般的写法就是:
+</p>
+<pre class="example">
+分 时 日 月 星期几 命令
+</pre>
+<p>
+其中小时是24时制，星期几0表示星期日，1表示星期一，后面类推。后面的命令就是一行简单的shell命令，如果是多行命令的话建议写成bash脚本，然后给这个脚本可执行权限，然后写上该脚本的绝对路径名即可。
+</p>
+
+<p>
+具体文档给出了这样一个例子:
+</p>
+<pre class="example">
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+</pre>
+<p>
+这里的数字0就表示0分钟，5就表示5小时，然后*表示随意不做要求，1表示星期一。这样这行命令总的意思是每周一上午五点整执行一次这个命令。
+</p>
+
+<p>
+再来看个例子:
+</p>
+<pre class="example">
+*/5 * * * * echo  $(date +"%F_%T") "i am working" &gt;&gt; /tmp/test.log
+</pre>
+
+<p>
+上面这种"*/5"这种分隔符表达意思是每隔五分钟，然后将这些信息追加到这个log日志文件中去。
+</p>
+
+<p>
+然后这个是每天早上七点做什么。
+</p>
+<pre class="example">
+0 7 * * * command
+</pre>
+
+<p>
+更多信息请参看光头红薯的 <a href="http://www.oschina.net/question/12_2535">这篇帖子</a> 。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> flock命令</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+flock命令可用于linux系统中管理某个bash脚本中的某段代码在一个时间段内只有一个进程存在，也就是通过一个文件来设置锁的技术，称之为文件锁。最常用的文件锁，也是flock命令默认的模式就是排他锁模式，这种情况下该锁文件别人既不可读也不可写；此外还有一种什么共享锁模式，此时别人是可以读的同样不可写。共享锁和排他锁的区别 <a href="http://stackoverflow.com/questions/11837428/whats-the-difference-between-an-exclusive-lock-and-a-shared-lock">这个网页</a> 介绍得很好。
+</p>
+
+<p>
+下面是一个简单的flock程序演示例子:
+</p>
+<div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="o">(</span>
+  flock  <span class="m">200</span> 
+
+  <span class="nb">echo</span> <span class="s2">&quot;test&quot;</span>
+
+  sleep 10
+
+<span class="o">)</span> 200&gt;/var/lock/test.lock
+
+<span class="nb">echo</span> <span class="s2">&quot;test out&quot;</span>
+</pre></div>
+
+<p>
+读者可以简单地打开几个终端来测试一下，这里我们将会看到这段代码在后面进程中相当于被阻塞了，但还是在那里等待着。
+</p>
+
+<p>
+如果我们将代码改为:
+</p>
+<div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="o">(</span>
+  flock -w <span class="m">1</span> <span class="m">200</span> <span class="o">||</span> <span class="nb">exit </span>1
+
+  <span class="nb">echo</span> <span class="s2">&quot;test&quot;</span>
+
+  sleep 10
+
+<span class="o">)</span> 200&gt;/var/lock/test.lock
+
+<span class="nb">echo</span> <span class="s2">&quot;test out&quot;</span>
+</pre></div>
+
+<p>
+这是另外一种很常用的形式，这里的-w选项设置了一个等待时间，比如你开了第一个进程之后，第二个进程会等待1s，获不得文件锁就将exit 1 ，注意这里exit 1之后只是flock这行命令退出了，后面的echo命令还将继续执行，这通常不是我们期望的行为。所以后面一般再加上或逻辑然后再执行exit 1，这就退出整个flock这个执行代码了。
+</p>
+
+<p>
+这样测试的结果是，第一个进程占有文件锁之后，后面的进程都试探一次之后就会退出，然后flock代码块后面的代码是都会执行的。
+</p>
+
+<p>
+这里的句柄号fd 200并没什么特殊含义，请参看 <a href="http://stackoverflow.com/questions/13551840/bash-flock-why-200">这个网页</a> 。
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> wc命令</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 统计行数</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+这通常在linux管道模式下使用，进行log文件grep之后的行数统计来获得一些额外的信息。
+</p>
+<pre class="example">
+wc -l
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> lsof命令</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+我最先接触lsof命令是如下需求: 查看端口号1080是被谁占用了，如果你希望释放该端口号，则kill掉该进程即可。
+</p>
+<pre class="example">
+lsof -i :1080
+</pre>
+
+<p>
+这里的 <strong>lsof</strong> 命令倒不是专门为了查看端口号而设置的，其完整名字为list open files，也就是列出系统当前打开的文件的意思。由于在linux系统中， <span class="underline">一切皆文件</span> ，所以通过查看打开的文件信息能够获得很多有用的当前系统运行情况的信息。下面内容主要参考了 <a href="http://www.ha97.com/1029.html">这个网页</a> 和 <a href="http://www.oschina.net/question/12_145479">这个网页</a> 。
+</p>
+
+<p>
+在我们输入如下命令之后:
+</p>
+<div class="highlight"><pre>sudo lsof <span class="p">|</span> head
+</pre></div>
+<p>
+会看到一些信息，这个lsof命令一般输出内容都会很长，所以将其通过管道送入head命令中去了。然后刚开始很多信息的读取都需要管理员权限（倒不是会出错，而是信息读取不倒），所以这里也加上管理员权限了。
+</p>
+
+<pre class="example">
+COMMAND    PID  TID    USER   FD     TYPE   DEVICE   SIZE/OFF       NODE NAME
+init         1         root  cwd      DIR      8,7       4096          2 /
+init         1         root  rtd      DIR      8,7       4096          2 /
+init         1         root  txt      REG      8,7     265848    1704003 /sbin/init
+......
+</pre>
+
+<p>
+输出的格式大抵就是如下这几列:
+</p>
+<dl class="org-dl">
+<dt> COMMAND </dt><dd>进程名 
+</dd>
+<dt> PID </dt><dd>进程号
+</dd>
+<dt> USER </dt><dd>进程所有者
+</dd>
+<dt> FD </dt><dd>文件描述符，应用程序通过文件描述符来识别文件。
+<dl class="org-dl">
+<dt> cwd </dt><dd>Current working directory
+</dd>
+<dt> txt </dt><dd>Text file
+</dd>
+<dt> mem </dt><dd>Memory Mapped file
+</dd>
+<dt> mmap </dt><dd>Memory Mapped device
+</dd>
+<dt> Number </dt><dd>It represent the actual file descriptor. For example, 0u, 1w and 3r
+</dd>
+</dl>
+</dd>
+
+<dt> TYPE </dt><dd>文件类型
+<dl class="org-dl">
+<dt> REG </dt><dd>Regular file 
+</dd>
+<dt> DIR </dt><dd>Directory
+</dd>
+<dt> CHR </dt><dd>Character special file
+</dd>
+<dt> FIFO </dt><dd>First in first out 
+</dd>
+</dl>
+</dd>
+<dt> DEVICE </dt><dd>指定磁盘名称
+</dd>
+<dt> SIZE </dt><dd>文件大小
+</dd>
+<dt> NODE  </dt><dd>索引节点，文件在磁盘上的标识
+</dd>
+<dt> NAME </dt><dd>具体打开文件的名字
+</dd>
+</dl>
+
+<p>
+对于上面的这些列有如下的筛选选项:
+</p>
+<pre class="example">
+lsof -c string 按照COMMAND列过滤，目标进程名包含string这个字符串。
+lsof -u username 按照USER列过滤，指定具体的user是谁。
+lsof -p PID 按照PID列过滤，指定具体的PID是多少。
+lsof -d FD 按照FD这一列进行过滤，具体根据指定的文件描述符来。
+</pre>
+
+<p>
+然后 <code>-i</code> 用法上面谈过一点了，可以用来查看具体端口号被那个进程占用了。你还可以查看多个进程，如下所示:
+</p>
+
+<pre class="example">
+lsof -i :1-100
+</pre>
+<p>
+这是查看端口号1到100的占用情况。
+</p>
+
+<p>
+实际 <code>-i</code> 选项是针对网络连接的情况的，如果只是纯用 <code>-i</code> 选项，将列出所有和网络连接相关的进程。然后 <code>-i</code> 后面可以跟的描述形式挺复杂的:
+</p>
+
+<pre class="example">
+lsof -i [46] [protocol][@hostname|hostaddr][:service|port]
+</pre>
+
+<p>
+后面都是过滤选项吧，4指IPv4，6指IPv6。protocol是指TCP或UDP:
+</p>
+<pre class="example">
+lsof -i 4TCP
+</pre>
+<p>
+这是指列出网络连接IPv4，协议为TCP的进程。
+</p>
+
+<pre class="example">
+lsof -i 4TCP@localhost
+</pre>
+<p>
+这是指列出网络连接IPv4，协议为TCP，host是localhost的进程。
+</p>
+
+<pre class="example">
+lsof -i 4TCP@localhost:1000-3000
+</pre>
+<p>
+这是指列出网络连接IPv4，协议为TCP，host是localhost，端口号是1000到3000的进程。
+</p>
+
+<p>
+lsof命令还有 <code>+D</code> 选项，其作用是列出某文件夹下已经被打开的文件。
+</p>
+<pre class="example">
+sudo lsof +D /var/log
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 终端开启代理</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+没啥好的代理，自由门那个有时还可以用，有时还是需要在终端开启全局代理，然后再运行python脚本，这样省去了很多麻烦。
+</p>
+<pre class="example">
+export HTTP_PROXY="http://127.0.0.1:8580"
+export HTTPS_PROXY="http://127.0.0.1:8580"
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> curl命令</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+最基本的用法就是
+</p>
+<div class="highlight"><pre>curl the_url
+</pre></div>
+
+<p>
+the_url就是类似在浏览器上的输入，然后将会返回爬取的结果。
+</p>
+</div>
+
+
+<div id="outline-container-sec-10-1" class="outline-3">
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> 查看本机的外网ip</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+运行命令行:
+</p>
+<pre class="example">
+curl ifconfig.sh
+</pre>
+<p>
+你可以看到本机的外网ip，但是要注意，由于一般家庭用户都没有自己固定的外网ip，这似乎并没有什么实际用途。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> linux系统用户管理</h2>
+<div class="outline-text-2" id="text-11">
+</div><div id="outline-container-sec-11-1" class="outline-3">
+<h3 id="sec-11-1"><span class="section-number-3">11.1</span> 新建用户</h3>
+<div class="outline-text-3" id="text-11-1">
+<div class="highlight"><pre>useradd new_user_name
+</pre></div>
+
+<p>
+新建用户有很多选项设置，这里值得一提的就是 <code>-d</code> 用于设置新建用的主文件夹。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-11-2" class="outline-3">
+<h3 id="sec-11-2"><span class="section-number-3">11.2</span> 删除用户</h3>
+<div class="outline-text-3" id="text-11-2">
+<div class="highlight"><pre>userdel -r user_name
+</pre></div>
+<p>
+选项 <code>-r</code> 用于删除该用户的主文件夹。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-11-3" class="outline-3">
+<h3 id="sec-11-3"><span class="section-number-3">11.3</span> 修改用户密码</h3>
+<div class="outline-text-3" id="text-11-3">
+<p>
+修改用户的密码。默认是当前登录用户。
+</p>
+<pre class="example">
+passwd
+</pre>
+
+<p>
+如果你以root登录之后，可以具体来修改某个用户的密码:
+</p>
+<pre class="example">
+passwd the_name
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-11-4" class="outline-3">
+<h3 id="sec-11-4"><span class="section-number-3">11.4</span> 用户其他参数修改</h3>
+<div class="outline-text-3" id="text-11-4">
+<p>
+读者可以查看一下 <code>/etc/passwd</code> 文件里面的内容，其中 <strong>usermod</strong> 命令选项的修改都是和该文件的某项相关。这里就不列出来了，读者请通过 <code>--help</code> 细查之。比如:
+</p>
+
+<pre class="example">
+usermod the_name -md new_home
+</pre>
+
+<p>
+这是把某个用户的原主文件夹移到新的主文件夹那里。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-11-5" class="outline-3">
+<h3 id="sec-11-5"><span class="section-number-3">11.5</span> 以某用户身份登录</h3>
+<div class="outline-text-3" id="text-11-5">
+<p>
+用 <strong>login</strong> 具体以某个用户登录，然后用 <strong>exit</strong> 退出该用户的登录。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-11-6" class="outline-3">
+<h3 id="sec-11-6"><span class="section-number-3">11.6</span> 让某个用户是sudoer</h3>
+<div class="outline-text-3" id="text-11-6">
+<p>
+参考了 <a href="http://unix.stackexchange.com/questions/179954/username-is-not-in-the-sudoers-file-this-incident-will-be-reported">这个网页</a> 。
+</p>
+
+
+<div class="highlight"><pre>sudo usermod -aG sudo,adm user_name
+</pre></div>
+
+<p>
+就是给某个用户加上sudo权限使其成为sudoer。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> netstat命令</h2>
+</div>
+
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> ifconfig命令</h2>
+</div>
+
+
+<div id="outline-container-sec-14" class="outline-2">
+<h2 id="sec-14"><span class="section-number-2">14</span> date命令</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+date命令前面已谈到一点，更多信息请参看 <a href="http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/">这个网页</a> 。主要是一些输出格式的控制，这里就不赘述了。
+</p>
+
+<p>
+<a href="http://unix.stackexchange.com/questions/24626/quickly-calculate-date-differences">http://unix.stackexchange.com/questions/24626/quickly-calculate-date-differences</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-15" class="outline-2">
+<h2 id="sec-15"><span class="section-number-2">15</span> 参考资料</h2>
+<div class="outline-text-2" id="text-15">
+<ol class="org-ol">
+<li>鸟哥的私房菜
+</li>
+</ol>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-12 09:39.</p></div>
+</body>
+</html>

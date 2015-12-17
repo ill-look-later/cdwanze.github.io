@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>makefile进阶</title>
+<!-- 2015-11-02 17:39 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">makefile进阶</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-0-1">0.1. makefile</a></li>
+</ul>
+</li>
+<li><a href="#sec-1">1. 强制某个目标更新</a></div>
+</nav>
+
+
+
+<div id="outline-container-sec-0-1" class="outline-3">
+<h3 id="sec-0-1"><span class="section-number-3">0.1</span> makefile</h3>
+<div class="outline-text-3" id="text-0-1">
+<p>
+makefile里面内容其实很丰富的，实际上甚至有点过于复杂了。不过这里只是简单使用其基本功能还是很便利的。
+</p>
+
+<div class="highlight"><pre><span class="nv">project</span><span class="o">=</span>helloworld
+<span class="nv">cflags</span><span class="o">=</span>-g -Wall  <span class="si">${</span><span class="nv">CCFLAGS</span><span class="si">}</span>
+
+<span class="nf">${project}</span><span class="o">:</span> 
+        <span class="si">${</span><span class="nv">CC</span><span class="si">}</span>  helloworld.c -o <span class="nv">$@</span> <span class="si">${</span><span class="nv">cflags</span><span class="si">}</span>
+
+<span class="nf">clean</span><span class="o">:</span>
+        rm <span class="si">${</span><span class="nv">project</span><span class="si">}</span>
+
+<span class="nf">install</span><span class="o">:</span>
+        cp <span class="si">${</span><span class="nv">project</span><span class="si">}</span> /usr/local/bin
+
+<span class="nf">uninstall</span><span class="o">:</span>
+        rm /usr/local/bin/<span class="si">${</span><span class="nv">project</span><span class="si">}</span>
+
+<span class="nf">.PHONY</span><span class="o">:</span>
+        clean uninstall install
+</pre></div>
+
+<p>
+为了便于理解，上面这个makefile我有意采用了一种和bash接近的风格。前面 <code>project=</code> 就是一个定义变量的行为。这个project变量就是本脚本的名字。然后makefile下面的主体部分格式如下:
+</p>
+
+<pre class="example">
+target: prerequisites
+    the command
+</pre>
+<p>
+具体意思就是要生成target这个文件，首先要确保prerequisites这些依赖文件都在而且是最新的，不在或者不是最新的那么查找对应的目标生成规则继续生成。而对于这个target的生成就是执行下面的bash命令。下面是关于上面例子的一些讲解信息:
+</p>
+
+<ol class="org-ol">
+<li><em>特别要强调，命令前面请用 Tab键 隔开。</em> 还好emacs虽然设置成为Tab自动切换space，其对于makefile还是能够保留Tab键，其他编辑器就不知道了。这个真的算是一个很不好的设计。
+</li>
+
+<li>关于变量的使用读者看到上面的例子，我有意采用了类似bash脚本的语法。这么写也是支持的。
+</li>
+
+<li><code>$@</code> 这个特殊的符号并不是什么神秘东西，其意思就是当前目标的文件名，上面例子中当前目标是 <code>${target}</code> ，也就是helloworld，所以这里 <code>$@</code> 就是 helloworld。
+</li>
+
+<li><code>.PHONY</code> 这后面跟着一些生成目标，具体意思就是这些生成目标是伪目标，或者说其并没有生成文件，只是执行了某个命令。
+</li>
+
+<li>我们注意到上面的 <code>${CC}</code> 和 <code>${CCFLAGS}</code>  并没有为用户定义，其是make命令的一些默认变量。 <code>$(CC)</code> 就是调用系统默认的c编译器，一般为gcc。
+</li>
+
+<li><code>make</code> 命令不输入任何子命令时，默认执行输出第一个目标命令，一般是本项目目标。
+</li>
+
+<li>makefile的每个命令都有一个独立的终端，也就是不同的终端不共享变量，所以最好多个命令连接成为一个命令，换行用\换行。
+</li>
+
+<li>makefile扫描两边，第一遍变量替换，第二遍依赖关系。变量声明最好跟着对应的规则，还有要保证不能被后面的变量声明改变。
+</li>
+</ol>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 强制某个目标更新</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+参考了 <a href="http://stackoverflow.com/questions/7643838/how-to-force-make-to-always-rebuild-a-file">这个网页</a> 。
+</p>
+
+<p>
+大致如下面所示，设置一个 <strong>FORCE</strong> 目标，凡是依赖FORCE目标的都将强制没一次都再更新一遍，而原因就是因为这个FORCE目标不不依赖任何目标，这样makefile认为目标不存在，而每次都会再更新生成一遍。
+</p>
+<pre class="example">
+${project}.org: FORCE
+	python3 make_${project}org.py
+
+FORCE:
+</pre>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>bash编程高级篇</title>
+<!-- 2015-11-27 11:54 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">bash编程高级篇</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. bash里面的array</a>
+<ul>
+<li><a href="#sec-1-1">1.1. 赋值和引用</a></li>
+<li><a href="#sec-1-2">1.2. 其他array操作</a>
+<ul>
+<li><a href="#sec-1-2-1">1.2.1. 两个array合并在一起</a></li>
+<li><a href="#sec-1-2-2">1.2.2. 字符串刷成array</a></li>
+<li><a href="#sec-1-2-3">1.2.3. 简单的文件刷成列表</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-2">2. bash批处理</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> bash里面的array</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+bash编程最好不要过多涉及高级编程的那些内容，那将是很痛苦的，但是在某些情况下你可能需要了解array这个概念。下面来演示这样一个例子，其需求就是在一个自动备份程序之上再加上自动删除逻辑。
+</p>
+
+<div class="highlight"><pre><span class="c">#! /bin/bash</span>
+
+<span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date +%F<span class="k">)</span>
+<span class="nv">DAYS</span><span class="o">=</span>30
+
+<span class="c">## here is the autodump code, and the output filename is whatdump_${DATE}</span>
+
+<span class="c">### the allowed list</span>
+ALLOWED<span class="o">[</span>0<span class="o">]=</span>whatdump_<span class="si">${</span><span class="nv">DATE</span><span class="si">}</span>
+
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="o">=</span><span class="si">${</span><span class="nv">DAYS</span><span class="si">}</span><span class="p">;</span> i++ <span class="o">))</span>
+<span class="k">do</span>  ALLOWED<span class="o">[</span>i<span class="o">]=</span>whatdump_<span class="k">$(</span>date -d <span class="s2">&quot;now -</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">days&quot;</span> +<span class="s2">&quot;%F&quot;</span><span class="k">)</span>
+<span class="k">done</span>
+
+
+<span class="c">### use the python script , it is really hard to write it on bash</span>
+python ~/thepython/scripts/whatdump_autoremove.py <span class="si">${</span><span class="nv">ALLOWED</span><span class="p">[@]</span><span class="si">}</span>
+</pre></div>
+
+<p>
+这个程序整个逻辑就是创建一个名字叫做"whatdump_${DATE}"的备份文件（你可以通过cron后台服务来控制好每天运行一次），然后我们希望目标文件只保留最近三十天的文件。因为这个逻辑较为复杂，本来我是打算直接将 <code>${DATE}</code> 参数传递给python脚本来做接下来的工作的，但是在了解到date命令强大的人类友好的日期时间表达功能（请参考 <a href="http://unix.stackexchange.com/questions/24626/quickly-calculate-date-differences">这个网页</a> ），我决定将整个允许存在的文件名都传递进python脚本中去。
+</p>
+
+<p>
+有兴趣的可以了解下date命令-d选项的灵活表达支持，比如 date -d "now -3days" 就是现在之前三天的日期时间，而 date -d "+3weeks" 就是现在三周之后的日期时间。用兴趣的可以继续了解下，这个date命令的-d选项真的好强大。比如下面这几行代码（来自 <a href="http://www.thegeekstuff.com/2013/05/date-command-examples/">这个网页</a> ）:
+</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>date --date<span class="o">=</span><span class="s1">&#39;3 seconds ago&#39;</span>
+Mon May <span class="m">20</span> 21:59:20 PDT 2013
+
+<span class="nv">$ </span>date --date<span class="o">=</span><span class="s2">&quot;1 day ago&quot;</span>
+Sun May <span class="m">19</span> 21:59:36 PDT 2013
+
+<span class="nv">$ </span>date --date<span class="o">=</span><span class="s2">&quot;yesterday&quot;</span>
+Sun May <span class="m">19</span> 22:00:26 PDT 2013
+
+<span class="nv">$ </span>date --date<span class="o">=</span><span class="s2">&quot;1 month ago&quot;</span>
+Sat Apr <span class="m">20</span> 21:59:58 PDT 2013
+
+<span class="nv">$ </span>date --date<span class="o">=</span><span class="s2">&quot;1 year ago&quot;</span>
+Sun May <span class="m">20</span> 22:00:09 PDT 2012
+</pre></div>
+
+<p>
+好了下面详细讲一下这里array涉及到的语法。
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 赋值和引用</h3>
+<div class="outline-text-3" id="text-1-1">
+<pre class="example">
+=&gt;array[0]="hello"
+=&gt;array[1]="world!"
+=&gt;echo ${array[0]} ${array[1]}
+hello world!
+</pre>
+
+<p>
+这种表达和我们常见的那种数组概念相近，记得索引从0开始这个惯例即可。然后或者如下一起赋值:
+</p>
+
+<pre class="example">
+=&gt;array2=("hello" "python")
+=&gt;echo ${array2[@]}
+hello python
+</pre>
+
+<p>
+上面的 ${arrayname[@]} 这种表达方式就是引用所有的array，这个 <code>@</code> 符号是特殊符号。然后还有 <code>${#arrayname[@]}</code> 这种表达是返回这个array的长度。
+</p>
+
+<pre class="example">
+=&gt;echo ${#array2[@]}
+2
+</pre>
+
+<p>
+然后最后这句:
+</p>
+<pre class="example">
+python ~/thepython/scripts/whatdump_autoremove.py ${ALLOWED[@]}
+</pre>
+<p>
+就是将收集到的所有允许的文件名array传递进python脚本中去了。在python脚本中一个粗糙的做法就是如下这样引用
+</p>
+
+<pre class="example">
+def main(args,path=""):
+    print args
+
+main(sys.argv[1:])
+</pre>
+
+<p>
+这样所有的这些array就传递进args里面去了，读者有兴趣可以试一下，这个args在python中就是一个列表对象了。到python里面了更复杂的逻辑我们都可以很快写出来了，我就不说了。
+</p>
+
+<p>
+大概类似下面所示，注意这里的pathlib在python3.4之后才会有，之前需要用pip安装之。
+</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">allowed</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">pfolds</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pfolds</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pfolds</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="s">&quot;passed&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="s">&quot;removed&quot;</span><span class="p">)</span>
+            <span class="c">### really do the remove thing</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c">### 切换到autodump目录</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s">&quot;~/autodump&quot;</span><span class="p">))</span>
+
+    <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 其他array操作</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+你可能还会需要在bash中进行其他array操作，只是一般能够传递python就传进python中去，然后后面的再深加工吧。更多内容读者请参看 <a href="http://www.thegeekstuff.com/2010/06/bash-array-tutorial/">这个网页</a> 。下面我简介一下我觉得应该还是有点用的内容。
+</p>
+</div>
+
+
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> 两个array合并在一起</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+这在合并某些array结果然后传递进python脚本中有用。
+</p>
+<pre class="example">
+=&gt;Unix1=('Debian' 'Red hat' 'Ubuntu' 'Suse')
+=&gt;Unix2=('Fedora' 'UTS' 'OpenLinux')
+=&gt;Unix3=("${Unix1[@]}" "AIX" "HP-UX")
+=&gt;Unix4=("${Unix2[@]}" "${Unix3[@]}")
+=&gt;echo ${Unix3[@]}
+Debian Red hat Ubuntu Suse AIX HP-UX
+=&gt;echo ${Unix4[@]}
+Fedora UTS OpenLinux Debian Red hat Ubuntu Suse AIX HP-UX
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> 字符串刷成array</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+看到这里，我想读者应该猜到了，圆括号里面放着一列字符串然后就自动成为array了:
+</p>
+<pre class="example">
+=&gt;string="hello bash"
+=&gt;test=(${string})
+=&gt;echo ${test[@]}
+hello bash
+=&gt;echo ${test[1]}
+bash
+=&gt;echo ${test[0]}
+hello
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> 简单的文件刷成列表</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+这里就简单复制前面提及的那个网页的代码了，其实说白了还是和字符串转array一个道理，就是读取了一下文件即可。
+</p>
+<pre class="example">
+#Example file
+$ cat logfile
+Welcome
+to
+thegeekstuff
+Linux
+Unix
+
+$ cat loadcontent.sh
+#!/bin/bash
+filecontent=( `cat "logfile" `)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> bash批处理</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+这个在bash编程123那里也说一点，这里再强调一下，python脚本的命令行参数，如果是输入文件，我喜欢简单起见就单个文件，然后具体bash的时候，如下简单写一下批量处理命令即可，很简单的，就不用麻烦python脚本那边又要处理单个文件的情况又要处理多个文件的情况，还要缩进一次，多麻烦啊。
+</p>
+
+<div class="highlight"><pre><span class="k">for</span> f in <span class="k">$(</span>ls *.pdf<span class="k">)</span><span class="p">;</span> <span class="k">do</span> infome_image_convert_format --outputformat<span class="o">=</span>png <span class="si">${</span><span class="nv">f</span><span class="si">}</span> --dpi<span class="o">=</span><span class="m">300</span> <span class="p">;</span> <span class="k">done</span>
+</pre></div>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-27 11:54.</p></div>
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>github基础</title>
+<!-- 2015-11-02 17:39 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">github基础</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 结合github进行项目管理</a>
+<ul>
+<li><a href="#sec-1-1">1.1. 安装git</a></li>
+<li><a href="#sec-1-2">1.2. 远程仓库文件到本地</a></li>
+<li><a href="#sec-1-3">1.3. 初始化本地仓库</a></li>
+<li><a href="#sec-1-4">1.4. 本地仓库文件进入索引</a></li>
+<li><a href="#sec-1-5">1.5. 将索引中改动的文件提交到本地仓库</a></li>
+<li><a href="#sec-1-6">1.6. 本地仓库改动更新到远程仓库</a></li>
+<li><a href="#sec-1-7">1.7. 远程仓库的改动更新到本地</a></li>
+<li><a href="#sec-1-8">1.8. 日常改动提交流程总结</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. git补充知识</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 第一次使用的配置</a></li>
+<li><a href="#sec-2-2">2.2. 初始化仓库</a></li>
+<li><a href="#sec-2-3">2.3. 远程仓库克隆到本地</a></li>
+<li><a href="#sec-2-4">2.4. 本地文件进入索引</a></li>
+<li><a href="#sec-2-5">2.5. 将索引跟踪的文件改动提交到本地仓库</a></li>
+<li><a href="#sec-2-6">2.6. 本地仓库提交到远程仓库</a></li>
+<li><a href="#sec-2-7">2.7. 远程仓库的改动更新到本地</a></li>
+<li><a href="#sec-2-8">2.8. github其他小信息</a>
+<ul>
+<li><a href="#sec-2-8-1">2.8.1. .gitignore文件</a></li>
+<li><a href="#sec-2-8-2">2.8.2. 如何删除本项目</a></li>
+<li><a href="#sec-2-8-3">2.8.3. 本地仓库管理文件丢失</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 结合github进行项目管理</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 安装git</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Ubuntu用apt-get命令安装git即可：
+</p>
+<div class="highlight"><pre>sudo apt-get install git
+</pre></div>
+
+<p>
+还有些文档说要安装git-core，Bergman说这是一个dummy package（仿制品），删掉就用git也没事的。<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> 
+</p>
+
+
+<p>
+到github上注册，创建新的项目,这些我就不多说了。下面就git命令使用的基本流程说明如下：
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 远程仓库文件到本地</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+网上创建项目之后，你需要将网上的存档下载到本地，在你希望下载的地点，打开终端：
+</p>
+
+<pre class="example">
+git clone https://github.com/a358003542/xelatex-guide-book.git
+</pre>
+
+<p>
+后面的这个链接地址在你创建的项目的右下角哪里，写着HTTPS clone URL。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 初始化本地仓库</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<strong>git init</strong> 命令用于初始化本地仓库， <strong>git clone</strong> 下来的仓库文件已经初始化了，然后 <strong>origin</strong> 这个远程服务器名字也已经加上去了。<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 本地仓库文件进入索引</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+让本地仓库文件进入git的索引（从而git对该文件进行变更的监控），让文件夹内的所有文件都进入索引是大家很常用的命令：
+</p>
+<pre class="example">
+git  add  .
+</pre>
+
+
+<p>
+如果你本地删除了文件，你希望仓库里面也删除这些文件，那么使用命令：
+</p>
+<div class="highlight"><pre>git  add  --all  .
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 将索引中改动的文件提交到本地仓库</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="highlight"><pre>git  commit   -m  <span class="s1">&#39;2013-08-25:19:00&#39;</span>
+</pre></div>
+
+<p>
+后面的文字串等下在github网站中会看到的，表示这个文件的标示符吧，你也可以取其他的名字，比如version0.1之类的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> 本地仓库改动更新到远程仓库</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+第一次你需要给你的远程服务器取个简单点的名字：
+</p>
+<pre class="example">
+git remote add origin 
+        https://github.com/a358003542/xelatex-guide-book.git
+</pre>
+
+<p>
+这里的 <strong>origin</strong> 的意思是远程服务器的简称，按理来说这个名字是可以随便取的，不过大家似乎都是取得origin，然后你从github上clone下来的仓库默认远程服务器名字大多也是 <strong>origin</strong> ， <strong>master</strong> 是远程仓库默认的一个分支，后面会讲到你可以创建其他的分支。
+</p>
+
+<p>
+然后以后都可以用这个简单的命令来更新了：
+</p>
+<div class="highlight"><pre>git  push  origin  master
+</pre></div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> 远程仓库的改动更新到本地</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+下面这个命令git对文件的操作是合并式的，也就是只是替换最新改动的文件。如果你希望远程仓库所有改动包括删除也更新到本地，使用可选项 <code>-- all</code> 。
+</p>
+<div class="highlight"><pre>git  pull origin master
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> 日常改动提交流程总结</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+一般情况下就 add commit push 这三步。这是基本的日常维护提交流程。
+</p>
+
+<p>
+如果你在网站上对远程仓库做了一些修改，记得先用pull命令将远程仓库的改动更新到本地。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> git补充知识</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+这段对上面提及的一些命令进行更加详细的讲解。当然读者可以再看一遍，就当是复习了。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 第一次使用的配置</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+设置你的名字和email：
+</p>
+<div class="highlight"><pre>git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
+git config --global user.email <span class="s2">&quot;your_email@whatever.com&quot;</span>
+</pre></div>
+
+<p>
+这个是git的全局设置，和具体项目无关。你可以打开Ubuntu系统的主文件夹下的 <code>.gitconfig</code> 文件看一下。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 初始化仓库</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="highlight"><pre>git init
+</pre></div>
+
+<p>
+<strong>git init</strong> 即在当前工作目录下初始化git的管理仓库，如果你打开查看隐藏文件，会看到一个 <code>.git</code> 文件夹，git用于管理当前项目的一些文件就存放在这里面，所谓的本地仓库应该也是放在这里面的。
+</p>
+
+<p>
+如果你是在github上创建的项目，然后将这个项目克隆下来，那么就不需要再执行init命令，远程仓库已经执行了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 远程仓库克隆到本地</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+网上创建项目之后，你需要将网上的存档下载到本地，在你希望下载的地点，打开终端：
+</p>
+<div class="highlight"><pre>git clone theURL
+</pre></div>
+
+<p>
+上面代码的“theURL”就是你的项目的网页地址，在地址栏复制即可。此外还有什么SSH链接在github网页项目的右下角那里，一般使用就用https链接吧。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 本地文件进入索引</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+本地文件进入git的索引，该文件夹内的所有文件都进入索引则在终端中输入如下命令：
+</p>
+<div class="highlight"><pre>git add theFilename
+</pre></div>
+
+
+<p>
+我们在github创建项目的时候已经创建了一个 <code>.gitignore</code> 配置文件，然后git是不索引这些后缀名的文件的。
+</p>
+
+<p>
+如果你本地删除了文件，你希望远程仓库也删除这些文件，那么需要加上 <code>--all</code> 选项，这样我们一般日常更新本地文件夹的索引常使用如下命令：
+</p>
+
+<div class="highlight"><pre>git  add  --all   .
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 将索引跟踪的文件改动提交到本地仓库</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+这里的commit命令提交是指提交给本地git的管理仓库，就是 <code>.git</code> 文件夹里面的一些内容。
+</p>
+<div class="highlight"><pre>git  commit   -m  <span class="s1">&#39;0.01&#39;</span>
+</pre></div>
+
+<p>
+后面的文字串等下在github网站中会看到的，跟在文件名后面的，所以建议取简短一点。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 本地仓库提交到远程仓库</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+第一次你需要给你的远程服务器取个简单点的名字：
+</p>
+<div class="highlight"><pre>git remote add origin theURL
+</pre></div>
+
+<p>
+上面代码的“theURL”就是你的项目的网页地址。
+</p>
+
+<p>
+然后以后都可以用这个简单的命令来更新了：
+</p>
+<div class="highlight"><pre>git  push  origin  master
+</pre></div>
+
+<p>
+这里的origin的意思是远程服务器的简称，按理来说这个名字是可以随便取的，不过大家似乎都是取得origin，然后你从github上clone下来的内容大多也是origin <sup><a id="fnr.3" name="fnr.3" class="footref" href="#fn.3">3</a></sup> ，master是远程仓库默认的一个分支，后面会讲到你可以创建其他的分支。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 远程仓库的改动更新到本地</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+下面这个命令git pull对文件的操作是合并式的，也就是只是替换最新改动的文件。如果你希望远程仓库所有改动包括删除也更新到本地，使用请可选项 <code>--all</code> 。
+</p>
+<div class="highlight"><pre>git  pull origin master
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> github其他小信息</h3>
+<div class="outline-text-3" id="text-2-8">
+</div><div id="outline-container-sec-2-8-1" class="outline-4">
+<h4 id="sec-2-8-1"><span class="section-number-4">2.8.1</span> .gitignore文件</h4>
+<div class="outline-text-4" id="text-2-8-1">
+<p>
+你在github创建项目的时候如果选择好了项目语言，就会自动创建一个 <code>.gitignore</code> 文件，文件语法很简单，比如 <code>*.out</code> 则项目内所有后缀为out的文件都不会被加入索引。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-8-2" class="outline-4">
+<h4 id="sec-2-8-2"><span class="section-number-4">2.8.2</span> 如何删除本项目</h4>
+<div class="outline-text-4" id="text-2-8-2">
+<p>
+在github项目网站右下角settings哪里进去有很多项目管理内容，其中最下面有删除项目的功能，请慎重使用。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-8-3" class="outline-4">
+<h4 id="sec-2-8-3"><span class="section-number-4">2.8.3</span> 本地仓库管理文件丢失</h4>
+<div class="outline-text-4" id="text-2-8-3">
+<p>
+如果你把本地仓库隐藏的.git文件夹删除了，但是本地的更改你又想上传到远程仓库，你首先需要 <code>git init</code> ，然后添加远程服务器名字， <code>git remote add origin</code> 地址。然后建立本地索引， <code>git add -- all</code> 。然后commit和push。这里可能远程服务器会拒绝，push的时候加入 <code>-f</code> 选项会强制push， <span class="underline">但是要注意这样github网页里面所有之前commit的记录都没有了</span> 。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 参考资料</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li><a href="http://rogerdudler.github.io/git-guide/index.zh.html">git简明指南</a>
+</li>
+
+<li><a href="http://githowto.com/">git howto</a>
+</li>
+
+<li><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html">图解git</a>
+</li>
+
+<li><a href="http://gitbook.liuhui998.com/">git community book中文版</a>
+</li>
+</ol>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p><a href="http://askubuntu.com/questions/5930/what-are-the-differences-between-the-git-and-git-core-packages">请参看这个网页</a></p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p>参考了<a href="http://www.cnblogs.com/findingsea/archive/2012/08/27/2654549.html">这个网站</a></p></div>
+
+<div class="footdef"><sup><a id="fn.3" name="fn.3" class="footnum" href="#fnr.3">3</a></sup> <p>也就是你从远程仓库clone下面的内容不需要在add origin这个属性了，直接push就可以了。</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽; 编者: 编者:万泽; 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>

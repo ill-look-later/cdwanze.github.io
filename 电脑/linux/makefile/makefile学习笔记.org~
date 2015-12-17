@@ -1,0 +1,26 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: makefile进阶
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 强制某个目标更新
+参考了 [[http://stackoverflow.com/questions/7643838/how-to-force-make-to-always-rebuild-a-file][这个网页]] 。
+
+大致如下面所示，设置一个 *FORCE* 目标，凡是依赖FORCE目标的都将强制没一次都再更新一遍，而原因就是因为这个FORCE目标不不依赖任何目标，这样makefile认为目标不存在，而每次都会再更新生成一遍。
+#+BEGIN_EXAMPLE
+${project}.org: FORCE
+	python3 make_${project}org.py
+
+FORCE:
+#+END_EXAMPLE
+
+
+
+
+

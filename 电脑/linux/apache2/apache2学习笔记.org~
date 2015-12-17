@@ -1,0 +1,146 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+HTML_HEAD: <link rel="stylesheet"  href="http://a358003542.github.io/templates/main.css"/>
+
+
+#+TITLE: apache2学习笔记
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+
+
+* apache2的配置
+** a2ensite和a2dissite命令
+本小节参考了 [[http://blog.csdn.net/hfahe/article/details/5490223][这个网页]] 。
+
+在刚开始之前推荐先将默认配置站点禁用，然后切换到自己的站点和方便管理的本地文件夹那里。我们运行:
+#+BEGIN_EXAMPLE
+sudo a2dissite 
+#+END_EXAMPLE
+然后程序会提示你一些可用站点选项，这里我先把那个000-default给禁用了。
+
+然后我们到 ~/etc/apache2/sites-available~ 那里，执行:
+#+BEGIN_EXAMPLE
+sudo cp 000-default.conf test.conf
+#+END_EXAMPLE
+
+这里简单起来就使用原来的配置，只是稍微修改了一下 ~DocumentRoot~ :
+#+BEGIN_EXAMPLE
+DocumentRoot /var/www/test
+#+END_EXAMPLE
+
+这里的文件夹也是放在/var/www里面的，文件夹名随意。也是为了刚开始配置方便，如果要将文件夹设置成用户主文件夹非root模式下，会很麻烦，有很多东西要设置。刚开始简单点吧。
+
+然后让这个配置文件可用，就是使用a2ensite命令来是这个站点可用的意思:
+#+BEGIN_EXAMPLE
+sudo a2ensite
+#+END_EXAMPLE
+选择那个test即可
+
+然后重启一下apache2服务，当然在/var/www下面需要随便放一个index.html文件，这个就不用多说了。
+#+BEGIN_EXAMPLE
+sudo service apache2 restart
+#+END_EXAMPLE
+
+不出意外的话，你在浏览器输入localhost应该能够看到一个简单的页面了吧。
+
+
+** a2dismod命令
+我之前安装了suphp和suexec模块，还没设置成功，不想放在那里后来对我这里php文件的解析产生影响了，先用a2dismod命令将这两个模块解除了就显示正常了。
+
+** log文件在那里
+在ubuntu下默认的log文件生成路径在 ~/var/log/apache2~ 那里。
+
+** 查看当前apache2的一些环境变量
+#+BEGIN_EXAMPLE
+source /etc/apache2/envvars
+apache2 -V 
+#+END_EXAMPLE
+
+这些环境变量还看不懂，不管怎么样，目前记住在 ~/etc/apache2~ 那里就放着apache2的一些重要配置文件，后面再慢慢了解吧。
+
+** 对应到用户的某个文件夹下
+现在我希望把网站对应的文件夹对应到（我在ubuntu下的）主文件夹下的某个文件夹，这样更方便调试。于是修改了前面的 ~DocumentRoot~ 参数，重启apache2服务之后，报错说/没有权限访问，然后参考了 [[http://stackoverflow.com/questions/10873295/error-message-forbidden-you-dont-have-permission-to-access-on-this-server][这个网页]] ，进行如下设置即可:
+
+#+BEGIN_EXAMPLE
+        <Directory / >
+        Require all granted
+        </Directory>
+#+END_EXAMPLE
+
+这个只适用于apache2 2.4版本以上，不过我想（新用户）现在应该都是用的apache2或者以上版本了吧。然后你可以先放一个简单的index.php，随便写点东西然后登入localhost来看一下。
+
+不过这个设置似乎把系统根目录的权限都开出来了的意思，也许对于安全设置来说不是很好。更高一级的安全设置有suphp模块可以参考，现在先不考虑这些吧。
+
+** 多站点的玩法
+本地localhost，或者外网通过你机器的外网ip来访问，是通过你的000-default站点或者你把000-default站点禁用了的另外一个站点来管理的。它们在配置上都没有加上
+#+BEGIN_EXAMPLE
+    ServerName www.cdwanze.org
+    ServerAlias cdwanze.org
+#+END_EXAMPLE
+这两个配置。
+
+如果你加上了这两个域名配置，那么通过一个apache2服务器，是可以通过管理多个站点的。你的其他站点的访问需要通过外网域名的方式进入，比如你在浏览器上输入 ~www.cdwanze.org~ ，然后你a2ensite了这个站点，那么这个站点是可以正常访问的，和上面提及的localhost或者外网ip直接访问的那个站点是没有冲突的。
+
+类似的你可以再在 ~sites-available~ 那里多加几个配置文件对应几个站点，然后都a2ensite一下，再重启apache2服务，你的所有这些站点都是能够正常对外工作的。
+
+
+   
+
+
+
+* 安装简介
+在ubuntu下安装所谓的LAMP套件是很简单了，实际上用apt-get直接安装也看不出来比用那个套件安装方法复杂多少。
+#+BEGIN_EXAMPLE
+sudo apt-get install tasksel
+sudo tasksel install lamp-server
+#+END_EXAMPLE
+
+
+** apt-get安装软件包清单
+下面是我收集的相关软件安装包信息，主要参考了 [[http://bbs.aliyun.com/read/135940.html][这个网页]] 。当然通常所谓的LAMP套件不需要安装这么多东西，最简单的就是mysql-server，mysql-client，php5，apache2。然后后面这些软件包后面你可能会用到的。
+
+
+- mysql-server :: Mysql服务器核心程序，服务器端主程序。  
+- mysql-client :: Mysql客户端，用以通过命令行方式登录管理Mysql服务器。 
+- mysql-common :: Mysql核心库文件，包含了运行Mysql必备的基本文件。 
+- php5 :: 服务器端PHP解释器 
+- php5-cgi :: 服务器端PHP-CGI解释器 
+- php5-cli :: PHP5命令行工具 
+- php5-common :: PHP5一些基本文件 
+- php5-fpm :: 服务器端PHP-FPM程序 这个程序对Nginx处理PHP很重要 
+- php5-gd :: PHP5的GD模块 GD是一套开源图像处理库，一般dz生成缩略图或者加水印需要他 
+- php5-imagick :: PHP5的ImageMagick模块 DZ支持调用其用以提供比GD跟快以及更高效的图像处理 
+- php5-imap :: PHP5的IMAP模块 论坛的邮件发送功能可能需要 
+- php5-ldap :: PHP5的LDAP模块 LDAP是一个轻量级目录服务 
+- php5-mcrypt :: PHP5的MCrypt模块 主要用途是数据加密，比如phpmyadmin就会要求提供此模块来提供更高的安全性 
+- php5-mysql :: PHP5的MySQL模块 如果想让你的网站可以访问数据库，此模块必备 
+- php5-snmp :: PHP5的SNMP模块 
+- php5-sqlite :: PHP5的SQLite模块 SQLite是一个轻量级的数据库，某些软件可能需要 
+- php5-xmlrpc :: PHP5的XML-RPC 
+- apache2 :: Apache元包（metapackage不会翻译的飘过） 
+- apache2-mpm-prefork :: AApache传统无线程模型 
+- apache2-utils :: Web服务器实用工具 
+- apache2.2-bin :: Apache公用二进制文件 
+- apache2.2-common :: Apache公用文件 
+- libapache2-mod-php5 :: 服务器端，HTML嵌入式脚本语言（Apache模块） 
+
+
+下面继续列出一些相关软件包信息:
+- php5-curl
+- php5-json
+
+
+* 参考资料
+1. [[http://php.freehostingguru.com/][PHP完全中文手册]]
+2. [[http://php.net/manual/zh/][PHP手册]]
+3. 哈佛大学的 [[http://open.163.com/special/opencourse/buildingdynamicwebsites.html][构建动态网页视频教程]] 
+
+
+
+

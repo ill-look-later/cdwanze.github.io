@@ -1,0 +1,186 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: github基础
+#+AUTHOR: 万泽
+#+CREATOR: 编者:万泽
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 结合github进行项目管理
+** 安装git
+Ubuntu用apt-get命令安装git即可：
+#+BEGIN_SRC sh
+sudo apt-get install git
+#+END_SRC
+
+还有些文档说要安装git-core，Bergman说这是一个dummy package（仿制品），删掉就用git也没事的。[fn::[[http://askubuntu.com/questions/5930/what-are-the-differences-between-the-git-and-git-core-packages][请参看这个网页]]] 
+
+
+到github上注册，创建新的项目,这些我就不多说了。下面就git命令使用的基本流程说明如下：
+
+** 远程仓库文件到本地
+网上创建项目之后，你需要将网上的存档下载到本地，在你希望下载的地点，打开终端：
+
+#+BEGIN_EXAMPLE
+git clone https://github.com/a358003542/xelatex-guide-book.git
+#+END_EXAMPLE
+
+后面的这个链接地址在你创建的项目的右下角哪里，写着HTTPS clone URL。
+
+** 初始化本地仓库
+*git init* 命令用于初始化本地仓库， *git clone* 下来的仓库文件已经初始化了，然后 *origin* 这个远程服务器名字也已经加上去了。[fn::参考了[[http://www.cnblogs.com/findingsea/archive/2012/08/27/2654549.html][这个网站]]]
+
+
+** 本地仓库文件进入索引
+让本地仓库文件进入git的索引（从而git对该文件进行变更的监控），让文件夹内的所有文件都进入索引是大家很常用的命令：
+#+BEGIN_EXAMPLE
+git  add  .
+#+END_EXAMPLE
+
+
+如果你本地删除了文件，你希望仓库里面也删除这些文件，那么使用命令：
+#+BEGIN_SRC sh
+git  add  --all  .
+#+END_SRC
+
+
+** 将索引中改动的文件提交到本地仓库
+#+BEGIN_SRC sh
+git  commit   -m  '2013-08-25:19:00' 
+#+END_SRC
+
+后面的文字串等下在github网站中会看到的，表示这个文件的标示符吧，你也可以取其他的名字，比如version0.1之类的。
+
+
+** 本地仓库改动更新到远程仓库
+第一次你需要给你的远程服务器取个简单点的名字：
+#+BEGIN_EXAMPLE
+git remote add origin 
+        https://github.com/a358003542/xelatex-guide-book.git
+#+END_EXAMPLE
+
+这里的 *origin* 的意思是远程服务器的简称，按理来说这个名字是可以随便取的，不过大家似乎都是取得origin，然后你从github上clone下来的仓库默认远程服务器名字大多也是 *origin* ， *master* 是远程仓库默认的一个分支，后面会讲到你可以创建其他的分支。
+
+然后以后都可以用这个简单的命令来更新了：
+#+BEGIN_SRC sh
+git  push  origin  master
+#+END_SRC
+
+
+
+** 远程仓库的改动更新到本地
+下面这个命令git对文件的操作是合并式的，也就是只是替换最新改动的文件。如果你希望远程仓库所有改动包括删除也更新到本地，使用可选项 ~-- all~ 。
+#+BEGIN_SRC sh
+git  pull origin master
+#+END_SRC
+
+
+** 日常改动提交流程总结
+一般情况下就 add commit push 这三步。这是基本的日常维护提交流程。
+
+如果你在网站上对远程仓库做了一些修改，记得先用pull命令将远程仓库的改动更新到本地。
+
+
+* git补充知识
+这段对上面提及的一些命令进行更加详细的讲解。当然读者可以再看一遍，就当是复习了。
+
+** 第一次使用的配置
+设置你的名字和email：
+#+BEGIN_SRC sh
+git config --global user.name "Your Name"
+git config --global user.email "your_email@whatever.com"
+#+END_SRC
+
+这个是git的全局设置，和具体项目无关。你可以打开Ubuntu系统的主文件夹下的 ~.gitconfig~ 文件看一下。
+
+
+** 初始化仓库
+#+BEGIN_SRC sh
+git init
+#+END_SRC
+
+*git init* 即在当前工作目录下初始化git的管理仓库，如果你打开查看隐藏文件，会看到一个 ~.git~ 文件夹，git用于管理当前项目的一些文件就存放在这里面，所谓的本地仓库应该也是放在这里面的。
+
+如果你是在github上创建的项目，然后将这个项目克隆下来，那么就不需要再执行init命令，远程仓库已经执行了。
+
+
+** 远程仓库克隆到本地
+网上创建项目之后，你需要将网上的存档下载到本地，在你希望下载的地点，打开终端：
+#+BEGIN_SRC sh
+git clone theURL
+#+END_SRC
+
+上面代码的“theURL”就是你的项目的网页地址，在地址栏复制即可。此外还有什么SSH链接在github网页项目的右下角那里，一般使用就用https链接吧。
+
+
+
+** 本地文件进入索引
+本地文件进入git的索引，该文件夹内的所有文件都进入索引则在终端中输入如下命令：
+#+BEGIN_SRC sh
+git add theFilename
+#+END_SRC
+
+
+我们在github创建项目的时候已经创建了一个 ~.gitignore~ 配置文件，然后git是不索引这些后缀名的文件的。
+
+如果你本地删除了文件，你希望远程仓库也删除这些文件，那么需要加上 ~--all~ 选项，这样我们一般日常更新本地文件夹的索引常使用如下命令：
+
+#+BEGIN_SRC sh
+git  add  --all   .  
+#+END_SRC
+
+
+** 将索引跟踪的文件改动提交到本地仓库
+这里的commit命令提交是指提交给本地git的管理仓库，就是 ~.git~ 文件夹里面的一些内容。
+#+BEGIN_SRC sh
+git  commit   -m  '0.01' 
+#+END_SRC
+
+后面的文字串等下在github网站中会看到的，跟在文件名后面的，所以建议取简短一点。
+
+
+** 本地仓库提交到远程仓库
+第一次你需要给你的远程服务器取个简单点的名字：
+#+BEGIN_SRC sh
+git remote add origin theURL
+#+END_SRC
+
+上面代码的“theURL”就是你的项目的网页地址。
+
+然后以后都可以用这个简单的命令来更新了：
+#+BEGIN_SRC sh
+git  push  origin  master
+#+END_SRC
+
+这里的origin的意思是远程服务器的简称，按理来说这个名字是可以随便取的，不过大家似乎都是取得origin，然后你从github上clone下来的内容大多也是origin [fn::也就是你从远程仓库clone下面的内容不需要在add origin这个属性了，直接push就可以了。] ，master是远程仓库默认的一个分支，后面会讲到你可以创建其他的分支。
+
+** 远程仓库的改动更新到本地
+下面这个命令git pull对文件的操作是合并式的，也就是只是替换最新改动的文件。如果你希望远程仓库所有改动包括删除也更新到本地，使用请可选项 ~--all~ 。
+#+BEGIN_SRC sh
+git  pull origin master
+#+END_SRC
+
+
+** github其他小信息
+*** .gitignore文件
+你在github创建项目的时候如果选择好了项目语言，就会自动创建一个 ~.gitignore~ 文件，文件语法很简单，比如 ~*.out~ 则项目内所有后缀为out的文件都不会被加入索引。
+
+*** 如何删除本项目
+在github项目网站右下角settings哪里进去有很多项目管理内容，其中最下面有删除项目的功能，请慎重使用。
+
+
+*** 本地仓库管理文件丢失
+如果你把本地仓库隐藏的.git文件夹删除了，但是本地的更改你又想上传到远程仓库，你首先需要 ~git init~ ，然后添加远程服务器名字， ~git remote add origin~ 地址。然后建立本地索引， ~git add -- all~ 。然后commit和push。这里可能远程服务器会拒绝，push的时候加入 ~-f~ 选项会强制push， _但是要注意这样github网页里面所有之前commit的记录都没有了_ 。
+
+
+* 参考资料
+1. [[http://rogerdudler.github.io/git-guide/index.zh.html][git简明指南]]
+
+2. [[http://githowto.com/][git howto]]
+
+3. [[http://marklodato.github.io/visual-git-guide/index-zh-cn.html][图解git]]
+
+4. [[http://gitbook.liuhui998.com/][git community book中文版]]

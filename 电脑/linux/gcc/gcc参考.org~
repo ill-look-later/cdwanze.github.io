@@ -1,0 +1,20 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: python学习手册
+#+AUTHOR: Mark Lutz
+#+CREATOR: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+#+OPTIONS: toc:nil
+
+
+| cover                          | 简介                                                         |
+|--------------------------------+--------------------------------------------------------------|
+| [[file:images/python学习手册.png]] | Mark Lutz 著，很全面很详细的一本面向初学者的python学习手册。 |
+
+
+1. 第四版[中文]非文字版，大小100M！[[http://pan.baidu.com/s/1jGyBykA][百度网盘]]
+2. 第四版[中文]非文字版，大小100M！[[http://1drv.ms/1AyWMry][onedrive]]
+

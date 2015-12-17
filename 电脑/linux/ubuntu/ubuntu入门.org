@@ -1,0 +1,298 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+#+HTML_HEAD: <link rel="stylesheet"  href="main.css" />
+
+#+TITLE: ubuntu入门
+#+AUTHOR: 万泽
+#+CREATOR: 编者:万泽
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 通过U盘安装ubuntu
+1. 在安装之前请先把硬盘中的资料做一些调整，空出一个大于20G的硬盘做将来要安装ubuntu根目录的地方。然后还需要一个大约为你内存两倍的硬盘分区等下要作为linux系统的swap交换分区。
+2. 到ubuntu的官网上下载系统的光盘映像。
+3. 用ultroiso软件（其他具有类似功能的软件也行）（注意ultroiso最好选择最新的版本，ubuntu10.10之后的一定要用9.3版本之上的）将该光盘映像写入到你的U盘中去。
+4. 重启计算机，BIOS稍作改动使计算机变成从U盘启动。
+5. 进入安装过程，其他过程都比较直观，就是硬盘分区设置上我们选择高级手动，然后将你分出来的那个20G硬盘作为／的加载点，并设置格式化成ext4日志系统（其他文件系统如ext3等也行）。然后设置交换分区，安装完成。
+
+
+* 初入ubuntu
+- 设置ubuntu的root用户，这个以后可能会有用。按住ctrl+alt+t弹出终端，然后输入： ~sudo passwd~ 设置好密码之后，以后输入： ~su~ 就可以进入root账户了。
+- 安装一个有用的工具：
+#+BEGIN_SRC sh
+sudo apt-get install nautilus-open-terminal
+#+END_SRC
+
+这个工具可以让你在视窗背景下鼠标右键之后打开当前目录下的终端，有时还是很快捷的，尤其是遇到一些怪怪的文件名的时候。
+- 系统安装好之后第一件要做的事是选一个好的源，然后安装更新。在系统设置→软件和更新那里，在“下载自”的哪里就是软件源的服务商，你最好还是自己搜索一个速度最快的源。然后在终端中执行以下命令来升级系统软件包：\\
+ ~sudo apt-get update~  （更新源） \\
+ ~sudo apt-get upgrade~    （升级源下已经安装了的软件）[fn::如果有很多软件需要升级的时候推荐使用命令：sudo apt-get dist-upgrade 这样不容易出错些。]
+- 一些闭源的有用的东西：
+#+BEGIN_SRC sh
+sudo apt-get install ubuntu-restricted-extras
+#+END_SRC
+
+这个安装到adoubeflashplugin的时候会有点卡住，最好还是耐心点吧。或者在ubuntu软件中心（Ubuntu 额外的版权受限程序）中安装也是可以的。
+- ubuntu系统清理，运行以下两个命令即可： \\ 
+ ~sudo apt-get autoremove~ （清理软件残余） \\
+ ~sudo apt-get autoclean~  （清理缓存）。
+-  删除通过apt-get安装的软件： ~sudo apt-get remove 要删除的软件名~  \\ 
+删除相应的软件配置文件： ~sudo apt-get purge 软件名~ 
+- 长按super键或者说是win键会弹出一些ubuntu桌面常用的快捷键，比如说ctrl+win+d是显示桌面，按住win+f搜索文件，win+a搜索程序等。
+
+
+* linux命令介绍
+ - $和~ :: 当我们打开终端的时候，看到一个美元$符号，如果我们输入 ~su~ 命令，然后进入root账户，看到开头有一个#符号，其中$表示普通用户，#表示现在是超级用户。然后我们看到一个波浪号~，这个波浪号的意思就是当前用户的个人主文件夹，比如现在我这里~的意思就表示目录/home/wanze 。
+ -  cd :: 一般dir或者ls之后列出该目录所包含的文件夹或者文件，然后执行如下命令: ~cd 某个文件夹名~  就进入这个文件夹了。如果cd一个文件就会报错。然后特殊的有：
+#+BEGIN_EXAMPLE
+cd ~ 回到个人主文件夹
+cd . 其中点表示当前目录
+cd .. 表示返回上一级目录
+cd 某个目录 ，比如cd ／etc 那么就直接跳到系统的／etc目录下了。
+#+END_EXAMPLE
+
+ -  cp :: 复制文件命令:  ~cp   要复制的文件   目标文件目录~ 
+ -  which :: 查看系统某个命令的位置
+ -  touch :: 创建某个文件或者对已存在的文件更新时间戳
+ -  rm :: 删除某个文件,一些具体选项我就不罗嗦了，如果有不明了的请自己用 ~--help~ 来查看帮助信息。比如这里的 ~-r~ 选项就可以强制删除一个目录下所有的文件。
+ -  mkdir :: 创建文件夹
+ -  rmdir ::  删除文件夹
+ -  mv :: 移动某个文件或者重命名某个文件
+
+
+* 通过ppa安装软件
+ppa也就是软件源，一般推荐ppa安装软件即该软件还处于活跃开发期中，所以推荐尽快更新到官方最新的版本。过程就是添加ppa源，然后用前面讲的apt -get upgrade来更新源下的软件。添加ppa源的格式如下：
+#+BEGIN_SRC sh
+sudo add-apt-repository ppa:后面就是什么官方源地址了
+#+END_SRC
+
+然后更新源下的软件列表：
+#+BEGIN_SRC sh
+sudo apt-get update
+#+END_SRC
+
+接下来就是通过 ~apt-get  install~ 来安装该软件了。 ~upgrade~ 是更新源下已经安装了的软件，所以第一次装还是要用install命令。[fn::参考了这个网站，[[http://linuxers.org/howto/how-install-any-software-ubuntu-ppa][how-install-any-software-ubuntu-ppa]] 。] 。
+
+* 软件推荐
+以下编号：Ⓐ 表示可以从ubutnu软件中下载到，Ⓑ 表示可以从终端apt-get命令中下载到，Ⓒ 表示推荐从ppa安装。
+
+ - 新立得软件包管理器 :: 这个有时安装一套软件组合很有用的。Ⓐ
+ - chromium :: 不清楚和google-chrome的区别。它的插件很方便，firefox也很好，对于配置低的机器更适合一些。Ⓐ\\
+   chromium插件推荐：
+  + Daum Equation Editor ::  本文暂时不会讨论数学公式的输入问题，这里有个简单的解决方案，就是在这个插件里面编辑公式，下面就有对应的\LaTeX 的代码。
+  + 代理助手 :: 好吧，我讲这个完全是因为天朝的防火墙，不学会翻墙严重干扰我们搜索信息。具体设置是http代理填写相关地址，china list这个选项也勾上吧。下面还有详细说明。
+ - 翻墙软件 :: 要搜东西真的要用google，在天朝你懂的，因为要跑防火墙慢死了。轮子的自由门还可以。[fn::[[http://115.com/lb/5lbdvqz2o9i][下载freegate的链接]]]  翻完墙之后到弹出来的那个网站或者voa网站哪里多下几个类似的翻墙软件吧，有备无患。freegate在ubuntu下需要使用wine模拟，在模拟前先用winetricks装好mfc42.dll，然后就行了。freegate进去之后在通道哪里选择经典模式。google-chrome那边的设置在代理助手哪里，就是使用freegate提供的那个http地址加上端口号即可——在内容那一页。一般代理助手就点系统自动连接吧，毕竟是免费代理，别想质量有多好。
+ - texmaker :: 写\LaTeX 非常好的界面环境，和windows下的texstudio类似，但是感觉界面更加的漂亮。Ⓐ
+ - shutter :: 一个非常好的截图软件。ubuntu系统自带的截图软件截完图不能拖动改变大小，这个可以。Ⓐ
+ - wine :: 虽然wine软件一直在更新，但是老实说总感觉不是十分令人满意。这里提到wine是因为前面谈到的翻墙软件需要用wine来模拟。wine的安装不同于其他软件，尽量下载最新版本的吧。到官网上查看最新的稳定版本号，比如wine1.6。然后在终端上通过ppa来安装，ppa地址见脚注。Ⓒ[fn::ppa:ubuntu-wine/ppa]
+ - workrave :: 人们对久坐的危害总是低估了，这个软件帮助提醒人们做一段时间之后最好起来活动活动。Ⓐ 
+ - Gcolor2 :: 这个小软件取色，RGB转换等很有用。Ⓐ
+ - wps for linux :: 有时不得已还是要用doc格式，而在ubuntu下我试过很多解决方案，比如wine，libreoffice，或者网上的在线编辑。结果都不尽如人意。因为我需要的是最好完完全全兼容microoffice2003的格式。金山公司的这个wps for linux 目前还在开发中，但是效果还是可以了。下载地址见脚注。Ⓓ[fn::[[http://linux.wps.cn/][wps for linux]]]
+
+其他还有很多有用的软件看官自己探索吧。
+
+
+* rime输入法
+更多信息请参考[[https://code.google.com/p/rimeime/w/list][rime官方wiki]] 。还有一种ppa安装方法，ppa地址是：[ppa:lotem/rime] 。
+
+rime输入法也可以在fcitx输入法框架下进行，就目前来说（2013-12-04）感觉fcitx输入法框架要比ibus稍微好一点点。
+
+- 安装ibus-rime: ~sudo apt-get install ibus-rime~
+- ibus输入框不见了： ~ibus-daemon  -drx~
+- 重啓ibus：有时ibus会出现一些奇怪的问题，在终端运行下面命令重啓ibus也许会解决：
+#+BEGIN_SRC sh
+killall ibus-daemon
+ibus-daemon  -d
+#+END_SRC
+
+- Rime输入法的其他设置：在输入框调到Rime的状态的时候，按一下F4，就弹出一些设置选项。
+- 用Rime输入常见的特殊符号：比如我要输入 ~*~ ，按下shift和数字8按键，就出来一些选项供你选择。其他很多符号类似，具体请参考官网上的说明。
+- Rime输入法是架构在ibus框架之上的，所以在系统输入法首选项哪里，可以设置Rime候选项是横着显示或者竖着显示，还有下面可以自定义显示的字体和字体大小。推荐用sans-serif字体。然后字体大小要比你输出之后的效果稍微大一点，这样醒目些。
+
+
+** 备份和还原
+输入法用久了，你的自造词还有你输入相关词的词频这些信息是非常有用的，能够极大地提高你的工作效率。rime备份的核心词是命令： ~rime_dict_manager~ 。你需要在rime的用户配置文件夹里面打开终端，然后输入这个命令，你就可以看到提示信息了。
+
+首先输入 ~-l~ 选项，你可以看到现在已经有的词典，比如 ~luna_pinyin~ 。然后用 ~-s~ 同步，这样你就会看到一个sync文件夹，里面放着快照文件。 ~-b~ 是选择性是备份某一个词典。 ~-r~ 是还原快照文件。 ~-e~ ， ~-i~ 是txt格式操作，txt保存数据会有点损失。将用户rime配置文件夹整个复制到同步盘即可。
+
+** 把QQ拼音上你的词库导入rime
+
+1. 在windows下在QQ拼音设置里面找到那个导出词库的命令。就是一个txt文件。
+2. 将这个txt文件另存为utf-8编码
+3. 进入linux（以下windows用户原理类似）找个在线的简繁转换网站，如果你使用的是简体略过这步。然后转换成为繁体，由于词库比较大，建议你耐心点，推荐笨笨网站简繁转换，不容易卡死。实在不行就只好下载软件了。我的一万多条还是能够转换出来。
+4. 打开libreoffice ，将前面的txt文件，复制，粘贴。然后会弹出一个选项，分隔符注意勾选空格。
+5. 前三列有用，后面的意义不大，统统删除。
+6. 按ctrl+f，下面弹出查找于替换。输入，  后面输入空格   全部替换。输入'     后面输入空格   全部替换。
+7. 将第一列第二列位置互换，就是剪切粘贴操作。
+8. 全部选择前三列，复制，粘贴到文本。
+9. ~rime_dict_manager  -i luna_pinyin~   上面谈及的你创建的文本名字。
+10. 注意上面要在rime 用户目录下操作  即.config/ibus/rime。
+11. 备份   ~dict_manager -b luna_pinyin~  
+
+
+
+** 定制rime输出特殊符号
+我希望通过rime输入法能够快速地将Unicode中的符号打出来。本文主要关注这个问题，其他定制请参阅官网wiki。
+
+
+*** symbols.yaml文件的说明
+为了文章精简，这一块内容大多删除了，详细信息请参见github上的那个网站。我在github网站上新建了[[https://github.com/a358003542/rime-symbols-yaml][rime-symbols-yaml这个项目]] 。里面有我编辑的symbols.yaml文件。现在将我所做的修改工作简单说明如下：
+
+
+*** 重新部署rime
+最后将上面两个文件放入用户rime配置文件夹哪里，然后删除default.yaml文件，然后运行
+#+BEGIN_SRC sh
+ibus-daemon  -drx
+#+END_SRC
+
+等着rime重新部署完毕即可。
+
+*** 具体输入符号的命令
+现在我在rime下输入/gcs，就会弹出很多符号。类似的还有很多，就不一一介绍了。
+
+
+* ubuntu美化
+1. 不要unity环境，我一直都用unity环境，觉得自己还是有权发言了，真的不好。推荐安装gnome环境。我不喜欢什么桌面特效，用无特效环境，毕竟系统流畅才是最重要的东西。
+2. 安装vareity软件自动换桌面，推荐在加点其他的网站壁纸资源。然后登录界面也选上[fn::[[http://peterlevi.com/variety/][vareity官网]]] 。
+3. 按住alt键 右键点击gnome面板，然后优化。推荐把上面的设置到底部，因为上面的视角很重要。
+4. 顺便谈谈快捷键，在系统设置→键盘→快捷键那里。你可以设置各种程序的快捷键。比如ctrl+alt+t 是打开终端设置 ctrl+alt+w 打开默认网页浏览器等等。
+
+
+** 去除登录界面的白点
+如果你放一张非常漂亮的图片，比如variety可以设置，那么这些白点将会让你很不舒服。[fn::[[http://askubuntu.com/questions/72620/how-do-i-remove-the-dots-from-the-lightdm-greeter][参考了这个网站]]] 。
+
+通过运行下面的bash脚本，就是一行行输入进去即可，重启之后确实去除了。
+#+BEGIN_EXAMPLE
+sudo xhost +SI:localuser:lightdm
+sudo su lightdm -s /bin/bash
+gsettings set com.canonical.unity-greeter draw-grid false
+exit
+#+END_EXAMPLE
+
+
+
+
+* texmaker技巧
+** 自动补全命令
+在菜单里找到用户自定义的customize completion 也就是自动完成，里面加入你想要的命令。比如: ~\textbackslash~ 然后点击add，这样以后想输入显示命令前面的那个斜线的时候会方便点。如果括号里面加入@符号，那么就会出现类似系统自带命令 ~\section\{•\}~ 的那个黑点•。
+
+** 自定义命令
+在菜单哪里用户自定义，你看到可以用户自定义命令，填好之后就是快速构建下面那些备用的1:2:3:哪里将成为有意义的命令。
+
+** 保存你的设置文件
+在选项哪里有保存设置文件的功能，主要是自定义命令，自动补全命令等可以保存下来。
+
+
+
+
+* gedit的一些技巧简要说明
+在编辑→首选项那里请安装好latex插件和外部工具插件，恩，代码注释插件和文件浏览器插件推荐。
+
+我在这里重点介绍一下外部工具插件的用法。看到工具→外部工具。
+请选择最下面的那个管理外部工具，看到在此处打开终端，gnome-terminal后面去除掉，然后就能正常工作了。（本信息来自ubuntu13.04，gedit版本号为3.6.2。）
+
+现在我们新建一个命令，名字叫做xelatex，具体内容如下：
+#+BEGIN_EXAMPLE
+#!/bin/sh
+filename=$GEDIT_CURRENT_DOCUMENT_NAME
+shortname=`echo $filename | sed 's/\(.*\)\.tex$/\1/'`
+xelatex -interaction batchmode -src $filename
+#+END_EXAMPLE
+
+那么这个小工具就实现xelatex编译功能了。
+
+然后我们也可以再新建一个小工具，名字叫清理：
+#+BEGIN_EXAMPLE
+#!/bin/sh
+filename=$GEDIT_CURRENT_DOCUMENT_NAME
+shortname=`echo $filename | sed 's/\(.*\)\.tex$/\1/'`
+rm -f  $shortname.aux $shortname.ent  $shortname.out 
+$shortname.lot $shortname.idx $shortname.lof 
+$shortname.ilg $shortname.ind $shortname.log 
+$shortname.toc $shortname.bbl $shortname.blg
+#+END_EXAMPLE
+
+这样运行它就可以清理临时文件了。
+
+
+
+* 安装字体
+** 找字体文件
+如果你装了windows系统，那么你可以到windows下copy这些字体文件。比如windows常用的宋体，times new roman等，在C盘的windows的fonts文件夹里面。本文用的就是adobe中文系列：adobe 宋体 std， adobe 黑体 std ， adobe 楷体 std 。很奇怪，在pdf上我觉得这几个字体感觉很好，但是在屏幕上就觉得不太好了。
+
+** 放置字体文件
+推荐都放在ubuntu的主目录的.fonts文件夹里面（这是一个隐藏目录），如果没有请新建一个。这是通常默认用户新加字体放置的目录。当然你也可以放在其他目录里面，比如你的同步盘里面，然后用font-manager安装字体也是可以的。
+
+** 命令行安装字体
+运行命令：
+#+BEGIN_EXAMPLE
+fc-cache -f  -v  
+#+END_EXAMPLE
+
+字体就安装好了，如果你要看现在你的系统上有那些可用的中文字体，在终端运行命令[fn::|表示linux命令中的通道，第一个命令的输出信息流会流向sort命令，排序之后重定向到ziti.txt文件里面。然后终端的数据就保存在这个文件里面了。] ：
+
+#+BEGIN_EXAMPLE
+fc-list :lang=zh | sort >ziti.txt 
+#+END_EXAMPLE
+
+
+打开ziti.txt，里面就是你的可用中文字体的信息，比如：
+#+BEGIN_EXAMPLE
+/home/wanze/.fonts/simsun.ttc:  宋体,SimSun:style=Regular 
+#+END_EXAMPLE
+
+其中第一个是字体文件所在的目录，第二个信息是可以调用的名字，有宋体和SimSun。
+
+** 用fontmanager安装字体
+你可以安装其他软件来安装和管理字体，比如fontmanager：
+#+BEGIN_SRC sh
+sudo  apt-get install font-manager 
+#+END_SRC
+
+这个软件查看安装卸载或者禁用某些字体都很方便的，需要提醒的是这个软件占用了默认的用户配置文件.fonts.conf。然后你的字体DIY需要到～/.config/font-manager/local.conf哪里去设置。这个下面会讲到。
+
+
+
+* ubuntu系统字体的配置
+如果你不喜欢fontmanager，那么在Ubuntu14.04以后，在.config/fontconfig文件夹里面，有一个fonts.conf文件，进行设置也是一样的。这里是文泉驿给出的网页自动生成脚本方案： [[http://wenq.org/cloud/fcdesigner_local.html][文泉驿字体脚本生成]]
+
+不是特别难看的情况就没必要改动系统字体，因为我们不要低估了人眼的适应能力。这里的配置主要是指由于系统升级带来的字体的改变，特别是中文字体的改变，手动配置将其固定下来。[fn::这个代码主要参考了[[http://www.freedesktop.org/software/fontconfig/fontconfig-user.html][这个网站]]] 。
+#+BEGIN_SRC xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+
+<match target="font">
+	<edit name="rgba" mode="assign"><const>rgb</const>
+	</edit></match>
+
+<match>
+	<test name="lang" compare="contains"><string>zh</string></test>
+	<test name="family"><string>serif</string></test>
+	<edit name="family" mode="prepend"><string>微软雅黑</string>
+	</edit></match>
+
+<match>
+	<test name="lang" compare="contains"><string>zh</string></test>
+	<test name="family"><string>sans-serif</string></test>
+	<edit name="family" mode="prepend"><string>微软雅黑</string>
+	</edit></match>
+
+<match>
+	<test name="lang" compare="contains"><string>zh</string></test>
+	<test name="family"><string>monospace</string></test>
+	<edit name="family" mode="prepend"><string>微软雅黑</string>
+	</edit></match>	
+
+</fontconfig>
+#+END_SRC
+
+有很多内容没有深究，第一个是打开rgba模式，优化液晶显示的。然后下面就是对三大字族设置，如果是zh中文的话那么就prepend也就是插入微软雅黑，也就是在搜索队列中微软雅黑优先级最高。这个可以通过 ~fc-match  -s~   serif等来查看。然后其他字体设置不想涉及了，只希望他们能够稳定下来。感觉设置雅黑字体了，系统的主题换为Radiance更好看些。然后用font-manager针对微软雅黑高级设置加上AA和AH。一个是反锯齿一个是自动粗细设置吧。就这样了。（chromium字体也都设置成为微软雅黑吧，然后我感觉页面稍微放大点更好看。）
+
+** 或者更简单的方法？
+通过 ~sudo apt-get install gnome-tweak-tool~ 安装gnome-tweak-took或者其他软件快速设置字体，不太清楚这种方法是不是中英文一起改动的。
+ 
+
+
