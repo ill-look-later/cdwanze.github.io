@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>事件驱动编程</title>
+<!-- 2015-11-15 10:06 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">事件驱动编程</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a>
+<ul>
+<li><a href="#sec-1-1">1.1. yield from 关键词</a></li>
+<li><a href="#sec-1-2">1.2. loop-with-callbacks</a></li>
+<li><a href="#sec-1-3">1.3. loop-with-coroutines</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. asyncio模块详解</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 添加回调</a>
+<ul>
+<li><a href="#sec-2-1-1">2.1.1. add_reader方法</a></li>
+<li><a href="#sec-2-1-2">2.1.2. remove_reader方法</a></li>
+<li><a href="#sec-2-1-3">2.1.3. add_writer方法</a></li>
+<li><a href="#sec-2-1-4">2.1.4. remove_writer方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-2">2.2. 自定义协议</a></li>
+<li><a href="#sec-2-3">2.3. 添加Task</a></li>
+<li><a href="#sec-2-4">2.4. 协程任务结果聚合</a>
+<ul>
+<li><a href="#sec-2-4-1">2.4.1. 使用Queue</a></li>
+<li><a href="#sec-2-4-2">2.4.2. 使用gather函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文紧跟着 <a href="套接字编程入门.html">套接字编程入门</a>  一文，继续向前探索。在本文开始前，强烈建议读者读读 <a href="#cite1">参考资料1</a> ，该文其中说明asyncio模块部分很是重要。
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> yield from 关键词</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+在开始前有必要详细说明一下yield from关键词。我们从 <a href="#cite1">参考资料1</a> 看到python的内在处理机制是将所谓的协程概念和异步编程概念等都和python中的生成器迭代器概念重合了。实际上我们可以简单地将一个协程看作一个生成器对象，然后Task这个对象是基于Future这个对象的:
+</p>
+<pre class="example">
+class Task(Future):
+    """A coroutine wrapped in a Future."""
+</pre>
+
+<p>
+而Future对象的理解关键点还是在生成器概念和yield from这个关键词上（请读者参看 <a href="http://simeonvisser.com/posts/python-3-using-yield-from-in-generators-part-1.html">这个网页</a> ）。当然就作为python中函数的执行和生成器的惰性运算机制，比如:
+</p>
+
+<pre class="example">
+gen.send('None')
+</pre>
+<p>
+之后然后返回一个结果这些这里就不多说了。
+</p>
+
+<p>
+我们先看到这个例子:
+</p>
+
+<pre class="example">
+def generator2():
+    for i in range(10):
+        yield i
+
+def generator3():
+    for j in range(10, 20):
+        yield j
+
+def generator():
+    x= yield from generator2()
+    print('return value of yield-from: {}'.format(x))
+    yield from generator3()
+
+gen = generator()
+
+print(list(gen))
+</pre>
+
+<p>
+其结果输出如下:
+</p>
+<pre class="example">
+return value of yield-from: None
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+</pre>
+
+<p>
+首先强烈建议读者试着将上面的 <code>yield from</code> 改成 <code>yield</code> 来试一下。这样我们看到yield from实现了一种生成器的 <strong>组合</strong> 逻辑。而直接yield某个生成器，最后得到的只是一个生成生成器的生成器罢了。
+</p>
+
+<p>
+我们看到generator实现了这样的数据组合:
+</p>
+
+
+<figure>
+<p><img src="images/协程数据组合.png" alt="协程数据组合.png">
+</p>
+<figcaption><span class="figure-number">Figure 1:</span> 协程数据组合</figcaption>
+</figure>
+
+<p>
+b和c这两个子协程或者说子生成器可以通过在一个新的函数中构建出一个新的协程函数，其数据是前面两个子协程数据的组合。
+</p>
+
+
+<p>
+然后我们看到上面的 yield from 实际上并没有返回值，x的值是None。实际上python里面的函数yield语句和return语句并不互斥，看下面的例子:
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">gen_fn</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">yield</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;result of yield: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+    <span class="n">result2</span> <span class="o">=</span> <span class="k">yield</span> <span class="mi">2</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;result of 2nd yield: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s">&#39;done&#39;</span>
+
+<span class="k">def</span> <span class="nf">caller_fn</span><span class="p">():</span>
+    <span class="n">gen</span> <span class="o">=</span> <span class="n">gen_fn</span><span class="p">()</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">gen</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;return value of yield-from: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rv</span><span class="p">))</span>
+
+
+<span class="n">gen</span> <span class="o">=</span> <span class="n">caller_fn</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>
+</pre></div>
+
+<p>
+其输出如下:
+</p>
+<pre class="example">
+result of yield: None
+result of 2nd yield: None
+return value of yield-from: done
+[1, 2]
+</pre>
+
+<p>
+注意看 <code>gen_fn</code> 函数有return语句，那么这个生成器函数的生成对象通过yield from语句是可以获得返回值的，这个返回值由return语句。
+</p>
+
+
+<p>
+最后来说明一下yield from语句和可迭代对象之间的关系:
+</p>
+<pre class="example">
+class Test():
+    def __iter__(self):
+        yield self
+        return True
+
+def test():
+    test = Test()
+    x = yield from test
+    print(x)
+    return x
+
+gen = test()
+print(list(gen))
+</pre>
+
+<pre class="example">
+True
+[&lt;__main__.Test object at 0x7f66f7810ef0&gt;]
+&gt;&gt;&gt;
+</pre>
+
+<p>
+如果一个对象定义了 <code>__iter__</code> 方法，那么我们知道这个对象在python中称之为可迭代对象了，其可以通过 <code>for i in what</code> 这样的语句来迭代等。而yield from语句实际上的求值就是对某个python可迭代对象具体进行迭代得到的。这里x的值实际上是True，而gen的值是由函数yield from语句组合出来的值，其实际上对应的是该可迭代对象的 <code>__iter__</code> 方法，也就是yield self。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> loop-with-callbacks</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+通过DefaultSelector构建起来的事件循环还有基于套接字的操作，下面代码来自 <a href="https://github.com/aosabook/500lines">500lines</a> 。若读者已经读过前面的套接字编程入门一文，那么理解这个脚本应该不成问题了。其中值得注意的是其刷url和处理重复url的python方法较好，值得我们学习。
+</p>
+
+
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python3.4</span>
+
+<span class="sd">&quot;&quot;&quot;Sloppy little crawler, demonstrates a hand-made event loop and callbacks.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">selectors</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="n">urls_todo</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;/&#39;</span><span class="p">])</span>
+<span class="n">seen_urls</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;/&#39;</span><span class="p">])</span>
+<span class="n">concurrency_achieved</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">selector</span> <span class="o">=</span> <span class="n">DefaultSelector</span><span class="p">()</span>
+<span class="n">stopped</span> <span class="o">=</span> <span class="bp">False</span>
+
+
+<span class="k">class</span> <span class="nc">Fetcher</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">concurrency_achieved</span>
+        <span class="n">concurrency_achieved</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">concurrency_achieved</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls_todo</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">setblocking</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s">&#39;blog.cdwanze.org&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">BlockingIOError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">selector</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">EVENT_WRITE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+        <span class="n">selector</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">fd</span><span class="p">)</span>
+        <span class="n">get</span> <span class="o">=</span> <span class="s">&#39;GET {} HTTP/1.0</span><span class="se">\r\n</span><span class="s">Host: blog.cdwanze.org</span><span class="se">\r\n\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">selector</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">fd</span><span class="p">,</span> <span class="n">EVENT_READ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_response</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">read_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">stopped</span>
+
+        <span class="n">chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>  <span class="c"># 4k chunk size.</span>
+        <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">+=</span> <span class="n">chunk</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">selector</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">fd</span><span class="p">)</span>  <span class="c"># Done reading.</span>
+            <span class="n">links</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_links</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">seen_urls</span><span class="p">):</span>
+                <span class="n">urls_todo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+                <span class="n">Fetcher</span><span class="p">(</span><span class="n">link</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span>
+
+            <span class="n">seen_urls</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">links</span><span class="p">)</span>
+            <span class="n">urls_todo</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">urls_todo</span><span class="p">:</span>
+                <span class="n">stopped</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">body</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;</span><span class="se">\r\n\r\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse_links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;error: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_html</span><span class="p">():</span>
+            <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;&#39;&#39;(?i)href=[&quot;&#39;]?([^\s&quot;&#39;&lt;&gt;]+)&#39;&#39;&#39;</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">()))</span>
+
+        <span class="n">links</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+            <span class="n">normalized</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parts</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;http&#39;</span><span class="p">,</span> <span class="s">&#39;https&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">splitport</span><span class="p">(</span><span class="n">parts</span><span class="o">.</span><span class="n">netloc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;blog.cdwanze.org&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">defragmented</span><span class="p">,</span> <span class="n">frag</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urldefrag</span><span class="p">(</span><span class="n">parts</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">links</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">defragmented</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">links</span>
+
+    <span class="k">def</span> <span class="nf">_is_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">head</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;</span><span class="se">\r\n\r\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;: &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">head</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="k">return</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;text/html&#39;</span><span class="p">)</span>
+
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">fetcher</span> <span class="o">=</span> <span class="n">Fetcher</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="n">fetcher</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">stopped</span><span class="p">:</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">event_key</span><span class="p">,</span> <span class="n">event_mask</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="n">callback</span> <span class="o">=</span> <span class="n">event_key</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">callback</span><span class="p">(</span><span class="n">event_key</span><span class="p">,</span> <span class="n">event_mask</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;{} URLs fetched in {:.1f} seconds, achieved concurrency = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">seen_urls</span><span class="p">),</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="n">concurrency_achieved</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> loop-with-coroutines</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+如果读者理解了yield from关键词，那么下面的代码也是很好理解的。这段代码基于上面的代码然后稍作修改而来。
+</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python3.4</span>
+
+<span class="sd">&quot;&quot;&quot;Sloppy little crawler, demonstrates a hand-made event loop and coroutines.</span>
+
+<span class="sd">First read loop-with-callbacks.py. This example builds on that one, replacing</span>
+<span class="sd">callbacks with generators.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">selectors</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">class</span> <span class="nc">Future</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">:</span>
+            <span class="n">fn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="bp">self</span>  <span class="c"># This tells Task to wait for completion.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+
+
+<span class="k">class</span> <span class="nc">Task</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coro</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coro</span> <span class="o">=</span> <span class="n">coro</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">Future</span><span class="p">()</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">next_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coro</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">next_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+
+
+<span class="n">urls_seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;/&#39;</span><span class="p">])</span>
+<span class="n">urls_todo</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;/&#39;</span><span class="p">])</span>
+<span class="n">concurrency_achieved</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">selector</span> <span class="o">=</span> <span class="n">DefaultSelector</span><span class="p">()</span>
+<span class="n">stopped</span> <span class="o">=</span> <span class="bp">False</span>
+
+
+<span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">Future</span><span class="p">()</span>
+    <span class="n">sock</span><span class="o">.</span><span class="n">setblocking</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">BlockingIOError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">on_connected</span><span class="p">():</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+    <span class="n">selector</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">EVENT_WRITE</span><span class="p">,</span> <span class="n">on_connected</span><span class="p">)</span>
+    <span class="k">yield from</span> <span class="n">f</span>
+    <span class="n">selector</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+
+
+<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">sock</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">Future</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">on_readable</span><span class="p">():</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">))</span>  <span class="c"># Read 4k at a time.</span>
+
+    <span class="n">selector</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">EVENT_READ</span><span class="p">,</span> <span class="n">on_readable</span><span class="p">)</span>
+    <span class="n">chunk</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">f</span>
+    <span class="n">selector</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">chunk</span>
+
+
+<span class="k">def</span> <span class="nf">read_all</span><span class="p">(</span><span class="n">sock</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">chunk</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">read</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">chunk</span><span class="p">:</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">read</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">b</span><span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Fetcher</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">concurrency_achieved</span><span class="p">,</span> <span class="n">stopped</span>
+        <span class="n">concurrency_achieved</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">concurrency_achieved</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls_todo</span><span class="p">))</span>
+
+        <span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+        <span class="k">yield from</span> <span class="n">connect</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;blog.cdwanze.org&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+        <span class="n">get</span> <span class="o">=</span> <span class="s">&#39;GET {} HTTP/1.0</span><span class="se">\r\n</span><span class="s">Host: blog.cdwanze.org</span><span class="se">\r\n\r\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">get</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">read_all</span><span class="p">(</span><span class="n">sock</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_response</span><span class="p">()</span>
+        <span class="n">urls_todo</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">urls_todo</span><span class="p">:</span>
+            <span class="n">stopped</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">body</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;</span><span class="se">\r\n\r\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_response</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;error: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_html</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;&#39;&#39;(?i)href=[&quot;&#39;]?([^\s&quot;&#39;&lt;&gt;]+)&#39;&#39;&#39;</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">()))</span>
+
+        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+            <span class="n">normalized</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urljoin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">parts</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;http&#39;</span><span class="p">,</span> <span class="s">&#39;https&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">splitport</span><span class="p">(</span><span class="n">parts</span><span class="o">.</span><span class="n">netloc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;blog.cdwanze.org&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">defragmented</span><span class="p">,</span> <span class="n">frag</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urldefrag</span><span class="p">(</span><span class="n">parts</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">defragmented</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">urls_seen</span><span class="p">:</span>
+                <span class="n">urls_todo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">defragmented</span><span class="p">)</span>
+                <span class="n">urls_seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">defragmented</span><span class="p">)</span>
+                <span class="n">Task</span><span class="p">(</span><span class="n">Fetcher</span><span class="p">(</span><span class="n">defragmented</span><span class="p">)</span><span class="o">.</span><span class="n">fetch</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_is_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">head</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;</span><span class="se">\r\n\r\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;: &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">head</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\r\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="k">return</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;text/html&#39;</span><span class="p">)</span>
+
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">fetcher</span> <span class="o">=</span> <span class="n">Fetcher</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="n">Task</span><span class="p">(</span><span class="n">fetcher</span><span class="o">.</span><span class="n">fetch</span><span class="p">())</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">stopped</span><span class="p">:</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">select</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">event_key</span><span class="p">,</span> <span class="n">event_mask</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="n">callback</span> <span class="o">=</span> <span class="n">event_key</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">callback</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;{} URLs fetched in {:.1f} seconds, achieved concurrency = {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">urls_seen</span><span class="p">),</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="n">concurrency_achieved</span><span class="p">))</span>
+</pre></div>
+
+<p>
+下面我决定进一步利用python3.4的asyncio模块来改写上面的脚本。值得一提的是前面谈及的协程函数都推荐用 <code>@asyncio.coroutine</code> 装饰器装饰起来，虽然前面我们看到实际上不用装饰器yield from也能构成某种协程数据的组合逻辑，但如果不加上和asyncio模块的evenloop的一些方法不兼容，比如 <code>run_until_complete</code> 方法就要求一个加上这个装饰器的所谓的协程函数，然后官方文档也谈及一些兼容性问题。至于python3.5新加入的 <code>async def</code> 和 <code>await</code> 关键词这里暂时不考虑了。
+</p>
+
+
+<p>
+基于前面的两个例子我写了一个crawler.py程序，其在我写的infome模块的crawl子模块 <a href="https://github.com/a358003542/infome/tree/master/infome/crawl">那里</a> 。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> asyncio模块详解</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+一般首先你需要通过 <code>get_event_loop</code> 函数来获取一个全局性的事件驱动循环，其返回一个EventLoop对象，asyncio模块为EventLoop对象提供了很多方法，很多任务都可以通过调用这个EventLoop对象的方法来完成，下面简称为loop。
+</p>
+
+<p>
+<code>run_until_complete</code> 方法是本来是要接受一个Future对象，然后将其执行完。如果接受的是一个协程对象（coroutine object），则要将其转变成为Task对象（Task对象是Future对象的子类）。
+</p>
+
+<p>
+loop的 <code>close</code> 方法，关闭事件循环。loop的 <code>stop</code> 方法停止运行事件循环，和close方法的区别就是stop方法之前回调的函数还会继续运行，之后的不会（如果后面又有 run_forever 语句，则后面回调的那些函数又会被执行。）。而close方法是完全强制中止了。 然后loop的 <code>run_forever</code> 方法是永久运行事件循环，直到stop方法被调用。
+</p>
+
+<p>
+上面这些前面也谈过一些了，都是最基本的知识。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 添加回调</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> add_reader方法</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<pre class="example">
+BaseEventLoop.add_reader(fd, callback, *args)
+</pre>
+
+<p>
+事件循环对象的 add_reader 方法，监听某个文件，如果可读事件发生，则执行callback函数，后面是传递给callback函数的一些参数。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> remove_reader方法</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+移除某个reader。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> add_writer方法</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+监听可写事件。
+</p>
+
+<pre class="example">
+BaseEventLoop.add_writer(fd, callback, *args)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> remove_writer方法</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<p>
+移除某个writer。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 自定义协议</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+自定义的协议继承自Protocol类，然后其调用loop的 <code>create_server</code> 来接受这个协议类来时间创建一个协程式的服务器程序:
+</p>
+
+<pre class="example">
+coroutine BaseEventLoop.create_server(protocol_factory, host=None, port=None, ...)
+</pre>
+
+
+<p>
+大概如下这个例子所示:
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">EchoProtocol</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">connection_made</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span> <span class="o">=</span> <span class="n">transport</span>
+
+    <span class="k">def</span> <span class="nf">data_received</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">connection_lost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc</span><span class="p">):</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">loop</span><span class="o">.</span><span class="n">create_server</span><span class="p">(</span><span class="n">EchoProtocol</span><span class="p">,</span> <span class="s">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">4444</span><span class="p">))</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">wait_closed</span><span class="p">())</span>
+</pre></div>
+<p>
+上面的代码运行效果大致如下所示:
+</p>
+<pre class="example">
+wanze@wanze-ubuntu:~$ netcat localhost 4444
+d
+d
+a
+a
+^C
+</pre>
+
+<p>
+就是通过netcat你输入什么服务器那边就返回什么。
+</p>
+
+<p>
+其定义的方法有:
+</p>
+<dl class="org-dl">
+<dt> connection_made </dt><dd></dd>
+</dl>
+<p>
+这个callback继承自Protocol类，逻辑是如果一个连接建好了，那么执行该函数。其接受一个参数transport。也就是具体协议的传输层。
+</p>
+
+<dl class="org-dl">
+<dt> data_received </dt><dd></dd>
+</dl>
+<p>
+这个callback继承自Protocol类，如果某个数据传进来了，那么该函数将被执行。其接受一个参数就是传进来的data。
+</p>
+
+<dl class="org-dl">
+<dt> eof_received </dt><dd></dd>
+</dl>
+<p>
+数据结束完毕是调用。你可以在另外一端用transport发送写入结束信号 <code>write_eof()</code> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 添加Task</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+通过loop的 <code>create_task</code> 方法来给事件循环添加一个Task任务。一般我们使用不用再去考虑Future的概念了，简单理解就是给loop事件循环添加一个待执行的协程任务，然后这个任务对象可以内部可以添加计划多个任务流，大抵如此。
+</p>
+
+<pre class="example">
+BaseEventLoop.create_task(coro)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 协程任务结果聚合</h3>
+<div class="outline-text-3" id="text-2-4">
+</div><div id="outline-container-sec-2-4-1" class="outline-4">
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> 使用Queue</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<pre class="example">
+from asyncio import JoinableQueue as Queue
+</pre>
+
+<p>
+asyncio提供了Queue对象支持。一般使用将其绑定在主事件循环上。
+</p>
+
+<pre class="example">
+queue = Queue(loop=self.loop)
+</pre>
+
+<p>
+然后其含的重要方法有:
+</p>
+<dl class="org-dl">
+<dt> get方法 </dt><dd>获取一个item，协程方法。（你需要先确保task_done，之后item才能正常使用，否则你get的是一个协程对象）
+</dd>
+<dt> put方法 </dt><dd>放入一个任务协程对象，如果queue满了则会等待，协程方法。
+</dd>
+<dt> task_done方法 </dt><dd>阻塞程序，确保queue下一次要get的item已经完成了（也就是协程函数已经展开了）
+</dd>
+<dt> put_nowait方法 </dt><dd>放入一个任务协程对象不阻塞，如果queue满了则会抛出异常（若Queue设的是默认的maxsize=0，则queue永远都不会满的） 
+</dd>
+<dt> join方法 </dt><dd>queue里所有的item任务都要完成，程序有个计数器，若加入一个任务到queue，则计数器加一，若一个task_done()被执行，则计数器减去一，如果计数器未完成任务等于0了，则join方法unblock。但需要注意的是这个join方法本身也是协程式的，即其对于主程序来说本没有阻塞。
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-4-2" class="outline-4">
+<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> 使用gather函数</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<pre class="example">
+asyncio.gather(*coros_or_futures, loop=None, return_exceptions=False)
+</pre>
+<p>
+gather函数将收集一些协程函数或任务或futures等，等所有的结果都聚合之后，将返回一个所含结果的列表（以你原先指定的各个协程的顺序）。
+</p>
+
+<p>
+<code>return_excepitons</code> 默认是False，也就是其内收集的这些协程如果有一个发生异常了，那么将视为整体发生异常。如果设为True，则允许个别子协程发生异常，而且这些异常被视为结果放入列表中。
+</p>
+
+<p>
+然后 <code>CancelledError</code> 异常，如果是上层Future抛出的cancel信号，则其内所有的子任务都将被cancel，而如果某个子任务被cancel，则会抛出 <code>CancelledError</code> ，不影响其他子任务。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 参考资料</h2>
+<div class="outline-text-2" id="text-3">
+<ol class="org-ol">
+<li>a-web-crawler-with-asyncio-coroutines <a href="http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html">这种原英文网页</a> , <a href="http://damnever.github.io/2015/10/12/a-web-crawler-with-asyncio-coroutines/">这里有个中文翻译网页</a> 。 <a id="cite1" name="cite1"></a>
+</li>
+<li><a href="http://www.getoffmalawn.com/blog/playing-with-asyncio">playing-with-asyncio</a> 
+</li>
+</ol>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-15 10:06.</p></div>
+</body>
+</html>

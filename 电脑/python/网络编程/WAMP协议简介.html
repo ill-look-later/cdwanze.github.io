@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>WAMP协议简介</title>
+<!-- 2015-11-02 17:38 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+<link rel="stylesheet"  href="http://a358003542.github.io/templates/main.css"/>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">WAMP协议简介</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 什么是WebSocket协议</a></li>
+<li><a href="#sec-2">2. 什么是统一应用分发(Unified Application Routing)</a>
+<ul>
+<li><a href="#sec-2-1">2.1. PubSub机制</a></li>
+<li><a href="#sec-2-2">2.2. RPC机制</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 什么是WAMP协议</a></li>
+<li><a href="#sec-4">4. 构建wamp程序子元</a>
+<ul>
+<li><a href="#sec-4-1">4.1. 安装autobahn</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. 构建router层</a></li>
+<li><a href="#sec-6">6. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 什么是WebSocket协议</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本小节主要参考了 <a href="http://www.ibm.com/developerworks/cn/web/1112_huangxa_websocket/index.html">这个网页</a> 。
+</p>
+
+<p>
+WebSocket协议是html5提出来的，其可以让浏览器和服务器之间搭建起一个基于TCP连接的信息双向通道。Web应用，如果信息交互不是很频繁的，则是通过服务器端的接受请求，再处理完之后再返回给客户端的方式来进行的，更频繁的实时交互目前使用的是AJAX的轮询和comet技术，而WebSocket协议就是要取代这两种技术的。因为这两种有太多的网络废信息，而过多的网络废信息不仅浪费了网络带宽资源，而且也减慢了web应用的实时互动速度。
+</p>
+
+<p>
+WebSocket协议是基于TCP协议的，然后web应用和服务器互连是通过HTTP协议进行的，只是和一般的HTTP请求有点区别，比如其加上了这个头信息:
+</p>
+<pre class="example">
+Upgrade: WebSocket
+</pre>
+
+<p>
+这个HTTP请求的目的就是希望将web应用和服务器之间的HTTP协议升级为WebSocket协议，此外还有其他的一些信息。
+</p>
+
+<p>
+最后就建立起WebSocket连接了，具体细节讨论略过。一旦这个连接建立之后，web应用和服务器之间就可以通过这个通道双向传输数据了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 什么是统一应用分发(Unified Application Routing)</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+所谓统一应用分发是指各个应用子件之间的事件分发（PubSub机制）和调用分发（RPC机制）都通过一个协议来完成。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> PubSub机制</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<figure>
+<p><img src="images/unified_routing_pubsub_broker.svg" alt="unified_routing_pubsub_broker.svg">
+</p>
+</figure>
+
+<p>
+publish-subscribe机制是publisher根据某个主题(topic)提交某些信息，然后送入Broker(中介)，Broker存储着一些subscriber的信息，比如谁谁谁对某个topic感兴趣等。然后Broker具体把这些信息送给这些subscriber。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> RPC机制</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+RPC也就是所谓的远程过程调用，在原始的模型中，直接是caller对接callee。现在加入了dealer作为（经销商）。具体caller要调用那个callee这些细节不需要指明了，caller只需要将调用请求送给dealer即可，然后再由dealer去实际调用callee，同样结果的返回和错误处理也由dealer来处理。 
+</p>
+
+
+<figure>
+<p><img src="images/unified_routing_rpc_dealer.svg" alt="unified_routing_rpc_dealer.svg">
+</p>
+</figure>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 什么是WAMP协议</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+这里所谓的WAMP(Web Application Messaging Protocol)协议就是前面讲的统一应用分发模型具体用WebSocket协议来实现。我们看到上面的PubSub机制模型和RPC机制模型结构是很类似的，在WAMP协议中，dealer和broker都统称为router（分发器），然后我们看到PubSub机制和RPC机制的区别就是一个分发信息给多个目标，一个只分发给一个目标。
+</p>
+
+
+<figure>
+<p><img src="images/WAMP模型.png" alt="WAMP模型.png">
+</p>
+</figure>
+
+<p>
+这里应用的Action子元对应RPC的具体被调用过程，这里应用的Sensor子元对应PubSub中的Publisher，用sensor传感器更形象地描述了这是一个事件发射器。这里的UI可以是终端用户界面，也可能是后端接口。
+</p>
+
+<p>
+更抽象的讨论是假设我们要构建是一个智能系统，那么这个智能系统所有的动作对象都应该属于Action类，其包括具体该系统的从网络抓取获取信息动作到某个数学运算等等，只要是最终被执行的某个动作概念就应该使用这里的Action子元概念，其含义就是接受某个事件被触发或者发生某个信号被调用等。而Sensor类都应该属于智能系统对外的传感器或者内部的某些事件信号释放，这些都将对智能系统内部发送某个事件信号，从而对UI用户界面层或者某个Action子元产生调用关系。Router类属于中央枢纽层，谁调用了谁，发生了什么事件，发生了什么信号，都应该经过他的处理信号分发之后才能采取对应的动作。UI层的定位就不那么明确了，实际上其也可以对智能系统发送某个事件信号，相当于手工触发某个事件，这个时候UI相当于一个Sensor，然后UI也可以被Router调用从而产生某个UI层的动作效果，这个时候UI又有点类似于Action。
+</p>
+
+<p>
+然后Action子元内部也可以含有更复杂的工作流概念，不一定是某一个简单的动作。实际上Router也承担了很大一部分工作流控制的细节，比如某个Action如果被执行，则释放某个信号，也就是Action和Sensor合并在了一起，这里简称为As，这个As在Router安排下，可以很多AsAs&#x2026;串联在一起形成一个工作流。这些以后再慢慢探讨吧。
+</p>
+
+
+<p>
+具体的构建wamp应用程序，Action子元和Sensor子元将合并统称为wamp application子元。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 构建wamp程序子元</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+wamp程序子元在python中可借助 <a href="https://github.com/tavendo/AutobahnPython/">这个项目</a> 来编写。注意: wamp协议并限定具体实现层要使用那个编程语言。python3.4以后asyncio模块进入标准模块了，本文的讨论主要基于asyncio模块。
+</p>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 安装autobahn</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+autobahn的意思是高速公路，该模块支持pip安装。
+</p>
+<div class="highlight"><pre>pip install autobahn
+</pre></div>
+
+<p>
+你还可以如下指定具体后端为twisted依赖或asyncio依赖。
+</p>
+<pre class="example">
+pip install autobahn[twisted]  
+or ...
+pip install autobahn[asyncio]
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 构建router层</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+具体构建router层在python中可借助 <a href="https://github.com/crossbario/crossbar/">这个项目</a> 来编写。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 参考资料</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li><a href="http://wamp.ws/">wamp.ws</a> ，还不太清楚这个是不是WAMP协议的官网。
+</li>
+<li>更多WAMP协议规范请参看 <a href="https://github.com/tavendo/WAMP/blob/master/spec/basic.md">这个网页</a> 。参考规范内容很多，建议读者粗略看一下了解一个大概。
+</li>
+</ol>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>

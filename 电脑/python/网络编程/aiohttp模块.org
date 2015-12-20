@@ -1,0 +1,63 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: aiohttp模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+aiohttp模块和python的经典模块requests和flask的API都很类似，本文简要介绍这个模块之，遇到那些相似之处点到即至。更多信息请参看 [[http://aiohttp.readthedocs.org/en/stable/index.html][官方文档]] 。
+
+* 和requests的比较
+首先需要说明的aiohttp模块是python对于HTTP协议等的异步支持解决方案，所以其内的函数应该都是协程函数（我想是的）。
+
+像 ~aiohttp.get~ , ~aiohttp.post~ 等这些函数和requests模块的get, post函数类似，同样类似的还有一个基本的request函数。然后各个可选参数都类似，比如 *params* 给GET方法传递参数， *data* 给POST方法传递参数等。
+
+返回的ClientResponse对象和requests模块的Response对象也很类似，除了某些小细节上的差异，比如aiohttp模块的r响应对象有 *r.read()* 方法，其应该对应requests模块的 *r.content* 调用。aiohttp的官方文档对这有说明，read(),json(),text()都是in-memory模式的，所以对于大型文件下载问题，需要使用官方推荐的这种风格:
+
+#+BEGIN_EXAMPLE
+with open(filename, 'wb') as fd:
+    while True:
+        chunk = await r.content.read(chunk_size)
+        if not chunk:
+            break
+        fd.write(chunk)
+#+END_EXAMPLE 
+
+这对应的是requests模块r响应体的raw属性调用，然后推荐是使用如下所示 ~iter_content~ 方法:
+#+BEGIN_EXAMPLE
+with open(filename, 'wb') as fd:
+    for chunk in r.iter_content(chunk_size):
+        fd.write(chunk)
+#+END_EXAMPLE
+
+** 响应体的release方法
+这是一个新东西，其实一个协程函数，用处就是完成响应体的处理过程，释放连接方便下次request调用。
+
+** status方法
+对应于requests模块响应体的status_code方法。
+
+
+** timeout
+因为这是异步程序，所以需要如下通过 ~wait_for~ 来控制某个协程具体的等待时间。
+#+BEGIN_EXAMPLE
+>>> asyncio.wait_for(aiohttp.get('http://github.com'),
+...                             0.001)
+Traceback (most recent call last)\:
+  File "<stdin>", line 1, in <module>
+asyncio.TimeoutError()
+#+END_EXAMPLE
+
+** ClientSession
+在实际使用中，常通过 ~aiohttp.ClientSession~ 新建一个ClientSession对象，然后通过这个session来执行某些操作。这个client session具有保持连接和cookies等用途。然后这个session同样也具有 ~get~ , ~post~ 等之类的方法，返回的也是上面谈及的 ClientResponse响应体对象。
+
+
+
+* 和flask模块的比较
+
+
+

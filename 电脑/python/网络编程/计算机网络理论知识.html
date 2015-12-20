@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>计算机网络理论知识</title>
+<!-- 2015-11-02 17:38 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">计算机网络理论知识</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a></li>
+<li><a href="#sec-2">2. 应用层</a>
+<ul>
+<li><a href="#sec-2-1">2.1. TCP协议</a></li>
+<li><a href="#sec-2-2">2.2. UDP协议</a></li>
+<li><a href="#sec-2-3">2.3. HTTP协议</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. HTTP报文格式</a></li>
+<li><a href="#sec-2-3-2">2.3.2. cookie技术</a></li>
+<li><a href="#sec-2-3-3">2.3.3. web缓存器</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4">2.4. FTP协议</a></li>
+<li><a href="#sec-2-5">2.5. SMTP协议</a></li>
+<li><a href="#sec-2-6">2.6. DNS协议</a></li>
+<li><a href="#sec-2-7">2.7. TCP套接字编程</a></li>
+<li><a href="#sec-2-8">2.8. UDP套接字编程</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 其他</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 端口号</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+TCP（Transmission Control Protocol）传输控制协议和IP（Internet Protocol）网际协议是因特网中两个最重要的协议。IP协议定义了路由器和端系统（这里的端系统指电脑，手机，服务器等终端计算设备）之间的通信协议。整个网络世界可以简单认为是由两种设备组成的，一种是端系统或叫主机，也就是终端计算设备，其和具体交互什么数据直接相关；另一种是路由器或交换机，其并不关心具体处理的是什么数据或者谁发的数据，其只负责数据分发。
+</p>
+
+<p>
+本文对于路由器这一块并不怎么关心，主要讨论端系统之间的通信协议问题。那么什么是计算机之间的通信协议？简单来说就好比两个人之间对话的某种规范，或者两个国家进行外交协商的某种特定交互流程。比如一个人对另外一个人说"你好"，另外一个人收到则回应"你好"，表明我已经收到了，然后第一个如果收到这个回应，则表明协议牵手成功，然后继续进行其他会话，比如"今天星期几"，发送过去，然后另外一个人收到之后回应"今天星期一"&#x2026;&#x2026;就是类似这样的交互方式。有的连接是双向的，连接为持续存在，一般最后需要发送goodbye来关闭协议，而有的协议是单向的，也叫做无状态协议，比如HTTP协议，信息发送了完了连接就算自动关闭了。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 应用层</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+各个端系统之间通过应用程序和不同的应用协议来继续信息交互，这个前面说过了。你心里想要编写一个应用程序，第一件事是要选择一个应用程序体系结构，目前主要就是两种: 一种是client/server体系结构；另一种peer to peer，也就是P2P体系结构。
+</p>
+
+<p>
+选择客户机/服务器体系结构，你的应用程序会有两个命令两种工作模式，一个启动本地客户机进程，一个启动服务器进程，很多应用程序都是这样的。P2P目前主要是BitTorrent下载软件为大家熟知，这个以后应该还有更多的应用是基于P2P体系结构。
+</p>
+
+<p>
+程序之间具体是进程和进程之间进行通信，一般是一个是客户机进程，另一个是服务器进程，这两个进程之间进行通信。前面谈到的P2P体系结构，也可以这样理解，只是具体某一个进程其既可以是客户机也可以是服务器。我们有如下定义:
+</p>
+
+<blockquote>
+<p>
+在给定的一对进程之间进行通信，我们称发起通信的进程为客户机进程，在会话中等待联系的进程是服务器进程。（也可以理解为被动等待通信信号）
+</p>
+</blockquote>
+
+<p>
+两个进程之间具体是用 <strong>套接字</strong> (socket)来发送和接受报文的。套接字是一个主机内应用层和传输层之间的接口，应用程序开发者可以控制套接字在应用层面上的所有东西，而对于套接字在传输层可以控制的东西非常有限，就仅限于: 选择传输层协议和设定几个传输层参数（如最大缓存最大报文长度等）。
+</p>
+
+<p>
+目前TCP/IP网络上的应用就使用了两个传输协议: UDP协议和TCP协议。软件开发者在创建新的应用程序时，首先应该决定传输层是用TCP协议还是UDP协议。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> TCP协议</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+TCP协议是面向连接的和可靠数据传输的。所谓的面向连接是指客户机和服务器之间一开始要进行握手过程好建立TCP连接，然后结束之后需要拆除连接。所谓的可靠数据传输是指TCP协议保证数据是无差错的按顺序交付发送的。此外TCP协议还具有拥塞控制机制。SMTP（电子邮件）协议，Telnet协议，HTTP协议，FTP协议多用TCP协议实现。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> UDP协议</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+UDP是一种不提供不必要服务的轻量级传输层协议，它仅提供最小的服务。UDP是无连接的，两个进程之间没有握手过程。UDP协议并不保证报文能够被接受进程收到，也不保证数据是按顺序到达的。UDP也没有拥塞控制机制。因特网电话和流媒体多用UDP协议实现。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> HTTP协议</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+HTTP（HyperText Transfer Protocol）超文本传输协议是网络世界一个为大家熟知的协议，其属于应用层，为应用层协议。HTTP定义了两个端系统，一个客户机，一个服务器，两个之间如何进行报文交换和这些报文的格式。Web浏览器就是HTTP协议的客户机端，Web服务器就是HTTP协议的服务器端。
+</p>
+
+<p>
+HTTP协议使用TCP协议作为其传输层的协议，当用户请求一个Web页面时，浏览器或其他HTTP客户机将首先和服务器建立起一个TCP连接，等连接建立之后，浏览器和服务器就可以通过套接字来交流了。然后客户机经由其套接字向服务器发送一个HTTP请求报文，随后服务器接受到了这个HTTP请求报文，其内部经过某些处理，比如找到html文件即其他资源文件或者其他数据运算之后，也经由套接字回应了一个HTTP响应报文给客户机。然后HTTP服务器进程通知TCP可以断开TCP连接了，然后TCP那边大概等到客户机完整接受这个HTTP响应报文之后，TCP连接就真正断开了。HTTP客户机那边接受到HTTP响应报文，TCP连接断开了，这一次HTTP请求算是完了。
+</p>
+
+<p>
+然后这个Web页面还包含有其他图片引用或者javascript引用，每一个引用浏览器客户机那边都将产生一个HTTP请求，类似上面的继续处理。因此基于HTTP协议的TCP协议只进行了一个请求报文和一个响应报文的传输，一个Web页面，可能要发送十几个HTTP请求，那么就要建立十几个TCP连接。（整个过程大抵如此，而现在客户机一般都会打开5-10个并行的TCP连接。）
+</p>
+
+<p>
+上面描述的是HTTP协议初始版本的情况，自HTTP/ 1.1起HTTP协议加入了持久连接特性，而且默认就采用持久连接的方式。持久连接可以减少新开TCP连接的消耗，现在HTTP不会每送一个报文就请求断开TCP连接了，而是如果该连接长时间未使用，HTTP服务器才关闭该连接。
+</p>
+
+<p>
+然后我们说HTTP协议本身是无状态的，因为HTTP服务器并没有记忆关于客户机的任何信息，但现在有cookie和session，cookie是客户机保存状态信息，session是服务器保存状态信息，这个后面再说。
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> HTTP报文格式</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+HTTP报文就分为两种，一种是请求报文，一种是响应报文。
+</p>
+
+<p>
+比如下面就是一个HTTP请求
+</p>
+<pre class="example">
+GET / HTTP/1.1
+Host: www.google.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+</pre>
+
+<p>
+第一个是方法字段，HTTP有GET、POST、PUT、DELETE等方法，然后HOST是请求的主机名字，然后User-Agent是用户使用的浏览器，然后Connection这里设置为keep-alive正是前面说的建立持久连接。
+</p>
+
+
+<p>
+然后响应如下:
+</p>
+<pre class="example">
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 231
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 02 Sep 2015 08:47:52 GMT
+Location: https://www.google.com/?gws_rd=ssl
+P3P: CP="This is not a P3P policy! See http://www.google.com/support/accounts/bin/answer.py?hl=en&amp;answer=151657 for more info."
+Server: gws
+Set-Cookie: PREF=ID=1111111111111111:FF=0:TM=1441183672:LM=1441183672:V=1:S=9N60lh1DBbEQEXoJ; expires=Thu, 31-Dec-2015 16:02:17 GMT; path=/; domain=.google.com
+NID=71=iZec5Icr10MWlzS7tdY9M4qAgq1k6QcnqlitXCf2Wz-kT-213DJVuBysEmSn9cxnwzCgue9JDabZ4CU8YhTdErPK5fvuQRV2qZ9vxFCBpw3mQkAngnQfSpnjYczu09ee; expires=Thu, 03-Mar-2016 08:47:52 GMT; path=/; domain=.google.com; HttpOnly
+X-Frame-Options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+</pre>
+
+<p>
+这个响应的那个200就是大家熟知的HTTP响应状态码。关于HTTP协议后面还需要进一步讨论，这里先略过了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> cookie技术</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+cookie的作用原理如下，用户首先登录一个网站，然后该网站的服务器返回一个HTTP响应，其中有一行
+</p>
+<pre class="example">
+Set-cookie: whatwhatwhat
+</pre>
+
+<p>
+这个HTTP响应被用户的浏览器接受之后，其将在特定的cookie文件中添加一行，其中有该服务器的名字（HOST）和这个Set-cookie还有后面的标识码信息。然后以后浏览器再访问这个网站的时候，其将自动在HTTP请求上加上这么一行:
+</p>
+<pre class="example">
+Cookie: whatwhatwhat
+</pre>
+
+<p>
+那个网站的服务器看到HTTP请求的这么一行之后，就说，唉，张三又回来了。然后之后该用户在这个网站上的操作记录都被这个网站的数据库统一管理起来了，什么张三点击了那个页面，什么张三买了什么东西等等。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> web缓存器</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+web缓存器又叫代理服务器，其能够代表初始服务器来满足用户的HTTP请求。其过程如下:
+</p>
+<ol class="org-ol">
+<li>首先是用户那边的浏览器与we缓存器建立TCP连接，然后对其发送一个HTTP请求。
+</li>
+<li>web缓存器会检查自己本地是否缓存了目标对象的备份，如果有，则web缓存器用HTTP响应回应用户浏览器。
+</li>
+<li>如果web缓存器没有该目标对象的缓存，则其就会向初始服务器打开一个TCP连接，发送一个HTTP请求，获得该目标对象，并将该对象缓存在自己本地，当然还有向用户浏览器回应一个HTTP响应好把新获得的对象也发给用户浏览器。
+</li>
+</ol>
+
+<p>
+web缓存器本地虽然可能有目标对象缓存了，但可能这个缓存过于陈旧了。缓存器必须证实本地的缓存内容是最新的，其利用的是HTTP协议的 <strong>If-modified-since</strong> 这一行。web缓存器将发送一个非常短小的HTTP请求，其中就包含这样一行:
+</p>
+<pre class="example">
+If-modified-sine: Wed, 4 Jul 2007 09:23:24
+</pre>
+<p>
+这个日期是web缓存器存储上一次该缓存对象是获得的HTTP响应头上就有的 <strong>Last-Modified</strong> 这一行。
+</p>
+
+<p>
+然后Web服务器会回应一个很短小的HTTP响应，就是最简短的HTTP状态码和其他几个必要的信息，比如304,Not Modified。
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> FTP协议</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+先暂时略过
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> SMTP协议</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+先暂时略过
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> DNS协议</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+这个马上补充。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> TCP套接字编程</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+整个TCP套接字编程的过程如下所述:
+</p>
+<ol class="org-ol">
+<li>客户机负责发起连接，其将新建一个套接字对象（在python中是通过socket函数来创建的），就好比在一个封闭的黑箱子里开了一个门，在创建这个套接字对象的过程中，你需要指定具体要连接的那个服务器的IP地址和端口号（connect方法）。
+</li>
+<li>接下来是进行TCP的三路握手过程，具体在传输层最底层的东西，客户机应用程序还是服务器应用程序都不用操心，其应该是是操作系统程序负责的。服务器程序需要关心的是在这三路握手期间，其类似于听到了敲门声，其需要开出一个门出来。服务器程序要听到这个敲门声，其应该处于监听该端口的状态。首先服务器程序需要创建一个套接字对象，然后bind某个端口号，然后调用listen方法开始监听这个端口。
+</li>
+
+<li>然后服务器那边的监听套接字调用accept方法，并形成阻塞，接下来就是听到了敲门声，这个敲门声是TCP三路握手第一路信号发送过来了，这后面TCP三路握手还有两路，这我们暂时不需要太关心了。等到TCP三路握手完成了，服务器之前的那个accept方法将创建一个套接字对象。这个套接字对象称之为连接套接字。我们在这里把服务器那边的连接套接字调用accept方法可以理解为接受了客户机的敲门，如果一切顺利的话，其将为客户机新开一个套接字，也就是一个新门。
+</li>
+
+<li>对于客户机那边只有一个套接字，情况稍微简单点，其往套接字里面塞信息（sendall方法）就是发送信息过去了，然后从套接字那里读（recv方法），就是读信息了。而服务器那边，实际上和客户机对等的来看的话，第二个新建的连接套接字可以看作看作类似客户机那边的第一个套接字，往里面读就是读信息，往里面写就是发送信息。之所以服务器那边要新开一个套接字，我们可以猜到，是因为服务器要同时处理多个客户机请求，可以把第一个监听套接字理解为总大门，然后后面开启的连接套接字理解为小门，其才是真正和具体那个客户机的一对一管道连接。
+</li>
+</ol>
+
+
+<p>
+上面的简要描述太过于抽象，我们再来看一个最简单的实际代码，其就是python官方文档socket模块的第一个例子，可能有些地方稍作改动。
+</p>
+
+<p>
+下面是服务器端server.py的代码:
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">HOST</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">50007</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">))</span>
+<span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Connected by&#39;</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span><span class="k">break</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+<p>
+首先我们运行server.py，如前所述，其首先需要根据socket函数来创建一个监听套接字，这个套接字具体监听的端口由bind方法指定，然后这个监听套接字开始监听（调用listen方法）。然后调用这个监听套接字的accept方法，其如果收到TCP连接请求，其将返回一个连接套接字，这里是conn。然后程序进入主循环，在这里连接套接字用recv方法来读，然后用sendall方法来写。最后是通过close方法来关闭本连接套接字。
+</p>
+
+<p>
+下面是客户机端client.py的代码:
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">HOST</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">50007</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">))</span>
+<span class="n">s</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">b</span><span class="s">&#39;Hello, world&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Received&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</pre></div>
+
+<p>
+这里客户机那边首先新建一个套接字，这个套接字可以直接用connect方法来拨号某个服务器，然后用sendall方法来写，用recv方法来读。整个过程大抵如此，其中一切参数设置和更多的套接字编程细节请看到 <a href="套接字编程入门.html">套接字编程入门</a> 一文。
+</p>
+
+<p>
+最后以一副图画来加深对本小节的印象把。
+</p>
+
+
+<figure>
+<p><img src="images/套接字编程.png" alt="套接字编程.png">
+</p>
+<figcaption><span class="figure-number">Figure 1:</span> 套接字编程</figcaption>
+</figure>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> UDP套接字编程</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+略过很长一段时间
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 其他</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 端口号</h3>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 参考资料</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li>计算机网络自顶向下方法 , Author: James F. Kurose , Keith W. Ross ,陈鸣译 。
+</li>
+<li>Unix网络编程卷1: 套接字联网API , Author: W. R. Stevens , Bill Fenner 等著 , version: 第三版 
+</li>
+</ol>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>
