@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>PyQt5中级教程</title>
+<!-- 2015-11-02 17:39 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js","TeX/mhchem.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        },
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">PyQt5中级教程</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a></li>
+<li><a href="#sec-2">2. 子类化QMainWindow</a>
+<ul>
+<li><a href="#sec-2-1">2.1. QApplication</a></li>
+<li><a href="#sec-2-2">2.2. QWidget</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1. 构造函数</a></li>
+<li><a href="#sec-2-2-2">2.2.2. 窗体相关</a></li>
+<li><a href="#sec-2-2-3">2.2.3. 事件捕捉</a></li>
+<li><a href="#sec-2-2-4">2.2.4. pos方法</a></li>
+<li><a href="#sec-2-2-5">2.2.5. size方法</a></li>
+<li><a href="#sec-2-2-6">2.2.6. setWindowIcon</a></li>
+<li><a href="#sec-2-2-7">2.2.7. setWindowTitle</a></li>
+<li><a href="#sec-2-2-8">2.2.8. activateWindow方法</a></li>
+<li><a href="#sec-2-2-9">2.2.9. setToolTip方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3">2.3. QMainWindow</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. menuBar方法</a></li>
+<li><a href="#sec-2-3-2">2.3.2. addToolBar方法</a></li>
+<li><a href="#sec-2-3-3">2.3.3. addDockWidget方法</a></li>
+<li><a href="#sec-2-3-4">2.3.4. 加入状态栏</a></li>
+<li><a href="#sec-2-3-5">2.3.5. 保存窗口状态</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4">2.4. QMenuBar</a></li>
+<li><a href="#sec-2-5">2.5. QToolBar</a>
+<ul>
+<li><a href="#sec-2-5-1">2.5.1. 插入分隔符</a></li>
+<li><a href="#sec-2-5-2">2.5.2. 插入子窗体</a></li>
+<li><a href="#sec-2-5-3">2.5.3. 固定工具栏</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-6">2.6. QDockWidget</a>
+<ul>
+<li><a href="#sec-2-6-1">2.6.1. 构造函数</a></li>
+<li><a href="#sec-2-6-2">2.6.2. 设置可停靠区域</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-7">2.7. QStatusBar</a></li>
+<li><a href="#sec-2-8">2.8. QAction</a>
+<ul>
+<li><a href="#sec-2-8-1">2.8.1. 构造函数</a></li>
+<li><a href="#sec-2-8-2">2.8.2. setEnabled方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-9">2.9. QIcon</a>
+<ul>
+<li><a href="#sec-2-9-1">2.9.1. 构造函数</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-10">2.10. QLabel</a>
+<ul>
+<li><a href="#sec-2-10-1">2.10.1. clear方法</a></li>
+<li><a href="#sec-2-10-2">2.10.2. HTML语法</a></li>
+<li><a href="#sec-2-10-3">2.10.3. text方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-11">2.11. QPushButton类</a>
+<ul>
+<li><a href="#sec-2-11-1">2.11.1. 构造函数</a></li>
+<li><a href="#sec-2-11-2">2.11.2. 禁用按钮</a></li>
+<li><a href="#sec-2-11-3">2.11.3. clicked</a></li>
+<li><a href="#sec-2-11-4">2.11.4. show和hide</a></li>
+<li><a href="#sec-2-11-5">2.11.5. setEnabled方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-12">2.12. QMessageBox类</a>
+<ul>
+<li><a href="#sec-2-12-1">2.12.1. 标准按钮</a></li>
+<li><a href="#sec-2-12-2">2.12.2. setIcon方法</a></li>
+<li><a href="#sec-2-12-3">2.12.3. 静态方法</a>
+<ul>
+<li><a href="#sec-2-12-3-1">2.12.3.1. about方法</a></li>
+<li><a href="#sec-2-12-3-2">2.12.3.2. aboutQt方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-2-13">2.13. QFileDialog</a>
+<ul>
+<li><a href="#sec-2-13-1">2.13.1. 静态方法</a></li>
+<li><a href="#sec-2-13-2">2.13.2. setFileMode方法</a></li>
+<li><a href="#sec-2-13-3">2.13.3. setNameFilter</a></li>
+<li><a href="#sec-2-13-4">2.13.4. setViewMode方法</a></li>
+<li><a href="#sec-2-13-5">2.13.5. selectedFiles方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-14">2.14. QPoint</a></li>
+<li><a href="#sec-2-15">2.15. QSize</a></li>
+<li><a href="#sec-2-16">2.16. QTextEdit</a>
+<ul>
+<li><a href="#sec-2-16-1">2.16.1. setHtml方法</a></li>
+<li><a href="#sec-2-16-2">2.16.2. toHtml方法</a></li>
+<li><a href="#sec-2-16-3">2.16.3. clear方法</a></li>
+<li><a href="#sec-2-16-4">2.16.4. insertHtml方法</a></li>
+<li><a href="#sec-2-16-5">2.16.5. insertPlainText方法</a></li>
+<li><a href="#sec-2-16-6">2.16.6. append方法</a></li>
+<li><a href="#sec-2-16-7">2.16.7. cut,copy,paste方法</a></li>
+<li><a href="#sec-2-16-8">2.16.8. find方法</a></li>
+<li><a href="#sec-2-16-9">2.16.9. textChanged信号</a></li>
+<li><a href="#sec-2-16-10">2.16.10. isModified方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-17">2.17. QTextStream</a>
+<ul>
+<li><a href="#sec-2-17-1">2.17.1. readAll方法</a></li>
+<li><a href="#sec-2-17-2">2.17.2. &lt;&lt;符号</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-18">2.18. QFile</a>
+<ul>
+<li><a href="#sec-2-18-1">2.18.1. open方法</a></li>
+<li><a href="#sec-2-18-2">2.18.2. exists方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-19">2.19. QFileInfo</a></li>
+<li><a href="#sec-2-20">2.20. 实例讲解：editor编辑器</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 子类化QDialog</a></li>
+<li><a href="#sec-4">4. 子类化QWidget</a></li>
+</ul>
+</div>
+</nav>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+PyQt相关必须学的最基础的知识我都放在 <strong>PyQt5入门</strong> 那篇文章里了，本文的内容不能说很重要也不能说不重要，只是我们在具体解决某个问题的时候，更多的是推荐搜索官网的关于各个类的描述性文档，本文的内容也大多来自官网的文档。所以本文也不求大和全，也没有那个人有那个精力能写出关于PyQt这一块大而全的文章出来。
+</p>
+
+<p>
+本文的内容就两个：一是关于一些类的细节讨论；二是讲解一些小的入门例子。除了最重要最基础的知识放在PyQt5入门那篇文章之外，某些我觉得容易被人忽视的细节和技巧会放入 <strong>PyQt5杂项</strong> 一文中。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 子类化QMainWindow</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> QApplication</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+在我们编写软件的开头要新建一个QApplication对象，这个QApplacation实例主要负责GUI程序的事件流和设置等。按照 <a href="http://www.qtcentre.org/threads/60203-QApplication-QGuiApplication-and-QCoreApplication">这个网页</a> 的讲解，最基本的是QCoreApplication，然后是其子类QGuiApplication，加入了事件控制和GUI的相关事情，最后才是QApplication，其是QGuiApplication的子类，加入了一些处理widgets的内容。<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>
+</p>
+
+<p>
+QApplication很重要的一个方法（类似tkinter的mainloop），就是 <code>exec_()</code> ，开启GUI的事件驱动循环。
+</p>
+
+<p>
+对于非窗体的GUI设计推荐使用QGuiApplication，其并不依赖QtWidgets子模块。一个GUI软件只能有一个QApplication，也就是所谓的主母窗体，通常parent参数不填就是默认的主母窗体。
+</p>
+
+<p>
+一般程序QApplication创建的变量名app就是所谓的默认主母窗体，然后接下来我们在创建QMainWindow对象是并没有接受parent参数，也就是默认的app。通用的说法就是parent没填则默认其为顶层窗体，但我更喜欢理解为app就是默认的主母窗体。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> QWidget</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+前面说道QMainWindow继承自QWidget，QWidget是最基本的窗体类型。QMainWindow加入了菜单栏和工具栏等等配置，就是大家常见的程序主界面。QApplication和QWidget和QMainWindow已经后面谈到的很多窗体在pyqt5里是放在QtWidgets子模块里面的，而在pyqt4里是放在QtGui子模块里面的， <span class="underline">关于这点读者请牢记在心，后面不再赘述了</span> 。
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> 构造函数</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<div class="highlight"><pre><span class="n">QWidget</span><span class="p">()</span>
+<span class="n">QWidget</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+</pre></div>
+
+<p>
+QWidget的构造函数还是很简单的，有一个flag可选参数这里略过。如果parent参数没填，那么这个widget将是所谓的顶层窗体（我更愿意理解为parent是默认的主母窗体比如QApplication。）；如果parent是其他widget，那么这个widget就是其的子窗体，如果那个母窗体被删除了，子窗体也会被删除。
+</p>
+
+<p>
+QWidget对象内部属性和方法极其丰富，一时是不可能全部了解看完的，只好慢慢看和研究了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> 窗体相关</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>self.show() 显示本窗体和它的子窗体，相当于让这个窗口可见，和 <strong>setVisible(True)</strong> 等价。
+</li>
+<li>self.hide() 隐藏本窗体，相当于 <strong>setVisible(False)</strong> 。
+</li>
+<li>self.raise() 将本窗体提升至显示顶层，如果用了activateWindow，可以使用它来确保窗口在顶层。
+</li>
+<li>self.lower() 将本窗体降到显示底层。
+</li>
+<li>self.close() 关闭本窗体的方法，通过调用本窗体的 <strong>closeEvent</strong> 事件。
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-3" class="outline-4">
+<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> 事件捕捉</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<p>
+这里所谓的事件可以看作内置信号内置槽并且已经连接好了。这些事件如果重定义的话需要接受一个event参数。
+</p>
+<ul class="org-ul">
+<li>closeEvent ，关闭事件，你可以重新定义该事件来修改关闭行为。
+</li>
+<li>mousePressEvent
+</li>
+<li>mouseReleaseEvent
+</li>
+<li>mouseDoubleClickEvent
+</li>
+<li>resizeEvent 
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-4" class="outline-4">
+<h4 id="sec-2-2-4"><span class="section-number-4">2.2.4</span> pos方法</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<p>
+返回本窗体相对母窗体（或者桌面）的位置信息。返回的是QPoint类型。
+</p>
+<pre class="example">
+self.pos()
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-5" class="outline-4">
+<h4 id="sec-2-2-5"><span class="section-number-4">2.2.5</span> size方法</h4>
+<div class="outline-text-4" id="text-2-2-5">
+<p>
+返回本窗体的尺寸信息。返回的是QSize类型。
+</p>
+<pre class="example">
+self.size()
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-6" class="outline-4">
+<h4 id="sec-2-2-6"><span class="section-number-4">2.2.6</span> setWindowIcon</h4>
+<div class="outline-text-4" id="text-2-2-6">
+<p>
+设置窗口图标。
+</p>
+<pre class="example">
+self.setWindowIcon(QIcon icon)
+self.setWindowIconText(QString)
+</pre>
+
+<p>
+就是设置程序下面显示的图标和图标文字。（QString对象我测试了直接用python3的字符串对象也是可以的。）
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-7" class="outline-4">
+<h4 id="sec-2-2-7"><span class="section-number-4">2.2.7</span> setWindowTitle</h4>
+<div class="outline-text-4" id="text-2-2-7">
+<p>
+设置窗口标题，会显示在上面。
+</p>
+<pre class="example">
+self.setWindowTitle(QString)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-8" class="outline-4">
+<h4 id="sec-2-2-8"><span class="section-number-4">2.2.8</span> activateWindow方法</h4>
+<div class="outline-text-4" id="text-2-2-8">
+<p>
+激活窗口
+</p>
+<pre class="example">
+self.activateWindow()
+</pre>
+
+<p>
+activateWindow方法用于激活这个窗口，这个窗口是可见的并且可以键盘输入。点击窗口的标题栏一个窗口就上前显现了用的就是这个函数。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-2-9" class="outline-4">
+<h4 id="sec-2-2-9"><span class="section-number-4">2.2.9</span> setToolTip方法</h4>
+<div class="outline-text-4" id="text-2-2-9">
+<p>
+设置本widget的提示信息。
+</p>
+<pre class="example">
+self.setToolTip(QString)
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> QMainWindow</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+QMainWindow的使用都是继承QMainWindow，然后定义自己的MainWindow类，QMainWindow的布局改动性已经很少了，有一个自己特有的布局mainwindowlayout，你所能做的就是DIY菜单栏，工具栏状态栏和dockwidget，以及对centralWidget进行包装。
+</p>
+
+
+<figure>
+<p><img src="images/mainwindowlayout.png" alt="mainwindowlayout.png">
+</p>
+<figcaption><span class="figure-number">Figure 1:</span> mainwindowlayout</figcaption>
+</figure>
+
+<p>
+central widget一般是QTextEdit或QGraphicsView，只能加入一个窗体，通过 <strong>setCentralWidget</strong> 方法来添加。除了前面谈到的Layout对象可以封装多个子窗体外，等下还要谈到一些窗体是专门用于封装多个子窗体的。
+</p>
+</div>
+
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> menuBar方法</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+一般创建菜单栏就是用QMainWindow对象的menuBar方法创建一个菜单栏对象。
+</p>
+<pre class="example">
+self.fileMenu = self.menuBar().addMenu("&amp;File")
+self.fileMenu.addAction(self.newAct)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> addToolBar方法</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+QMainWindow对象自带的 <strong>addToolBar</strong> 方法，用于给QMainWindow创建工具栏对象。该方法可以接受一个QToolBar对象，从而将该工具栏加进来，或者接受一个字符串对象，简单的新建一个工具栏。
+</p>
+<pre class="example">
+self.fileToolBar = self.addToolBar("File")
+self.fileToolBar.addAction(self.newAct)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> addDockWidget方法</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+QMainWindow对象的 <strong>addDockWidget</strong> 方法给其插入一个停靠窗体对象QDockWidget。该方法并不返回所谓的QDockWidget对象，而只是插入，所以该方法必须接受一个QDockWidget对象参数，其为该方法的第二个必填参数。该方法的第一个必填参数是你想插入停靠窗体的区域，有以下可选项：
+</p>
+<ul class="org-ul">
+<li>Qt.LeftDockWidgetArea 
+</li>
+<li>Qt.RightDockWidgetArea
+</li>
+<li>Qt.TopDockWidgetArea        
+</li>
+<li>Qt.BottomDockWidgetArea        
+</li>
+<li>Qt.AllDockWidgetAreas
+Qt.NoDockWidgetArea        
+</li>
+</ul>
+
+<p>
+需要导入Qt子模块。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-4" class="outline-4">
+<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> 加入状态栏</h4>
+<div class="outline-text-4" id="text-2-3-4">
+<p>
+QMainWindow对象的 <strong>statusBar</strong> 将会创建并返回一个QStatusBar对象，QStatusBar对象最基本的方法就是 <strong>showMessage</strong> ，其接受一个字符串，然后将其显示在状态栏上。
+</p>
+
+<p>
+此外QMainWindow对象还提供了 <strong>setStatusBar</strong> 方法用于替换其的状态栏对象。 <strong>statusBar</strong> 方法不接受参数， <strong>setStatusBar</strong> 方法当然接受一个状态栏对象。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3-5" class="outline-4">
+<h4 id="sec-2-3-5"><span class="section-number-4">2.3.5</span> 保存窗口状态</h4>
+<div class="outline-text-4" id="text-2-3-5">
+<p>
+QMainWindow对象有 <strong>saveState</strong> 方法，方便保存主窗口的工具栏和停靠窗体的状态。然后QWidget有 <strong>saveGeometry</strong> 方法方便保存本窗体的图形几何状态。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> QMenuBar</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+QMenuBar提供横向的菜单栏，你可以通过QMenuBar创建一个菜单栏对象，然后调用菜单栏对象的addMenu方法添加菜单列。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> QToolBar</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+通过QToolBar类构建一个工具栏对象，工具栏上面加上动作用 <strong>addAction</strong> 方法或 <strong>insertAction</strong> 方法。addAction方法接受一个QAction对象，而insertAction接受两个QAction对象，一个是之前的QAction，一个是之后的，好插入中间。
+</p>
+</div>
+
+<div id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> 插入分隔符</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+调用工具栏对象的 <strong>addSeparator</strong> 或者 <strong>insertSeparator</strong> 方法来调用对象。其中addSeparator方法不接受参数，insertSeparator方法接受一个QAction参数，表明在其前面插入分隔符。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> 插入子窗体</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+还可以往工具栏里面插入子窗体，用 <strong>addWidget</strong> 方法或 <strong>insertWidget</strong> 方法，其中addWidget接受一个窗体类型对象，而insertWidget接受两个窗体类型对象，第一个参数是QAction对象表明在某动作对象之前插入，然后第二个参数是子窗体对象。合适的子窗体有QSpinbox或QDoubleSpinbox或QComboBox。
+</p>
+
+<p>
+当工具栏上的按钮被点击是，它将释放 <strong>actionTriggered</strong> 信号。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-3" class="outline-4">
+<h4 id="sec-2-5-3"><span class="section-number-4">2.5.3</span> 固定工具栏</h4>
+<div class="outline-text-4" id="text-2-5-3">
+<ul class="org-ul">
+<li>self.isMovable()  返回bool值，用来检测该工具栏是否可移动。
+</li>
+<li>self.setMovable(bool ) 设置工具栏可移动或不可移动，默认可移动True。
+</li>
+<li>self.allowedAreas() 可用的值有：
+<ul class="org-ul">
+<li>Qt.LeftToolBarArea
+</li>
+<li>Qt.RightToolBarArea
+</li>
+<li>Qt.TopToolBarArea
+</li>
+<li>Qt.BottomToolBarArea
+</li>
+<li>Qt.AllToolBarAreas
+</li>
+<li>Qt.NoToolBarArea
+</li>
+</ul>
+</li>
+</ul>
+<p>
+需要引入Qt子模块。
+</p>
+<ul class="org-ul">
+<li>self.isAreaAllowed() 参数类似上面。
+</li>
+</ul>
+
+
+<p>
+工具栏对象一般还是推荐在QMainWindow对象上使用。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> QDockWidget</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+停靠窗体对象，QDockWidget对象。QDockWidget对象可以通过 <strong>setWidget</strong> 方法来添加其内的子窗体。
+</p>
+</div>
+
+<div id="outline-container-sec-2-6-1" class="outline-4">
+<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> 构造函数</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<pre class="example">
+QDockWidget(parent)
+QDockWidget(str , parent)
+</pre>
+
+<p>
+其上的第二种格式str字符串对应的是该停靠窗体的标题，等下要显示在上面的。然后parent可以不填，默认就是没有母窗体，也就是顶层窗体，或者我愿意理解为默认就是唯一的主母窗体（即你的app）。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-6-2" class="outline-4">
+<h4 id="sec-2-6-2"><span class="section-number-4">2.6.2</span> 设置可停靠区域</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<p>
+可通过 <strong>allowedAreas</strong> 方法来设置该可停靠对象的可停靠区域，接受的参数和前面讨论可停靠区域时说的是一样的。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> QStatusBar</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+如前所述，QStatusBar，状态栏对象，一般通过QMainWindow对象的statusBar方法创建，用setStatusBar方法替换。状态栏对象要显示某段文字用 <strong>showMessage</strong> 方法。
+</p>
+
+<p>
+此外状态栏对象还有 <strong>messageChanged</strong> 内置信号， <strong>clearMessage</strong> 内置槽。
+</p>
+
+<p>
+你可以通过 <strong>currentMessage</strong> 方法来提取当前状态栏的文字信息。
+</p>
+
+<p>
+你可以通过 <strong>addWidget</strong> 方法来给状态栏添加一个子窗体，通常是QLabel，QProgressBar或QToolButton。你可以通过 <strong>removeWidget</strong> 方法来删除一个子窗体，此外类似的还有 <strong>addPermanentWidget</strong> 方法来添加一个永久的子窗体，这些方法都接受一个QWidget对象。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> QAction</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+在前面加上菜单栏一小节中我们谈到用addMenu方法会返回一个菜单对象，如果用菜单对象的addAction方法会返回一个动作对象，这个动作对象就是QAction类的对象。
+</p>
+
+<p>
+QAction类在pyqt5中在QtWidgets子模块那里，在pyqt4中是在QtGui那里。QAction对象下面都称作 <span class="underline">动作对象</span> ，动作对象通常都依附在某个窗体上，比如依附在菜单对象上。
+</p>
+
+<p>
+QAction有内置信号 <strong>triggered</strong> ，当我们点击菜单的时候，实际上就是触发了triggered信号，然后connect后面的槽。
+</p>
+
+<p>
+类似的其他内置信号还有，hovered（比如你的鼠标悬停在菜单，工具栏按钮上将被触发），toggled（操作对象有个 <strong>isChecked()</strong> 的状态，如果这个状态改变了那么信号将会被触发。），changed（不太常用，动作对象被改变时触发）。
+</p>
+
+<p>
+一般软件某些内部操作通常都统一成为某个动作对象，比如说菜单栏的文字加粗和工具栏的文字加粗，如果都用动作对象管理，那么它们将共用checked状态。
+</p>
+</div>
+
+<div id="outline-container-sec-2-8-1" class="outline-4">
+<h4 id="sec-2-8-1"><span class="section-number-4">2.8.1</span> 构造函数</h4>
+<div class="outline-text-4" id="text-2-8-1">
+<pre class="example">
+QAction(self)
+QAction('text' , self)
+QAction(QIcon icon, 'text' , self)
+</pre>
+
+<p>
+QAction的构造函数如上，从最简单说明动作对象的母窗体，一般推荐所有动作对象都依附在实例self上（如self.newAct这样的形式。），也就是一般是QMainWindow对象，然后parent一般就填self，即实例manwindow。
+</p>
+
+<p>
+QIcon图标对象可以通过动作对象的 <strong>setIcon</strong> 方法来确定，类似的有 <strong>setText</strong> 方法来确定动作对象要显示的文字。
+</p>
+
+<p>
+然后还有 <strong>setShortcut</strong> 方法来确定动作对象的快捷键，和 <strong>setStatusTip</strong> 方法来确定动作对象的状态栏提示信息，还有 <strong>setWhatsThis</strong> 和 <strong>setToolTip</strong> 方法（弹出的提示信息）。
+</p>
+
+<p>
+以上方法都接受一个参数，setIcon接受QIcon对象，然后setShortcut接受一个快捷键对象，其他接受一个文本对象。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-8-2" class="outline-4">
+<h4 id="sec-2-8-2"><span class="section-number-4">2.8.2</span> setEnabled方法</h4>
+<div class="outline-text-4" id="text-2-8-2">
+<p>
+动作对象的 <strong>setEnabeled</strong> 方法可用来让某个动作对象可用或不可用，然后其图标也会变化，这通常给人很好的提示信息。
+</p>
+
+<p>
+下面这段代码首先将剪切和赋值操作禁用，然后将QTextEdit对象的内置信号copyAvailable和动作对象的setEnabled方法或说槽相连，如果你选择一段文字或者不选一段文字，copyAvailable信号就会发送，参数一个bool值，这个bool值将传递给setEnabled方法，如果选择，则True，则setEnabled(True)，False情况类似。
+</p>
+
+<pre class="example">
+self.cutAct.setEnabled(False)
+self.copyAct.setEnabled(False)
+self.textEdit.copyAvailable.connect(self.cutAct.setEnabled)
+self.textEdit.copyAvailable.connect(self.copyAct.setEnabled)
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> QIcon</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+图标对象QIcon在pyqt4和pyqt5里面都在QtGui子模块那里。QIcon最常见的使用就是用构造函数来返回一个QIcon对象。
+</p>
+</div>
+
+<div id="outline-container-sec-2-9-1" class="outline-4">
+<h4 id="sec-2-9-1"><span class="section-number-4">2.9.1</span> 构造函数</h4>
+<div class="outline-text-4" id="text-2-9-1">
+<pre class="example">
+QIcon()
+QIcon(const QPixmap &amp; pixmap)
+QIcon(const QIcon &amp; other)
+QIcon(QIcon &amp;&amp; other)
+QIcon(const QString &amp; fileName)
+QIcon(QIconEngine * engine)
+</pre>
+
+<p>
+最常用的是第四种形式，也就是用文件名来引入某个图标文件。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> QLabel</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+QLabel是最基本的显示文本或者图片窗体。可以通过 <strong>setText</strong> 方法来显示普通文本或富文本，通过 <strong>setPixmap</strong> 方法来显示图片（QPixmap对象），可以通过 <strong>setMovie</strong> 方法来显示视频（QMovie对象），可以通过 <strong>setNum</strong> 方法来显示一个int或double类型的数字。
+</p>
+
+<p>
+QLabel对象默认的是：左对齐，垂直居中。对齐方式可以通过 <strong>setAlignment</strong> 方法来调整。对齐的选项有：
+</p>
+<ul class="org-ul">
+<li>Qt.AlignLeft         左对齐
+</li>
+<li>Qt.AlignRight        右对齐
+</li>
+<li>Qt.AlignHCenter        在有效空间内居中对齐
+</li>
+<li>Qt.AlignJustify 在有效空间内两端对齐
+</li>
+</ul>
+</div>
+
+<div id="outline-container-sec-2-10-1" class="outline-4">
+<h4 id="sec-2-10-1"><span class="section-number-4">2.10.1</span> clear方法</h4>
+<div class="outline-text-4" id="text-2-10-1">
+<p>
+清除QLabel对象的内容，等同于setText("")。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-10-2" class="outline-4">
+<h4 id="sec-2-10-2"><span class="section-number-4">2.10.2</span> HTML语法</h4>
+<div class="outline-text-4" id="text-2-10-2">
+<pre class="example">
+QLabel("&lt;h2&gt;&lt;i&gt;Hello&lt;/i&gt; 
+&lt;font color=red&gt;Qt!&lt;/font&gt;&lt;/h2&gt;")
+</pre>
+
+<p>
+如上所示QLabel是支持HTML语法的。具体是HTML 4的一个子类。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-10-3" class="outline-4">
+<h4 id="sec-2-10-3"><span class="section-number-4">2.10.3</span> text方法</h4>
+<div class="outline-text-4" id="text-2-10-3">
+<p>
+QLabel对象现在的文本内容。本方法不接受参数。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> QPushButton类</h3>
+<div class="outline-text-3" id="text-2-11">
+<p>
+QPushButton也就是GUI设计中最常见的按钮。
+</p>
+</div>
+
+<div id="outline-container-sec-2-11-1" class="outline-4">
+<h4 id="sec-2-11-1"><span class="section-number-4">2.11.1</span> 构造函数</h4>
+<div class="outline-text-4" id="text-2-11-1">
+<pre class="example">
+QPushButton(QWidget parent = None)
+QPushButton(QString text, QWidget parent = None)
+QPushButton(QIcon icon, QString text, QWidget parent = None)
+</pre>
+
+<p>
+我们看到按钮显示的文字和图标在这里是可以设置的。QPushButton中的文字 <span class="underline">不支持</span> HTML语法。这里的文字和图标后面可以通过 <strong>setText</strong> 方法和 <strong>setIcon</strong> 方法来设置。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-11-2" class="outline-4">
+<h4 id="sec-2-11-2"><span class="section-number-4">2.11.2</span> 禁用按钮</h4>
+<div class="outline-text-4" id="text-2-11-2">
+<p>
+QPushButton对象的 <strong>setEnabled</strong> 方法，接受一个bool值参数，如果是False，则按钮会被禁用。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-11-3" class="outline-4">
+<h4 id="sec-2-11-3"><span class="section-number-4">2.11.3</span> clicked</h4>
+<div class="outline-text-4" id="text-2-11-3">
+<p>
+内置信号 <strong>clicked</strong> ，即点击按钮则触发该信号。这是按钮最常用的一个信号。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-11-4" class="outline-4">
+<h4 id="sec-2-11-4"><span class="section-number-4">2.11.4</span> show和hide</h4>
+<div class="outline-text-4" id="text-2-11-4">
+<p>
+show和hide方法，不接受参数，隐藏按钮或者显示按钮。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-11-5" class="outline-4">
+<h4 id="sec-2-11-5"><span class="section-number-4">2.11.5</span> setEnabled方法</h4>
+<div class="outline-text-4" id="text-2-11-5">
+<p>
+接受一个bool值，将按钮变为不可用，既不可点击，颜色也隐藏背景中。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> QMessageBox类</h3>
+<div class="outline-text-3" id="text-2-12">
+<p>
+弹出一个对话框给用户做出一些选择或者给出一些提示信息。
+</p>
+
+<p>
+QMessageBox对象的文字内容用 <strong>setText</strong> 方法设置。如果要显示这个消息窗口就执行 <strong>exec()</strong> 方法。QMessageBox对象用 <strong>setInformativeText</strong> 方法来设置进一步的提示信息。 <strong>setStandardButtons</strong> 方法来设置一系列你希望显示的标准按钮，这些标准按钮之间用逻辑或符号"|"连接，具体按钮显示的顺序和操作系统环境相关。然后 <strong>setDefaultButton</strong> 方法设置一个默认按钮。
+</p>
+
+<p>
+当执行了QMessageBox对象的exec方法，该方法将会返回一个int值，这个int值对应着某个标准按钮，即你点击的那个。你可以直接将这个int值和QMessageBox.Ok等等进行比较判断。
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-12-1" class="outline-4">
+<h4 id="sec-2-12-1"><span class="section-number-4">2.12.1</span> 标准按钮</h4>
+<div class="outline-text-4" id="text-2-12-1">
+<p>
+下面是标准按钮一览：
+</p>
+<ul class="org-ul">
+<li>QMessageBox.Ok        确定
+</li>
+<li>QMessageBox.Open         打开
+</li>
+<li>QMessageBox.Save        保存
+</li>
+<li>QMessageBox.Cancel        取消
+</li>
+<li>QMessageBox.Close        关闭
+</li>
+<li>QMessageBox.Discard         丢弃
+</li>
+<li>QMessageBox.Apply        应用
+</li>
+<li>QMessageBox.Reset        重置
+</li>
+<li>QMessageBox.RestoreDefaults        恢复至默认
+</li>
+<li>QMessageBox.Help        帮助
+</li>
+<li>QMessageBox.SaveAll        全部保存
+</li>
+<li>QMessageBox.Yes         是
+</li>
+<li>QMessageBox.YesToAll        全部是
+</li>
+<li>QMessageBox.No        否
+</li>
+<li>QMessageBox.NoToAll        全部否
+</li>
+<li>QMessageBox.Abort         放弃
+</li>
+<li>QMessageBox.Retry        重试
+</li>
+<li>QMessageBox.Ignore        忽略
+</li>
+<li>QMessageBox.NoButton 无效的按钮
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-12-2" class="outline-4">
+<h4 id="sec-2-12-2"><span class="section-number-4">2.12.2</span> setIcon方法</h4>
+<div class="outline-text-4" id="text-2-12-2">
+<p>
+用 <strong>setIcon</strong> 方法来设置该QMessageBox对象的提示图标，可用的标准提示图标有：
+</p>
+<ul class="org-ul">
+<li>QMessageBox.NoIcon
+</li>
+<li>QMessageBox.Question
+</li>
+<li>QMessageBox.Information
+</li>
+<li>QMessageBox.Warning
+</li>
+<li>QMessageBox.Critical
+</li>
+</ul>
+
+
+<p>
+默认的是NoIcon。其他图标样子如下所示：
+</p>
+
+
+<figure>
+<p><img src="images/qmessagebox-icons.png" alt="qmessagebox-icons.png">
+</p>
+<figcaption><span class="figure-number">Figure 2:</span> QMessageBox标准图标</figcaption>
+</figure>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-12-3" class="outline-4">
+<h4 id="sec-2-12-3"><span class="section-number-4">2.12.3</span> 静态方法</h4>
+<div class="outline-text-4" id="text-2-12-3">
+<p>
+一般不推荐使用静态方法，不够灵活，下面是两个常见的QMessageBox的静态方法。
+</p>
+</div>
+
+<div id="outline-container-sec-2-12-3-1" class="outline-5">
+<h5 id="sec-2-12-3-1"><span class="section-number-5">2.12.3.1</span> about方法</h5>
+<div class="outline-text-5" id="text-2-12-3-1">
+<p>
+需要三个参数，第一个参数是窗口的依附父窗口，第二个参数是窗口的标题，第三个参数是窗口的文字信息。通常用于显示本程序的一些简介信息。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-12-3-2" class="outline-5">
+<h5 id="sec-2-12-3-2"><span class="section-number-5">2.12.3.2</span> aboutQt方法</h5>
+<div class="outline-text-5" id="text-2-12-3-2">
+<p>
+最少只需要一个参数，即弹出窗口的依附父窗口。弹出常见的关于Qt的一些信息。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-13" class="outline-3">
+<h3 id="sec-2-13"><span class="section-number-3">2.13</span> QFileDialog</h3>
+<div class="outline-text-3" id="text-2-13">
+<p>
+弹出一个文件或目录选择对话框。
+</p>
+</div>
+
+<div id="outline-container-sec-2-13-1" class="outline-4">
+<h4 id="sec-2-13-1"><span class="section-number-4">2.13.1</span> 静态方法</h4>
+<div class="outline-text-4" id="text-2-13-1">
+<p>
+简单的使用常通过静态方法来实现：
+</p>
+<dl class="org-dl">
+<dt> getOpenFileName </dt><dd>返回用户选定的已存在文件。比如：
+</dd>
+</dl>
+
+<pre class="example">
+fileName , _ = QFileDialog.getOpenFileName(self, self.tr("Open File"),
+                                            "/home",
+                                            self.tr("Images (*.png *.xpm *.jpg)"))
+</pre>
+
+
+<p>
+这里filename是字符串类型，就是你选择的文件的名字（包含绝对引用地址），第二个参数是显示的文本提示信息；第三个参数是默认打开的目录，空字符串表示当前工作目录，这里是 <code>/home</code> ；第四个参数是过滤器，空字符串表示所有的文件都显示，这里是所有的png，xpm，jpg文件。更加复杂的表达如下所示：
+</p>
+
+<pre class="example">
+"Images (*.png *.xpm *.jpg);;Text files (*.txt);;XML files (*.xml)"
+</pre>
+
+<p>
+注意getOpenFileName静态方法返回的是一个数组，第二个数组似乎没有什么意义，要如上所写的格式把具体文件名路径字符串提出来。
+</p>
+
+<dl class="org-dl">
+<dt> getExistingDirectory </dt><dd>返回用户选定的已存在的目录。第一个参数是对话框依附的父窗口，第二个参数是弹出窗口的标题，第三个参数是窗口弹出时默认打开的位置，第四个参数是options。
+</dd>
+</dl>
+
+<pre class="example">
+dir = QFileDialog.getExistingDirectory(self, self.tr("Open Directory"),
+                                        "/home",
+                                        QFileDialog.ShowDirsOnly
+                                        | QFileDialog.DontResolveSymlinks)
+</pre>
+
+
+<p>
+不用静态方法自己DIY的QFileDialog对象，可用的方法有：
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-13-2" class="outline-4">
+<h4 id="sec-2-13-2"><span class="section-number-4">2.13.2</span> setFileMode方法</h4>
+<div class="outline-text-4" id="text-2-13-2">
+<ul class="org-ul">
+<li>QFileDialog.AnyFile        默认的模式，不管文件是不是存在，另存为的时候有用。
+</li>
+<li>QFileDialog.ExistingFile         文件必须存在。
+</li>
+<li>QFileDialog.Directory        返回目录，文件和目录都会显示。
+</li>
+<li>QFileDialog::ExistingFiles        返回多个文件。
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-13-3" class="outline-4">
+<h4 id="sec-2-13-3"><span class="section-number-4">2.13.3</span> setNameFilter</h4>
+<div class="outline-text-4" id="text-2-13-3">
+<p>
+就是前面谈及文件过滤器，
+</p>
+<pre class="example">
+dialog.setNameFilter("All C++ files (*.cpp *.cc *.C *.cxx *.c++)")
+dialog.setNameFilter("*.cpp *.cc *.C *.cxx *.c++")
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-13-4" class="outline-4">
+<h4 id="sec-2-13-4"><span class="section-number-4">2.13.4</span> setViewMode方法</h4>
+<div class="outline-text-4" id="text-2-13-4">
+<p>
+设置视图模式，有两个值可选，QFileDialog.Detail，这是默认的，会显示详细信息。此外还有一个QFileDialog.List，显示简要信息。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-13-5" class="outline-4">
+<h4 id="sec-2-13-5"><span class="section-number-4">2.13.5</span> selectedFiles方法</h4>
+<div class="outline-text-4" id="text-2-13-5">
+<p>
+该方法不接受参数，返回QFileDialog对象具体选择的文件或目录列表。
+</p>
+<pre class="example">
+fileNames = dialog.selectedFiles()
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-14" class="outline-3">
+<h3 id="sec-2-14"><span class="section-number-3">2.14</span> QPoint</h3>
+<div class="outline-text-3" id="text-2-14">
+<p>
+QPoint类在QtCore子模块里面，其描述了在平面上的一个点，有 <strong>x()</strong> 方法和 <strong>y()</strong> 方法来调用具体坐标轴上x和y的值。还有 <strong>setX</strong> 方法和 <strong>setY</strong> 方法来设置这两个的值。
+</p>
+
+<p>
+QPoint对象可以使用符号 + -  * /  ，具体运算规则类似线性代数的矢量，两个QPoint对象必须对应x相加，y彼此相加。然后乘以某个数，x和y都乘以该数等。
+</p>
+
+<p>
+构造函数有两种形式：
+</p>
+<pre class="example">
+QPoint()
+​QPoint(int xpos, int ypos)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-15" class="outline-3">
+<h3 id="sec-2-15"><span class="section-number-3">2.15</span> QSize</h3>
+<div class="outline-text-3" id="text-2-15">
+<p>
+QSize类在QtCore子模块里面，QSize对象描述了一个二维物体比如窗体的几何尺寸。其有两个属性， <strong>width()</strong> 和 <strong>height()</strong> ，可通过 <strong>setWidth</strong> 和 <strong>setHeight</strong> 方法来设置。
+</p>
+
+<p>
+类似上面的QPoint对象，QSize也支持加减乘除符号。构造函数有两种形式：
+</p>
+<pre class="example">
+QSize()
+​QSize(int width, int height)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-16" class="outline-3">
+<h3 id="sec-2-16"><span class="section-number-3">2.16</span> QTextEdit</h3>
+<div class="outline-text-3" id="text-2-16">
+<p>
+QTextEdit对象也就是常见的文本编辑器对象，用于编辑和显示文本或富文本。
+</p>
+</div>
+
+<div id="outline-container-sec-2-16-1" class="outline-4">
+<h4 id="sec-2-16-1"><span class="section-number-4">2.16.1</span> setHtml方法</h4>
+<div class="outline-text-4" id="text-2-16-1">
+<p>
+插入富文本，原字符串将被删除。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-16-2" class="outline-4">
+<h4 id="sec-2-16-2"><span class="section-number-4">2.16.2</span> toHtml方法</h4>
+<div class="outline-text-4" id="text-2-16-2">
+<p>
+富文本的字符串输出。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-16-3" class="outline-4">
+<h4 id="sec-2-16-3"><span class="section-number-4">2.16.3</span> clear方法</h4>
+<div class="outline-text-4" id="text-2-16-3">
+<p>
+clear()，清除所有的文本内容。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-16-4" class="outline-4">
+<h4 id="sec-2-16-4"><span class="section-number-4">2.16.4</span> insertHtml方法</h4>
+<div class="outline-text-4" id="text-2-16-4">
+<p>
+是通过QTextEdit类的QTextCursor类来实现的，当前编辑器的当前QTextCursor类通过textCursor方法调用。
+</p>
+<pre class="example">
+edit.textCursor().insertHtml(fragment)
+</pre>
+
+<p>
+上面的命令将在该编辑器的当前鼠标位置插入富文本内容。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-16-5" class="outline-4">
+<h4 id="sec-2-16-5"><span class="section-number-4">2.16.5</span> insertPlainText方法</h4>
+<div class="outline-text-4" id="text-2-16-5">
+<p>
+同上，插入普通文本内容。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-16-6" class="outline-4">
+<h4 id="sec-2-16-6"><span class="section-number-4">2.16.6</span> append方法</h4>
+<div class="outline-text-4" id="text-2-16-6">
+<p>
+在当前编辑器末尾插入某个文本内容。
+</p>
+
+<pre class="example">
+QTextEdit.append(str)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-16-7" class="outline-4">
+<h4 id="sec-2-16-7"><span class="section-number-4">2.16.7</span> cut,copy,paste方法</h4>
+<div class="outline-text-4" id="text-2-16-7">
+<p>
+也就是大家熟知的剪切，复制和粘贴方法。这几个方法都不需要参数，直接通过QTextEdit对象来调用。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-16-8" class="outline-4">
+<h4 id="sec-2-16-8"><span class="section-number-4">2.16.8</span> find方法</h4>
+</div>
+
+<div id="outline-container-sec-2-16-9" class="outline-4">
+<h4 id="sec-2-16-9"><span class="section-number-4">2.16.9</span> textChanged信号</h4>
+<div class="outline-text-4" id="text-2-16-9">
+<p>
+QTextEdit对象的内置信号textChanged是很常用的一个信号，如果编辑器内的文本发生了变化那么就会发送这个信号。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-16-10" class="outline-4">
+<h4 id="sec-2-16-10"><span class="section-number-4">2.16.10</span> isModified方法</h4>
+<div class="outline-text-4" id="text-2-16-10">
+<p>
+QTextEdit对象可以通过document()方法来返回其内的QTextDocument对象，然后调用isModified()方法来确认文档是否被修改过。相关的还有setModified(bool)方法。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-17" class="outline-3">
+<h3 id="sec-2-17"><span class="section-number-3">2.17</span> QTextStream</h3>
+<div class="outline-text-3" id="text-2-17">
+<p>
+QtCore的QTextStream类提供了方便的读取和写文件接口。
+</p>
+</div>
+
+<div id="outline-container-sec-2-17-1" class="outline-4">
+<h4 id="sec-2-17-1"><span class="section-number-4">2.17.1</span> readAll方法</h4>
+<div class="outline-text-4" id="text-2-17-1">
+<p>
+读取流的整个内容然后将其返回为字符串。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-17-2" class="outline-4">
+<h4 id="sec-2-17-2"><span class="section-number-4">2.17.2</span> &lt;&lt;符号</h4>
+<div class="outline-text-4" id="text-2-17-2">
+<p>
+将某个字符串写入文本流中。
+</p>
+<pre class="example">
+outf &lt;&lt; self.textEdit.toPlainText()
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-18" class="outline-3">
+<h3 id="sec-2-18"><span class="section-number-3">2.18</span> QFile</h3>
+<div class="outline-text-3" id="text-2-18">
+<p>
+如下将一个具体的文件名路径字符串处理为QFile对象。
+</p>
+<pre class="example">
+QFile(str)
+</pre>
+</div>
+
+
+<div id="outline-container-sec-2-18-1" class="outline-4">
+<h4 id="sec-2-18-1"><span class="section-number-4">2.18.1</span> open方法</h4>
+<div class="outline-text-4" id="text-2-18-1">
+<p>
+打开文件，支持的打开模式有：
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-18-2" class="outline-4">
+<h4 id="sec-2-18-2"><span class="section-number-4">2.18.2</span> exists方法</h4>
+<div class="outline-text-4" id="text-2-18-2">
+<pre class="example">
+QFile.exists(':/icons/retext.png')
+</pre>
+
+<p>
+判断某个文件是否存在。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-19" class="outline-3">
+<h3 id="sec-2-19"><span class="section-number-3">2.19</span> QFileInfo</h3>
+<div class="outline-text-3" id="text-2-19">
+<p>
+QFileInfo类提供了跨平台的查看文件的一些信息的方法。比如 <strong>fileName()</strong> 方法返回文件名， <strong>path()</strong> 方法返回路径名。还有 <strong>baseName()</strong> 方法返回简短的文件名， <strong>suffix()</strong> 方法返回后缀， <strong>completeSuffix()</strong> 方法返回完整的后缀（比如test.tar.gz的完整后缀就是.tar.gz）。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-20" class="outline-3">
+<h3 id="sec-2-20"><span class="section-number-3">2.20</span> 实例讲解：editor编辑器</h3>
+<div class="outline-text-3" id="text-2-20">
+<p>
+请看到[works]→[editor]文件夹。这个例子是对前面涉及的知识的一个总结。
+</p>
+
+<p>
+首先请看到editor.qrc文件还有icons文件夹和translations文件夹，然后请看到mian.py文件，这涉及到前面谈论的资源文件的管理，国际化和pyqt程序的基本入口格式。
+</p>
+
+<p>
+然后程序的主体部分就是Editor.py文件定义的Editor类，其是QMainWindow的一个子类。
+</p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+
+<p>
+上面的第1行和第2行是常见的重定义构造函数格式，其中第2行的作用就是继承自父类的构造函数，一般parent参数也传递进来。
+</p>
+
+<div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">curFile</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+</pre></div>
+
+<p>
+这里是新建了一个变量，self.curFile，用于存储当前的文件名，暂时为空字符串值。
+</p>
+
+<div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">textEdit</span> <span class="o">=</span> <span class="n">QTextEdit</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">textEdit</span><span class="p">)</span>
+</pre></div>
+
+<p>
+这里是新建了一个QTextEdit对象，pyqt内置的简单文本编辑器。然后把主窗口的中央窗体设置为这个文本编辑器。
+</p>
+
+
+
+<p>
+第20-23行是创建动作对象，创建菜单，创建工具栏和创建状态栏。这些函数都是自定义函数，后面慢慢说明之。
+</p>
+
+<p>
+我们再来看看这个简单的文本编辑器是如何管理配置文件的。第25行：
+</p>
+
+
+
+<p>
+定义的函数具体是：
+</p>
+
+
+
+<p>
+读取配置文件函数，读者可以到
+</p>
+\begin{tcbbash}[]
+~/.config/Trolltech
+\end{tcbbash}
+<p>
+那里看看，是不是有个Application Example.conf文件。然后我们来看看这个小editor还真的有记忆窗口几何的能力。
+</p>
+
+
+<p>
+这是因为在重新定义closeEvent事件时，首先确认文档是否已经保存了，如果已经保存了，那么将首先执行writeSettings函数，写入配置，然后才退出程序。
+</p>
+
+
+
+<p>
+我们再看到writeSettings方法，
+</p>
+
+
+
+<p>
+这里的setValue方法我们熟悉，后面的size方法和pos方法调用的是self实例的方法，实际是QMainWindow继承自QWidge类而来，size返回本窗体的尺寸，pos方法返回本窗体相对母窗体的位置，如果是顶层窗体，则是相对于桌面的值。
+</p>
+
+<p>
+然后readSettings方法读取关闭窗体时的窗体pos信息和size信息，然后调用resize方法，接受一个QSize对象，实际调整窗体尺寸，然后调用move方法，接受一个QPoint对象。这样窗体就和上一次的窗体尺寸和位置一样了。
+</p>
+
+
+
+<p>
+第27行将QTextEdit的textChanged信号和后面定义的槽（函数）setWindowModified连接起来。没有传递参数。
+</p>
+
+
+<p>
+setWindowModified函数主要是修改编辑器的标题，好显示本文档已有修改，还没有保存。然后新打开的文件，保存后的文件都将执行setCurrentFile函数，从而标题将没有那个\verb+-*-+前缀。
+</p>
+
+<p>
+现在我们来看看69-116行定义的动作对象，我们看到self.newAct这个动作对象，后面的QAction构造函数前面三个必填参数我们都看得懂了，然后后面的可选参数：
+</p>
+\begin{itemize}
+\item shortcut  设置快捷键
+\item statusTip 设置状态栏提示信息
+\item triggered 设置动作如果triggered之后connect的槽。
+\end{itemize}
+
+<p>
+然后我们看到其定义的createMenus函数，并没有什么新知识了，就是常规创建菜单操作。接下来是创建工具栏操作，我相信读者不费吹灰之力就能看懂这几行代码了，然后就是创建状态栏，也很简单。
+</p>
+
+<p>
+那么接下来的知识点就是上面的动作对象具体连接的槽或者函数的工作机制。
+</p>
+
+<p>
+首先看到自定义的maybeSave函数，这是在编辑器设计概念中很重要的一个函数。这个函数主要用于判断文档是否保存了。
+</p>
+
+
+<p>
+如果没有发生修改那么返回True；如果发生了修改，那么将会弹出一个对话框，点击Save那么将会保存文档，点击Cancel那么将不会做什么，返回返回False，也就是没有保存。
+</p>
+
+<p>
+我们看到前面的关闭事件，首先用这个函数确认一下是否保存了。然后新建文件也是先确认是否保存，然后再考虑是否调用clear清除。
+</p>
+
+<p>
+接下来还剩下打开文件，保存和另存为文件的相关函数，其实你使用python语言自带的方法也是可以的，不清楚为什么Qt模块的这些处理函数有何好处。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 子类化QDialog</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+\section{QComboBox}
+QComboBox对象是一个按钮点击可以弹出一个列表选项，其作用是为了给用户一系列的选定值同时又占据最少的GUI空间。
+</p>
+
+
+<p>
+\subsection{addItem方法}
+往QComboBox对象里面添加内容，可以添加字符串或者QIcon对象。如果添加字符串的话，第一个参数就是要添加的那个字符串；如果要添加图标的话，那么第一个参数就是要添加的QIcon对象，此外第二个参数是要添加的字符串。
+</p>
+
+<p>
+后面还有一个可选项，一般不用填吧，还没明白具体是什么意思。
+</p>
+
+
+<p>
+此外还有\textbf{addItems}方法接受一个字符串列表。
+</p>
+
+<p>
+\subsection{insertItem方法}
+和上面的addItem方法参数类似，除了前面还加入了一个新的参数index，也就是控制具体插入的位置，如果index是0或者负数，那么就是插入当前QComboBox对象items列表的最前面。
+</p>
+
+<p>
+类似的还有insertItems方法。
+</p>
+
+<p>
+\subsection{currentText方法}
+QComboBox对象调用\textbf{currentText()}方法返回当前选中的选项的字符串值，setCurrentIndex(
+</p>
+
+<p>
+\subsection{count方法}
+\textbf{count()}方法返回QComboBox对象所含选项的个数。QComboBox对象有个值控制所包含选项的最大个数，用\textbf{maxCount()}方法查看这个值，此外还有\textbf{setMaxCount}方法来修改这个值。
+</p>
+
+
+<p>
+\subsection{currentIndexChanged信号}
+很重要的一个内置信号，不管是用户还是程序内部，只要QComboBox对象的index索引发生了改变，那么就会释放该信号。此外还有一个\textbf{activated}信号和上面的\textbf{currentIndexChanged}信号有点类似，除了必须是用户的操作才会释放该信号。这两个信号都有两个版本，一个版本是带的int参数（即弹出列表的index），另一个是字符串参数，即具体的文字内容。
+</p>
+
+
+
+<p>
+\subsection{highlighted信号}
+\textbf{highlighted}信号，这个信号用的会比较少，当用户高亮列表中的某一项时触发。
+</p>
+
+
+
+<p>
+\section{QSpinBox}
+QSpinBox对象主要是用来方便输入某个范围内的int值。
+</p>
+
+<p>
+\subsection{setRange方法}
+接受两个int参数，一个最小值，一个最大值，设置QSpinBox对象的可选数值范围。最小值可以通过\textbf{minimum()}查看，可以通过\textbf{setMinimum}方法设置。类似的最大值有maximum方法和setMaximum方法。
+</p>
+
+<p>
+\subsection{setValue方法}
+\textbf{value()}方法返回当前QSpinBox对象的值，\textbf{setValue}(int)设置某个值。
+</p>
+
+<p>
+\subsection{valueChanged信号}
+很常用的一个信号，\textbf{valueChanged}信号，如果QSpinBox对象的值和之前的值不同的时候触发。每次QSpinBox对象会释放两个valueChanged信号，一个是int值，一个是str值。字符值会加上\textbf{prefix()}和\textbf{suffix()}，也就是前缀和后缀。你可以通过setPrefix和setSuffix方法来具体设置它们。
+</p>
+
+<p>
+\subsection{text方法}
+text()方法返回当前QSpinBox对象的字符串值，包含前缀和后缀。
+</p>
+
+
+<p>
+\subsection{singleStep方法}
+\textbf{singleStep()}方法返回使用GUI的箭头（而不是手动输入时）数值改变的最小的步长，可以通过\textbf{setSingleStep}方法具体设置这个值。
+</p>
+
+<p>
+\subsection{specialValueText方法}
+\textbf{specialValueText()}方法设置特殊值（最小值）时显示的文本。
+</p>
+
+
+
+<p>
+\section{QDoubleSpinBox}
+和QSpinBox类似，不同的是接受\textbf{double}类型数值。上面介绍QSpinBox对象的各个方法都可以用。下面介绍QDoubleSpinBox对象额外的方法。
+</p>
+
+<p>
+\subsection{decimals方法}
+\textbf{decimals()}方法返回QDoubleSpinBox对象要显示的小数点位数。可以通过\textbf{setDecimals}来具体设置它。
+</p>
+
+
+
+<p>
+\section{QSlider}
+QSlider对象用处和QSpinBox有点相似，相比较其可以更加快速地拖动选定某个（没有特别精确的要求）值。
+</p>
+
+<p>
+QSlinder的构造函数第一个参数可以是可选参数来控制滑动条的方向，默认是竖向，其就两个选项值： \textbf{Qt.Vertical}，\textbf{Qt.Horizontal}。第二个参数就是常见的parent，一般通过布局控制就可以不用填了。
+</p>
+
+<p>
+前面说道QSlider对象和QSpinBox对象有点相似，实际上它们的使用各个方法也很类似。将一个QSpinBox对象改为QSlider对象除了初始构造函数稍作修改，后面几乎不用做什么修改。比如请看下面这些方法名字：
+</p>
+
+\begin{Verbatim}
+setRange
+setMinimum
+setMaximum
+setValue
+valueChanged
+value
+setSingleStep
+\end{Verbatim}
+
+<p>
+其中setRange方法在官方文档中并没有提及，我试了一下也是可以正常使用的。读者一看应该就明白它们的意思和用处了，然后QSlider对象的基本使用就差不多了。
+</p>
+
+<p>
+QSlider还有一个tickmark控制，这里先暂时略过。
+</p>
+
+
+
+
+
+<p>
+\section{currency小程序}
+</p>
+
+
+<p>
+\section{interest小程序}
+</p>
+
+
+
+<p>
+\section{QValidator}
+QValidator类在QtGui子模块内，QValidator本身是抽象的，具体的使用是要用它的子类QIntValidator，QDoubleValidator和QRegExpValidator。
+</p>
+
+<p>
+\subsection{QIntValidator}
+QIntValidator对象的初始化函数如下所示，其中最小值和最大值可以不先设置，其后通过\textbf{setRange}方法来设置，parent一般设置为某QLineEdit对象上而不是设置为默认的0即主母窗体上。
+</p>
+\begin{Verbatim}
+QIntValidator(parent)
+QIntValidator(minimum, maximum, parent)
+\end{Verbatim}
+
+<p>
+\subsection{QDoubleValidator}
+QDoubleValidator对象的初始化函数如下所示，其中最小值和最大值可以不先设置，其后通过\textbf{setBottom}和\textbf{setTop}方法来设置，小数点位数可以通过\textbf{setDecimals}方法来设置。parent一般设置为某QLineEdit对象上而不是设置为默认的0即主母窗体上。
+</p>
+\begin{Verbatim}
+QDoubleValidator(parent)
+QDoubleValidator(bottom, top, decimals,  parent)
+\end{Verbatim}
+
+<p>
+\subsection{QRegExpValidator}
+QRegExpValidator对象让输入的文本符合某个正则表达式。
+</p>
+
+<p>
+\section{QRegExp}
+</p>
+
+
+<p>
+\section{QLineEdit}
+QLineEdit也就是常见的行文本输入对象。值得一提的是里面也有和QTextEdit一样的redo，undo，cut，copy，paste和拖动等操作。其中拖动需要用\textbf{setDragEnabled}方法设置一下。
+</p>
+
+<p>
+\subsection{echoMode方法}
+\textbf{echoMode()}方法，返回当前QLineEdit对象的echo mode。默认值是\textbf{QLineEdit.Normal}，此外还有\textbf{Password}，\textbf{PasswordEchoOnEdit}和\textbf{NoEcho}。
+</p>
+
+<p>
+其中Password模式很有用，在输入密码时行编辑器不会显示具体的输入信息。
+</p>
+
+
+<p>
+\subsection{maxLength方法}
+\textbf{maxLength()}方法，返回当前QLineEdit对象允许输入文本的最大长度。可以通过\textbf{setMaxLength}方法来设置它。
+</p>
+
+<p>
+\subsection{setValidator方法}
+如果接受的参数是0，那么就是没有validator，也就是随便输入除了最大字符串长度的限制。此外\textbf{setValidator}方法接受一个QValidator对象，输入的文本将接受它的验证，如果不符合输入将不会被接受。
+</p>
+
+<p>
+\subsection{setInputMask方法}
+</p>
+
+
+<p>
+\subsection{文本编辑的一些方法}
+</p>
+\begin{itemize}
+\item \textbf{text()}方法，提取出当前输入框的文本内容。
+\item \textbf{clear()}方法，清除当前内容。
+\item \textbf{setText}方法，具体设置成某个文本内容。
+\item \textbf{insert}方法，和预想的不一样，只接受一个str参数，如果选中了某段文本，则替换之，然后验证之后的结果。没有选中的insert命令会在行编辑器后面插入某个文本。
+\item \textbf{setSelection}方法，接受两个int值，表示开始的位置和\uwave{长度}。
+\item \textbf{cut}，\textbf{copy}，\textbf{paste}方法，和QTextEdit对象类似。
+\end{itemize}
+
+<p>
+\subsection{setAlignment方法}
+有三个可选值：\textbf{Qt.AlignLeft}，\textbf{Qt.AlignCenter}，\textbf{Qt.AlignRight}。具体是左对齐，居中和右对齐。
+</p>
+
+<p>
+\subsection{setReadOnly方法}
+接受一个bool值，让输入框只读(True)或既可读也写(False)。默认是False。类似的QTextEdit对象也有一个这样的方法。
+</p>
+
+<p>
+\subsection{一些内置信号}
+行编辑器对象的文本发生改变是将会释放\textbf{textChanged}信号，信号附带当前的文本内容；类似的还有\textbf{textEdited}信号，它只在用户编辑时才释放信号，同样信号也附带当前文本内容。
+</p>
+
+<p>
+如果行编辑器其内光标移动时将会释放\textbf{cursorPositionChanged}信号，这个信号自带两个int值，第一个值是光标之前的位置，第二个值是光标之后的值。
+</p>
+
+<p>
+当Return或者Enter按键按下时将会释放returnPressed信号；类似的还有editingFinished信号，用户按下Return或者Enter还有行编辑器失焦\footnote{比如用户点击窗体的其他部件去了。}将会释放该信号。这两个信号都不带参数。注意如果行编辑器对象有验证器，没通过验证器的文本是不会激活这两个信号的。
+</p>
+
+
+
+
+<p>
+\section{QGroupBox}
+QGroupBox是容器类窗体带有标题。其初始化函数如下所示：
+</p>
+
+\begin{Verbatim}
+QGroupBox(parent)
+QGroupBox(title , parent)
+\end{Verbatim}
+<p>
+\textbf{title()}方法返回该QGroupBox对象的标题，可以通过setTitle方法来具体设置它。
+</p>
+
+
+<p>
+\subsection{setCheckable方法}
+让QGroupBox对象具有一个check开关，默认是False没有。你可以通过\textbf{setChecked}方法来具体设置是check还是不check。
+</p>
+
+
+<p>
+\subsection{setFlat方法}
+接受一个bool值，让QGroupBox对象更加紧凑没有frame，默认是False不Flat。
+</p>
+
+
+
+<p>
+\section{QRadioButton}
+多个QRadioButton组成一组互相排斥的单选项。一般将它们都放入一个QGroupBox对象中去。其初始化函数如下所示：
+</p>
+\begin{Verbatim}
+QRadioButton(parent )
+QRadioButton(text, parent )
+\end{Verbatim}
+
+<p>
+具体显示的文本内容也可以其后通过\textbf{setText}方法来设置，文本内容支持\&amp;{}的快捷键表达。还可以通过\textbf{setIcon}方法来设置一个图标对象。
+</p>
+
+
+
+<p>
+\subsection{setChecked方法}
+用\textbf{isChecked()}方法来查看某个QRadioButton对象是否选中了，用\textbf{setChecked}(bool)方法来具体设置选中状态。
+</p>
+
+<p>
+\subsection{toggled信号}
+当一个QRadioButton对象的isChecked状态发生改变时，它将释放\textbf{toggled}信号，信号自带一个bool值，表示最后该QRadioButton对象的isChecked的状态。
+</p>
+
+
+<p>
+\section{QCheckBox}
+QCheckBox对象和上面的QRadioButton对象有点类似，除了它处理的是多选情况。初始化函数与QRadioButton类似，text参数也可以通过\textbf{text()}方法查看和\textbf{setText}方法设置。同样也有\textbf{setIcon}方法。
+</p>
+
+
+<p>
+\subsection{setChecked方法}
+\textbf{isChecked()}方法返回该QCheckBox的选中状态，同样也有\textbf{setChecked}方法，同样isChecked状态发生改变也会释放\textbf{toggled}信号。
+</p>
+
+
+<p>
+\subsection{setTristate方法}
+默认QCheckBox对象只有勾上和没勾上两个状态，你可以通过\textbf{setTristate}(bool)方法来使其具有三个状态。如果是三个状态的QCheckBox对象，你需要用\textbf{checkState()}方法来查看具体的状态，然后用\textbf{setCheckState}来具体设置之。可设置的选项有：\textbf{Qt.Unchecked}，\textbf{Qt.PartiallyChecked}，\textbf{Qt.Checked}。
+</p>
+
+
+
+<p>
+\section{pen小程序}
+</p>
+
+
+<p>
+\section{timer小程序}
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 子类化QWidget</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+QWidget类继承自QObject和QPaintDevice，是很基础的一个类，可以看作用户界面组件的原子。所以深度定制子类化QWidget算是我们学习PyQt的一个山峰了。
+</p>
+
+<p>
+QWidget对象从操作系统中接受鼠标，键盘等事件，然后在屏幕上画出一些东西来表现自己。每一个QWidget对象都是矩形的，一个QWidget对象没有parent叫做window（顶层窗体）。
+</p>
+
+<p>
+\section{addressbook小程序}
+最基本的子类化QWidget就是用PyQt的内置窗体组合成为一个复合窗体。本例子来自PyQt5的样例，首先part1.py很容易理解，就不需要多说了。
+</p>
+
+<p>
+在part2.py中，在程序面板的右侧加上了add，sumit和cancel按钮，然后加上了一些按钮可用或不可用和一些相关动作。属于pyqt里面很基本的知识了。
+</p>
+
+<p>
+在part3.py中， 下方加入按钮和相关布局控制还是很好理解的，这部分主要加入的两个函数next和previous。这两个函数都采用了相同的机制，然后字典类的iter函数经过了额外的处理：
+</p>
+\begin{pyline}{pyqt5-works/ch10/addressbook/part3.py}{7}{14}
+\end{pyline}
+
+<p>
+SortedDict类继承自python语言内置的字典类，然后对iter函数的机制稍作修改。让其返回的是排过序的键，这样next和previous翻看是按照排序之后的键来翻看的。其中next函数和previous函数除了翻看迭代器恰好相反之后，大致相同。
+</p>
+
+<p>
+在part4.py中，程序自建了几个模式：
+</p>
+\begin{pyline}{pyqt5-works/ch10/addressbook/part4.py}{17}{17}
+\end{pyline}
+
+<p>
+后面添加Edit按钮和Remove按钮没什么好讲的，这里的几个视图模式重构了之前的程序的很多地方，比如addContact函数，之前有几行代码用updateInterface函数将界面更新为adding模式。
+</p>
+\begin{pyline}{pyqt5-works/ch10/addressbook/part4.py}{89}{89}
+\end{pyline}
+<p>
+后面的editContact函数也是如此，如何简单更新数据之外，就是更新界面：
+</p>
+\begin{pyline}{pyqt5-works/ch10/addressbook/part4.py}{95}{95}
+\end{pyline}
+
+<p>
+新加的removeContact函数都好理解，改动最大的就是submitContact提交函数和新加的updateInterface函数。其中submitContact函数的AddingMode部分继承自原来，而新加的EditingMode部分，这是因为编辑模式如果改动了键，那么需要将原来的键删除。
+</p>
+
+<p>
+part5.py提供简单的查找支持
+</p>
+
+<p>
+part6.py提供简单的保存数据库支持。
+</p>
+
+<p>
+\section{QBrush}
+</p>
+
+
+
+<p>
+\section{QPalette}
+Palette的英文翻译是调色板，而QPalette类在QtGui子模块下说明其功能还是很底层的。
+</p>
+
+<p>
+一个QPalette对象由三个颜色群组构成，激活（Active），不可用（Disabled）和不激活（Inactive）。PyQt中所有的面板都包含一个QPalette对象，并用这个QPalette还绘画自己。这使得用户界面更易配置和更协调。
+</p>
+
+<p>
+激活群组用于键盘关联的顶层窗体，不激活群组用于其他顶层窗体。而不可用群组用于普通窗体（非顶层窗体）。激活或者不激活的顶层窗体都可包含不可用窗体，不可用窗体也可叫做淡出或者不可使用。
+</p>
+
+<p>
+\subsection{setPalette方法}
+QWidget对象有一个setPalette方法，用来设置该窗体所包含的QPalette对象。
+</p>
+
+<p>
+\subsection{setColor方法}
+</p>
+\begin{Verbatim}
+QPalette.​setColor(ColorGroup , ColorRole ,  QColor)
+QPalette.​setColor(ColorRole , QColor)
+\end{Verbatim}
+<p>
+这里的ColorGroup有以下可选值：
+</p>
+\begin{itemize}
+\item QPalette.Disabled
+\item QPalette.Active            
+\item QPalette.Inactive
+\end{itemize}
+
+<p>
+这里的ColorRole有以下可选值：
+</p>
+\begin{itemize}
+\item QPalette.Window 窗体的背景颜色
+\item QPalette.WindowText 窗体的字体颜色
+\item QPalette.ToolTipBase 提示信息背景颜色
+\item QPalette.ToolTipText 提示信息字体颜色
+\item QPalette.Base 文本输入比如说QLineEdit那里的背景颜色
+\item QPalette.Text 和前面的Base对应，文本输入那里的字体颜色
+\item QPalette.Button 一般按钮的背景颜色
+\item QPalette.ButtonText 一般按钮的字体颜色
+\item QPalette.BrightText 高亮字体的颜色
+\end{itemize}
+<p>
+还有很多ColorRole请参见官方文档。
+</p>
+
+<p>
+\subsection{setBrush方法}
+</p>
+\begin{Verbatim}
+QPalette.​setBrush(ColorGroup , ColorRole ,  QBrush )
+QPalette.​setBrush(ColorRole ,  QBrush )
+\end{Verbatim}
+<p>
+ColorGroup和ColorRole和上面相同，然后QBrush对象请参见前面的说明。
+</p>
+
+
+<p>
+\section{qcolor小程序}
+</p>
+
+
+
+
+<p>
+\section{Qt.​WindowFlags可选项}
+QWidget除了接受parent参数之外，还接受一个Qt.WindowFlags的可选项，其可选值如下：
+</p>
+\begin{itemize}
+\item Qt.FramelessWindowHint  无边框窗体
+\item 
+\end{itemize}
+
+
+
+
+
+<p>
+\section{paintEvent事件}
+经过测试发现每一个窗体执行\textbf{update()}方法之后就会执行一次paintEvent函数（或者说是发生一次绘制事件）。
+</p>
+
+\begin{tcbpython}[]
+    def paintEvent(self, event):
+        painter = QPainter()
+        painter.begin(self)
+        self.draw(event, painter)
+        painter.end()
+\end{tcbpython}
+
+<p>
+通过一个简单的计时器连接本窗体的update方法就可以做出很有意思的动态时钟程序出来。
+</p>
+
+<p>
+paintEvent函数还接受一个所谓的QPaintEvent对象，一般写为event。QPaintEvent对象有\textbf{rect()}方法可以快速返回一个事件相关的QRect对象。
+</p>
+
+
+
+<p>
+\section{QPainter}
+QPainter对象继承自QPaintDevice，也就是所谓的可画对象。用\textbf{isActive()}方法来看一个QPainter对象是否激活了，激活用\textbf{begin}方法，取消激活用\textbf{end()}方法，begin还可接受一个可画对象，一般是self。你可以用\textbf{device()}方法来查看当前画笔对象在那个可画对象上作画。
+</p>
+
+<p>
+注意如果可画对象是窗体（QWidget），那么画笔对象只能在paintEvent函数中使用，如前所示。当前在里面调用额外的扩展函数是可以的。
+</p>
+
+<p>
+\subsection{画图配置}
+QPainter画笔对象有关设置的方法如下所示：
+</p>
+\begin{itemize}
+\item \textbf{font()}，返回目前画笔对象所用字体，你可以通过\textbf{setFont}方法来设置字体，其接受一个QFont对象。
+\item \textbf{brush()}，返回目前画笔对象所用的QBrush对象，你可以通过\textbf{setBrush}方法来设置一个QBrush对象。
+\item \textbf{pen()}，返回目前画笔对象所用的QPen对象，你可以通过\textbf{setPen}方法来设置一个QPen对象。
+\item \textbf{background()}，返回目前的背景QBrush对象，可通过\textbf{setBackgroud}方法来设置。
+\end{itemize}
+
+<p>
+\subsection{画图方法}
+QPainter画笔对象有关画图的一些方法如下所示：
+</p>
+\begin{itemize}
+\item \textbf{drawPoint}方法，接受一个QPoint对象或两个int值，画一个点。类似的还有\textbf{drawPoints}方法。
+\item \textbf{drawLine}方法，接受一个QLine对象或四个int值等，画一条直线。类似的还有\textbf{drawLines}方法。
+\item \textbf{drawRect}方法，接受一个QRect对象或四个int值等，画一个矩形。类似的还有\textbf{drawRects}方法。
+\item \textbf{drawRoundedRect}方法，绘制带圆角的矩形，类似上面的drawRect方法，还需要额外的两个参数来控制圆角。
+\item \textbf{drawEllipse}方法，绘制椭圆，参数同上面的drawRect方法，需要四个int值来控制等。
+\item \textbf{drawArc}方法，绘制弧线，需要一个QRect对象，还需要两个参数分别是起始角度和末尾角度。
+\item \textbf{drawPie}方法，绘制扇形，类似上面的drawArc，需要一个QRect对象，还需要两个参数分别是起始角度和末尾角度。
+\item \textbf{drawChord}方法，绘制一段弧线，这个弧线两端相连直线。参数同上。
+\item \textbf{​drawPolyline}方法，绘制多个直线，不是绘制多边形。
+\item \textbf{drawPolygon}方法，绘制多边形，参数第一个是多个点的列表，第二个是点的个数。
+\item \textbf{drawConvexPolygon}方法，绘制凸多边形。
+
+
+\item \textbf{fillRect}方法，用QBrush对象填充某个QRect区域。
+\item \textbf{​eraseRect}方法，擦除某个QRect区域。相当于：
+\begin{Verbatim}
+fillRect(rectangle, background())
+\end{Verbatim}
+
+\item \textbf{​drawText}方法，插入文本，接受两个参数，插入点的位置和文本内容。
+\item \textbf{​drawPixmap}方法，插入图片，接受参数参数，第一个参数目标图标区域（QRect对象），第二个参数是QPixmap对象，第三个参数是要插入的区域描述（QRect对象）。
+\item \textbf{​drawImage}方法，类似上面的drawPixmap方法，不过插入的是QImage对象。
+
+\end{itemize}
+
+<p>
+\subsection{坐标系变换}
+</p>
+\begin{itemize}
+\item \textbf{​rotate}方法，接受一个角度参数，旋转。
+\item \textbf{​scale}方法，缩放。
+\item \textbf{​translate}方法，平移。
+\end{itemize}
+
+<p>
+\subsection{save和restore}
+​\textbf{save()}方法保存当前画笔对象状态，然后\textbf{restore()}方法用于重载之前的画笔对象状态。这两个方法在画笔对象执行上面的坐标系变换之后再重载很有用。
+</p>
+
+
+<p>
+\section{funnyclock小程序}
+下面看这个例子，QWidget内置的paintEvent重定义之后，你可以自己用QPainter类画出很多有趣的东西出来。
+</p>
+
+<p>
+\section{QPainterPath}
+</p>
+
+
+<p>
+\section{​mousePressEvent事件}
+鼠标点击之后触发，具体是鼠标左键还是右键等，还需要进一步判断。重定义mousePressEvent函数将修改具体QWidget窗体的行为。函数还传递一个所谓的QMouseEvent对象。
+</p>
+\begin{itemize}
+\item pos()，x()，y()，事件当时触发时鼠标的位置信息。这里的x和y的值是相对于窗体自身的。此外还有globalPos() ，globalX()和globalY()，返回的应该是相对于桌面的位置信息吧，但是还有一个​\textbf{screenPos()}方法，这才是具体相对于桌面的位置信息。
+
+\item button()，返回触发事件具体的按钮，此外还有buttons()，返回触发事件时当时的按钮状态（就是或语句连接的多个按钮组合表示它们都按下来了）。
+
+\item \textbf{accept()}，表示事件被处理了，主程序可以进入下一个事件处理了。
+\end{itemize}
+
+<p>
+\section{​mouseReleaseEvent事件}
+似乎不太常用，类似​mousePressEvent事件，鼠标释放时触发。
+</p>
+
+<p>
+\section{​mouseMoveEvent事件}
+鼠标移动时触发。重定义函数的话参数同​mousePressEvent函数也接受QMouseEvent参数，不同的是多个。
+</p>
+
+<p>
+\section{​mouseDoubleClickEvent事件}
+鼠标双击时触发。
+</p>
+
+<p>
+\section{​keyPressEvent事件}
+键盘点击时触发。重定义接受的参数为QKeyEvent。
+</p>
+
+<p>
+\section{QKeyEvent}
+</p>
+\begin{itemize}
+\item \textbf{key()} , 返回键盘事件的那个按键。
+\item \textbf{accept()}，事件接受。
+
+\end{itemize}
+
+<p>
+\section{QTabWidget}
+QTabWidget对象的一般用法是先创建一个QTabWidget对象，然后为每一个page创建一个窗体对象，然后按照平常的做法布局其子对象，然后用QTabWidget对象的\textbf{addTab}方法或者\textbf{insertTab}方法将这个page窗体插入进去。
+</p>
+
+<p>
+QTabWidget对象的各个Tab从0开始计数，默认没有Tab那么\textbf{currentIndex()}方法返回的是-1，你可以通过\textbf{setCurrentIndex(int)}方法来确定切换QTabWidget的index，如果QTabWidget的index变化了，那么将会发射\textbf{currentChanged}信号，信号附带参数int index，即切换后的Tab的index。
+</p>
+
+<p>
+\textbf{currentWidget()}方法返回QTabWidget对象当前的page窗体，你可以通过\textbf{setCurrentWidget}窗体让某窗体成为当前page窗体。
+</p>
+
+<p>
+你可以通过\textbf{setTabText}(index,str)和\textbf{setTabIcon}方法来修改某个Tab显示的文本和图标。
+</p>
+
+<p>
+你可以通过\textbf{removeTab}(index)方法来移除某个Tab。
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>以上讨论可能只适用于pyqt5，似乎pyqt4的QApplication直接是QCoreApplication的子类。</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+setup.py
+funnyclock/__init__.py
+funnyclock/funnyclock.py
+funnyclock/funnyclock_rc.py
+funnyclock.egg-info/PKG-INFO
+funnyclock.egg-info/SOURCES.txt
+funnyclock.egg-info/dependency_links.txt
+funnyclock.egg-info/entry_points.txt
+funnyclock.egg-info/top_level.txt

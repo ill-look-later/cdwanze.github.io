@@ -1,0 +1,14 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>icons/editor.ico</file>
+    <file>icons/copy.png</file>
+    <file>icons/cut.png</file>
+    <file>icons/new.png</file>
+    <file>icons/open.png</file>
+    <file>icons/paste.png</file>
+    <file>icons/save.png</file>
+
+    <file>translations/editor_zh_CN.qm</file>
+    <file>translations/qt_zh_CN.qm</file>
+</qresource>
+</RCC>

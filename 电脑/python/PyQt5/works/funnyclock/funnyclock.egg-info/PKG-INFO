@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: funnyclock
+Version: 0.01
+Summary: the software short description
+Home-page: UNKNOWN
+Author: wanze
+Author-email: a358003542@gmail.com
+License: GPL 2
+Description: UNKNOWN
+Keywords: funnyclock,python
+Platform: Linux
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3.4

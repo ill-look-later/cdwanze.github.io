@@ -1,0 +1,3 @@
+[console_scripts]
+funnyclock = funnyclock.funnyclock:main
+
