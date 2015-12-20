@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>sql数据库入门(sqlite3)</title>
+<!-- 2015-11-02 17:38 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">sql数据库入门(sqlite3)</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 前言</a>
+<ul>
+<li><a href="#sec-1-1">1.1. 基本术语</a></li>
+<li><a href="#sec-1-2">1.2. 安装sqlite3</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. 第一个例子</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 新建一个表格</a></li>
+<li><a href="#sec-2-2">2.2. 字段数据类型</a></li>
+<li><a href="#sec-2-3">2.3. 字段约束词</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. PRIMARY KEY</a></li>
+<li><a href="#sec-2-3-2">2.3.2. NOT NULL</a></li>
+<li><a href="#sec-2-3-3">2.3.3. DEFAULT</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-4">2.4. 更改表格属性</a></li>
+<li><a href="#sec-2-5">2.5. 删除表格</a></li>
+<li><a href="#sec-2-6">2.6. 插入记录</a></li>
+<li><a href="#sec-2-7">2.7. 删除记录</a></li>
+<li><a href="#sec-2-8">2.8. 查看当前日期</a></li>
+<li><a href="#sec-2-9">2.9. 检索单个列</a></li>
+<li><a href="#sec-2-10">2.10. 检索多个列</a></li>
+<li><a href="#sec-2-11">2.11. 排序</a></li>
+<li><a href="#sec-2-12">2.12. 按多个列排序</a></li>
+<li><a href="#sec-2-13">2.13. 降序排序</a></li>
+<li><a href="#sec-2-14">2.14. 过滤数据</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 第二个例子</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 创建表格</a></li>
+<li><a href="#sec-3-2">3.2. 外键引用</a></li>
+<li><a href="#sec-3-3">3.3. 主键声明的另一方法</a></li>
+<li><a href="#sec-3-4">3.4. 其他sql语句类型声明有时不修改也可</a></li>
+<li><a href="#sec-3-5">3.5. check约束模拟mysql的enum类型</a></li>
+<li><a href="#sec-3-6">3.6. 插入数据</a></li>
+<li><a href="#sec-3-7">3.7. 演示例子的补充信息</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. 简单的SQL查询</a></li>
+<li><a href="#sec-5">5. 联接</a>
+<ul>
+<li><a href="#sec-5-1">5.1. 内部联接</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6. 视图</a>
+<ul>
+<li><a href="#sec-6-1">6.1. 新建视图</a></li>
+<li><a href="#sec-6-2">6.2. 删除视图</a></li>
+<li><a href="#sec-6-3">6.3. 更新视图</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. 附录</a>
+<ul>
+<li><a href="#sec-7-1">7.1. 参考资料</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文主要介绍SQL数据库的最核心的基础知识，用sqlite3作为实验对象。postgresql和mysql则另外再撰文分析。
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 基本术语</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+数据库（database）简单的理解就是一个文件柜。然后DBMS（database management system）是数据库管理系统。而所谓的 <strong>table</strong> 表你可以将其看作文件柜里的一个结构化了的文件。在表格里面的数据都是 <span class="underline">按行存储</span> 的，这个要在头脑中牢记。然后一行数据称之为一个 <strong>记录</strong> 。SQL（Structured Query Language）的意思是结构化查询语言。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 安装sqlite3</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+在ubuntu下可以简单的用apt-get命令来安装：
+</p>
+<div class="highlight"><pre>sudo apt-get install sqlite3
+</pre></div>
+
+<p>
+sqlite3的配置没什么好说的，如果你在终端输入 <code>sqlite3</code> ，应该就能够进去了。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 第一个例子</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+sqlite3和postgresql不同，其没有客户端/服务器的概念，就是直接的文件管理，sqlite3的数据库就是一个文件，然后如果连接到某个不存在的文件，就会自动创建对应的数据库文件。删除数据库当然就是删除数据库文件即可，这一块sqlite3很简单，比如说你如下运行：
+</p>
+
+<div class="highlight"><pre>sqlite3 mydb
+</pre></div>
+
+<p>
+现在我们往这个数据库里面加入一点东西:
+</p>
+<pre class="example">
+wanze@wanze-ubuntu64:~/桌面$ sqlite3 mydb
+SQLite version 3.8.2 2013-12-06 14:53:30
+Enter ".help" for instructions
+Enter SQL statements terminated with a ";"
+sqlite&gt; create table mytable(id integer primary key, name text);
+sqlite&gt; insert into mytable(id,name) values(1,"Micheal");
+sqlite&gt; select * from mytable;
+1|Micheal
+sqlite&gt; .table
+mytable
+sqlite&gt; .database
+seq  name             file                                                      
+---  ---------------  ----------------------------------------------------------
+0    main             /home/wanze/桌面/mydb                                   
+sqlite&gt; .header on 
+sqlite&gt; select * from mytable;
+id|name
+1|Micheal
+</pre>
+
+
+<p>
+这个例子首先连接之前创建的mydb数据库，然后通过CREATE TABLE语句来创建database数据库里面的一个表，接下来用INSERT INTO语句来给某个表插入一些数据，然后用SELECT语句来查看这些数据。
+</p>
+
+<p>
+然后 <code>.database</code> 列出当前连接的数据库信息， <code>.table</code> 列出当前表格的信息， <code>.header on</code> 显示SQL表格头， <code>.quit</code> 退出sqlite3命令行， 你还可以通过 <code>.help</code> 来查看更多相关信息。
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 新建一个表格</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+如下所示就是创建表格的命令格式:
+</p>
+<pre class="example">
+CREATE TABLE mytable(
+  id     INTEGER PRIMARY KEY, 
+  name   TEXT);
+</pre>
+
+<p>
+这里的mytable就是具体创建的表格名字，然后接下来每一行定义了具体表格的某一个字段或者说某一列。第一个是字段的名字，第二个是字段的数据类型定义，后面可选的还可以跟上其他一些约束词。下面先就字段的数据类型做出一些说明。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 字段数据类型</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+按照sqlite3官方文档的 <a href="https://www.sqlite.org/datatype3.html">介绍</a> ，其就支持五种数据类型：
+</p>
+
+<dl class="org-dl">
+<dt> NULL </dt><dd>空值
+</dd>
+<dt> INTEGER </dt><dd>整型
+</dd>
+<dt> REAL </dt><dd>浮点型
+</dd>
+<dt> TEXT </dt><dd>字符串型
+</dd>
+<dt> BLOB </dt><dd>字节流型
+</dd>
+</dl>
+
+<p>
+然后sqlite3关于你的类型声明字符串还建立了一套语法糖规则，具体语法糖规则如下所示:
+</p>
+
+<ol class="org-ol">
+<li>如果没有类型声明，则视为none affinity;
+</li>
+<li>如果在声明字符串中看到"int"（不区分大小写）这个子字符串，那么就视为integer affinity；
+</li>
+<li>继续，接下来如果找到"char"或者"clob"或者"text"，则视为text affinity；所以varchar(80)会被简单视为text affinity;
+</li>
+<li>继续，接下来如果找到"blob"，则视为blob，如果没数据类型声明，则视为none affinity;
+</li>
+<li>继续，接下来如果找到"real"或者"floa"或者"doub"，则视为float affinity;
+</li>
+<li>然后其他的都视为numeric affinity。
+</li>
+</ol>
+
+<p>
+这里什么affinity是sqlite特有的概念，比如text affinity和前面的内置TEXT字符串型是不同的，其可能对应的是NULL，TEXT或BLOB。然后如果输入的数值则会自动将其转换成为字符串型。然后NUMERIC会自动分配成为INTEGER或REAL型，如果输入的字符串还负责转化。等等，总之我们在心里知道sqlite3在类型声明上是很灵活的就行了，具体使用还是严格按照自己喜欢的一套类型声明即可，比如这五个: <strong>null int float text blob</strong> 或者 <strong>null integer float varchar blob</strong> 等等。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 字段约束词</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+请看下面这个例子:
+</p>
+<pre class="example">
+sqlite&gt; CREATE TABLE products(
+   ...&gt;   id  int PRIMARY KEY,
+   ...&gt;   name text NOT NULL,
+   ...&gt;   quantity  int NOT NULL DEFAULT 1,
+   ...&gt;   price real NOT NULL);
+</pre>
+</div>
+
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> PRIMARY KEY</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+一个表格只能有一个PRIMARY KEY，被PRIMARY KEY约束的字段值必须唯一且不为空，从而使其能够成为本表格中各个记录的唯一标识。表格中可以有一个列或者几个列被选定为primary key。值得一提的是 <code>integer primary key</code> 自动有了自动分配的属性，也就是大家清楚的id那一列，即使不赋值，也会自动添加。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> NOT NULL</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+约束该字段不可取空值，也就是该字段必须赋值的意思。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> DEFAULT</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+指定该字段的默认值。
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 更改表格属性</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+sqlite3更改表格属性的功能是很有限的，就只有两个，一个是更改表格名字，还一个是新建一个字段。所以sqlite3主要还是靠CREATE TABLE的时候就把各个字段属性设置好。具体使用就是使用 <code>ALTER TABLE</code> 语句，如下所示:
+</p>
+
+<pre class="example">
+ALTER TABLE tablename RENAME TO new_tablename;
+ALTER TABLE tablename ADD COLUMN column_name column_datatype;
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 删除表格</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+删除前请慎重。
+</p>
+<pre class="example">
+DROP TABLE tablename;
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 插入记录</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+插入一条记录如前所示使用 <code>INSERT INTO</code> 语句，具体如下所示：
+</p>
+
+<pre class="example">
+INSERT INTO products (product_no, name, price) VALUES (1, ’Cheese’, 9.99);
+</pre>
+
+<p>
+这是推荐的风格，后面圆括号跟着的列名不一定是按照顺序来，只是和后面的值一一对应，而且一条记录里面的所有列也不需要都列出来，不写的会按照默认值来处理。INSERT INTO语句是通用的。
+</p>
+
+<p>
+如果只是需要简单插入新的一行的数据那么可以直接使用之前的insert into语句。
+</p>
+<pre class="example">
+sqlite&gt; insert into mytable(age) values(6);
+sqlite&gt; select * from mytable;
+id          name        age
+----------  ----------  ----------
+1           Alice
+2           Betty
+3           Cassie
+4           Doris
+5           Emily
+6           Abby
+7           Bella
+8                       6
+</pre>
+<p>
+不过这并不满足这里的要求，下面的语句用于更新某个特定的表格的数据：
+</p>
+<pre class="example">
+sqlite&gt; update mytable set age=18 where id =1;
+sqlite&gt; select * from mytable;
+id          name        age
+----------  ----------  ----------
+1           Alice       18
+2           Betty
+3           Cassie
+4           Doris
+5           Emily
+6           Abby
+7           Bella
+8                       6
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 删除记录</h3>
+<div class="outline-text-3" id="text-2-7">
+<pre class="example">
+DELETE FROM products WHERE price = 10;
+DELETE FROM products;
+</pre>
+
+<p>
+注意：第二个语句表内所有记录都将被删除！ DELETE FROM 语句是通用的。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 查看当前日期</h3>
+<div class="outline-text-3" id="text-2-8">
+<pre class="example">
+sqlite&gt; SELECT current_date;
+2015-06-16
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> 检索单个列</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+为了后面讲解方便，这里根据前面的第一个例子简单创建一个数据库，具体代码如下：
+</p>
+<pre class="example">
+~$ sqlite3 test.db
+
+sqlite&gt; CREATE TABLE mytable(id INTEGER PRIMARY KEY, name TEXT);
+sqlite&gt; INSERT INTO mytable(id,name) values(1,'Alice');
+sqlite&gt; INSERT INTO mytable(id,name) values(2,'Betty');
+sqlite&gt; INSERT INTO mytable(id,name) values(3,'Cassie');
+sqlite&gt; INSERT INTO mytable(id,name) values(4,'Doris');
+sqlite&gt; INSERT INTO mytable(id,name) values(5,'Emily');
+sqlite&gt; .header on
+sqlite&gt; .mode column
+sqlite&gt; SELECT * FROM mytable;
+id          name
+----------  ----------
+1           Alice
+2           Betty
+3           Cassie
+4           Doris
+5           Emily
+</pre>
+
+<p>
+检索单个列的语法如下：
+</p>
+
+<pre class="example">
+sqlite&gt; SELECT id FROM mytable;
+id
+----------
+1
+2
+3
+4
+5
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> 检索多个列</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+多个列就是写上多个列名，列名之间用逗号隔开。检索所有列就是列名用通配符"*"来匹配所有列。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> 排序</h3>
+<div class="outline-text-3" id="text-2-11">
+<p>
+用SELECT语句默认情况是没有排序的，如果需要排序则需要使用ORDER BY字句。现在又插入几个新名字：
+</p>
+
+<pre class="example">
+sqlite&gt; INSERT INTO mytable(id,name) values(6,'Abby');
+sqlite&gt; INSERT INTO mytable(id,name) values(7,'Bella');
+</pre>
+
+<p>
+如果我们需要输入结果按照name来排序则：
+</p>
+
+<pre class="example">
+sqlite&gt; SELECT id,name FROM mytable ORDER BY name;
+id          name
+----------  ----------
+6           Abby
+1           Alice
+7           Bella
+2           Betty
+3           Cassie
+4           Doris
+5           Emily
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> 按多个列排序</h3>
+<div class="outline-text-3" id="text-2-12">
+<p>
+首先更新之前的表格的一些数据。
+</p>
+<pre class="example">
+sqlite&gt; ALTER TABLE mytable ADD COLUMN age int;
+sqlite&gt; UPDATE mytable set age=18 WHERE id=1;
+sqlite&gt; update mytable set age=20 where id =2;
+sqlite&gt; update mytable set age=6 where id =3;
+sqlite&gt; update mytable set age=25 where id =4;
+sqlite&gt; update mytable set age=30 where id =5;
+sqlite&gt; update mytable set age=66 where id =6;
+sqlite&gt; update mytable set age=20 where id =7;
+sqlite&gt; INSERT INTO mytable(id,name,age) values(8,'Alice',20);
+sqlite&gt; SELECT * FROM mytable;
+id          name        age
+----------  ----------  ----------
+1           Alice       18
+2           Betty       20
+3           Cassie      6
+4           Doris       25
+5           Emily       30
+6           Abby        66
+7           Bella       20
+8           Alice       20
+</pre>
+
+<p>
+现在开始按多个列排序：
+</p>
+<pre class="example">
+sqlite&gt; SELECT * FROM mytable ORDER BY name , age;
+id          name        age
+----------  ----------  ----------
+6           Abby        66
+1           Alice       18
+8           Alice       20
+7           Bella       20
+2           Betty       20
+3           Cassie      6
+4           Doris       25
+5           Emily       30
+</pre>
+<p>
+我们看到首先按name排序，如果名字相同则按age排序。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-13" class="outline-3">
+<h3 id="sec-2-13"><span class="section-number-3">2.13</span> 降序排序</h3>
+<div class="outline-text-3" id="text-2-13">
+<p>
+ORDER BY字句默认排序是升序，如果想要其为降序则使用DESC关键词，如下所示:
+</p>
+
+<pre class="example">
+sqlite&gt; SELECT * FROM mytable ORDER BY name , age DESC;
+id          name        age
+----------  ----------  ----------
+6           Abby        66
+8           Alice       20
+1           Alice       18
+7           Bella       20
+2           Betty       20
+3           Cassie      6
+4           Doris       25
+5           Emily       30
+</pre>
+<p>
+DESC关键词要放在想要降序排序的列的后面。如果想要多个列降序排序，则那些列 <span class="underline">都要加上DESC关键词</span> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-14" class="outline-3">
+<h3 id="sec-2-14"><span class="section-number-3">2.14</span> 过滤数据</h3>
+<div class="outline-text-3" id="text-2-14">
+<p>
+SQL用WHERE字句来达到查询时过滤数据的功能，如果同时有WHERE字句和ORDER BY字句，则ORDER BY字句要放在后面。
+</p>
+
+<p>
+一个简单的例子如下所示:
+</p>
+<pre class="example">
+sqlite&gt; SELECT * FROM mytable WHERE age &lt; 30;
+id          name        age       
+----------  ----------  ----------
+1           Alice       18        
+2           Betty       20        
+3           Cassie      6         
+4           Doris       25        
+7           Bella       20        
+8           Alice       20
+</pre>
+
+<p>
+如果后面的值是字符串则需要加上单引号，如: 'string' ，这些比较符号的含义都是一目了然的，如: = , &lt;&gt; , != , &lt; , &lt;= , !&lt; , &gt; , &gt;= ,!&gt; 。此外还有 <strong>BETWEEN</strong> 在两个值之间， <strong>IS NULL</strong> 为NULL值。
+</p>
+
+<p>
+BETWEEN的使用如下:
+</p>
+<pre class="example">
+SELECT prod_name, prod_price
+FROM Products
+WHERE prod_price BETWEEN 5 AND 10;
+</pre>
+
+<p>
+NULL 无值，它与字段包含0，空字符串等不同。 <strong>IS NULL</strong> 用法如下:
+</p>
+<pre class="example">
+SELECT prod_name
+FROM Products
+WHERE prod_price IS NULL;
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 第二个例子</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+第二个例子将更加大型和更具现实意义。我们将通过创建一个sql文件，刷入sqlite3命令的形式来创建这个数据库。
+</p>
+
+<div class="highlight"><pre>sqlite3 sqlite3_learning_example.db &lt; sqlite3_learning_example.sql
+</pre></div>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 创建表格</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="highlight"><pre><span class="go">create table if not exists department</span>
+<span class="go"> (dept_id int primary key,</span>
+<span class="go">  name varchar not null</span>
+<span class="go"> );</span>
+</pre></div>
+
+<p>
+sqlite3的 <code>int primary key</code> 一起是个约束词，这样写就不用写not null或者autoincrement了，然后sqlite3和mysql不一样，其约束词就是直接跟在列名后面的。
+</p>
+
+<div class="highlight"><pre><span class="go">create table if not exists branch</span>
+<span class="go"> (branch_id int  primary key,</span>
+<span class="go">  name varchar not null,</span>
+<span class="go">  address varchar,</span>
+<span class="go">  city varchar,</span>
+<span class="go">  state varchar,</span>
+<span class="go">  zip varchar</span>
+<span class="go"> );</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 外键引用</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+外键引用在sqlite3中必须加上这一行设置:
+</p>
+<pre class="example">
+PRAGMA foreign_keys = ON;
+</pre>
+
+<p>
+然后后面加入外键引用的语法和mysql有点类似，除了没有constraint pk_product_type这一描述外。然后sqlite3里面并没有 <strong>date</strong> 类型的，其内部会自动处理为text,int或real等类型。但我们在声明的时候还是可以这样写的，然后值得一提的是sqlite3里面有一些date相关函数支持。
+</p>
+
+<p>
+关于外键引用更多信息请参看官方文档的 <a href="https://www.sqlite.org/foreignkeys.html">这里</a> 。
+</p>
+
+<div class="highlight"><pre><span class="go">PRAGMA foreign_keys = ON;</span>
+
+<span class="go">create table if not exists employee</span>
+<span class="go"> (emp_id int  primary key,</span>
+<span class="go">  fname varchar not null,</span>
+<span class="go">  lname varchar not null,</span>
+<span class="go">  start_date date not null,</span>
+<span class="go">  end_date date,</span>
+<span class="go">  superior_emp_id int ,</span>
+<span class="go">  dept_id int ,</span>
+<span class="go">  title varchar,</span>
+<span class="go">  assigned_branch_id int ,</span>
+<span class="go">    foreign key (superior_emp_id) references employee (emp_id),</span>
+<span class="go">    foreign key (dept_id) references department (dept_id),</span>
+<span class="go">    foreign key (assigned_branch_id) references branch (branch_id)</span>
+<span class="go"> );</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 主键声明的另一方法</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+这里演示了主键声明的另一方法，和mysql语句很接近了。
+</p>
+<div class="highlight"><pre><span class="go">create table if not exists product_type</span>
+<span class="go"> (product_type_cd varchar not null,</span>
+<span class="go">  name varchar not null,</span>
+<span class="go">  primary key (product_type_cd)</span>
+<span class="go"> );</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 其他sql语句类型声明有时不修改也可</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+比如在下面语句中 <code>varchar(10)</code> 这种写法是mysql里面的，我们在这里没有将其修改为 <code>varchar</code> 或 <code>text</code> ，因为前面说过sqlite3有很灵活的语法糖规则，直接输入 <code>varchar(10)</code> 和改成 <code>varchar</code> 没有本质区别，所以我们在这里可以图省心就不修改了。
+</p>
+<div class="highlight"><pre><span class="go">create table if not exists product</span>
+<span class="go">(product_cd varchar(10) not null,</span>
+<span class="go"> name varchar(50) not null,</span>
+<span class="go"> product_type_cd varchar(10) not null,</span>
+<span class="go"> date_offered date,</span>
+<span class="go"> date_retired date,</span>
+<span class="go"> foreign key (product_type_cd)</span>
+<span class="go">   references product_type (product_type_cd),</span>
+<span class="go">  primary key (product_cd)</span>
+<span class="go">);</span>
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> check约束模拟mysql的enum类型</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有如下用 <strong>check</strong> 约束。 参考了 <a href="http://stackoverflow.com/questions/5299267/how-to-create-enum-type-in-sqlite">这个网页</a> 。然后这里mysql的integer类型声明也没改了，等同于int。
+</p>
+<div class="highlight"><pre><span class="go">create table if not exists customer</span>
+<span class="go">(cust_id integer  not null ,</span>
+<span class="go"> fed_id varchar(12) not null,</span>
+<span class="go"> cust_type_cd  not null check(cust_type_cd in (&#39;I&#39;,&#39;B&#39;)),</span>
+<span class="go"> address varchar(30),</span>
+<span class="go"> city varchar(20),</span>
+<span class="go"> state varchar(20),</span>
+<span class="go"> postal_code varchar(10),</span>
+<span class="go">   primary key (cust_id)</span>
+<span class="go">);</span>
+</pre></div>
+
+<p>
+然后我们继续:
+</p>
+<div class="highlight"><pre><span class="go">create table if not exists individual</span>
+<span class="go">(cust_id integer  not null,</span>
+<span class="go"> fname varchar(30) not null,</span>
+<span class="go"> lname varchar(30) not null,</span>
+<span class="go"> birth_date date,</span>
+<span class="go">  foreign key (cust_id)</span>
+<span class="go">   references customer (cust_id),</span>
+<span class="go">  primary key (cust_id)</span>
+<span class="go">);</span>
+
+<span class="go">create table if not exists business</span>
+<span class="go">(cust_id integer  not null,</span>
+<span class="go"> name varchar(40) not null,</span>
+<span class="go"> state_id varchar(10) not null,</span>
+<span class="go"> incorp_date date,</span>
+<span class="go">  foreign key (cust_id)</span>
+<span class="go">   references customer (cust_id),</span>
+<span class="go">  primary key (cust_id)</span>
+<span class="go">);</span>
+
+
+<span class="go">create table if not exists officer</span>
+<span class="go">(officer_id smallint  not null ,</span>
+<span class="go"> cust_id integer  not null,</span>
+<span class="go"> fname varchar(30) not null,</span>
+<span class="go"> lname varchar(30) not null,</span>
+<span class="go"> title varchar(20),</span>
+<span class="go"> start_date date not null,</span>
+<span class="go"> end_date date,</span>
+<span class="go">  foreign key (cust_id)</span>
+<span class="go">   references business (cust_id),</span>
+<span class="go">  primary key (officer_id)</span>
+<span class="go">);</span>
+
+<span class="go">create table if not exists account</span>
+<span class="go">(account_id integer  not null ,</span>
+<span class="go"> product_cd varchar(10) not null,</span>
+<span class="go"> cust_id integer  not null,</span>
+<span class="go"> open_date date not null,</span>
+<span class="go"> close_date date,</span>
+<span class="go"> last_activity_date date,</span>
+<span class="go"> status check(status in (&#39;ACTIVE&#39;,&#39;CLOSED&#39;,&#39;FROZEN&#39;)),</span>
+<span class="go"> open_branch_id smallint ,</span>
+<span class="go"> open_emp_id smallint ,</span>
+<span class="go"> avail_balance float(10,2),</span>
+<span class="go"> pending_balance float(10,2),</span>
+<span class="go">  foreign key (product_cd)</span>
+<span class="go">   references product (product_cd),</span>
+<span class="go">  foreign key (cust_id)</span>
+<span class="go">   references customer (cust_id),</span>
+<span class="go">  foreign key (open_branch_id)</span>
+<span class="go">   references branch (branch_id),</span>
+<span class="go">  foreign key (open_emp_id)</span>
+<span class="go">   references employee (emp_id),</span>
+<span class="go">  primary key (account_id)</span>
+<span class="go">);</span>
+
+<span class="go">create table if not exists transaction_t</span>
+<span class="go">(txn_id integer not null ,</span>
+<span class="go"> txn_date datetime not null,</span>
+<span class="go"> account_id integer  not null,</span>
+<span class="go"> txn_type_cd check(txn_type_cd in (&#39;DBT&#39;,&#39;CDT&#39;)),</span>
+<span class="go"> amount float not null,</span>
+<span class="go"> teller_emp_id smallint ,</span>
+<span class="go"> execution_branch_id smallint ,</span>
+<span class="go"> funds_avail_date datetime,</span>
+<span class="go">  foreign key (account_id)</span>
+<span class="go">   references account (account_id),</span>
+<span class="go">  foreign key (teller_emp_id)</span>
+<span class="go">   references employee (emp_id),</span>
+<span class="go">  foreign key (execution_branch_id)</span>
+<span class="go">   references branch (branch_id),</span>
+<span class="go"> primary key (txn_id)</span>
+<span class="go">);</span>
+</pre></div>
+
+<p>
+这里唯一要讲的就是最后一个表格的名字，原来在mysql中为transaction，这和sqlite3里的关键词transaction冲突了，这里稍作修改了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> 插入数据</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+在mysql中有如下语句:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Operations&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Loans&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Administration&#39;</span><span class="p">);</span>
+</pre></div>
+
+<p>
+其实现了插入，如果主键值重复则ignore的逻辑。
+</p>
+
+<p>
+在sqlite3中有类似的这样的表达:
+</p>
+<div class="highlight"><pre><span class="go">insert or ignore into department (dept_id, name)</span>
+<span class="go">values (1, &#39;Operations&#39;);</span>
+<span class="go">insert or ignore into department (dept_id, name)</span>
+<span class="go">values (2, &#39;Loans&#39;);</span>
+<span class="go">insert or ignore into department (dept_id, name)</span>
+<span class="go">values (3, &#39;Administration&#39;);</span>
+</pre></div>
+
+<p>
+也就是把ignore替换为 <strong>or ignore</strong> 即可。
+</p>
+
+<p>
+然后mysql语句一样做如此修改之后，就没有什么额外要修改的了。因为SQL系insert，select和update这几个语句他们都是非常非常的接近的。如下所示这些都不用做任何修改:
+</p>
+
+<div class="highlight"><pre><span class="go">insert or ignore  into branch (branch_id, name, address, city, state, zip)</span>
+<span class="go">values (1, &#39;Headquarters&#39;, &#39;3882 Main St.&#39;, &#39;Waltham&#39;, &#39;MA&#39;, &#39;02451&#39;);</span>
+<span class="go">insert or ignore  into branch (branch_id, name, address, city, state, zip)</span>
+<span class="go">values (2, &#39;Woburn Branch&#39;, &#39;422 Maple St.&#39;, &#39;Woburn&#39;, &#39;MA&#39;, &#39;01801&#39;);</span>
+<span class="go">insert or ignore  into branch (branch_id, name, address, city, state, zip)</span>
+<span class="go">values (3, &#39;Quincy Branch&#39;, &#39;125 Presidential Way&#39;, &#39;Quincy&#39;, &#39;MA&#39;, &#39;02169&#39;);</span>
+<span class="go">insert or ignore  into branch (branch_id, name, address, city, state, zip)</span>
+<span class="go">values (4, &#39;So. NH Branch&#39;, &#39;378 Maynard Ln.&#39;, &#39;Salem&#39;, &#39;NH&#39;, &#39;03079&#39;);</span>
+
+<span class="go">/* employee data */</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (1, &#39;Michael&#39;, &#39;Smith&#39;, &#39;2001-06-22&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Administration&#39;),</span>
+<span class="go">  &#39;President&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (2, &#39;Susan&#39;, &#39;Barker&#39;, &#39;2002-09-12&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Administration&#39;),</span>
+<span class="go">  &#39;Vice President&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (3, &#39;Robert&#39;, &#39;Tyler&#39;, &#39;2000-02-09&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Administration&#39;),</span>
+<span class="go">  &#39;Treasurer&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (4, &#39;Susan&#39;, &#39;Hawthorne&#39;, &#39;2002-04-24&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Operations Manager&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (5, &#39;John&#39;, &#39;Gooding&#39;, &#39;2003-11-14&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Loans&#39;),</span>
+<span class="go">  &#39;Loan Manager&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (6, &#39;Helen&#39;, &#39;Fleming&#39;, &#39;2004-03-17&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Head Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (7, &#39;Chris&#39;, &#39;Tucker&#39;, &#39;2004-09-15&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (8, &#39;Sarah&#39;, &#39;Parker&#39;, &#39;2002-12-02&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (9, &#39;Jane&#39;, &#39;Grossman&#39;, &#39;2002-05-03&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Headquarters&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (10, &#39;Paula&#39;, &#39;Roberts&#39;, &#39;2002-07-27&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Head Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Woburn Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (11, &#39;Thomas&#39;, &#39;Ziegler&#39;, &#39;2000-10-23&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Woburn Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (12, &#39;Samantha&#39;, &#39;Jameson&#39;, &#39;2003-01-08&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Woburn Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (13, &#39;John&#39;, &#39;Blake&#39;, &#39;2000-05-11&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Head Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Quincy Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (14, &#39;Cindy&#39;, &#39;Mason&#39;, &#39;2002-08-09&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Quincy Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (15, &#39;Frank&#39;, &#39;Portman&#39;, &#39;2003-04-01&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;Quincy Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (16, &#39;Theresa&#39;, &#39;Markham&#39;, &#39;2001-03-15&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Head Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;So. NH Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (17, &#39;Beth&#39;, &#39;Fowler&#39;, &#39;2002-06-29&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;So. NH Branch&#39;));</span>
+<span class="go">insert or ignore  into employee (emp_id, fname, lname, start_date,</span>
+<span class="go">  dept_id, title, assigned_branch_id)</span>
+<span class="go">values (18, &#39;Rick&#39;, &#39;Tulman&#39;, &#39;2002-12-12&#39;,</span>
+<span class="go">  (select dept_id from department where name = &#39;Operations&#39;),</span>
+<span class="go">  &#39;Teller&#39;,</span>
+<span class="go">  (select branch_id from branch where name = &#39;So. NH Branch&#39;));</span>
+
+
+<span class="go">/* create data for self-referencing foreign key &#39;superior_emp_id&#39; */</span>
+<span class="go">create temporary table emp_tmp as</span>
+<span class="go">select emp_id, fname, lname from employee;</span>
+
+<span class="go">update employee set superior_emp_id =</span>
+<span class="go"> (select emp_id from emp_tmp where lname = &#39;Smith&#39; and fname = &#39;Michael&#39;)</span>
+<span class="go">where ((lname = &#39;Barker&#39; and fname = &#39;Susan&#39;)</span>
+<span class="go">  or (lname = &#39;Tyler&#39; and fname = &#39;Robert&#39;));</span>
+<span class="go">update employee set superior_emp_id =</span>
+<span class="go"> (select emp_id from emp_tmp where lname = &#39;Tyler&#39; and fname = &#39;Robert&#39;)</span>
+<span class="go">where lname = &#39;Hawthorne&#39; and fname = &#39;Susan&#39;;</span>
+<span class="go">update employee set superior_emp_id =</span>
+<span class="go"> (select emp_id from emp_tmp where lname = &#39;Hawthorne&#39; and fname = &#39;Susan&#39;)</span>
+<span class="go">where ((lname = &#39;Gooding&#39; and fname = &#39;John&#39;)</span>
+<span class="go">  or (lname = &#39;Fleming&#39; and fname = &#39;Helen&#39;)</span>
+<span class="go">  or (lname = &#39;Roberts&#39; and fname = &#39;Paula&#39;)</span>
+<span class="go">  or (lname = &#39;Blake&#39; and fname = &#39;John&#39;)</span>
+<span class="go">  or (lname = &#39;Markham&#39; and fname = &#39;Theresa&#39;));</span>
+<span class="go">update employee set superior_emp_id =</span>
+<span class="go"> (select emp_id from emp_tmp where lname = &#39;Fleming&#39; and fname = &#39;Helen&#39;)</span>
+<span class="go">where ((lname = &#39;Tucker&#39; and fname = &#39;Chris&#39;)</span>
+<span class="go">  or (lname = &#39;Parker&#39; and fname = &#39;Sarah&#39;)</span>
+<span class="go">  or (lname = &#39;Grossman&#39; and fname = &#39;Jane&#39;));</span>
+<span class="go">update employee set superior_emp_id =</span>
+<span class="go"> (select emp_id from emp_tmp where lname = &#39;Roberts&#39; and fname = &#39;Paula&#39;)</span>
+<span class="go">where ((lname = &#39;Ziegler&#39; and fname = &#39;Thomas&#39;)</span>
+<span class="go">  or (lname = &#39;Jameson&#39; and fname = &#39;Samantha&#39;));</span>
+<span class="go">update employee set superior_emp_id =</span>
+<span class="go"> (select emp_id from emp_tmp where lname = &#39;Blake&#39; and fname = &#39;John&#39;)</span>
+<span class="go">where ((lname = &#39;Mason&#39; and fname = &#39;Cindy&#39;)</span>
+<span class="go">  or (lname = &#39;Portman&#39; and fname = &#39;Frank&#39;));</span>
+<span class="go">update employee set superior_emp_id =</span>
+<span class="go"> (select emp_id from emp_tmp where lname = &#39;Markham&#39; and fname = &#39;Theresa&#39;)</span>
+<span class="go">where ((lname = &#39;Fowler&#39; and fname = &#39;Beth&#39;)</span>
+<span class="go">  or (lname = &#39;Tulman&#39; and fname = &#39;Rick&#39;));</span>
+
+<span class="go">drop table emp_tmp;</span>
+
+
+<span class="go">/* product type data */</span>
+<span class="go">insert or ignore  into product_type (product_type_cd, name)</span>
+<span class="go">values (&#39;ACCOUNT&#39;,&#39;Customer Accounts&#39;);</span>
+<span class="go">insert or ignore  into product_type (product_type_cd, name)</span>
+<span class="go">values (&#39;LOAN&#39;,&#39;Individual and Business Loans&#39;);</span>
+<span class="go">insert or ignore  into product_type (product_type_cd, name)</span>
+<span class="go">values (&#39;INSURANCE&#39;,&#39;Insurance Offerings&#39;);</span>
+
+
+<span class="go">/* product data */</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;CHK&#39;,&#39;checking account&#39;,&#39;ACCOUNT&#39;,&#39;2000-01-01&#39;);</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;SAV&#39;,&#39;savings account&#39;,&#39;ACCOUNT&#39;,&#39;2000-01-01&#39;);</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;MM&#39;,&#39;money market account&#39;,&#39;ACCOUNT&#39;,&#39;2000-01-01&#39;);</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;CD&#39;,&#39;certificate of deposit&#39;,&#39;ACCOUNT&#39;,&#39;2000-01-01&#39;);</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;MRT&#39;,&#39;home mortgage&#39;,&#39;LOAN&#39;,&#39;2000-01-01&#39;);</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;AUT&#39;,&#39;auto loan&#39;,&#39;LOAN&#39;,&#39;2000-01-01&#39;);</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;BUS&#39;,&#39;business line of credit&#39;,&#39;LOAN&#39;,&#39;2000-01-01&#39;);</span>
+<span class="go">insert or ignore  into product (product_cd, name, product_type_cd, date_offered)</span>
+<span class="go">values (&#39;SBL&#39;,&#39;small business loan&#39;,&#39;LOAN&#39;,&#39;2000-01-01&#39;);</span>
+
+
+
+<span class="go">/* residential customer data */</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (1, &#39;111-11-1111&#39;, &#39;I&#39;, &#39;47 Mockingbird Ln&#39;, &#39;Lynnfield&#39;, &#39;MA&#39;, &#39;01940&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (2, &#39;222-22-2222&#39;, &#39;I&#39;, &#39;372 Clearwater Blvd&#39;, &#39;Woburn&#39;, &#39;MA&#39;, &#39;01801&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (3, &#39;333-33-3333&#39;, &#39;I&#39;, &#39;18 Jessup Rd&#39;, &#39;Quincy&#39;, &#39;MA&#39;, &#39;02169&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (4, &#39;444-44-4444&#39;, &#39;I&#39;, &#39;12 Buchanan Ln&#39;, &#39;Waltham&#39;, &#39;MA&#39;, &#39;02451&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (5, &#39;555-55-5555&#39;, &#39;I&#39;, &#39;2341 Main St&#39;, &#39;Salem&#39;, &#39;NH&#39;, &#39;03079&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (6, &#39;666-66-6666&#39;, &#39;I&#39;, &#39;12 Blaylock Ln&#39;, &#39;Waltham&#39;, &#39;MA&#39;, &#39;02451&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (7, &#39;777-77-7777&#39;, &#39;I&#39;, &#39;29 Admiral Ln&#39;, &#39;Wilmington&#39;, &#39;MA&#39;, &#39;01887&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (8, &#39;888-88-8888&#39;, &#39;I&#39;, &#39;472 Freedom Rd&#39;, &#39;Salem&#39;, &#39;NH&#39;, &#39;03079&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (9, &#39;999-99-9999&#39;, &#39;I&#39;, &#39;29 Maple St&#39;, &#39;Newton&#39;, &#39;MA&#39;, &#39;02458&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (10, &#39;04-1111111&#39;, &#39;B&#39;, &#39;7 Industrial Way&#39;, &#39;Salem&#39;, &#39;NH&#39;, &#39;03079&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (11, &#39;04-2222222&#39;, &#39;B&#39;, &#39;287A Corporate Ave&#39;, &#39;Wilmington&#39;, &#39;MA&#39;, &#39;01887&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (12, &#39;04-3333333&#39;, &#39;B&#39;, &#39;789 Main St&#39;, &#39;Salem&#39;, &#39;NH&#39;, &#39;03079&#39;);</span>
+<span class="go">insert or ignore  into customer (cust_id, fed_id, cust_type_cd,</span>
+<span class="go">  address, city, state, postal_code)</span>
+<span class="go">values (13, &#39;04-4444444&#39;, &#39;B&#39;, &#39;4772 Presidential Way&#39;, &#39;Quincy&#39;, &#39;MA&#39;, &#39;02169&#39;);</span>
+
+
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;James&#39;, &#39;Hadley&#39;, &#39;1972-04-22&#39; from customer</span>
+<span class="go">where fed_id = &#39;111-11-1111&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;Susan&#39;, &#39;Tingley&#39;, &#39;1968-08-15&#39; from customer</span>
+<span class="go">where fed_id = &#39;222-22-2222&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;Frank&#39;, &#39;Tucker&#39;, &#39;1958-02-06&#39; from customer</span>
+<span class="go">where fed_id = &#39;333-33-3333&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;John&#39;, &#39;Hayward&#39;, &#39;1966-12-22&#39; from customer</span>
+<span class="go">where fed_id = &#39;444-44-4444&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;Charles&#39;, &#39;Frasier&#39;, &#39;1971-08-25&#39; from customer</span>
+<span class="go">where fed_id = &#39;555-55-5555&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;John&#39;, &#39;Spencer&#39;, &#39;1962-09-14&#39; from customer</span>
+<span class="go">where fed_id = &#39;666-66-6666&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;Margaret&#39;, &#39;Young&#39;, &#39;1947-03-19&#39; from customer</span>
+<span class="go">where fed_id = &#39;777-77-7777&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;Louis&#39;, &#39;Blake&#39;, &#39;1977-07-01&#39; from customer</span>
+<span class="go">where fed_id = &#39;888-88-8888&#39;;</span>
+<span class="go">insert or ignore  into individual (cust_id, fname, lname, birth_date)</span>
+<span class="go">select cust_id, &#39;Richard&#39;, &#39;Farley&#39;, &#39;1968-06-16&#39; from customer</span>
+<span class="go">where fed_id = &#39;999-99-9999&#39;;</span>
+
+
+<span class="go">insert or ignore  into business (cust_id, name, state_id, incorp_date)</span>
+<span class="go">select cust_id, &#39;Chilton Engineering&#39;, &#39;12-345-678&#39;, &#39;1995-05-01&#39; from customer</span>
+<span class="go">where fed_id = &#39;04-1111111&#39;;</span>
+<span class="go">insert or ignore  into business (cust_id, name, state_id, incorp_date)</span>
+<span class="go">select cust_id, &#39;Northeast Cooling Inc.&#39;, &#39;23-456-789&#39;, &#39;2001-01-01&#39; from customer</span>
+<span class="go">where fed_id = &#39;04-2222222&#39;;</span>
+<span class="go">insert or ignore  into business (cust_id, name, state_id, incorp_date)</span>
+<span class="go">select cust_id, &#39;Superior Auto Body&#39;, &#39;34-567-890&#39;, &#39;2002-06-30&#39; from customer</span>
+<span class="go">where fed_id = &#39;04-3333333&#39;;</span>
+<span class="go">insert or ignore  into business (cust_id, name, state_id, incorp_date)</span>
+<span class="go">select cust_id, &#39;AAA Insurance Inc.&#39;, &#39;45-678-901&#39;, &#39;1999-05-01&#39; from customer</span>
+<span class="go">where fed_id = &#39;04-4444444&#39;;</span>
+
+
+
+<span class="go">insert or ignore  into officer (officer_id, cust_id, fname, lname,</span>
+<span class="go">  title, start_date)</span>
+<span class="go">select 1, cust_id, &#39;John&#39;, &#39;Chilton&#39;, &#39;President&#39;, &#39;1995-05-01&#39;</span>
+<span class="go">from customer</span>
+<span class="go">where fed_id = &#39;04-1111111&#39;;</span>
+<span class="go">insert or ignore  into officer (officer_id, cust_id, fname, lname,</span>
+<span class="go">  title, start_date)</span>
+<span class="go">select 2, cust_id, &#39;Paul&#39;, &#39;Hardy&#39;, &#39;President&#39;, &#39;2001-01-01&#39;</span>
+<span class="go">from customer</span>
+<span class="go">where fed_id = &#39;04-2222222&#39;;</span>
+<span class="go">insert or ignore  into officer (officer_id, cust_id, fname, lname,</span>
+<span class="go">  title, start_date)</span>
+<span class="go">select 3, cust_id, &#39;Carl&#39;, &#39;Lutz&#39;, &#39;President&#39;, &#39;2002-06-30&#39;</span>
+<span class="go">from customer</span>
+<span class="go">where fed_id = &#39;04-3333333&#39;;</span>
+<span class="go">insert or ignore  into officer (officer_id, cust_id, fname, lname,</span>
+<span class="go">  title, start_date)</span>
+<span class="go">select 4, cust_id, &#39;Stanley&#39;, &#39;Cheswick&#39;, &#39;President&#39;, &#39;1999-05-01&#39;</span>
+<span class="go">from customer</span>
+<span class="go">where fed_id = &#39;04-4444444&#39;;</span>
+
+
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 1, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Woburn&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2000-01-15&#39; open_date, &#39;2005-01-04&#39; last_date,</span>
+<span class="go">    1057.75 avail, 1057.75 pend union all</span>
+<span class="go">  select &#39;SAV&#39; prod_cd, &#39;2000-01-15&#39; open_date, &#39;2004-12-19&#39; last_date,</span>
+<span class="go">    500.00 avail, 500.00 pend union all</span>
+<span class="go">  select &#39;CD&#39; prod_cd, &#39;2004-06-30&#39; open_date, &#39;2004-06-30&#39; last_date,</span>
+<span class="go">    3000.00 avail, 3000.00 pend) a</span>
+<span class="go">where c.fed_id = &#39;111-11-1111&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 2, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Woburn&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2001-03-12&#39; open_date, &#39;2004-12-27&#39; last_date,</span>
+<span class="go">    2258.02 avail, 2258.02 pend union all</span>
+<span class="go">  select &#39;SAV&#39; prod_cd, &#39;2001-03-12&#39; open_date, &#39;2004-12-11&#39; last_date,</span>
+<span class="go">    200.00 avail, 200.00 pend) a</span>
+<span class="go">where c.fed_id = &#39;222-22-2222&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 3, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Quincy&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2002-11-23&#39; open_date, &#39;2004-11-30&#39; last_date,</span>
+<span class="go">    1057.75 avail, 1057.75 pend union all</span>
+<span class="go">  select &#39;MM&#39; prod_cd, &#39;2002-12-15&#39; open_date, &#39;2004-12-05&#39; last_date,</span>
+<span class="go">    2212.50 avail, 2212.50 pend) a</span>
+<span class="go">where c.fed_id = &#39;333-33-3333&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 4, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Waltham&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2003-09-12&#39; open_date, &#39;2005-01-03&#39; last_date,</span>
+<span class="go">    534.12 avail, 534.12 pend union all</span>
+<span class="go">  select &#39;SAV&#39; prod_cd, &#39;2000-01-15&#39; open_date, &#39;2004-10-24&#39; last_date,</span>
+<span class="go">    767.77 avail, 767.77 pend union all</span>
+<span class="go">  select &#39;MM&#39; prod_cd, &#39;2004-09-30&#39; open_date, &#39;2004-11-11&#39; last_date,</span>
+<span class="go">    5487.09 avail, 5487.09 pend) a</span>
+<span class="go">where c.fed_id = &#39;444-44-4444&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 5, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Salem&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2004-01-27&#39; open_date, &#39;2005-01-05&#39; last_date,</span>
+<span class="go">    2237.97 avail, 2897.97 pend) a</span>
+<span class="go">where c.fed_id = &#39;555-55-5555&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 6, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Waltham&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2002-08-24&#39; open_date, &#39;2004-11-29&#39; last_date,</span>
+<span class="go">    122.37 avail, 122.37 pend union all</span>
+<span class="go">  select &#39;CD&#39; prod_cd, &#39;2004-12-28&#39; open_date, &#39;2004-12-28&#39; last_date,</span>
+<span class="go">    10000.00 avail, 10000.00 pend) a</span>
+<span class="go">where c.fed_id = &#39;666-66-6666&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 7, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Woburn&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CD&#39; prod_cd, &#39;2004-01-12&#39; open_date, &#39;2004-01-12&#39; last_date,</span>
+<span class="go">    5000.00 avail, 5000.00 pend) a</span>
+<span class="go">where c.fed_id = &#39;777-77-7777&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 8, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Salem&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2001-05-23&#39; open_date, &#39;2005-01-03&#39; last_date,</span>
+<span class="go">    3487.19 avail, 3487.19 pend union all</span>
+<span class="go">  select &#39;SAV&#39; prod_cd, &#39;2001-05-23&#39; open_date, &#39;2004-10-12&#39; last_date,</span>
+<span class="go">    387.99 avail, 387.99 pend) a</span>
+<span class="go">where c.fed_id = &#39;888-88-8888&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 9, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Waltham&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2003-07-30&#39; open_date, &#39;2004-12-15&#39; last_date,</span>
+<span class="go">    125.67 avail, 125.67 pend union all</span>
+<span class="go">  select &#39;MM&#39; prod_cd, &#39;2004-10-28&#39; open_date, &#39;2004-10-28&#39; last_date,</span>
+<span class="go">    9345.55 avail, 9845.55 pend union all</span>
+<span class="go">  select &#39;CD&#39; prod_cd, &#39;2004-06-30&#39; open_date, &#39;2004-06-30&#39; last_date,</span>
+<span class="go">    1500.00 avail, 1500.00 pend) a</span>
+<span class="go">where c.fed_id = &#39;999-99-9999&#39;;</span>
+
+
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 10, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Salem&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2002-09-30&#39; open_date, &#39;2004-12-15&#39; last_date,</span>
+<span class="go">    23575.12 avail, 23575.12 pend union all</span>
+<span class="go">  select &#39;BUS&#39; prod_cd, &#39;2002-10-01&#39; open_date, &#39;2004-08-28&#39; last_date,</span>
+<span class="go">    0 avail, 0 pend) a</span>
+<span class="go">where c.fed_id = &#39;04-1111111&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 11, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Woburn&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;BUS&#39; prod_cd, &#39;2004-03-22&#39; open_date, &#39;2004-11-14&#39; last_date,</span>
+<span class="go">    9345.55 avail, 9345.55 pend) a</span>
+<span class="go">where c.fed_id = &#39;04-2222222&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 12, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Salem&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;CHK&#39; prod_cd, &#39;2003-07-30&#39; open_date, &#39;2004-12-15&#39; last_date,</span>
+<span class="go">    38552.05 avail, 38552.05 pend) a</span>
+<span class="go">where c.fed_id = &#39;04-3333333&#39;;</span>
+<span class="go">insert or ignore  into account (account_id, product_cd, cust_id, open_date,</span>
+<span class="go">  last_activity_date, status, open_branch_id,</span>
+<span class="go">  open_emp_id, avail_balance, pending_balance)</span>
+<span class="go">select 13, a.prod_cd, c.cust_id, a.open_date, a.last_date, &#39;ACTIVE&#39;,</span>
+<span class="go">  e.branch_id, e.emp_id, a.avail, a.pend</span>
+<span class="go">from customer c cross join</span>
+<span class="go"> (select b.branch_id, e.emp_id</span>
+<span class="go">  from branch b inner join employee e on e.assigned_branch_id = b.branch_id</span>
+<span class="go">  where b.city = &#39;Quincy&#39; limit 1) e</span>
+<span class="go">  cross join</span>
+<span class="go"> (select &#39;SBL&#39; prod_cd, &#39;2004-02-22&#39; open_date, &#39;2004-12-17&#39; last_date,</span>
+<span class="go">    50000.00 avail, 50000.00 pend) a</span>
+<span class="go">where c.fed_id = &#39;04-4444444&#39;;</span>
+
+<span class="go">/* put $100 in all checking/savings accounts on date account opened */</span>
+<span class="go">insert or ignore  into transaction_t (txn_id, txn_date, account_id, txn_type_cd,</span>
+<span class="go">  amount, funds_avail_date)</span>
+<span class="go">select 1, a.open_date, a.account_id, &#39;CDT&#39;, 100, a.open_date</span>
+<span class="go">from account a</span>
+<span class="go">where a.product_cd IN (&#39;CHK&#39;,&#39;SAV&#39;,&#39;CD&#39;,&#39;MM&#39;);</span>
+</pre></div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> 演示例子的补充信息</h3>
+<div class="outline-text-3" id="text-3-7">
+<p>
+该演示数据，按照《SQL学习指南》一书所说，是为了某一银行建立的数据模型，不过我们看到，其中涉及的顾客，部门，产品等概念在很多领域都是适用的。
+</p>
+
+<p>
+下面列出关于这些表格的含义说明:
+</p>
+<dl class="org-dl">
+<dt> account </dt><dd>为特定顾客开放的特定产品
+</dd>
+<dt> branch </dt><dd>开展银行交易业务的场所，就可理解为某分公司分银行。
+</dd>
+<dt> business </dt><dd>公司顾客
+</dd>
+<dt> customer </dt><dd>与银行有业务往来的个人或公司
+</dd>
+<dt> department </dt><dd>就可理解为银行内某部门
+</dd>
+<dt> employee </dt><dd>银行工作人员
+</dd>
+<dt> individual </dt><dd>个人顾客，我们看到和business对应。
+</dd>
+<dt> officer </dt><dd>允许为公司顾客发起交易的人
+</dd>
+<dt> product </dt><dd>向顾客提供的银行服务
+</dd>
+<dt> product_type </dt><dd>服务类型
+</dd>
+<dt> transaction </dt><dd>改变账户余额的操作
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 简单的SQL查询</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+基于前面的第二个例子构建的数据库，下面我们对SQL最简单的一些查询过一遍。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 联接</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+关于联接的抽象理论讨论还是很有必要的，这里我也谈论一些，但具体还是需要读者自己沉思。我们把一个SQL表格看作一个对应外部世界的模型，你可以将其看作柏拉图所谈论的理念。然后就作为外部世界各个模型来说，彼此之间有两种关系: 第一种是继承关系，第二种是组合关系。所谓继承关系是指对于每一个苹果实体来说，它有各种各样的属性，我们不可能将其装入一个数据库中，比如说本苹果实体的供应商信息，本苹果的重量颜色信息等等。更合理的做法是我们将描述苹果（或者所有产品）供应商信息单独放入一个模型，然后将描述苹果重量颜色等信息也单独放入一个模型，除此之外还有水果店信息等等。我们在实际处理的时候，常常各个衍生模型都有一个parent_id类似这样的字段属性来描述本衍生模型的该记录所对应的实际母体parent是谁，从而将多个衍生模型在一个实体对象上统一起来，从而形成表的联接。你可以看作表的联接的最终成果就是你心目中所想的那个超大型SQL表格，对应的是苹果这个模型，里面存放着所有一切和该苹果相关的属性信息。然后你用SELECT语句查一下即可。
+</p>
+
+<p>
+第二个组合关系就是苹果由苹果皮和苹果肉等部分组成，各子部分和母体一样具有某种实体性，这个时候我们应该在苹果这个模型上加入如同pingguopi_id和pingguorou_id这样的字段属性，然后约定其他以_id结尾的都视作本苹果的组成部分，不是的都视作非其他组成部分独独为我苹果模型所有的属性。这个组合关系也很重要，在后面再谈及，下面主要谈论表格的联接，而这里表格的联接主要在描述模型之间的继承关系。
+</p>
+
+
+<p>
+具体语法如下所示:
+</p>
+<pre class="example">
+SELECT name,price,weight
+FROM Supplier,Info
+WHERE Supplier.parent_id = Info.parent_id
+</pre>
+
+<p>
+这里我们约定Supplier和Info这两个衍生模型内存储的parent_id具体就应该Pingguo这个模型中的记录号。然后记录号相等就代表着同一个苹果实体。然后将这同一个苹果实体的name, price, weight 等属性列出来。
+</p>
+
+<p>
+如果不使用WHERE字句会执行笛卡尔乘积操作，各个字段属性随意组合，没有任何现实意义了。
+</p>
+</div>
+
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 内部联接</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+按照SQL规范，已经不推荐使用这样的WHERE字句表达了，上面的内部联接语句更推荐的是写成这样的形式:
+</p>
+
+<pre class="example">
+SELECT name,price,weight
+FROM Supplier INNER JOIN Info
+ON Supplier.parent_id = Info.parent_id
+</pre>
+
+<p>
+SQL语法里面有一个专门的术语来形容上面的这个SELECT语句，叫做内部联接。注意WHERE变成了ON，然后使用关键词INNER JOIN。SQL联接默认方式就是内部联接。
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 视图</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+视图是虚拟的表，其自身并不包含数据，更确切来说只是一种检索手段。视图可以嵌套视图，但需要注意的是视图因为不包含数据，依赖于检索，所以过多使用视图会很降低性能。
+</p>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 新建视图</h3>
+<div class="outline-text-3" id="text-6-1">
+<pre class="example">
+CREATE VIEW viewname AS 
+SELECT name id FROM Customers, Orders
+WHERE Customers.cust_id = Orders.cust_id
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 删除视图</h3>
+<div class="outline-text-3" id="text-6-2">
+<pre class="example">
+DROP VIEW viewname;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> 更新视图</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+只能通过先删除视图再新建视图的方式进行。
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 附录</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 参考资料</h3>
+<div class="outline-text-3" id="text-7-1">
+<ol class="org-ol">
+<li>SQL必知必会 [英] Ben Forta 著， 钟鸣 刘晓霞等译。
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>

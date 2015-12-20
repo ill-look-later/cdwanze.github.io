@@ -1,0 +1,20 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: 迁移数据库(alembic模块)
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+alembic模块基于SQLAlchemy模块，并建立了一种SQL数据库schema迁移的机制。安装就用pip安装之。
+
+
+
+
+
+~%(here)s~
+

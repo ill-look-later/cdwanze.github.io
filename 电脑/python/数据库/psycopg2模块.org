@@ -1,0 +1,124 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+#+HTML_HEAD: <link rel="stylesheet"  href="http://a358003542.github.io/templates/main.css"/>
+
+
+#+TITLE: psycopg2模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+psycopg2模块是python操控postgresql数据库的模块。模块设计遵循了python的DB API 2.0 协议标准，如果你熟悉sqlite3模块，应该能很快上手。
+
+
+* 安装
+推荐用pip3命令安装之：
+
+#+BEGIN_SRC sh
+sudo pip3 install psycopg2
+#+END_SRC
+
+然后确保安装了libpq软件包。
+#+BEGIN_EXAMPLE
+sudo apt-get install libpq-dev
+#+END_EXAMPLE
+
+
+* 基本的使用
+
+** 连接数据库
+#+BEGIN_EXAMPLE
+import psycopg2
+
+conn = psycopg2.connect("dbname=test user=wanze")
+#+END_EXAMPLE
+
+具体PostgreSQL那边数据库的设置问题如有问题，请参考 [[file:sql数据库入门.html][sql数据库入门]] 一文 。
+
+** 新建一个游标
+根据对于PostgreSQL的一个连接新建一个游标。
+#+BEGIN_EXAMPLE
+cur = conn.cursor()
+#+END_EXAMPLE
+
+
+** 执行某个SQL语句
+通过游标具体执行某个SQL语句
+#+BEGIN_EXAMPLE
+cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+#+END_EXAMPLE
+
+值得一提的是execute方法可以接受一个字符串的替代列表（可迭代对象），作为替代位置占位符只能是 ~%s~ ，以前那些 ~%d %f~ 等都不能使用了。 然后在sqlite3那里占位符是 ~?~ 号。如下所示:
+
+#+BEGIN_EXAMPLE
+cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",
+    (100, "abc'def"))
+#+END_EXAMPLE
+
+此外百分号替换符号类似format方法一样也支持变量名替换，但就作为单独字符串的这种替换风格是要被废弃的，单独的字符串操作还是推荐调用format方法。
+#+BEGIN_EXAMPLE
+'%(a)s %(b)s' % {'a':'test', 'b':123}
+#+END_EXAMPLE
+
+游标对象的execute方法也支持类似的这种表达，不过不要和字符串的百分号替换操作混淆起来，如果要进行字符串操作，最好在execute函数之前就做好，而且正如前所述及的，execute的这种替换只是用 ~%s~ 来表示一个替换位置，而在sqlite3中则是使用的 ~?~ 。
+#+BEGIN_EXAMPLE
+cur.execute("""INSERT INTO some_table (an_int, a_date, another_date, a_string)
+    VALUES (%(int)s, %(date)s, %(date)s, %(str)s);""",
+    {'int': 10, 'str': "O'Reilly", 'date': datetime.date(2005, 11, 18)})
+#+END_EXAMPLE
+
+最后文档说
+#+BEGIN_EXAMPLE
+>>> cur.execute("INSERT INTO foo VALUES (%s)", ("bar"))  # WRONG
+>>> cur.execute("INSERT INTO foo VALUES (%s)", ("bar",)) # correct
+>>> cur.execute("INSERT INTO foo VALUES (%s)", ["bar"])  # correct
+#+END_EXAMPLE
+
+其中单元素元组后面还需要跟一个逗号，而列表形式则不需要。所以简单起见后面就写成列表形式以和百分号的字符串替换操作区分开来也是可以的。百分号字符串替换操作如果后面跟个列表，则输出可能不是你想要的:
+#+BEGIN_EXAMPLE
+>>> '%s' % ['test']
+"['test']"
+>>> '%s' % ('test')
+'test'
+#+END_EXAMPLE
+
+
+*** 不要使用百分号字符串替换操作
+如下所示，这样的语法很容易被 _SQL injection_ 攻击，
+#+BEGIN_EXAMPLE
+>>> SQL = "INSERT INTO authors (name) VALUES ('%s');" # NEVER DO THIS
+>>> data = ("O'Reilly", )
+>>> cur.execute(SQL % data) # THIS WILL FAIL MISERABLY
+ProgrammingError: syntax error at or near "Reilly"
+LINE 1: INSERT INTO authors (name) VALUES ('O'Reilly')
+#+END_EXAMPLE
+
+*** 不要使用字符串加法操作
+同样不要在execute方法里使用字符串加法操作。
+
+正确的用法就是execute方法第一个参数是SQL语句，第二个参数是替换字符的序列。
+
+
+
+
+** fetchone方法
+调用游标对象的fetchone方法获得一个游标的返回值。此外还有 *fetchmany* 和 *fetchall* 方法。fetchone如果有，返回一个元组，代表找到的第一条记录，fetchmany接受一个参数，返回一个列表，列表里装的元素类似于fetchone返回的一条记录的元组值，几个参数代表几条记录。然后fetchall就是返回所有的查询记录。
+
+
+
+** 连接的commit方法
+提交对于数据库的更改
+
+** 游标的close方法
+关闭游标
+
+** 连接的close方法
+关闭连接。
+
+
+
+* 其他

@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>mongodb学习笔记</title>
+<!-- 2015-11-27 11:49 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">mongodb学习笔记</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 简介</a>
+<ul>
+<li><a href="#sec-1-1">1.1. 安装和配置</a></li>
+<li><a href="#sec-1-2">1.2. 安装pymongo</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. mongodb入门</a>
+<ul>
+<li><a href="#sec-2-1">2.1. mongo命令简介</a></li>
+<li><a href="#sec-2-2">2.2. 备份和还原</a></li>
+<li><a href="#sec-2-3">2.3. mongodb的数据类型</a></li>
+<li><a href="#sec-2-4">2.4. 连接数据库</a></li>
+<li><a href="#sec-2-5">2.5. 插入数据</a></li>
+<li><a href="#sec-2-6">2.6. 更新数据</a>
+<ul>
+<li><a href="#sec-2-6-1">2.6.1. 更新修饰符清单</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-7">2.7. 过滤器语法清单</a></li>
+<li><a href="#sec-2-8">2.8. 删除文档</a></li>
+<li><a href="#sec-2-9">2.9. find方法</a></li>
+<li><a href="#sec-2-10">2.10. 光标对象</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. mongodb集群服务器</a></li>
+<li><a href="#sec-4">4. mongodb的备份</a></li>
+<li><a href="#sec-5">5. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 简介</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+mongodb和sql的区别很大，虽然有类似的比较，如: mongodb的collection概念类似于sql的table概念；在sql表格中的column相当于mongodb文档中的key，在sql表格中的row相当于mongodb文档中的value；然后sql中的一行记录相当于mongodb的一个文档。但这只是就数据库概念来说的类比，具体到操作细节和数据库存储风格设计上还是有很大的差异的。
+</p>
+
+<p>
+其中mongodb在存储上会比较灵活一点，mongodb中所谓的文档在使用上有点类似于python中的字典，所以mongodb一个collection里面各个文档之间并没有相同模式(same schema)的要求，然后就是一个文档里面有个key的值也可以是某个文档（或说字典更直观一点）。同时最值得强调一点的是mongodb和我们以前接触的SQL关系数据库最大的不同就是其内部没有关系连接这个概念，也就是没有类似的join语句的概念。然后从我初步的使用经验来判断，mongodb先在一个collection里面查询一个值，又在一个collection里面查询一个值，这种操作风格会特别的慢，所以正确使用mongodb的风格是关系最紧密一组实体都放在一起，而所有和这些实体相关的子属性部分，最好都放入文档内部，以字典中的字典的形式存储进去，这样mongodb的查询才有效率。
+</p>
+
+<p>
+将mongodb的collection理解为集合更好于理解为SQL的table概念，同时我们看到对于mongodb来说，某些冗余重复信息可能是必要的甚至是很好的设计风格。总之我们应该避免跨集合的查询，关于mongodb如何正确的使用和设计，以后还需要专门讨论。
+</p>
+</div>
+
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 安装和配置</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+ubuntu下的安装是:
+</p>
+<div class="highlight"><pre>sudo apt-get install mongodb
+</pre></div>
+
+<p>
+这样安装之后提供的命令有mongod和mongo。其中mongod是其中mongodb的后台服务，默认是启动一个了的，所以如果你简单再输入mongod将会出错。你可以通过
+</p>
+
+<pre class="example">
+sudo service --status-all
+</pre>
+
+<p>
+来查看一下。mongodb service默认的端口号是 <code>27017</code> 。你可以通过给mongod指定另外的端口号和另外的数据库保存路径来另外建立一个mongodb的后台服务，具体如下所示:
+</p>
+<pre class="example">
+mongod --dbpath ~/mongodb --port 12321
+</pre>
+<p>
+具体这个文件夹你需要事先创建好。你可以在浏览器中输入 <code>localhost:12321</code> 来确认一下，然后按照浏览器的提示，如果输入 <code>localhost:13321</code> 还可以看到该数据库更多的信息。
+</p>
+
+<p>
+默认mongodb的dbpath是 <code>/var/lib/mongodb</code> ，然后如果你需要用mongo命令来连接它的话，就如下输入:
+</p>
+<pre class="example">
+mongo localhost:12321
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 安装pymongo</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+pymongo是mongodb的python接口，具体就用pip命令安装之即可:
+</p>
+
+<pre class="example">
+sudo pip2 install pymongo
+</pre>
+
+<p>
+一个简单的pymongo例子如下所示:
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span> <span class="n">MongoClient</span>
+<span class="kn">from</span> <span class="nn">pymongo.errors</span> <span class="kn">import</span> <span class="n">ConnectionFailure</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">27017</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Connection successfully&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">ConnectionFailure</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Could not connect the mongodb&quot;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">client</span><span class="p">[</span><span class="s">&#39;pytest&#39;</span><span class="p">]</span>
+
+<span class="n">user_janedoe</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&quot;username&quot;</span> <span class="p">:</span> <span class="s">&quot;janedoe&quot;</span><span class="p">,</span>
+    <span class="s">&quot;firstname&quot;</span> <span class="p">:</span> <span class="s">&quot;jane&quot;</span><span class="p">,</span>
+    <span class="s">&quot;lastname&quot;</span> <span class="p">:</span> <span class="s">&quot;Doe&quot;</span><span class="p">,</span>
+    <span class="s">&quot;dateofbirth&quot;</span> <span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">1980</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span>
+    <span class="s">&quot;score&quot;</span> <span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+<span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">user_janedoe</span><span class="p">)</span>
+</pre></div>
+<p>
+读者可以先测一下，更详细的讨论后面再说吧。
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> mongodb入门</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> mongo命令简介</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+下面是一些常用命令一览:
+</p>
+
+<ul class="org-ul">
+<li><code>show dbs</code> 显示所有数据库名字
+</li>
+<li><code>db</code> 显示当前数据库名字
+</li>
+<li><code>use dbname</code> 切换到某个数据库或者创建某个数据库，要实际新建一个数据库还需要往里面塞点东西。比如:
+</li>
+</ul>
+<pre class="example">
+db.users.save({username:'zhangsan'})
+</pre>
+<p>
+这里的db就是db，并没有所谓的具体某个dbname意思。
+</p>
+
+<ul class="org-ul">
+<li><code>show collections</code> 显示当前数据库的所有colletions名字。
+</li>
+<li><code>exit</code> 退出mongo
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 备份和还原</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+使用 <code>mongodump</code> 命令进行mongodb的备份操作，使用 <code>mongorestore</code> 还原操作。
+</p>
+
+<p>
+mongodump简单的操作就如下:
+</p>
+<pre class="example">
+mongodump
+</pre>
+
+<p>
+默认对接的是localhost:27017，然后备份文件放于当前工作目录的dump文件夹下。如果是其他端口或ip可用-h选项设置之，如下所示:
+</p>
+
+<pre class="example">
+mongodump -h localhost:37017
+</pre>
+
+<p>
+mongorestore简单的使用如下所示:
+</p>
+<pre class="example">
+mongorestore -h localhost:37017 dump
+</pre>
+
+<p>
+其中dump就是要还原的对应的备份文件夹名，然后可以通过-h选项来具体设置还原到那里去。
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> mongodb的数据类型</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li>null值
+</li>
+<li>布尔值
+</li>
+<li>数值，默认是64位浮点值，若想用整型则使用 NumberInt NumberLong ，其分别对应4字节和8字节有符号的整型值。
+</li>
+<li>字符串值
+</li>
+<li>date值
+</li>
+<li>正则表达式值
+</li>
+<li>array值
+</li>
+<li>嵌套文档值，mongodb的文档可以嵌套文档的。
+</li>
+<li>ObjectID
+</li>
+</ul>
+
+<p>
+这些数据类型和python中的一些数据类型多能够对应上，值得一提的就是python的datetime模块的datetime对象是可以直接用来作为Date类型被pymongo接受的。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 连接数据库</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+我写了 <code>get_mongodb_client</code> 这样一个函数，其将用于获取某个mongodb的连接client。
+</p>
+
+<pre class="example">
+from datetime import datetime
+from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure
+
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+def get_mongodb_client(dburl,dbport=27017,repset=None):
+    if not dbport:##不排除某些dbport是bool假值传进来
+        dbport = 27017
+    try:
+        dbport = int(dbport)
+        ## 不排除字符串赋值的情况，然后其他ValueError情况都捕捉并将dbport赋值为默认值27017
+    except ValueError:
+        dbport = 27017
+
+    try:
+        if repset is None:
+            mongodb_client = MongoClient(host=dburl,port=dbport)
+        else:
+            mongodb_client = MongoClient(host=dburl,port=dbport,replicaset=repset)
+        return mongodb_client
+    except ConnectionFailure as ex:
+        logging.warning(ex)
+</pre>
+
+<p>
+然后我们利用这个函数来获得一个mongodb client对象，
+</p>
+<pre class="example">
+client = get_mongodb_client("localhost",dbport="27017")
+</pre>
+
+<p>
+然后利用这个mongodb client对象来获得mongodb的某个具体数据库的db变量:
+</p>
+<pre class="example">
+db = client['pytest']
+</pre>
+
+<p>
+然后后面我们就可以这样用几乎接近于在mongo命令行终端的使用语法进行操作了:
+</p>
+<pre class="example">
+&gt;&gt;&gt; db.users.find_one()
+{u'username': u'janedoe', u'firstname': u'jane', u'lastname': u'Doe', u'dateofbirth': datetime.datetime(1980, 4, 12, 0, 0), u'score': 0, u'_id': ObjectId('5593ae582d58e415e6dc88c9')}
+</pre>
+
+<p>
+这里的 <code>db.users.find_one</code> 其中db是某个数据库，然后users是该数据库下的某个collection名，更加偏python风格的写法是:
+</p>
+<pre class="example">
+&gt;&gt;&gt; db['users'].find_one()
+{u'username': u'janedoe', u'firstname': u'jane', u'lastname': u'Doe', u'dateofbirth': datetime.datetime(1980, 4, 12, 0, 0), u'score': 0, u'_id': ObjectId('5593ae582d58e415e6dc88c9')}
+</pre>
+
+<p>
+但这有点怪，因为这会误导人们意味还可以 <code>db.get("users")</code>  这样用，而这样是会报错的。
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 插入数据</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+可以调用Collection对象的insert方法来插入一个新的记录，不过官方文档说这个insert方法将被废弃了，新的用户推荐用 <code>insert_one</code> 和 <code>insert_many</code> 方法。其中insert_one是插入一个文档，然后insert_many第一个参数是一个列表，也就是插入多个文档组成的列表。
+</p>
+
+<pre class="example">
+db.users.insert_one{'name':"张三"}
+</pre>
+
+<p>
+这两个方法是立即在数据库中生效的。然后如果我们如果希望是某原文档存在则修改否则就插入这样的逻辑是，则需要使用update方法，具体见下面。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 更新数据</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+在最新的pymongo文档中，update方法也被废弃了，取而代之的是 <code>replace_one</code> ， <code>update_one</code> ， <code>update_many</code> 这三个方法。
+</p>
+
+<pre class="example">
+replace_one(filter, replacement, upsert=False)
+update_one(filter, update, upsert=False)
+update_many(filter, update, upsert=False)
+</pre>
+
+<p>
+这三个方法首先通过filter过滤器获得一些目标文档，如果upsert设置为True，并且过滤器过滤之后没有找到目标文档，则将执行插入操作。然后replace_one和update_one都只对找到的第一个文档进行操作，然后replace_one是替换操作，而update_one是更新操作。
+</p>
+
+<p>
+其中replace_one就是用一个新的文档替换旧的文档这很好理解，而update_one则需要说一下。mongodb的原生update方法有两种模式，一种是替换模式；另一种更新修饰符模式。这里pymongo将这两种模式分开来了。update_one就对应那个更新修饰符模式，而不能使用新文档替换旧文档那种模式了。
+</p>
+</div>
+
+
+<div id="outline-container-sec-2-6-1" class="outline-4">
+<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> 更新修饰符清单</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<ul class="org-ul">
+<li><code>$inc</code>  元素加法，某个元素加上多少，一般是数值加法吧。 
+</li>
+</ul>
+<pre class="example">
+"$inc":{"score":1} ——文档的score属性将加上1
+</pre>
+
+<ul class="org-ul">
+<li><code>$set</code>  元素设置值，某个元素具体设置为多少值。
+</li>
+</ul>
+<pre class="example">
+"$set":{"username":"niall"}——文档的username属性具体设置为niall。
+</pre>
+
+<ul class="org-ul">
+<li><code>$unset</code> 删除某个属性。
+</li>
+</ul>
+<pre class="example">
+"$unset":{"username":1}——文档的username属性被删除了。
+</pre>
+
+<ul class="org-ul">
+<li><code>$push</code> 列表元素append操作。
+</li>
+</ul>
+<pre class="example">
+"$push":{"emails":"foo@example.com"}——文档的emails将会添加"foo@example.com"，如果原来没有email这个键，那么其值为:["foo@example.com"]
+</pre>
+
+<ul class="org-ul">
+<li><code>$pop</code> 列表元素的pop操作。
+</li>
+</ul>
+<pre class="example">
+"$pop":{"emails":1}——文档的emails列表右边最后一个元素将被删除。这可能不太好用，pull会更加精确的删除
+</pre>
+
+<ul class="org-ul">
+<li><code>$pull</code> 列表元素精确移除某个子元素。
+</li>
+</ul>
+<pre class="example">
+"$pull":{"emails":"foo@example.com"}——文档的emails列表中的"foo@example.com"将被移除
+</pre>
+
+<ul class="org-ul">
+<li><code>$pullAll</code> 类似上面的pull，但是一次移除多个列表子元素操作。 
+</li>
+</ul>
+<pre class="example">
+$pullAll":{"emails":["foo@example.com", "foo2@example.com"]}——文档emails列表的"foo@example.com", "foo2@example.com"都将被移除
+</pre>
+
+<ul class="org-ul">
+<li><code>$rename</code> 某个属性键名字更改
+</li>
+</ul>
+<pre class="example">
+"$rename":{"emails":"old_emails"}
+</pre>
+
+<ul class="org-ul">
+<li><code>$addToSet</code> 给某个列表元素添加某个子元素，是确保其存在的逻辑，也就是有则不加，没有则加上。 
+</li>
+</ul>
+<pre class="example">
+"$addToSet":{"emails":"foo@example.com"}
+</pre>
+
+
+
+<p>
+这里顺便把过滤器语法也介绍一下:
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 过滤器语法清单</h3>
+<div class="outline-text-3" id="text-2-7">
+<pre class="example">
+q = {
+"firstname" : "jane",
+"surname" : "doe"
+}
+</pre>
+
+<p>
+过滤器各个字句默认AND逻辑连接，若要或逻辑则要使用 <code>$or</code> 连接。
+</p>
+
+<p>
+要score大于0如下所示:
+</p>
+<pre class="example">
+q = {
+"score" : { "$gt" : 0 }
+}
+</pre>
+
+<p>
+类似的操作符还有:
+</p>
+
+<ul class="org-ul">
+<li><code>$gt</code>    &gt;
+</li>
+<li><code>$lt</code>    &lt;
+</li>
+<li><code>$gte</code>   &gt;=
+</li>
+<li><code>$lte</code>   &lt;=
+</li>
+<li><code>$all</code>  比如 "skills":{"$all":["mongodb","python"]} ，那么skills这个列表必须包含mongodb和python这两个子元。
+</li>
+<li><code>$exists</code> 属性必须存在
+</li>
+<li><code>$mod</code>  
+</li>
+<li><code>$ne</code> 不等于 != 
+</li>
+<li><code>$in</code> 某元素于某个列表中
+</li>
+<li><code>$nin</code> 某个元素不在某个列表中
+</li>
+<li><code>$nor</code>  "$nor":[{"language":"english"},{"country":"usa"}] 控制某个元素不是某个值
+</li>
+<li><code>$or</code>  或语句的表达， "$or":[{"language”:"english"},{"country":"usa"}] 
+</li>
+<li><code>$size</code> 列表的size或者说所含元素个数必须是多少
+</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 删除文档</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+同样原pymongo的remove方法被废弃了，取而代之的是 <code>delete_one</code> 和 <code>delete_many</code> 方法。其都只接受一个过滤器参数，然后内在操作逻辑就是根据过滤器找到的文档，删除一个或者全部删除。
+</p>
+
+<pre class="example">
+delete_one(filter)
+delete_many(filter)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> find方法</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+find方法，过滤查询某个记录，如果不带过滤器参数，则返回所有目标记录。在mongo终端命令下输入
+</p>
+<pre class="example">
+db.users.find()
+</pre>
+
+<p>
+即返回users这个collection所有的记录，而在pymongo中是返回的一个光标对象，如下所示:
+</p>
+<pre class="example">
+&lt;pymongo.cursor.Cursor object at 0x7fb5e7ca4210&gt;
+</pre>
+
+<p>
+其返回的是一个光标对象，可以直接用for语句于之上进行迭代操作，很是方便。
+</p>
+
+<p>
+然后类似mongodb的findOne，pymongo的Collection对象也有一个find_one方法，具体使用上和find方法没什么差异，除了最后返回的是找到的第一个文档，以字典值的形式返回。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> 光标对象</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+这个光标对象还有count方法返回所含记录数，还有sort方法应该是对接的mongodb其内的sort方法。cout方法并不受光标对象是否迭代的影响，但是sort方法注意不能在光标对象发生迭代之后操作，最好是先sort之后再进行迭代。
+</p>
+
+<p>
+sort方法的语法和mongodb原生的sort方法语法有点差异:
+</p>
+<pre class="example">
+for doc in collection.find().sort([
+        ('field1', pymongo.ASCENDING),
+        ('field2', pymongo.DESCENDING)]):
+    print(doc)
+</pre>
+<p>
+如果只是对一个排序，也可以写成这样的形式:
+</p>
+<pre class="example">
+for doc in collection.find().sort('field', pymongo.ASCENDING):
+    print(doc)
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> mongodb集群服务器</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+连接集群服务器格式如下所示（参考了 <a href="http://stackoverflow.com/questions/13912765/how-do-you-connect-to-a-replicaset-from-a-mongodb-shell">这个网页</a> ）:
+</p>
+<pre class="example">
+mongo --host=inors0504/redstone:27019,ltprod01:27108,innoali02:27018
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> mongodb的备份</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+具体是利用mongodump命令来进行备份， <code>--host</code> 用来控制连接url， <code>--db</code> 用来控制具体备份那个数据库，还可以具体到某个collection。然后 <code>-o</code> 用来控制输出的备份文件夹名。
+</p>
+<pre class="example">
+mongodump --host=atlas-04  --db=mls06085  -o mongodump_2015-07-29
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 参考资料</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>mongodb and python, Author:Niall O’Higgins, year:2011 
+</li>
+<li>mongodb - the definitive guide, Author:Kristina Chodorow, May 2013:Second Edition
+</li>
+<li>MongoDB Basics , Author:David Hows, Peter Membrey etc. year: 2014
+</li>
+</ol>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-27 11:49.</p></div>
+</body>
+</html>

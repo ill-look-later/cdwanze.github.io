@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>mysql学习笔记</title>
+<!-- 2015-11-02 17:38 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">mysql学习笔记</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 简介</a></li>
+<li><a href="#sec-2">2. 第一个例子</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 登录</a></li>
+<li><a href="#sec-2-2">2.2. mysql数据库</a></li>
+<li><a href="#sec-2-3">2.3. 查看数据库情况</a></li>
+<li><a href="#sec-2-4">2.4. 切换数据库</a></li>
+<li><a href="#sec-2-5">2.5. 查看表格情况</a></li>
+<li><a href="#sec-2-6">2.6. 简单检索某个表格</a></li>
+<li><a href="#sec-2-7">2.7. 创建用户</a></li>
+<li><a href="#sec-2-8">2.8. 删除用户</a></li>
+<li><a href="#sec-2-9">2.9. 更新记录</a></li>
+<li><a href="#sec-2-10">2.10. 创建数据库</a></li>
+<li><a href="#sec-2-11">2.11. 创建表格</a></li>
+<li><a href="#sec-2-12">2.12. 插入数据</a></li>
+<li><a href="#sec-2-13">2.13. 删除table</a></li>
+<li><a href="#sec-2-14">2.14. 删除database</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 第二个例子</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 创建表格</a></li>
+<li><a href="#sec-3-2">3.2. 插入数据</a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1. 子查询</a></li>
+<li><a href="#sec-3-2-2">3.2.2. insert where语句</a></li>
+<li><a href="#sec-3-2-3">3.2.3. 交叉连接</a></li>
+<li><a href="#sec-3-2-4">3.2.4. 内连接</a></li>
+<li><a href="#sec-3-2-5">3.2.5. union all</a></li>
+<li><a href="#sec-3-2-6">3.2.6. 不能重复刷的部分</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-4">4. 补充知识</a>
+<ul>
+<li><a href="#sec-4-1">4.1. 别名</a></li>
+<li><a href="#sec-4-2">4.2. 去除重复的行</a></li>
+<li><a href="#sec-4-3">4.3. order by字句</a></li>
+<li><a href="#sec-4-4">4.4. group by字句</a></li>
+<li><a href="#sec-4-5">4.5. having字句</a></li>
+<li><a href="#sec-4-6">4.6. between操作符</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. 演示例子的补充信息</a></li>
+<li><a href="#sec-6">6. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 简介</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文已经假设读者对sql有一个初步的认识了，然后更加具体的讨论mysql的相关细节。安装在ubuntu下就简单用apt-get安装之，如下所示，不赘述了。
+</p>
+
+<div class="highlight"><pre>sudo apt-get  install mysql-server mysql-client
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 第一个例子</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+本小节的代码依次演示了第一个例子，好让读者对mysql有个初步的认识。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 登录</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+以root用户登录
+</p>
+<pre class="example">
+mysql -u root -p
+</pre>
+
+<p>
+具体密码是多少要根据你安装mysql时的情况来，若没有设置密码则直接按Enter。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> mysql数据库</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+mysql里面默认有个和自身配置相关的数据库，名字就叫做mysql。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 查看数据库情况</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="highlight"><pre><span class="k">show</span> <span class="k">databases</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 切换数据库</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+我们先切换到那个mysql数据库看一下。
+</p>
+
+<div class="highlight"><pre><span class="k">use</span> <span class="n">mysql</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 查看表格情况</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="highlight"><pre><span class="k">show</span> <span class="kp">tables</span><span class="p">;</span>
+</pre></div>
+
+<p>
+上面描述的这些过程你也可以用GUI程序（比如 <strong>emma</strong> 等）来点开看一下。我们先看到user这个表格，这个表格里面存储着mysql用户的一些信息。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 简单检索某个表格</h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="highlight"><pre><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user</span><span class="p">;</span>
+</pre></div>
+
+<p>
+因为内容较多，可能显示效果不太好。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 创建用户</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+给user表格插入一条记录实际上就是新建一个新的mysql用户，如下所示:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">into</span> <span class="nf">user</span><span class="p">(</span><span class="n">host</span><span class="p">,</span><span class="n">user</span><span class="p">,</span><span class="n">password</span><span class="p">,</span><span class="n">select_priv</span><span class="p">,</span><span class="n">insert_priv</span><span class="p">)</span>
+<span class="k">values</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="s1">&#39;wanze&#39;</span><span class="p">,</span><span class="nf">password</span><span class="p">(</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 删除用户</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+给user表格删除一条记录就是删除某个mysql用户，让我们把前面创建的这个用户删除了:
+</p>
+<div class="highlight"><pre><span class="k">delete</span> <span class="k">from</span> <span class="n">user</span> <span class="k">where</span> <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;wanze&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p>
+好吧，继续再把那个用户加进去，然后我们注意到之前只给了那个用户select和insert的权限的，现在让我们再多给他几个权限。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> 更新记录</h3>
+<div class="outline-text-3" id="text-2-9">
+<div class="highlight"><pre><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">update</span> <span class="n">user</span>
+    <span class="o">-&gt;</span> <span class="kt">set</span> <span class="n">update_priv</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span>
+    <span class="o">-&gt;</span> <span class="n">delete_priv</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span>
+    <span class="o">-&gt;</span> <span class="n">create_priv</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span>
+    <span class="o">-&gt;</span> <span class="n">drop_priv</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span>
+    <span class="o">-&gt;</span> <span class="k">where</span> <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;wanze&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p>
+现在这个用户又新加上了update，delete，create和drop权限了。然后我们看到用户还有很多其他权限设置，
+</p>
+
+<p>
+然后还有一种方式是赋予该用户之于某个数据库所有的权限。
+</p>
+
+<div class="highlight"><pre><span class="k">grant</span> <span class="k">all</span> <span class="n">privileges</span> <span class="k">on</span> <span class="n">test</span><span class="p">.</span><span class="o">*</span> <span class="k">to</span> <span class="s1">&#39;test&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</pre></div>
+
+<p>
+这里的test是具体的database name，第二个test是新加入的用户名【这里后面还可以加上 identified by 'thepassword' 来控制新加用户的密码。】。这种方式除了user里面加入了test这个新用户之外，在mysql数据库的db表格里面还加入了一条新的记录。前面那种用户设置权限的应该是对所有数据库都有权限，而这里只针对某一数据库有权限。具体权限管理还有很多内容，这里先略过了。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> 创建数据库</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+我们先创建一个新的数据库:
+</p>
+<div class="highlight"><pre><span class="k">create</span> <span class="k">database</span> <span class="n">test</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-11" class="outline-3">
+<h3 id="sec-2-11"><span class="section-number-3">2.11</span> 创建表格</h3>
+<div class="outline-text-3" id="text-2-11">
+<div class="highlight"><pre><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">create</span> <span class="k">table</span> <span class="nf">test</span><span class="p">(</span><span class="n">x</span> <span class="kt">int</span><span class="p">,</span><span class="n">y</span> <span class="kt">integer</span><span class="p">,</span><span class="n">z</span> <span class="kt">integer</span><span class="p">);</span>
+</pre></div>
+
+<p>
+这里就简单创建了一个名叫test的表格，然后定义表头为三个整数，integer和int是一个意思。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> 插入数据</h3>
+<div class="outline-text-3" id="text-2-12">
+<p>
+插入数据和其他sql数据库一样还是insert into这样的语句格式。
+</p>
+<div class="highlight"><pre><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">insert</span> <span class="k">into</span> <span class="nf">test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+
+<p>
+第一个例子就到这里了，简单了解了一下mysql的情况，下面继续详细的讨论。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-13" class="outline-3">
+<h3 id="sec-2-13"><span class="section-number-3">2.13</span> 删除table</h3>
+<div class="outline-text-3" id="text-2-13">
+<div class="highlight"><pre><span class="k">drop</span> <span class="k">table</span> <span class="n">test</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-14" class="outline-3">
+<h3 id="sec-2-14"><span class="section-number-3">2.14</span> 删除database</h3>
+<div class="outline-text-3" id="text-2-14">
+<div class="highlight"><pre><span class="k">drop</span> <span class="k">database</span> <span class="n">test</span><span class="p">;</span>
+</pre></div>
+
+<p>
+至此我们新建的那个数据库的所有信息都被删除了，下面进入第二个例子，我们将建立更具有现实意义的数据库。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 第二个例子</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+第二个例子绝不是一个很小型的例子，而是一个几乎涉及mysql数据库方方面面的例子，内容是很丰富的，我们慢慢继续下去吧。
+</p>
+
+<p>
+首先创建learning_example database。然后创建一个student用户，其对learning_example database拥有所有的权限。
+</p>
+
+<div class="highlight"><pre><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">create</span> <span class="k">database</span> <span class="n">learning_example</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">grant</span> <span class="k">all</span> <span class="n">privileges</span> <span class="k">on</span> <span class="n">learning_example</span><span class="p">.</span><span class="o">*</span> <span class="k">to</span> <span class="s1">&#39;student&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 创建表格</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+写好sql语句文件然后刷进去，如下所示:
+</p>
+<pre class="example">
+mysql -u student learning_example &lt; mysql_learning_example.sql
+</pre>
+<p>
+这里的 <code>-u</code> 接用户名，然后后面跟要操作的database名字。
+</p>
+
+<p>
+现在这个文件就简单写上这么一句:
+</p>
+<div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="nf">department</span>
+ <span class="p">(</span><span class="n">dept_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">name</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">pk_department</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">)</span>
+ <span class="p">);</span>
+</pre></div>
+
+<p>
+这里前面的意思是很明显的，就是新建department这个table，然后定义一列dept_id ，其为 <code>smallint</code> ， <code>unsigned</code> （就是从0到65535），然后 <code>not null</code> 说这列不能为空，然后 <code>auto_increment</code> 说这列的数值自动增加（主要是主键id需要这个）；然后name这一列是 <code>varchar(20)</code> ，是变长字符串，最大长度20，类似的还有 <code>char(20)</code> ，其为定长字符串，后面都会 <span class="underline">自动填充空格</span> ，同样not null限定非空。然后后面的约束语句需要额外说一下。
+</p>
+
+<p>
+<code>constraint</code> 是约束的意思，然后后面跟pk_department（这个名字貌似是随意的）指约束department这个table的primary key，后面跟上primary key (dept_id) ，即约束table department的主键值为 <code>dept_id</code> 这一列。
+</p>
+
+<p>
+继续往下讨论，现在文件改成这个样子:
+</p>
+
+<div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">department</span>
+ <span class="p">(</span><span class="n">dept_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">name</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">pk_department</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">)</span>
+ <span class="p">);</span>
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">branch</span>
+ <span class="p">(</span><span class="n">branch_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">name</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">address</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+  <span class="n">city</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">state</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+  <span class="n">zip</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_branch</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">)</span>
+ <span class="p">);</span>
+</pre></div>
+
+<p>
+注意前面的创建department表格语句那里加上了 <code>if not exists</code> ，这样如果表格不存在才会新建该table，从而避免了sql文件重复刷的时候出错。下面那个新建branch表格的sql语句并没有增加新的东西，所以我们继续往下看。
+</p>
+
+<div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">employee</span>
+ <span class="p">(</span><span class="n">emp_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">fname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">lname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">start_date</span> <span class="kt">date</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">end_date</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="n">superior_emp_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span><span class="p">,</span>
+  <span class="n">dept_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span><span class="p">,</span>
+  <span class="n">title</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">assigned_branch_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">fk_e_emp_id</span>
+    <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">superior_emp_id</span><span class="p">)</span> <span class="k">references</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_dept_id</span>
+    <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">)</span> <span class="k">references</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_e_branch_id</span>
+    <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">assigned_branch_id</span><span class="p">)</span> <span class="k">references</span> <span class="nf">branch</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_employee</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">)</span>
+ <span class="p">);</span>
+</pre></div>
+
+<p>
+我们继续来看这个创建employee table语句，fname是first name的缩写，然后lname是lastname的缩写。start_date和end_date应该是雇佣时间和解聘时间的意思，其中解聘时间可以为空，就说明该雇员还在公司工作。然后其都为 <code>date</code> 数据类型。值得一提的是mysql的date类型只能存储公元前1000年到公元9999年之间的date。
+</p>
+
+<p>
+后面superior_emp_id是该雇员的上司的id号，然后dept_id是该雇员所在部门号，然后assigned_branch_id是对于该雇员分配的分公司id号。该table的约束主键值是emp_id。
+</p>
+
+<p>
+接下来重点讲一下 <code>foreign key</code> 约束的写法。
+</p>
+<pre class="example">
+constraint fk_e_emp_id
+  foreign key (superior_emp_id) references employee (emp_id),
+</pre>
+<p>
+这里fk_e_emp_id这个名字带有一定的随意性，大致表达出fk_然后某个table下的某一列即可。然后 foreign key 外键值 (superior_emp_id) 即这一列是外键值，具体references 引用自 employee 这个表格的(emp_id) 这一列。总的意思就是superiro_emp_id这一列是一个外键值约束列，其值只可能取自employee表格的emp_id这一列，因为这里具体的逻辑含义就是其值引用自它。比如说雇员张三在这里的id是3，张三的上司是张三丰，其id是4。那么张三如果要修改自己的上司值，就必须是本雇员列表已经有了的id号的其他雇员。（外键引用主要用于SQL表格中所谓的one to many 或者 many to one 的情况，具体就是用内连接查询，这样该外键值约束列的可能对应取值是另外一个表格的很多列，这个后面再详细讨论。）
+</p>
+
+<p>
+继续刷下去，强烈推荐读者用emma或者其他什么GUI程序来实时查看一下:
+</p>
+<div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">product_type</span>
+ <span class="p">(</span><span class="n">product_type_cd</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">name</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">pk_product_type</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">product_type_cd</span><span class="p">)</span>
+ <span class="p">);</span>
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">product</span>
+ <span class="p">(</span><span class="n">product_cd</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">name</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">product_type_cd</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">date_offered</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="n">date_retired</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">fk_product_type_cd</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">product_type_cd</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">product_type</span> <span class="p">(</span><span class="n">product_type_cd</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_product</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">)</span>
+ <span class="p">);</span>
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">customer</span>
+ <span class="p">(</span><span class="n">cust_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">fed_id</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">cust_type_cd</span> <span class="kt">enum</span><span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">address</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+  <span class="n">city</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">state</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">postal_code</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_customer</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">)</span>
+ <span class="p">);</span>
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">individual</span>
+ <span class="p">(</span><span class="n">cust_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">fname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">lname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">birth_date</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">fk_i_cust_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_individual</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">)</span>
+ <span class="p">);</span>
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">business</span>
+ <span class="p">(</span><span class="n">cust_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">name</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">state_id</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">incorp_date</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">fk_b_cust_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_business</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">)</span>
+ <span class="p">);</span>
+
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">officer</span>
+ <span class="p">(</span><span class="n">officer_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">cust_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">fname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">lname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">title</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">start_date</span> <span class="kt">date</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">end_date</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">fk_o_cust_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">business</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_officer</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">officer_id</span><span class="p">)</span>
+ <span class="p">);</span>
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">account</span>
+ <span class="p">(</span><span class="n">account_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">product_cd</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">cust_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">open_date</span> <span class="kt">date</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">close_date</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span> <span class="kt">date</span><span class="p">,</span>
+  <span class="n">status</span> <span class="kt">enum</span><span class="p">(</span><span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span><span class="s1">&#39;CLOSED&#39;</span><span class="p">,</span><span class="s1">&#39;FROZEN&#39;</span><span class="p">),</span>
+  <span class="n">open_branch_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span><span class="p">,</span>
+  <span class="n">open_emp_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span><span class="p">,</span>
+  <span class="n">avail_balance</span> <span class="kt">float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+  <span class="n">pending_balance</span> <span class="kt">float</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_product_cd</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_a_cust_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_a_branch_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">open_branch_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">branch</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_a_emp_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">open_emp_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_account</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">account_id</span><span class="p">)</span>
+ <span class="p">);</span>
+
+ <span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="nf">transaction</span>
+ <span class="p">(</span><span class="n">txn_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+  <span class="n">txn_date</span> <span class="kt">datetime</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">account_id</span> <span class="kt">integer</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">txn_type_cd</span> <span class="kt">enum</span><span class="p">(</span><span class="s1">&#39;DBT&#39;</span><span class="p">,</span><span class="s1">&#39;CDT&#39;</span><span class="p">),</span>
+  <span class="n">amount</span> <span class="kt">double</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+  <span class="n">teller_emp_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span><span class="p">,</span>
+  <span class="n">execution_branch_id</span> <span class="kt">smallint</span> <span class="k">unsigned</span><span class="p">,</span>
+  <span class="n">funds_avail_date</span> <span class="kt">datetime</span><span class="p">,</span>
+  <span class="k">constraint</span> <span class="n">fk_t_account_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">account_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_teller_emp_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">teller_emp_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">fk_exec_branch_id</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">execution_branch_id</span><span class="p">)</span>
+    <span class="k">references</span> <span class="nf">branch</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">),</span>
+  <span class="k">constraint</span> <span class="n">pk_transaction</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">txn_id</span><span class="p">)</span>
+ <span class="p">);</span>
+</pre></div>
+
+<p>
+这里值得一讲的有:
+</p>
+<pre class="example">
+cust_type_cd enum('I','B') not null,
+</pre>
+<p>
+mysql的枚举类型，在这里cust_type_cd这一列只能取'I'和'B'这两个值。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 插入数据</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+现在我们加入如下代码:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="no">null</span><span class="p">,</span> <span class="s1">&#39;Operations&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="no">null</span><span class="p">,</span> <span class="s1">&#39;Loans&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="no">null</span><span class="p">,</span> <span class="s1">&#39;Administration&#39;</span><span class="p">);</span>
+</pre></div>
+
+<p>
+department的dept_id已经打开了auto_increment特性，那么简单的给这一列赋值 <code>null</code> 即可，其会自动添加一个主键数字。
+</p>
+
+<p>
+在前面创建表格的时候有if not exists逻辑，这样sql脚本可以重复刷都没有问题，那么插入数据也有这样的if not exists逻辑吗？请参看 <a href="http://bogdan.org.ua/2007/10/18/mysql-insert-if-not-exists-syntax.html">这个网页</a> 。我们可以使用 <code>insert ignore</code> 语句来避免重复插入，这是插入语句改成这个样子了:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Operations&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Loans&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Administration&#39;</span><span class="p">);</span>
+</pre></div>
+
+<p>
+注意这里id直接赋值了，因为其为primarykey，如果设置为null这里的语句还是会重复插入，只有primarykey重复了，这个insert语句才不会继续插入了。
+</p>
+
+<p>
+让我继续插入一些数据:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">branch</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">zip</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">,</span> <span class="s1">&#39;3882 Main St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Waltham&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;02451&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">branch</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">zip</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Woburn Branch&#39;</span><span class="p">,</span> <span class="s1">&#39;422 Maple St.&#39;</span><span class="p">,</span> <span class="s1">&#39;Woburn&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;01801&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">branch</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">zip</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Quincy Branch&#39;</span><span class="p">,</span> <span class="s1">&#39;125 Presidential Way&#39;</span><span class="p">,</span> <span class="s1">&#39;Quincy&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;02169&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">branch</span> <span class="p">(</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">zip</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;So. NH Branch&#39;</span><span class="p">,</span> <span class="s1">&#39;378 Maynard Ln.&#39;</span><span class="p">,</span> <span class="s1">&#39;Salem&#39;</span><span class="p">,</span> <span class="s1">&#39;NH&#39;</span><span class="p">,</span> <span class="s1">&#39;03079&#39;</span><span class="p">);</span>
+</pre></div>
+
+<p>
+上面没啥好讲的，然后我们看到下面这句:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Michael&#39;</span><span class="p">,</span> <span class="s1">&#39;Smith&#39;</span><span class="p">,</span> <span class="s1">&#39;2001-06-22&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Administration&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;President&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+
+<div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> 子查询</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+SQL有三种类型的表: 一种是大家常见的实际存储的那种SQL表格；第二种是临时表格，也就是子查询返回的表格；还有一种就是虚拟表，比如视图。
+</p>
+
+<p>
+所谓的子查询实际上就是一个select语句其将返回一个临时的SQL表格，最简单的应用就是直接跟在另一个select语句的from语句后面，然后还有一种用法常用于表格多列值的复制转移操作，也就是所谓的 <code>insert select</code> 语句，其是由一个insert语句和一个select语句组合而成。如下所示<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>:
+</p>
+
+<pre class="example">
+INSERT INTO Customers (CustomerName, Country)
+SELECT SupplierName, Country FROM Suppliers;
+</pre>
+<p>
+这个SQL语句将把Suppliers表格里面的SupplierName和Country这两列的值都复制到Customers这个表格中去，具体是对应的CustomerName和Country这两列。
+</p>
+
+<p>
+而上面的例子就是第三种用法，其是一个select语句然后 <span class="underline">用括号()括起来了</span> 。其需要返回一列值，然后像上面的情况必须是只有一个值，而这个值将提取出来被insert into语句作为value使用，然后也有返回多个值的情况，比如过滤条件where what in (select &#x2026;) ，这种子查询就可以返回多个值。
+</p>
+
+<p>
+下面类似的这些语句就不赘述了:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Susan&#39;</span><span class="p">,</span> <span class="s1">&#39;Barker&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-09-12&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Administration&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Vice President&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Robert&#39;</span><span class="p">,</span> <span class="s1">&#39;Tyler&#39;</span><span class="p">,</span> <span class="s1">&#39;2000-02-09&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Administration&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Treasurer&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Susan&#39;</span><span class="p">,</span> <span class="s1">&#39;Hawthorne&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-04-24&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Operations Manager&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Gooding&#39;</span><span class="p">,</span> <span class="s1">&#39;2003-11-14&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Loans&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Loan Manager&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;Helen&#39;</span><span class="p">,</span> <span class="s1">&#39;Fleming&#39;</span><span class="p">,</span> <span class="s1">&#39;2004-03-17&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Head Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;Chris&#39;</span><span class="p">,</span> <span class="s1">&#39;Tucker&#39;</span><span class="p">,</span> <span class="s1">&#39;2004-09-15&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;Sarah&#39;</span><span class="p">,</span> <span class="s1">&#39;Parker&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-12-02&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;Jane&#39;</span><span class="p">,</span> <span class="s1">&#39;Grossman&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-05-03&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Headquarters&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;Paula&#39;</span><span class="p">,</span> <span class="s1">&#39;Roberts&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-07-27&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Head Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Woburn Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;Thomas&#39;</span><span class="p">,</span> <span class="s1">&#39;Ziegler&#39;</span><span class="p">,</span> <span class="s1">&#39;2000-10-23&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Woburn Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;Samantha&#39;</span><span class="p">,</span> <span class="s1">&#39;Jameson&#39;</span><span class="p">,</span> <span class="s1">&#39;2003-01-08&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Woburn Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Blake&#39;</span><span class="p">,</span> <span class="s1">&#39;2000-05-11&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Head Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Quincy Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="s1">&#39;Cindy&#39;</span><span class="p">,</span> <span class="s1">&#39;Mason&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-08-09&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Quincy Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Portman&#39;</span><span class="p">,</span> <span class="s1">&#39;2003-04-01&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Quincy Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;Theresa&#39;</span><span class="p">,</span> <span class="s1">&#39;Markham&#39;</span><span class="p">,</span> <span class="s1">&#39;2001-03-15&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Head Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;So. NH Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="s1">&#39;Beth&#39;</span><span class="p">,</span> <span class="s1">&#39;Fowler&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-06-29&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;So. NH Branch&#39;</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">employee</span> <span class="p">(</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span>
+  <span class="n">dept_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">assigned_branch_id</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="s1">&#39;Rick&#39;</span><span class="p">,</span> <span class="s1">&#39;Tulman&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-12-12&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">dept_id</span> <span class="k">from</span> <span class="n">department</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Operations&#39;</span><span class="p">),</span>
+  <span class="s1">&#39;Teller&#39;</span><span class="p">,</span>
+  <span class="p">(</span><span class="k">select</span> <span class="n">branch_id</span> <span class="k">from</span> <span class="n">branch</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;So. NH Branch&#39;</span><span class="p">));</span>
+</pre></div>
+
+<p>
+我们继续往下看:
+</p>
+<div class="highlight"><pre><span class="k">create</span> <span class="n">temporary</span> <span class="k">table</span> <span class="n">emp_tmp</span> <span class="k">as</span>
+<span class="k">select</span> <span class="n">emp_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span> <span class="k">from</span> <span class="n">employee</span><span class="p">;</span>
+
+<span class="k">update</span> <span class="n">employee</span> <span class="kt">set</span> <span class="n">superior_emp_id</span> <span class="o">=</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">emp_id</span> <span class="k">from</span> <span class="n">emp_tmp</span> <span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Smith&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Michael&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="p">((</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Barker&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Susan&#39;</span><span class="p">)</span>
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Tyler&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Robert&#39;</span><span class="p">));</span>
+</pre></div>
+
+<p>
+这里的 <code>create temporary table</code> 语句是根据某个select语句创建了一个临时表格，临时表格只有当前的session看得到，退出session之后该临时表格会自动drop掉。
+</p>
+
+<p>
+update语句基本格式我们是熟悉的，关键是理解where字句这个过滤条件。该SQL语句的意思是:将employee表格中Barker Susan和Tyler Robert这两个伙计的上司设置为Michael Smith的emp_id。这里的过滤条件or逻辑还有and逻辑我想熟悉编程的都很清楚了，这里就不赘述了。
+</p>
+
+<p>
+下面情况类似:
+</p>
+<div class="highlight"><pre><span class="k">update</span> <span class="n">employee</span> <span class="kt">set</span> <span class="n">superior_emp_id</span> <span class="o">=</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">emp_id</span> <span class="k">from</span> <span class="n">emp_tmp</span> <span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Tyler&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Robert&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Hawthorne&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Susan&#39;</span><span class="p">;</span>
+<span class="k">update</span> <span class="n">employee</span> <span class="kt">set</span> <span class="n">superior_emp_id</span> <span class="o">=</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">emp_id</span> <span class="k">from</span> <span class="n">emp_tmp</span> <span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Hawthorne&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Susan&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="p">((</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Gooding&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;John&#39;</span><span class="p">)</span>
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Fleming&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Helen&#39;</span><span class="p">)</span>
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Roberts&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Paula&#39;</span><span class="p">)</span> 
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Blake&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;John&#39;</span><span class="p">)</span> 
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Markham&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Theresa&#39;</span><span class="p">));</span> 
+<span class="k">update</span> <span class="n">employee</span> <span class="kt">set</span> <span class="n">superior_emp_id</span> <span class="o">=</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">emp_id</span> <span class="k">from</span> <span class="n">emp_tmp</span> <span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Fleming&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Helen&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="p">((</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Tucker&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Chris&#39;</span><span class="p">)</span> 
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Parker&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Sarah&#39;</span><span class="p">)</span> 
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Grossman&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Jane&#39;</span><span class="p">));</span>  
+<span class="k">update</span> <span class="n">employee</span> <span class="kt">set</span> <span class="n">superior_emp_id</span> <span class="o">=</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">emp_id</span> <span class="k">from</span> <span class="n">emp_tmp</span> <span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Roberts&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Paula&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="p">((</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Ziegler&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Thomas&#39;</span><span class="p">)</span>  
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Jameson&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Samantha&#39;</span><span class="p">));</span>   
+<span class="k">update</span> <span class="n">employee</span> <span class="kt">set</span> <span class="n">superior_emp_id</span> <span class="o">=</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">emp_id</span> <span class="k">from</span> <span class="n">emp_tmp</span> <span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Blake&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;John&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="p">((</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Mason&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Cindy&#39;</span><span class="p">)</span>   
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Portman&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Frank&#39;</span><span class="p">));</span>    
+<span class="k">update</span> <span class="n">employee</span> <span class="kt">set</span> <span class="n">superior_emp_id</span> <span class="o">=</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">emp_id</span> <span class="k">from</span> <span class="n">emp_tmp</span> <span class="k">where</span> <span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Markham&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Theresa&#39;</span><span class="p">)</span>
+<span class="k">where</span> <span class="p">((</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Fowler&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Beth&#39;</span><span class="p">)</span>   
+  <span class="k">or</span> <span class="p">(</span><span class="n">lname</span> <span class="o">=</span> <span class="s1">&#39;Tulman&#39;</span> <span class="k">and</span> <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Rick&#39;</span><span class="p">));</span>    
+
+<span class="k">drop</span> <span class="k">table</span> <span class="n">emp_tmp</span><span class="p">;</span>
+</pre></div>
+
+
+
+<p>
+然后加入product和product_type的数据，看了一下，没啥好说的:
+</p>
+<div class="highlight"><pre><span class="cm">/* product type data */</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product_type</span> <span class="p">(</span><span class="n">product_type_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;ACCOUNT&#39;</span><span class="p">,</span><span class="s1">&#39;Customer Accounts&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product_type</span> <span class="p">(</span><span class="n">product_type_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;LOAN&#39;</span><span class="p">,</span><span class="s1">&#39;Individual and Business Loans&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product_type</span> <span class="p">(</span><span class="n">product_type_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;INSURANCE&#39;</span><span class="p">,</span><span class="s1">&#39;Insurance Offerings&#39;</span><span class="p">);</span>
+
+
+<span class="cm">/* product data */</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;CHK&#39;</span><span class="p">,</span><span class="s1">&#39;checking account&#39;</span><span class="p">,</span><span class="s1">&#39;ACCOUNT&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;SAV&#39;</span><span class="p">,</span><span class="s1">&#39;savings account&#39;</span><span class="p">,</span><span class="s1">&#39;ACCOUNT&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;MM&#39;</span><span class="p">,</span><span class="s1">&#39;money market account&#39;</span><span class="p">,</span><span class="s1">&#39;ACCOUNT&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;CD&#39;</span><span class="p">,</span><span class="s1">&#39;certificate of deposit&#39;</span><span class="p">,</span><span class="s1">&#39;ACCOUNT&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;MRT&#39;</span><span class="p">,</span><span class="s1">&#39;home mortgage&#39;</span><span class="p">,</span><span class="s1">&#39;LOAN&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;AUT&#39;</span><span class="p">,</span><span class="s1">&#39;auto loan&#39;</span><span class="p">,</span><span class="s1">&#39;LOAN&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;BUS&#39;</span><span class="p">,</span><span class="s1">&#39;business line of credit&#39;</span><span class="p">,</span><span class="s1">&#39;LOAN&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">product</span> <span class="p">(</span><span class="n">product_cd</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">product_type_cd</span><span class="p">,</span> <span class="n">date_offered</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="s1">&#39;SBL&#39;</span><span class="p">,</span><span class="s1">&#39;small business loan&#39;</span><span class="p">,</span><span class="s1">&#39;LOAN&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">);</span>
+</pre></div>
+
+<p>
+然后下面是插入customer表格的数据，也没啥好说的:
+</p>
+
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;111-11-1111&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;47 Mockingbird Ln&#39;</span><span class="p">,</span> <span class="s1">&#39;Lynnfield&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;01940&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;222-22-2222&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;372 Clearwater Blvd&#39;</span><span class="p">,</span> <span class="s1">&#39;Woburn&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;01801&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;333-33-3333&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;18 Jessup Rd&#39;</span><span class="p">,</span> <span class="s1">&#39;Quincy&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;02169&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;444-44-4444&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;12 Buchanan Ln&#39;</span><span class="p">,</span> <span class="s1">&#39;Waltham&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;02451&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;555-55-5555&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;2341 Main St&#39;</span><span class="p">,</span> <span class="s1">&#39;Salem&#39;</span><span class="p">,</span> <span class="s1">&#39;NH&#39;</span><span class="p">,</span> <span class="s1">&#39;03079&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;666-66-6666&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;12 Blaylock Ln&#39;</span><span class="p">,</span> <span class="s1">&#39;Waltham&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;02451&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;777-77-7777&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;29 Admiral Ln&#39;</span><span class="p">,</span> <span class="s1">&#39;Wilmington&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;01887&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;888-88-8888&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;472 Freedom Rd&#39;</span><span class="p">,</span> <span class="s1">&#39;Salem&#39;</span><span class="p">,</span> <span class="s1">&#39;NH&#39;</span><span class="p">,</span> <span class="s1">&#39;03079&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;999-99-9999&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;29 Maple St&#39;</span><span class="p">,</span> <span class="s1">&#39;Newton&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;02458&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;04-1111111&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;7 Industrial Way&#39;</span><span class="p">,</span> <span class="s1">&#39;Salem&#39;</span><span class="p">,</span> <span class="s1">&#39;NH&#39;</span><span class="p">,</span> <span class="s1">&#39;03079&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;04-2222222&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;287A Corporate Ave&#39;</span><span class="p">,</span> <span class="s1">&#39;Wilmington&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;01887&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;04-3333333&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;789 Main St&#39;</span><span class="p">,</span> <span class="s1">&#39;Salem&#39;</span><span class="p">,</span> <span class="s1">&#39;NH&#39;</span><span class="p">,</span> <span class="s1">&#39;03079&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">customer</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fed_id</span><span class="p">,</span> <span class="n">cust_type_cd</span><span class="p">,</span>
+  <span class="n">address</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">postal_code</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;04-4444444&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;4772 Presidential Way&#39;</span><span class="p">,</span> <span class="s1">&#39;Quincy&#39;</span><span class="p">,</span> <span class="s1">&#39;MA&#39;</span><span class="p">,</span> <span class="s1">&#39;02169&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> insert where语句</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+下面往individual表格插入数据的操作就是前面谈论过的insert where语句。
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">,</span> <span class="s1">&#39;Hadley&#39;</span><span class="p">,</span> <span class="s1">&#39;1972-04-22&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;111-11-1111&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Susan&#39;</span><span class="p">,</span> <span class="s1">&#39;Tingley&#39;</span><span class="p">,</span> <span class="s1">&#39;1968-08-15&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;222-22-2222&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Tucker&#39;</span><span class="p">,</span> <span class="s1">&#39;1958-02-06&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;333-33-3333&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Hayward&#39;</span><span class="p">,</span> <span class="s1">&#39;1966-12-22&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;444-44-4444&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Charles&#39;</span><span class="p">,</span> <span class="s1">&#39;Frasier&#39;</span><span class="p">,</span> <span class="s1">&#39;1971-08-25&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;555-55-5555&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Spencer&#39;</span><span class="p">,</span> <span class="s1">&#39;1962-09-14&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;666-66-6666&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Margaret&#39;</span><span class="p">,</span> <span class="s1">&#39;Young&#39;</span><span class="p">,</span> <span class="s1">&#39;1947-03-19&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;777-77-7777&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Louis&#39;</span><span class="p">,</span> <span class="s1">&#39;Blake&#39;</span><span class="p">,</span> <span class="s1">&#39;1977-07-01&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;888-88-8888&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">individual</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span> <span class="n">birth_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Richard&#39;</span><span class="p">,</span> <span class="s1">&#39;Farley&#39;</span><span class="p">,</span> <span class="s1">&#39;1968-06-16&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;999-99-9999&#39;</span><span class="p">;</span>
+
+
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">business</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">state_id</span><span class="p">,</span> <span class="n">incorp_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Chilton Engineering&#39;</span><span class="p">,</span> <span class="s1">&#39;12-345-678&#39;</span><span class="p">,</span> <span class="s1">&#39;1995-05-01&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-1111111&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">business</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">state_id</span><span class="p">,</span> <span class="n">incorp_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Northeast Cooling Inc.&#39;</span><span class="p">,</span> <span class="s1">&#39;23-456-789&#39;</span><span class="p">,</span> <span class="s1">&#39;2001-01-01&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-2222222&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">business</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">state_id</span><span class="p">,</span> <span class="n">incorp_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Superior Auto Body&#39;</span><span class="p">,</span> <span class="s1">&#39;34-567-890&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-06-30&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-3333333&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">business</span> <span class="p">(</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">state_id</span><span class="p">,</span> <span class="n">incorp_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;AAA Insurance Inc.&#39;</span><span class="p">,</span> <span class="s1">&#39;45-678-901&#39;</span><span class="p">,</span> <span class="s1">&#39;1999-05-01&#39;</span> <span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-4444444&#39;</span><span class="p">;</span>
+
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">officer</span> <span class="p">(</span><span class="n">officer_id</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span>
+  <span class="n">title</span><span class="p">,</span> <span class="n">start_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;Chilton&#39;</span><span class="p">,</span> <span class="s1">&#39;President&#39;</span><span class="p">,</span> <span class="s1">&#39;1995-05-01&#39;</span>
+<span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-1111111&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">officer</span> <span class="p">(</span><span class="n">officer_id</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span>
+  <span class="n">title</span><span class="p">,</span> <span class="n">start_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Paul&#39;</span><span class="p">,</span> <span class="s1">&#39;Hardy&#39;</span><span class="p">,</span> <span class="s1">&#39;President&#39;</span><span class="p">,</span> <span class="s1">&#39;2001-01-01&#39;</span>
+<span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-2222222&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">officer</span> <span class="p">(</span><span class="n">officer_id</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span>
+  <span class="n">title</span><span class="p">,</span> <span class="n">start_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">3</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Carl&#39;</span><span class="p">,</span> <span class="s1">&#39;Lutz&#39;</span><span class="p">,</span> <span class="s1">&#39;President&#39;</span><span class="p">,</span> <span class="s1">&#39;2002-06-30&#39;</span>
+<span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-3333333&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">officer</span> <span class="p">(</span><span class="n">officer_id</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lname</span><span class="p">,</span>
+  <span class="n">title</span><span class="p">,</span> <span class="n">start_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">4</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="s1">&#39;Stanley&#39;</span><span class="p">,</span> <span class="s1">&#39;Cheswick&#39;</span><span class="p">,</span> <span class="s1">&#39;President&#39;</span><span class="p">,</span> <span class="s1">&#39;1999-05-01&#39;</span>
+<span class="k">from</span> <span class="n">customer</span>
+<span class="k">where</span> <span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-4444444&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3"><span class="section-number-4">3.2.3</span> 交叉连接</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+接下来的这个语句显得更加复杂了:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Woburn&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2000-01-15&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2005-01-04&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">1057</span><span class="p">.</span><span class="mi">75</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">1057</span><span class="p">.</span><span class="mi">75</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;SAV&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2000-01-15&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-19&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">500</span><span class="p">.</span><span class="mi">00</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">500</span><span class="p">.</span><span class="mi">00</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;CD&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-06-30&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-06-30&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">3000</span><span class="p">.</span><span class="mi">00</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">3000</span><span class="p">.</span><span class="mi">00</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;111-11-1111&#39;</span><span class="p">;</span>
+</pre></div>
+<p>
+该SQL语句主体是insert select语句，然后显得复杂的部分就是那个select语句是有customer（别名c）和一个子查询语句生成的表格（别名e）和另外一个子查询语句生成的表格（别名a）的 <code>cross join</code> 而成的一个复杂的表格。
+</p>
+
+<p>
+这里我们需要理解cross join这个概念，不知道读者之前接触过inner join，内连接的概念没有，如果接触过那么一定了解了SQL表格在join的时候不加任何过滤条件其生成的表格就是所谓的这两个SQL表格的笛卡尔积。所谓的笛卡尔积就是，假设一个表格有三行，a行b行c行，然后假设另外一个表格有两行，1行和2行，那么这两个表格的笛卡尔积就是生成一个大表格，具体是(a1行a2行b1行b2行c1行c2行)，一共3*2=6行。
+</p>
+
+<p>
+而所谓的cross join交叉连接实际上就是多个表格之间进行笛卡尔积运算之后组合成为一个更大的表格。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2-4" class="outline-4">
+<h4 id="sec-3-2-4"><span class="section-number-4">3.2.4</span> 内连接</h4>
+<div class="outline-text-4" id="text-3-2-4">
+<p>
+我们又看到上面的例子中第一个子查询语句里面还有 <code>inner join</code> 关键词，其是所谓的内连接。内连接可以看作是在交叉连接生成的表格的基础上进一步加上了某些过滤条件从而将某些行给删除掉了。
+</p>
+
+<p>
+我们首先来看一下:
+</p>
+<pre class="example">
+select b.branch_id, e.emp_id, e.assigned_branch_id from branch b cross join employee e ;
+</pre>
+
+<p>
+branch表格有4条记录，branch有18条记录，所以cross join之后将组合出72条记录。
+</p>
+
+<p>
+然后我们再来看这个查询:
+</p>
+<pre class="example">
+select b.branch_id, e.emp_id from branch b inner join employee e on e.assigned_branch_id = b.branch_id;
+</pre>
+
+<p>
+通常两个SQL表格cross join之后出来的大SQL表格里面有些数据组合是实际可能并不存在的，而上面inner join通过on关键词过滤将使得生成的大SQL表格更具有现实意义。比如这里每一个雇员只可能在某一个分公司，而cross join让每个雇员都有可能在四个分公司了，这里的inner join加上on主要就是控制雇员具体分配的那个分公司正是连接的那个分公司号。这样实现更有现实意义的连接。我们也可以这样理解，雇员的分公司属性id为1，那么在连接分公司表格的时候，只有确定了这个，才能保证分公司表格的其他属性也是属于该雇员的。
+</p>
+
+<p>
+现在我们进行到这里了:
+</p>
+<pre class="example">
+mysql&gt; select b.branch_id, e.emp_id,b.city from branch b inner join employee e on e.assigned_branch_id = b.branch_id;
++-----------+--------+---------+
+| branch_id | emp_id | city    |
++-----------+--------+---------+
+|         1 |      1 | Waltham |
+|         1 |      2 | Waltham |
+|         1 |      3 | Waltham |
+|         1 |      4 | Waltham |
+|         1 |      5 | Waltham |
+|         1 |      6 | Waltham |
+|         1 |      7 | Waltham |
+|         1 |      8 | Waltham |
+|         1 |      9 | Waltham |
+|         2 |     10 | Woburn  |
+|         2 |     11 | Woburn  |
+|         2 |     12 | Woburn  |
+|         3 |     13 | Quincy  |
+|         3 |     14 | Quincy  |
+|         3 |     15 | Quincy  |
+|         4 |     16 | Salem   |
+|         4 |     17 | Salem   |
+|         4 |     18 | Salem   |
++-----------+--------+---------+
+18 rows in set (0.00 sec)
+</pre>
+
+<p>
+然后通过  where b.city = 'Woburn' 这实际上就限定为具体某一个分公司了。
+</p>
+
+<pre class="example">
+mysql&gt; select b.branch_id, e.emp_id,b.city from branch b inner join employee e on e.assigned_branch_id = b.branch_id where b.city='Woburn';
++-----------+--------+--------+
+| branch_id | emp_id | city   |
++-----------+--------+--------+
+|         2 |     10 | Woburn |
+|         2 |     11 | Woburn |
+|         2 |     12 | Woburn |
++-----------+--------+--------+
+3 rows in set (0.00 sec)
+</pre>
+
+<p>
+然后后面跟了 <code>limit 1</code> 这样将只返回一条记录了。然后我们注意到最终cross join生成的大表格还加上了过滤条件 
+</p>
+<pre class="example">
+where c.fed_id = '111-11-1111';
+</pre>
+<p>
+由于每一个顾客的fed_id都是唯一的，所以实际上custom表格真正交叉连接的也只有一条记录，这样这个三个表格cross join这个复杂的情况就等同于前面两个表格一条记录属性都加上，再cross 第三个表格，第三个表格有三条记录，这样最终的大表格有三条记录。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2-5" class="outline-4">
+<h4 id="sec-3-2-5"><span class="section-number-4">3.2.5</span> union all</h4>
+<div class="outline-text-4" id="text-3-2-5">
+<p>
+<code>union all</code> 将多个数据集进行合并。此外还有一种 <code>union</code> 的用法，其中 <code>union</code>  会删除重复项，而union all只是单纯的合并。如下所示:
+</p>
+
+<pre class="example">
+mysql&gt; select 'CHK' prod_cd, '2000-01-15' open_date, '2005-01-04' last_date,
+    -&gt;     1057.75 avail, 1057.75 pend union all
+    -&gt;   select 'SAV' prod_cd, '2000-01-15' open_date, '2004-12-19' last_date,
+    -&gt;     500.00 avail, 500.00 pend union all
+    -&gt;   select 'CD' prod_cd, '2004-06-30' open_date, '2004-06-30' last_date,
+    -&gt;     3000.00 avail, 3000.00 pend;
++---------+------------+------------+---------+---------+
+| prod_cd | open_date  | last_date  | avail   | pend    |
++---------+------------+------------+---------+---------+
+| CHK     | 2000-01-15 | 2005-01-04 | 1057.75 | 1057.75 |
+| SAV     | 2000-01-15 | 2004-12-19 |  500.00 |  500.00 |
+| CD      | 2004-06-30 | 2004-06-30 | 3000.00 | 3000.00 |
++---------+------------+------------+---------+---------+
+3 rows in set (0.01 sec)
+</pre>
+
+
+<p>
+这样下面这些我们应该也大致能够看明白了:
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Woburn&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2001-03-12&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-27&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">2258</span><span class="p">.</span><span class="mi">02</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">2258</span><span class="p">.</span><span class="mi">02</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;SAV&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2001-03-12&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-11&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">200</span><span class="p">.</span><span class="mi">00</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">200</span><span class="p">.</span><span class="mi">00</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;222-22-2222&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Quincy&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2002-11-23&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-11-30&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">1057</span><span class="p">.</span><span class="mi">75</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">1057</span><span class="p">.</span><span class="mi">75</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;MM&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2002-12-15&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-05&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">2212</span><span class="p">.</span><span class="mi">50</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">2212</span><span class="p">.</span><span class="mi">50</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;333-33-3333&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">4</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Waltham&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2003-09-12&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2005-01-03&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">534</span><span class="p">.</span><span class="mi">12</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">534</span><span class="p">.</span><span class="mi">12</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;SAV&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2000-01-15&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-10-24&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">767</span><span class="p">.</span><span class="mi">77</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">767</span><span class="p">.</span><span class="mi">77</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;MM&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-09-30&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-11-11&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">5487</span><span class="p">.</span><span class="mi">09</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">5487</span><span class="p">.</span><span class="mi">09</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;444-44-4444&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">5</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Salem&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-01-27&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2005-01-05&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">2237</span><span class="p">.</span><span class="mi">97</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">2897</span><span class="p">.</span><span class="mi">97</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;555-55-5555&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">6</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Waltham&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2002-08-24&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-11-29&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">122</span><span class="p">.</span><span class="mi">37</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">122</span><span class="p">.</span><span class="mi">37</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;CD&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-12-28&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-28&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">10000</span><span class="p">.</span><span class="mi">00</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">00</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;666-66-6666&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">7</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Woburn&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CD&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-01-12&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-01-12&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">5000</span><span class="p">.</span><span class="mi">00</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">5000</span><span class="p">.</span><span class="mi">00</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;777-77-7777&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">8</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Salem&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2001-05-23&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2005-01-03&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">3487</span><span class="p">.</span><span class="mi">19</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">3487</span><span class="p">.</span><span class="mi">19</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;SAV&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2001-05-23&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-10-12&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">387</span><span class="p">.</span><span class="mi">99</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">387</span><span class="p">.</span><span class="mi">99</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;888-88-8888&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">9</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Waltham&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2003-07-30&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-15&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">125</span><span class="p">.</span><span class="mi">67</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">125</span><span class="p">.</span><span class="mi">67</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;MM&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-10-28&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-10-28&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">9345</span><span class="p">.</span><span class="mi">55</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">9845</span><span class="p">.</span><span class="mi">55</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;CD&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-06-30&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-06-30&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">1500</span><span class="p">.</span><span class="mi">00</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">1500</span><span class="p">.</span><span class="mi">00</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;999-99-9999&#39;</span><span class="p">;</span>
+
+
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">10</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Salem&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2002-09-30&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-15&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">23575</span><span class="p">.</span><span class="mi">12</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">23575</span><span class="p">.</span><span class="mi">12</span> <span class="n">pend</span> <span class="k">union</span> <span class="k">all</span>
+  <span class="k">select</span> <span class="s1">&#39;BUS&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2002-10-01&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-08-28&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">0</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">0</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-1111111&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">11</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Woburn&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;BUS&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-03-22&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-11-14&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">9345</span><span class="p">.</span><span class="mi">55</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">9345</span><span class="p">.</span><span class="mi">55</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-2222222&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">12</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Salem&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;CHK&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2003-07-30&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-15&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">38552</span><span class="p">.</span><span class="mi">05</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">38552</span><span class="p">.</span><span class="mi">05</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-3333333&#39;</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">account</span> <span class="p">(</span><span class="n">account_id</span><span class="p">,</span> <span class="n">product_cd</span><span class="p">,</span> <span class="n">cust_id</span><span class="p">,</span> <span class="n">open_date</span><span class="p">,</span>
+  <span class="n">last_activity_date</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">open_branch_id</span><span class="p">,</span>
+  <span class="n">open_emp_id</span><span class="p">,</span> <span class="n">avail_balance</span><span class="p">,</span> <span class="n">pending_balance</span><span class="p">)</span>
+<span class="k">select</span> <span class="mi">13</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">prod_cd</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">cust_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">last_date</span><span class="p">,</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
+  <span class="n">e</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">avail</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">pend</span>
+<span class="k">from</span> <span class="n">customer</span> <span class="n">c</span> <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">emp_id</span>
+  <span class="k">from</span> <span class="n">branch</span> <span class="n">b</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">employee</span> <span class="n">e</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">assigned_branch_id</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">branch_id</span>
+  <span class="k">where</span> <span class="n">b</span><span class="p">.</span><span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Quincy&#39;</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">)</span> <span class="n">e</span>
+  <span class="k">cross</span> <span class="k">join</span>
+ <span class="p">(</span><span class="k">select</span> <span class="s1">&#39;SBL&#39;</span> <span class="n">prod_cd</span><span class="p">,</span> <span class="s1">&#39;2004-02-22&#39;</span> <span class="n">open_date</span><span class="p">,</span> <span class="s1">&#39;2004-12-17&#39;</span> <span class="n">last_date</span><span class="p">,</span>
+    <span class="mi">50000</span><span class="p">.</span><span class="mi">00</span> <span class="n">avail</span><span class="p">,</span> <span class="mi">50000</span><span class="p">.</span><span class="mi">00</span> <span class="n">pend</span><span class="p">)</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">c</span><span class="p">.</span><span class="n">fed_id</span> <span class="o">=</span> <span class="s1">&#39;04-4444444&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-2-6" class="outline-4">
+<h4 id="sec-3-2-6"><span class="section-number-4">3.2.6</span> 不能重复刷的部分</h4>
+<div class="outline-text-4" id="text-3-2-6">
+<p>
+这种insert select语句有多行记录要刷进去，目前还找不到防止重复刷的办法，只好单独放在这里了。
+</p>
+<div class="highlight"><pre><span class="k">insert</span> <span class="k">into</span> <span class="nf">transaction</span> <span class="p">(</span><span class="n">txn_id</span><span class="p">,</span> <span class="n">txn_date</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">txn_type_cd</span><span class="p">,</span>
+  <span class="n">amount</span><span class="p">,</span> <span class="n">funds_avail_date</span><span class="p">)</span>
+<span class="k">select</span> <span class="no">null</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">account_id</span><span class="p">,</span> <span class="s1">&#39;CDT&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">open_date</span>
+<span class="k">from</span> <span class="n">account</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">a</span><span class="p">.</span><span class="n">product_cd</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">&#39;CHK&#39;</span><span class="p">,</span><span class="s1">&#39;SAV&#39;</span><span class="p">,</span><span class="s1">&#39;CD&#39;</span><span class="p">,</span><span class="s1">&#39;MM&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 补充知识</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+下面继续在第二个例子的基础上进行讲解，主要是一些SQL的补充知识。
+</p>
+</div>
+
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 别名</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+前面说了select字句是不仅可以运算列，还可以重新构建一个列，这些列mysql会自动为其创建默认名字，你也可以明确指定该名字，用如下 <strong>as</strong> 关键词，如下所示:
+</p>
+
+<pre class="example">
+select emp_id, 'ACTIVE' as status, emp_id * 3.1415926 as empid_x_pi, upper(lname) as last_name_upper from employee;
+</pre>
+
+<p>
+<strong>as</strong> 关键词可以省略，表达仍然有效，但还是推荐加上 <strong>as</strong> 关键词，这样SQL语句可读性更高。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 去除重复的行</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+如下所示加入 <strong>distinct</strong> 关键词来让select字句过滤掉重复的行。
+</p>
+<pre class="example">
+select distinct cust_id from account;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> order by字句</h3>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> group by字句</h3>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> having字句</h3>
+</div>
+
+<div id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> between操作符</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+between操作符相比较=和!=等操作符算是有点冷门的，这里讲一下。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 演示例子的补充信息</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+该演示数据，按照《SQL学习指南》一书所说，是为了某一银行建立的数据模型，不过我们看到，其中涉及的顾客，部门，产品等概念在很多领域都是适用的。
+</p>
+
+<p>
+下面列出关于这些表格的含义说明:
+</p>
+<dl class="org-dl">
+<dt> account </dt><dd>为特定顾客开放的特定产品
+</dd>
+<dt> branch </dt><dd>开展银行交易业务的场所，就可理解为某分公司分银行。
+</dd>
+<dt> business </dt><dd>公司顾客
+</dd>
+<dt> customer </dt><dd>与银行有业务往来的个人或公司
+</dd>
+<dt> department </dt><dd>就可理解为银行内某部门
+</dd>
+<dt> employee </dt><dd>银行工作人员
+</dd>
+<dt> individual </dt><dd>个人顾客，我们看到和business对应。
+</dd>
+<dt> officer </dt><dd>允许为公司顾客发起交易的人
+</dd>
+<dt> product </dt><dd>向顾客提供的银行服务
+</dd>
+<dt> product_type </dt><dd>服务类型
+</dd>
+<dt> transaction </dt><dd>改变账户余额的操作
+</dd>
+</dl>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 参考资料</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>本网页主要参考了《SQL学习指南》一书，第二版，Alan Beaulieu著，张伟超，林青松译。
+</li>
+</ol>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>参考了<a href="http://www.w3schools.com/sql/sql_insert_into_select.asp">这个网页</a>。</p></div>
+
+
+</div>
+</div></div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>

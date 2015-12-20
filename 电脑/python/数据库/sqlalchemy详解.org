@@ -1,0 +1,1347 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: sqlalchemy详解
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+老实说sqlalchemy这个模块特别难学，主要原因倒不是这个模块本身，阻碍我很好地学习这个模块的是这个心态，认为自己可以直接学习sqlalchemyORM封装就行了，不用学习SQL语句。这是错误的。要学好sqlalchemy必须先学习好SQL语句，要完全发挥出sqlalchemy的威力，也必须先学会SQL语句和对应的SQL实现。然后还有一个误区，我们在使用上也不一定要使用class这样的类声明风格。实际上sqlalchemy这个模块里面内容是很丰富的，是很灵活的。它是可以完全取代sqlite3模块和psycopg2模块等初级的DB API，然后还提供了高级的ORM封装。
+
+
+** 安装
+sqlalchemy的安装简单用pip3命令安装之即可:
+#+BEGIN_EXAMPLE
+sudo pip3 install sqlalchemy
+#+END_EXAMPLE
+
+惯例python模块安装好之后进去输入版本号测试下安装情况:
+#+BEGIN_EXAMPLE
+>>> import sqlalchemy
+>>> sqlalchemy.__version__
+'1.0.8'
+#+END_EXAMPLE
+
+** 引用惯例
+在后面都默认有如下引用:
+#+BEGIN_EXAMPLE
+from sqlalchemy import *
+#+END_EXAMPLE
+后面将不会再提及，也就是凡是 ~from sqlalchemy import what~ 的所有语句也都归于如上一条引用。
+
+** 简介
+通过sqlalchemy连接具体的某个数据库，前面有一些准备工作要做，参考 [[http://www.aosabook.org/en/sqlalchemy.html][sqlalchemy architecture]] 一文的描述:
+
+#+CAPTION: SQLAlchemy layer diagram
+[[file:images/layers.png]]
+
+和数据库直接相连的是我们熟悉的那些DBAPI接口模块，比如: sqlite3, pymysql, psycopg2等，然后中间的核心层有Engine，连接池，方言，SQL表达语言和类型系统。core层很重要，实际上有些模块是完全建构在core层之上的，不一定要用ORM方法。
+
+
+* 非ORM风格
+** 创建一个Engine
+创建一个 ~Engine~ 对象实际上对应的就是和数据库的连接操作。具体是通过 ~create_engine~ 函数创建的Engine对象，其一开始并没有实际连接数据库，只有具体要求某个操作的时候才会去连接。
+
+
+*** 连接sqlite3
+**** 连接sqlite3 in-memory
+#+BEGIN_EXAMPLE
+engine = create_engine('sqlite://')
+#+END_EXAMPLE
+
+但是推荐采用如下写法:
+#+BEGIN_EXAMPLE
+engine = create_engine('sqlite:///:memory:',echo=True)
+#+END_EXAMPLE
+这样后面谈及的sqlalchmy_utils的 ~database_exists~ 函数也能正常工作。
+
+**** 连接sqlite3 on-disk
+#+BEGIN_EXAMPLE
+engine = create_engine('sqlite:///sqlite3_learning_example.db')
+#+END_EXAMPLE
+
+上面的db文件是创建在命令行当前工作目录下的，也就是相对路径表达。此外还可以如下写上绝对路径表达:
+
+#+BEGIN_EXAMPLE
+engine = create_engine('sqlite:////absolute/path/to/foo.db')
+#+END_EXAMPLE
+
+在三个斜杠线的基础上还需要加上一个斜杠线。作为这种形式的通用表达，前面必定有两个斜杠线，然后第二个斜杠线和第三个斜杠线之间是登录信息的描述，因为sqlite3没有这些信息，所以空了，如下所示:
+
+#+BEGIN_EXAMPLE
+dialect://username:password@host:port/database
+#+END_EXAMPLE
+
+或者某个方言系统再加上某个驱动:
+#+BEGIN_EXAMPLE
+dialect+driver://username:password@host:port/database
+#+END_EXAMPLE
+
+这里的方言可以有:
+- sqlite :: 默认的driver的官方的 *sqlite3* 模块，这个应该不需要改动。
+- mysql :: 默认的dirver是 *mysql-python* ，但推荐使用 *pymysql* ，你需要用pip安装之。
+#+BEGIN_EXAMPLE
+engine = create_engine('mysql+pymysql://root@localhost/test')
+#+END_EXAMPLE
+- postgresql :: 默认的driver是 *psycopg2* ，这个还行。
+- oracle :: 默认的driver是 *cx_oracle* 。
+- mssql :: 默认的driver是 *pyodbc* 。
+
+
+*** 连接mysql
+#+BEGIN_EXAMPLE
+engine = create_engine('mysql+pymysql://localhost/mysql_db')
+#+END_EXAMPLE
+
+确保你安装了pymysql:
+#+BEGIN_EXAMPLE
+sudo pip3 install pymysql
+#+END_EXAMPLE
+
+*** 连接postgresql
+#+BEGIN_EXAMPLE
+engine = create_engine('postgres://rick:foo@localhost:5432/pg_db')
+#+END_EXAMPLE
+
+
+** MetaData对象
+MetaData对象你可以看作比Table层更高一级的抽象，里面存放着Table对象的一些metadata描述信息。一个简单的理解是将一个MetaData对象看作sqlalchemy内部的database概念。
+
+*** 创建一个unbound MetaData对象
+通过 ~MetaData()~ 默认创建的就是一个unbound MetaData对象。
+#+BEGIN_EXAMPLE
+metadata = MetaData()
+#+END_EXAMPLE
+
+*** bind一个Engine对象
+你可以如下将一个unbound MetaData对象具体 ~bind~ 一个Engine对象。
+#+BEGIN_EXAMPLE
+engine = create_engine('sqlite://')
+metadata = MetaData()
+metadata.bind = engine
+#+END_EXAMPLE
+
+或者在上面创建的时候就指定:
+#+BEGIN_EXAMPLE
+engine = create_engine('sqlite://')
+metadata = MetaData(engine)
+#+END_EXAMPLE
+
+或者你还可以直接engine的URL表达来后台自动创建一个engine，于是有:
+#+BEGIN_EXAMPLE
+metadata = MetaData('sqlite://')
+#+END_EXAMPLE
+
+对于初学者用的最多的还是 ~BoundMetaData~ ，通过上面谈及的方法创建了一个 ~BoundMetaData~ 对象之后，某个Table对象关联了该 ~BoundMetaData~ 对象，然后该Table对象就可以直接通过:
+#+BEGIN_EXAMPLE
+table.create()
+#+END_EXAMPLE
+来创建自身了。
+
+
+*** 测试数据库是否存在
+这里关于 ~sqlalchemy_utils~ 的想法来自 [[http://stackoverflow.com/questions/6506578/how-to-create-a-new-database-using-sqlalchemy][这个网页]] 。
+#+BEGIN_SRC python
+from sqlalchemy import *
+from sqlalchemy_utils import database_exists, create_database
+
+
+def init_sqlalchemy(dburl,echo=True):
+    engine = create_engine(dburl,echo=echo)
+
+    if not database_exists(engine.url):###确保目标数据库是存在的。
+        create_database(engine.url)
+
+    metadata = MetaData(bind = engine)
+    return metadata
+
+metadata = init_sqlalchemy('sqlite:///test.db')
+#+END_SRC
+
+这里的 ~sqlalchemy_utils~ 需要额外安装，在这里主要是利用其 ~database_exists~ 函数来检测某个数据库是否存在，然后如果不存在的话则用 ~create_database~ 函数创建之。
+
+上面的 ~init_sqlalchemy~ 函数最重要的一个参数就是那个 ~dburl~ ，具体其细节前面已有所叙述，正是照它来创建的Engine，并基于这个Engine对象来创建的MetaData对象，一般将这个MetaData对象bind之前的那个engine，然后返回该metadata即可，后面主要需要使用这个metadata。
+
+然后后面实际操作就以创建一个Table对象开始了，其他database的操作，建议如同上面处理的一样，都提到顶层用sqlalchemy_utils模块来处理之。类似的还有 *drop_database* : 删除database，参数如create_database也是某个Engine对象的url。
+
+
+** 创建一个Table对象
+下面是一个完整的例子，最后创建了一个Table表格。这里的 ~db~ 也就是前面谈及的MetaData对象，我们看到在创建Table对象的时候第一个参数是具体创建的SQL表格的名字，第二个就是该表格bind的某个MetaData对象，也可以简单理解为该表格对象存入该MetaData对象代表的database中。然后后面调用 ~db.create_all()~ ，所有这些bind到该db上的表格都将创建。你还可以用 ~users.create()~ 来单独创建某个表格。
+
+#+BEGIN_SRC python
+from sqlalchemy import *
+from sqlalchemy_utils import database_exists, create_database
+
+
+def init_sqlalchemy(dburl,echo=True):
+    engine = create_engine(dburl,echo=echo)
+
+    if not database_exists(engine.url):###确保目标数据库是存在的。
+        create_database(engine.url)
+
+    metadata = MetaData(bind = engine)
+    return metadata
+
+db = init_sqlalchemy('sqlite:///test.db')
+
+users = Table('users', db,
+    Column('user_id', Integer, primary_key=True),
+    Column('name', String(40)),
+    Column('age', Integer),
+    Column('password', String),
+)
+
+db.create_all()
+#+END_SRC
+
+
+*** 利用已存在的Table
+如果某个数据库的某个Table已经存在了，那么你就没有必要如上去创建一个Table对象了，只需要如下做就可以获得该Table对象了:
+#+BEGIN_EXAMPLE
+users = Table('users',db,autoload=True)
+#+END_EXAMPLE
+
+具体就是将 ~autoload~ 设置为True即可。这里的db就是所谓的metadata，然后这里必须是bind了的metadata对象，若还未bind，则还需要加上autoload_with参数。
+
+
+*** 实际在数据库中创建表格
+具体可以整个metadata对象，调用 ~create_all~ 方法来创建所有表格（其也有 ~checkfirst~ 参数。）:
+#+BEGIN_EXAMPLE
+db.create_all()
+#+END_EXAMPLE
+
+或者该Table对象具体调用 ~create~ 方法来自我创建之。在应用推荐加上 ~checkfirst=True~ 设置，这样就算数据库中该表格已经存在也不会报错。如下所示:
+#+BEGIN_EXAMPLE
+users.create(checkfirst=True)
+#+END_EXAMPLE
+
+类似的还有如下用法用于安装删除某个表格，即使该表格不存在也不会报错:
+#+BEGIN_EXAMPLE
+users.drop(checkfirst=True)
+#+END_EXAMPLE
+
+这里代码改成了这个样子了:
+#+BEGIN_SRC python
+try:
+    users = Table('users',db,autoload=True)
+except sqlalchemy.exc.NoSuchTableError:
+    users = Table('users', db,
+    Column('user_id', Integer, primary_key=True),
+    Column('name', String(40)),
+    Column('age', Integer),
+    Column('password', String),
+)
+#+END_SRC
+注意这个 ~NoSuchTableError~ ，如果通过 ~autoload=True~ 来获取该Table对象而其在数据库中并不存在，则将抛出这个异常。
+
+
+*** 列的属性设置
+创建表格对象后面一系列的参数就是具体各个列Column对象，其第一个参数是具体列的名字，然后第二个参数该列所存储的值的类型，后面还可以跟其他一些可选项作为属性的进一步修饰。具体如下所示:
+
+- primary_key :: 设置该列为主键列或者称之为主键约束
+- unique :: 该列加上唯一约束，即该列的值不可重复。主键约束是一种特殊的唯一约束。
+- nullable :: 该列可不可为空
+- default :: 该列的默认值设置
+- index :: 该列是否加入索引
+- auto_increment :: Integer的列数值自动递增
+- ForeignKey('brand.id') :: 设置外键约束
+- CheckConstraint('amount > 0') :: 设置Check约束
+- onupdate :: 最常见的用法如下:
+#+BEGIN_EXAMPLE
+onupdate=datetime.utcnow
+#+END_EXAMPLE
+应该意思是若update了则调用某个callable对象吧。
+
+*** 列的数据类型声明
+下面对各个列存储的值的可能类型描述详细介绍之，更多信息请参看文档查看之。
+| Class name   | Python Type       | SQL Type (for SQLitedriver) | Arguments              |
+|--------------+-------------------+-----------------------------+------------------------|
+| String       | string            | TEXT or VARCHAR             | length                 |
+| Integer      | int               | INTEGER                     | none                   |
+| SmallInteger | int               | SMALLINT                    | none                   |
+| Numeric      | float,Decimal     | NUMERIC                     | precision=10, length=2 |
+| Float        | float             | NUMERIC                     | precision=10           |
+| DateTime     | datetime.datetime | TIMESTAMP                   | none                   |
+| time         | datetime.time     | TIME                        | none                   |
+| Date         | datetime.date     | DATE                        | none                   |
+| Binary       | byte string       | BLOB                        | length                 |
+| Boolean      | bool              | BOOLEAN                     | none                   |
+| Unicode      | unicode           | TEXT or VARCHAR             | length                 |
+
+大致就这些，然后sqlalchemy还有一些类名大致和上面的某个等同，只是多了一个使用上的名字。 
+- FLOAT :: 等同于 Numeric
+- TEXT :: 等同于 String
+- DECIMAL :: 等同于 Numeric
+- INT :: 等同于 Integer
+- INTEGER :: 等同于 Integer
+- TIMESTAMP :: 等同于 DateTime
+- DATETIME :: 等同于 DateTime
+- CLOB :: 等同于 String
+- VARCHAR :: 等同于 String
+- CHAR :: 等同于 String
+- NCHAR :: 等同于 Unicode
+- BLOB :: 等同于 Binary
+- BOOLEAN :: 等同于 Boolean
+
+**** mysql方言的额外类型
+| Class name    | Python type | SQL type         | Arguments             |
+|---------------+-------------+------------------+-----------------------|
+| MSEnum        | string      | ENUM             | values                |
+| MSTinyInteger | int         | TINYINT          | length                |
+| MSBigInteger  | int         | BIGINT           | length                |
+| MSDouble      | float       | DOUBLE           | length=10,precision=2 |
+| MSTinyText    | string      | TINYTEXT         | none                  |
+| MSMediumText  | string      | MEDIUMTEXT       | none                  |
+| MSLongText    | string      | LONGTEXT         | none                  |
+| MSNVarChar    | unicode     | NATIONAL VARCHAR | length                |
+| MSTinyBlob    | byte string | TINYBLOB         | none                  |
+| MSMediumBlob  | byte string | MEDIUMBLOB       | none                  |
+| MSLongBlob    | byte string | LONGBLOB         | none                  |
+| MSBinary      | byte string | BINARY           | length                |
+| MSVarBinary   | byte string | VARBINARY        | length                |
+| MSSet         | set         | SET              | set values            |
+| MSYear        | int         | YEAR             | length                |
+| MSBit         | long        | BIT              | length                |
+
+
+*** postgresql额外的类型
+| Class name   | Python type    | SQL type      | Arguments  |
+|--------------+----------------+---------------+------------|
+| PGArray      | any TypeEngine | type engine[] | TypeEngine |
+| PGBigInteger | int,long       | BIGINT        | none       |
+| PGInet       | none           | INET          | none       |
+| PGInterval   | none           | INTERVAL      | none       |
+
+
+*** Oracle额外的类型
+| Class name | Python type | SQL type | Arguments |
+|------------+-------------+----------+-----------|
+| Oracle     | byte string | RAW      | length    |
+
+
+*** 更多的类型支持
+前面谈及的sqlalchemy_util模块里面有很多额外的类型支持。
+
+
+
+** insert语句
+上面谈及的Table对象调用 ~insert~ 方法即可产生一个临时表达语句对象（大概类似的东西，这个词是我杜撰的。），比如在执行 ~i = users.insert()~ 之后:
+
+#+BEGIN_EXAMPLE
+>>> type(i)
+<class 'sqlalchemy.sql.dml.Insert'>
+>>> str(i)
+'INSERT INTO users (user_id, name, age, password) VALUES (?, ?, ?, ?)'
+>>> 
+#+END_EXAMPLE
+
+这个i临时表达语句对象有 ~execute~ 方法，其可以接受一些参数，比如如下所示:
+
+#+BEGIN_EXAMPLE
+i = users.insert()
+i.execute(name='Mary', age=30, password='secret')
+#+END_EXAMPLE
+
+这个语句执行之后，该数据就被插入进数据库了。你还可以用execute方法来插入多个值，如下所示:
+
+#+BEGIN_EXAMPLE
+i.execute({'name': 'John', 'age': 42},
+          {'name': 'Susan', 'age': 57},
+          {'name': 'Carl', 'age': 33})
+#+END_EXAMPLE
+
+然后如果我们需要使用 ~insert ignore~ 这样的语句，则需要这样处理:
+#+BEGIN_EXAMPLE
+i = users.insert().prefix_with('or ignore')
+'INSERT or ignore INTO users (user_id, name, age, password) VALUES (?, ?, ?, ?)'
+>>> 
+#+END_EXAMPLE
+
+上面的例子是sqlite的情况，mysql那边则需要写成 ~.prefix_with('ignore')~ 这样的形式。
+
+然后额外值得一提的是: 要真正做到重复刷，primary_key，也就是这里的 ~user_id~ 需要具体指定为多少，因为这里的ignore的逻辑就是基于主键列不重复的。
+
+
+** delete语句
+delete语句的使用也类似上面insert语句所谈及的，除了根据SQL delete语句的实际情况，其为第一个可选参数为where过滤字句，如下所示:
+
+#+BEGIN_EXAMPLE
+d = users.delete(users.c.password == None)
+>>> str(d)
+'DELETE FROM users WHERE users.password IS NULL'
+#+END_EXAMPLE
+
+我们注意到上面 ~users.c.password~ 的用法，这里的细节后面再讨论，大体意思就是users这个表格的password这一列其值等于None（对应NULL），然后python中的 ~is None~ 这种写法试了一下并不行。
+
+上面的delete语句是将users表格中password为空的行都删除，然后如果在构建delete语句时，不填任何where语句，则是表格所有记录都将被删除。
+
+#+BEGIN_EXAMPLE
+d = users.delete()
+#+END_EXAMPLE
+
+
+** update语句
+然后是update语句，下面来更新那几个user的password。 ~update~ 语句的参数设置如下:
+
+#+BEGIN_EXAMPLE
+update(whereclause=None, values=None, inline=False, **kwargs)
+#+END_EXAMPLE
+
+我们可以看到其第一个可选参数和delete一样是 ~whereclause~ where过滤字句，然后第二个values要跟一个字典值，用来表示具体设置的某些值。下面演示逐步构建update语句的风格，这种风格同样适用于 ~insert~ , ~update~ , ~select~ 语句的构建。
+
+#+BEGIN_EXAMPLE
+u1 = users.update()
+u2 = u1.where(users.c.name == 'John').values(password='123456')
+>>> str(u1)
+'UPDATE users SET user_id=?, name=?, age=?, password=?'
+>>> str(u2)
+'UPDATE users SET password=? WHERE users.name = ?'
+#+END_EXAMPLE
+
+这里str显示参数并没有给打进去，我们 ~u2.execute()~ 执行的话就会看到实际效果了。
+
+
+
+** select语句
+select语句和前面谈论的 ~insert~ 等语句的构建过程类似，只是因为SQL中select语句情况较为复杂，然后select语句还需要考虑具体查询的返回值问题，所以东西很多。
+
+首先我们看下面这个函数:
+#+BEGIN_SRC python
+def show_squery(squery):
+    res = squery.execute()
+    for r in res:
+        print(r)
+#+END_SRC
+
+select语句执行之后的返回结果叫做什么 ~ResultProxy~ 对象，其可以直接用for语句来迭代。不带任何参数的select语句返回Table的所有行:
+#+BEGIN_EXAMPLE
+>>> show_squery(users.select())
+(1, 'Mary', 30, 'secret')
+(2, 'John', 42, '123456')
+(3, 'Susan', 57, None)
+(4, 'Carl', 33, None)
+#+END_EXAMPLE
+
+或者:
+#+BEGIN_EXAMPLE
+>>> show_squery(users.select(users.c.name=='John'))
+(2, 'John', 42, '123456')
+#+END_EXAMPLE
+
+这是 ~and_~ 或 ~&~ 的用法:
+#+BEGIN_EXAMPLE
+>>> show_squery(users.select(and_(users.c.age < 40 , users.c.name != 'Mary')))
+(4, 'Carl', 33, None)
+
+>>> show_squery(users.select((users.c.age < 40) & (users.c.name != 'Mary')))
+(4, 'Carl', 33, None)
+#+END_EXAMPLE
+
+类似的还有 ~or_~ 或 ~|~ 做逻辑或的意思 ; 或者 ~not_~ 或 "~" 做逻辑非的意思。
+
+此外还有 ~startswith~ , ~like~ , ~endswith~
+#+BEGIN_EXAMPLE
+users.select(users.c.name.startswith('M'))
+#+END_EXAMPLE 
+
+还有 ~between~ , ~in_~ :
+#+BEGIN_EXAMPLE
+users.select(users.c.age.between(30,39))
+
+users.select(users.c.name.in_('Mary', 'Susan'))
+#+END_EXAMPLE
+
+
+*** ResultProxy对象
+select语句执行后返回的ResultProxy对象除了可以直接迭代外还有如下这些方法。
+- fetchone :: 取一行，具体是所谓的 ~RowProxy~ 对象，其可用api后面会描述之。
+- fetchmany :: 取多行，具体返回的是一个列表，其内装着 ~RowProxy~ 对象。
+- fetchall :: 取所有行，如果fetchmany不指定size则等同于取所有行，返回的是一个列表，其内装着 ~RowProxy~ 对象。
+- scalar ::
+- keys :: 
+- rowcount :: 
+- close :: 
+
+*** RowProxy对象
+对ResultProxy对象进行迭代，或者fetchone，fetchmany，fetchall方法，就可以获得RowProxy对象，其对应的就是数据库的一行记录。该对象api操作很是灵活，具体你可以像操作一个字典来操作它，也可以类似操作namedtuple般的来操作它，还可以如同列表一般用这样 ~[0]~ 的索引方法提取某一列，如下所示:
+
+#+BEGIN_EXAMPLE
+s = users.select()
+rs = s.execute()
+row = rs.fetchone()
+
+>>> row[0]
+1
+>>> row.name
+'Mary'
+>>> row['password']
+'secret'
+#+END_EXAMPLE
+
+
+** 多表连接
+现在代码情况如下所示:
+#+BEGIN_SRC python
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy_utils import database_exists, create_database
+
+
+def init_sqlalchemy(dburl,echo=True):
+    engine = create_engine(dburl,echo=echo)
+
+    if not database_exists(engine.url):###确保目标数据库是存在的。
+        create_database(engine.url)
+
+    metadata = MetaData(bind = engine)
+    return engine,metadata
+
+engine,db = init_sqlalchemy('sqlite:///test.db')
+
+try:
+    users = Table('users',db,autoload=True)
+except sqlalchemy.exc.NoSuchTableError:
+    users = Table('users', db,
+    Column('id', Integer, primary_key=True),
+    Column('name', String(40)),
+    Column('age', Integer),
+    Column('password', String),
+)
+
+users.create(checkfirst=True)
+
+
+insert_query = users.insert().prefix_with('or ignore')
+insert_query.execute(id=1,name='Mary', age=30, password='secret')
+insert_query.execute({'id':2,'name': 'John', 'age': 42},
+    {'id':3,'name': 'Susan', 'age': 57},
+    {'id':4,'name': 'Carl', 'age': 33})
+
+delete_query = users.delete()
+
+update_query = users.update()
+update_query = update_query.where(users.c.name == 'John').values(password='123456')
+update_query.execute()
+
+def run(query):
+    query.execute()
+
+def show_squery(squery):
+    res = squery.execute()
+    for r in res:
+        print(r)
+
+try:
+    emails = Table('emails',db,autoload=True)
+except sqlalchemy.exc.NoSuchTableError:
+    emails = Table('emails', db,
+    Column('id', Integer, primary_key=True),
+    Column('address', String),
+    Column('user_id', Integer,ForeignKey('users.id')),
+)
+
+emails.create(checkfirst=True)
+
+insert_query = emails.insert().prefix_with('or ignore')
+insert_query.execute(
+    {'address': 'mary@example.com', 'user_id': 1},
+    {'address': 'john@nowhere.net', 'user_id': 2},
+    {'address': 'john@example.org', 'user_id': 2},
+    {'address': 'carl@nospam.net', 'user_id': 4},
+)
+#+END_SRC
+
+
+*** 交叉连接或笛卡尔积
+下面是交叉连接的情况:
+#+BEGIN_EXAMPLE
+>>> show_squery(select([users,emails]))
+2015-10-28 20:27:21,721 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
+FROM users, emails
+2015-10-28 20:27:21,721 INFO sqlalchemy.engine.base.Engine ()
+(1, 'Mary', 30, 'secret', 1, 'mary@example.com', 1)
+(1, 'Mary', 30, 'secret', 2, 'john@nowhere.net', 2)
+(1, 'Mary', 30, 'secret', 3, 'john@example.org', 2)
+(1, 'Mary', 30, 'secret', 4, 'carl@nospam.net', 4)
+(2, 'John', 42, '123456', 1, 'mary@example.com', 1)
+(2, 'John', 42, '123456', 2, 'john@nowhere.net', 2)
+(2, 'John', 42, '123456', 3, 'john@example.org', 2)
+(2, 'John', 42, '123456', 4, 'carl@nospam.net', 4)
+(3, 'Susan', 57, None, 1, 'mary@example.com', 1)
+(3, 'Susan', 57, None, 2, 'john@nowhere.net', 2)
+(3, 'Susan', 57, None, 3, 'john@example.org', 2)
+(3, 'Susan', 57, None, 4, 'carl@nospam.net', 4)
+(4, 'Carl', 33, None, 1, 'mary@example.com', 1)
+(4, 'Carl', 33, None, 2, 'john@nowhere.net', 2)
+(4, 'Carl', 33, None, 3, 'john@example.org', 2)
+(4, 'Carl', 33, None, 4, 'carl@nospam.net', 4)
+#+END_EXAMPLE
+
+*** 内连接
+下面是内连接的情况:
+#+BEGIN_EXAMPLE
+>>> show_squery(select([users,emails],users.c.id == emails.c.user_id))
+2015-10-28 20:39:09,173 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
+FROM users, emails 
+WHERE users.id = emails.user_id
+2015-10-28 20:39:09,173 INFO sqlalchemy.engine.base.Engine ()
+(1, 'Mary', 30, 'secret', 1, 'mary@example.com', 1)
+(2, 'John', 42, '123456', 2, 'john@nowhere.net', 2)
+(2, 'John', 42, '123456', 3, 'john@example.org', 2)
+(4, 'Carl', 33, None, 4, 'carl@nospam.net', 4)
+#+END_EXAMPLE
+
+sqlalchemy还有一种更智能的内连接用法:
+#+BEGIN_EXAMPLE
+>>> show_squery(join(users, emails).select())
+2015-10-28 20:40:17,502 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
+FROM users JOIN emails ON users.id = emails.user_id
+2015-10-28 20:40:17,502 INFO sqlalchemy.engine.base.Engine ()
+(1, 'Mary', 30, 'secret', 1, 'mary@example.com', 1)
+(2, 'John', 42, '123456', 2, 'john@nowhere.net', 2)
+(2, 'John', 42, '123456', 3, 'john@example.org', 2)
+(4, 'Carl', 33, None, 4, 'carl@nospam.net', 4)
+#+END_EXAMPLE
+
+*** 外连接
+外连接如下所示，和写入顺序有关。具体是第一个连接第二个，满足过滤条件的则data收进来，没有的则用NULL填充。
+#+BEGIN_EXAMPLE
+>>> show_squery(outerjoin(users, emails).select())
+2015-10-28 20:41:16,610 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
+FROM users LEFT OUTER JOIN emails ON users.id = emails.user_id
+2015-10-28 20:41:16,610 INFO sqlalchemy.engine.base.Engine ()
+(1, 'Mary', 30, 'secret', 1, 'mary@example.com', 1)
+(2, 'John', 42, '123456', 3, 'john@example.org', 2)
+(2, 'John', 42, '123456', 2, 'john@nowhere.net', 2)
+(3, 'Susan', 57, None, None, None, None)
+(4, 'Carl', 33, None, 4, 'carl@nospam.net', 4)
+#+END_EXAMPLE 
+
+#+BEGIN_EXAMPLE
+>>> show_squery(outerjoin(emails, users).select())
+2015-10-28 20:43:56,590 INFO sqlalchemy.engine.base.Engine SELECT emails.id, emails.address, emails.user_id, users.id, users.name, users.age, users.password 
+FROM emails LEFT OUTER JOIN users ON users.id = emails.user_id
+2015-10-28 20:43:56,590 INFO sqlalchemy.engine.base.Engine ()
+(1, 'mary@example.com', 1, 1, 'Mary', 30, 'secret')
+(2, 'john@nowhere.net', 2, 2, 'John', 42, '123456')
+(3, 'john@example.org', 2, 2, 'John', 42, '123456')
+(4, 'carl@nospam.net', 4, 4, 'Carl', 33, None)
+#+END_EXAMPLE
+
+
+
+
+
+* ORM风格
+sqlalchemy模块的面向对象封装部分改动较大，参考资料1和2里面的内容很多都过时了，没办法只好看官方文档，本来之前我是有点喜欢Table和python类分开，然后mapper之的那种风格的，但是渐渐的也开始接受那种完全写在一起的那种风格了，这种风格也是sqlalchemy目前官方文档推荐的。确实随着对面向对象ORM风格了解的越多，就会发现，渐渐的思路还有有些SQL底层细节是不需要考虑的了，当然要更好的使用SQL表格，一些必要的SQL语句底层思维肯定是要的。至于什么时候用前面谈及的那种Table单独声明，然后组合SQL语句的那种风格，什么时候用ORM呢？这个问题我还不大清楚，但还是一般推荐用官方文档推荐的那种ORM风格吧。
+
+读者如果有兴趣的话可以了解那种mapper风格，本文决定将其舍弃了。然后前面我们学的no-orm风格的相关知识，orm风格实际上是建构于其之上的，所以对我们接下来的理解非常有帮助。比如我们看到下面这段代码:
+
+#+BEGIN_SRC python
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///:memory:',echo=True)
+
+if not database_exists(engine.url):###确保目标数据库是存在的。
+    create_database(engine.url)
+
+metadata = MetaData(bind = engine)
+Base = declarative_base(bind=engine)
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer,primary_key=True)
+    name = Column(String)
+    fullname = Column(String)
+    password = Column(String)
+
+    def __init__(self,name,fullname,password):
+        self.name = name
+        self.fullname = fullname
+        self.password = password
+    def __repr__(self):
+        return '<User {}>'.format(self.name)
+#+END_SRC
+
+我们调用 ~User~ 类的 ~__table__~ ，其实质就是前面no-orm风格提及的Table对象。
+
+#+BEGIN_EXAMPLE
+>>> User.__table__
+Table('users', MetaData(bind=Engine(sqlite:///:memory:)), Column('id', Integer(), table=<users>, primary_key=True, nullable=False), Column('name', String(), table=<users>), Column('fullname', String(), table=<users>), Column('password', String(), table=<users>), schema=None)
+>>> 
+#+END_EXAMPLE
+
+ORM层是通过Session对象来和数据库进行会话的:
+#+BEGIN_SRC python
+from sqlalchemy.orm import *
+Session = sessionmaker(bind=engine)
+session = Session()
+#+END_SRC
+
+下面先将如何通过session进行数据库的CRUD（CREATE RETRIEVE UPDATE DELETE）操作分别说明一下:
+
+** CRUD操作
+
+*** 增加记录
+如下来给某个表格增加一条记录:
+#+BEGIN_EXAMPLE
+admin = User('admin','administor','admin')
+session.add(admin)
+#+END_EXAMPLE
+
+当session ~add~ 了某一条记录，这种更改称之为on-fly更改，后面谈及的其他基于python对象的操作从而对具体某个记录的某个属性的更改也是如此，都是on-fly模式。也就是只有在执行了 ~session.commit()~ 之后，所有的更改才会实际刷入数据库，而之前的更改虽然没有实际刷入数据库，但后面代码的查询等等操作都是基于这种改动之后新的（可以看作以某种形式的基于内存的）数据库的。
+
+如果你了解SQL的transaction的概念，就清楚SQL数据库的实现通过transaction来实现数据提交的安全保障——如果一次transaction提交失败，那么将会rollback回滚之，从而保证SQL数据库不会mess up。session有 ~rollback~ 方法可以主动回滚，这样on-fly的没有commit的所有transaction都会被丢弃。当session ~commit~ 之后，这次的transaction成功提交了就完成了，下次又是另外一个新的transaction。
+
+
+
+*** 查询记录
+同之前谈及的no-orm风格中提到的select语句查询不同，orm风格的查询语句更加的精简了，但仍然没有脱离select语句查询的本质，熟悉SQL的select语句能够帮助我们更好地学习下面的查询语句。
+
+查询的起步是:
+#+BEGIN_EXAMPLE
+session.query(User)
+#+END_EXAMPLE
+
+其返回的是orm子模块里面的Query对象。User是具体要查询的某个类（对应某个表格）。简单的理解是将这个 ~query~ 方法看作select操作的 ~select * from User~ 。 这个Query对象是个可迭代对象，迭代过程中上面返回的就是 User 对象。
+
+若写成这样的形式:
+#+BEGIN_EXAMPLE
+session.query(User.name, User.fullname)
+#+END_EXAMPLE
+则大致对应的是 ~select name,fullname from User~ 。
+
+具体如下所示:
+#+BEGIN_EXAMPLE
+>>> for i in session.query(User):
+...  print(i)
+... 
+<User admin>
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+>>> guest = User('guest','guest','123456')
+>>> session.add(guest)
+>>> for name,fullname in session.query(User.name,User.fullname):
+...  print(name,fullname)
+... 
+admin administor
+guest guest
+#+END_EXAMPLE
+
+在学习SQL的select语句的时候我们学到在 ~select what from what~ 语句之后还可以跟上where字句，order by字句等等。sqlalchemy的orm封装同样支持这样的额外操作，具体就是在上面的query语句的基础上进一步操作。经过这些额外的操作返回的同样还是Query对象，也就是你可以写上 ~session.query(User).filter_by(what).filter(what).order_by(what)~ 。这样看上去有点长的语句，只要你熟悉SQL语句，并知道在做些什么，那么是完全没有问题的。
+
+**** 过滤排序等操作
+
+- filter方法 :: filter方法对应select语句的where字句。下面是官方文档的一些例子，复制到这里看看熟悉一下即可，大多是什么含义一般都是清楚的:
+#+BEGIN_EXAMPLE
+query.filter(User.name == 'ed')
+query.filter(User.name != 'ed')
+query.filter(User.name.like('%ed%'))
+query.filter(User.name.in_(['ed', 'wendy', 'jack']))
+query.filter(~User.name.in_(['ed', 'wendy', 'jack']))#not in
+query.filter(User.name == None)
+query.filter(User.name != None)
+query.filter(and_(User.name == 'ed', User.fullname == 'Ed Jones'))
+query.filter(or_(User.name == 'ed', User.name == 'wendy'))
+#+END_EXAMPLE
+
+- filter_by方法 :: filter_by方法类似filter方法，除了如上面的User.name要写成name，也就是直接引用表格的列名。
+
+- order_by方法 :: 对应select语句的order by字句。
+#+BEGIN_EXAMPLE
+order_by(User.id)[1:3]
+#+END_EXAMPLE
+
+然后上面还揭示了 Query 对象很重要的一个特性，其支持python的切片操作。
+
+
+
+
+**** 返回结果
+Query对象还可以通过下面这些方法还获得返回结果:
+
+- all() :: 返回一个列表，包含所有的结果。 
+
+- first() :: 返回第一个结果。
+
+- one() :: 严格只有一个结果，如果有多个结果，将抛出 MultipleResultsFound 异常，如果没有结果，将抛出 NoResultFound 异常。
+
+- scalar() :: 参考了 [[http://alextechrants.blogspot.com/2013/11/10-common-stumbling-blocks-for.html][这个网页第五条]] ，执行查询，如果有多条记录命中，则抛出MultipleResultsFound 异常，如果没有命中，则返回None，如果命中数为一条记录，则返回该记录的 _第一列_ 的值。
+- count() :: 返回命中记录数。
+
+**** text函数
+text函数用于支持 ~filter~ 和 ~order_by~ 方法支持原生的SQL语句表达。大致如下所示，了解下即可:
+#+BEGIN_EXAMPLE
+from sqlalchemy import text
+session.query(User).filter(text("id<224")).order_by(text("id"))
+#+END_EXAMPLE
+
+*** 更改记录
+更改记录经过ORM封装之后变得很简单了，就是查询之后获得对应的python对象，然后直接修改即可。
+
+*** 删除记录
+#+BEGIN_EXAMPLE
+session.delete(jack)
+#+END_EXAMPLE
+
+
+** ORM层的关系
+SQL表格有四种关系，one-to-one, one-to-many, many-to-one, many-to-many，它们实际上都是基于SQL的外键约束和join查询。其中one-to-many和many-to-one是最需要了解清楚的关系模型，在这之上many-to-many，三个SQL表格搭建起来的关系模型也就很好理解了。推荐读者阅读 [[http://code.tutsplus.com/articles/sql-for-beginners-part-3-database-relationships--net-8561][这篇文章]] 来更好地理解SQL表格的这四种关系模型。因为one-to-one实际上是one-to-many的特殊情形，而many-to-one实际上是one-to-many模型的反向，所以我们首先需要重点了解one-to-many模型。
+
+*** one-to-many模型
+sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需要考虑SQL的join连接语法细节，只需要声明好外键约束和关系约束（可以看作sqlalchemy新加入了关系约束），然后就可以神奇的使用SQL表格one-to-many的全部特性了。
+
+首先让我们用ORM层的join方法来暂时SQL表格的这些relationship的建立细节，然后再来具体讨论更实用的ORM层的relationship建立的写法。
+
+这是示例代码:
+#+BEGIN_SRC python
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///test.db',echo=True)
+
+if not database_exists(engine.url):
+    print('create new database')
+    create_database(engine.url)
+
+metadata = MetaData(bind = engine)
+Base = declarative_base(bind=engine)
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer,primary_key=True)
+    name = Column(String)
+    password = Column(String)
+
+    def __init__(self,name,password):
+        self.name = name
+        self.password = password
+    def __repr__(self):
+        return '<User {}>'.format(self.name)
+
+class Email(Base):
+    __tablename__ = 'emails'
+
+    id = Column(Integer,primary_key=True)
+    email = Column(String)
+    user = Column(Integer,ForeignKey('users.id'))
+
+    def __init__(self,email,user):
+        self.email = email
+        self.user = user
+    def __repr__(self):
+        return '<Email {}>'.format(self.email)
+
+Base.metadata.create_all(checkfirst=True)### create table
+
+from sqlalchemy.orm import *
+Session = sessionmaker(bind=engine)
+session = Session()
+
+admin = User('admin','admin')
+session.add(admin)
+session.add_all([User('Mary','secret'),
+    User('John','123456'),
+    User('Susan','123456'),
+    User('Carl','123456')])
+
+session.add_all([Email('mary@example.com',2),
+    Email('john@nowhere.net',3),
+    Email('john@example.org',3),
+    Email('carl@nospam.net',4)])
+
+session.commit()
+#+END_SRC
+
+然后用sqliteman观察数据库情况如下:
+
+#+CAPTION: users_table
+[[file:images/users_table.png]]
+
+#+CAPTION: emails_table
+[[file:images/emails_table.png]]
+
+
+~session.query(User,Email)~ 返回的是笛卡尔积的形式:
+#+BEGIN_EXAMPLE
+>>> session.query(User,Email).all()
+[(<User admin>, <Email mary@example.com>), (<User admin>, <Email john@nowhere.net>), (<User admin>, <Email john@example.org>), (<User admin>, <Email carl@nospam.net>), (<User Mary>, <Email mary@example.com>), (<User Mary>, <Email john@nowhere.net>), (<User Mary>, <Email john@example.org>), (<User Mary>, <Email carl@nospam.net>), (<User John>, <Email mary@example.com>), (<User John>, <Email john@nowhere.net>), (<User John>, <Email john@example.org>), (<User John>, <Email carl@nospam.net>), (<User Susan>, <Email mary@example.com>), (<User Susan>, <Email john@nowhere.net>), (<User Susan>, <Email john@example.org>), (<User Susan>, <Email carl@nospam.net>), (<User Carl>, <Email mary@example.com>), (<User Carl>, <Email john@nowhere.net>), (<User Carl>, <Email john@example.org>), (<User Carl>, <Email carl@nospam.net>)]
+#+END_EXAMPLE
+
+
+然后调用Query对象的 *join* 方法执行了内连接:
+
+#+BEGIN_EXAMPLE
+>>> session.query(User,Email).join(Email).all()
+[(<User Mary>, <Email mary@example.com>), (<User John>, <Email john@nowhere.net>), (<User John>, <Email john@example.org>), (<User Susan>, <Email carl@nospam.net>)]
+>>> 
+#+END_EXAMPLE
+
+从这里我们就可以看出一点one-to-many的影子了，注意John对应了两个Email对象。
+
+然后我们稍加过滤条件:
+#+BEGIN_EXAMPLE
+>>> session.query(User,Email).join(Email).filter(User.name == 'John').all()
+[(<User John>, <Email john@nowhere.net>), (<User John>, <Email john@example.org>)]
+#+END_EXAMPLE
+
+或者更明确的查询email:
+#+BEGIN_EXAMPLE
+>>> session.query(User,Email.email).join(Email).filter(User.name == 'John').all()
+[(<User John>, 'john@nowhere.net'), (<User John>, 'john@example.org')]
+#+END_EXAMPLE
+
+此外还有这种形式:
+#+BEGIN_EXAMPLE
+>>> session.query(Email,User).join(User).all()
+[(<Email mary@example.com>, <User Mary>), (<Email john@nowhere.net>, <User John>), (<Email john@example.org>, <User John>), (<Email carl@nospam.net>, <User Susan>)]
+
+>>> session.query(Email,User).join(User).filter(User.name == 'John').all()
+[(<Email john@nowhere.net>, <User John>), (<Email john@example.org>, <User John>)]
+#+END_EXAMPLE
+
+由于内连接虽然输出一行具体输出内容根据你的 ~select what~ 不同而不同，但具体行数和对于内容的描述上实际上就是一回事。上面是另外一种内连接顺序。然后我们利用这个反向查询某个邮箱的User也是可以的，这就是many-to-one数据模型了。
+
+此外Query对象当然还有 *outerjoin* 方法，因为这里是要描述各关系模型，就略过了。下面介绍ORM层更实用的关系定义方法:
+
+#+BEGIN_SRC python
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy.orm import *
+from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///test.db',echo=True)
+
+if not database_exists(engine.url):
+    print('create new database')
+    create_database(engine.url)
+
+metadata = MetaData(bind = engine)
+Base = declarative_base(bind=engine)
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer,primary_key=True)
+    name = Column(String)
+    password = Column(String)
+    email = relationship("Email",backref=backref('user'))
+
+    def __init__(self,name,password):
+        self.name = name
+        self.password = password
+    def __repr__(self):
+        return '<User {}>'.format(self.name)
+
+class Email(Base):
+    __tablename__ = 'emails'
+
+    id = Column(Integer,primary_key=True)
+    email = Column(String)
+    user_id = Column(Integer,ForeignKey('users.id'))
+
+    def __init__(self,email,user_id):
+        self.email = email
+        self.user_id = user_id
+    def __repr__(self):
+        return '<Email {}>'.format(self.email)
+
+Base.metadata.create_all(checkfirst=True)### create table
+
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+admin = User('admin','admin')
+session.add(admin)
+session.add_all([User('Mary','secret'),
+    User('John','123456'),
+    User('Susan','123456'),
+    User('Carl','123456')])
+
+session.add_all([Email('mary@example.com',2),
+    Email('john@nowhere.net',3),
+    Email('john@example.org',3),
+    Email('carl@nospam.net',4)])
+
+john = session.query(User).filter(User.name == 'John').one()
+e1 = session.query(Email).filter(Email.email == 'john@example.org').one()
+#+END_SRC
+
+然后我们就可以这样使用了:
+#+BEGIN_EXAMPLE
+>>> john.email
+[<Email john@nowhere.net>, <Email john@example.org>]
+>>> e1.user
+<User John>
+#+END_EXAMPLE
+
+这确实很好用，而这里具体的模型就是one（user）对应many（email）的one-to-many模型。
+
+下面重点介绍一下 *relationship* 这一行具体干了些什么:
+
+#+BEGIN_EXAMPLE
+    email = relationship("Email",backref=backref('user'))
+#+END_EXAMPLE
+
+1. 给User email属性，如上你可以这样 ~john.email~ 这样调用了。
+2. 指定Email对应（many）端（可以理解为这里针对Email执行了内连接操作，当然sqlalchemy具体如何处理的内部细节我还不清楚，但应该差不多就是这个过程。），这样的话具体User.email的值就通过某种机制大概如下所示
+#+BEGIN_EXAMPLE
+>>> session.query(User,Email).join(Email).filter(User.name == 'John').all()
+[(<User John>, <Email john@nowhere.net>), (<User John>, <Email john@example.org>)]
+#+END_EXAMPLE
+这样获得了User John所回应的几个Email对象。具体过程不清楚，但用上面这样的语句来理解应该已经八九不离十了。
+
+
+*** one-to-one模型
+one-to-one模型就是one-to-many模型的特例，所以这里先讲了，和上面比较起来区别很小的。
+
+#+BEGIN_EXAMPLE
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer,primary_key=True)
+    name = Column(String)
+    password = Column(String)
+    email = relationship("Email",backref=backref('user'),uselist=False)
+
+    def __init__(self,name,password):
+        self.name = name
+        self.password = password
+    def __repr__(self):
+        return '<User {}>'.format(self.name)
+
+class Email(Base):
+    __tablename__ = 'emails'
+
+    id = Column(Integer,primary_key=True)
+    email = Column(String)
+    user_id = Column(Integer,ForeignKey('users.id'))
+
+    def __init__(self,email,user_id):
+        self.email = email
+        self.user_id = user_id
+    def __repr__(self):
+        return '<Email {}>'.format(self.email)
+#+END_EXAMPLE
+
+就加上了 ~uselist=False)~ 这一句，这样将直接返回某个Email对象。
+
+*** many-to-one模型
+many-to-one模型实际上和one-to-many模型就是一回事，而且如果我们如同上面的把 ~backref~ 设置好，针对多个Email对象实际上就可以直接找到某个User对象了，所以为了简单起见，我们可以就直接用one-to-many模型来理解之。
+
+*** many-to-many模型
+many-to-many模型有点复杂和难于理解，这是因为其还要求有一个额外的Table来管理原两个表格之间的元素的映射关系，幸好sqlalchemy官方文档专门有一小节对这个做出了一些说明。其描述的一个应用场景就是一篇博文有多个标签，然后一个标签有多篇博文（我们可以简单构建出这样一个功能，单击一个标签按钮，然后弹出所有有这些标签的文章出来）。一个博文有多个标签这很简单，一个one-to-many模型就解决了，大概就是 ~blog.tags~ ，就弹出一个list，里面装着一些标签对象。所以关键性的问题是如何实现出 ~tag.blogs~ ，就弹出一个list，里面装着一些博文对象。而在 [[http://code.tutsplus.com/articles/sql-for-beginners-part-3-database-relationships--net-8561][这篇文章]] 的这幅图片中:
+
+#+CAPTION: many-to-many模型
+[[file:images/many_to_many.png]]
+
+于是现在的情况变成这样的了，blog one-to-many，但to many的是一个中间表格，而tag one-to-many，这个many也是一个中间表格。我们知道所谓的many一方存储着外键约束值，所以这个中间表格就两列，左列外键引用blog，右列外键引用tag，具体每一个映射关系都要写一条记录上去。不管怎么说，看下面这个例子吧:
+
+#+BEGIN_SRC python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy.orm import *
+from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.ext.declarative import declarative_base
+
+engine = create_engine('sqlite:///test2.db',echo=True)
+
+if not database_exists(engine.url):
+    print('create new database')
+    create_database(engine.url)
+
+metadata = MetaData(bind = engine)
+Base = declarative_base(bind=engine)
+
+blog_tags = Table('blog_tags',Base.metadata,
+    Column('blog_id',Integer,ForeignKey('blogs.id')),
+    Column('tag_id',Integer,ForeignKey('tags.id')))
+
+class Blog(Base):
+    __tablename__ = 'blogs'
+
+    id = Column(Integer,primary_key=True)
+    title = Column(String)
+    body = Column(String)
+
+    tags = relationship("Tag",secondary=blog_tags,backref=backref('blogs'))
+
+    def __init__(self,title,body):
+        self.title = title
+        self.body = body
+    def __repr__(self):
+        return '<BLog {}>'.format(self.title)
+
+class Tag(Base):
+    __tablename__ = 'tags'
+
+    id = Column(Integer,primary_key=True)
+    tag = Column(String)
+
+    def __init__(self,tag):
+        self.tag = tag
+    def __repr__(self):
+        return '<Tag {}>'.format(self.tag)
+
+Base.metadata.create_all(checkfirst=True)### create table
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+blog1 = Blog('learning mysql','how to learning mysql')
+tag1 = Tag('python')
+blog2 = Blog('learning sqlalchemy','how to learning sqlalchemy')
+tag2 = Tag('sql')
+tag3 = Tag('sqlalchemy')
+tag4 = Tag('mysql')
+
+blog1.tags.append(tag2)
+blog1.tags.append(tag4)
+
+blog2.tags.append(tag1)
+blog2.tags.append(tag2)
+blog2.tags.append(tag3)
+
+session.add_all([blog1,blog2,tag1,tag2,tag3,tag4])
+
+session.commit()
+#+END_SRC
+
+然后生成的表格如下所示:
+
+#+CAPTION: tags_table
+[[file:images/tags_table.png]]
+
+#+CAPTION: blogs_table
+[[file:images/blogs_table.png]]
+
+#+CAPTION: blog_tags_table
+[[file:images/blog_tags_table.png]]
+
+然后执行结果如下:
+#+BEGIN_EXAMPLE
+>>> blog1
+<BLog learning mysql>
+>>> blog1.tags
+[<Tag sql>, <Tag mysql>]
+>>> blog2
+<BLog learning sqlalchemy>
+>>> blog2.tags
+[<Tag python>, <Tag sql>, <Tag sqlalchemy>]
+>>> tag1
+<Tag python>
+>>> tag1.blogs
+[<BLog learning sqlalchemy>]
+>>> tag2.blogs
+[<BLog learning mysql>, <BLog learning sqlalchemy>]
+#+END_EXAMPLE
+
+这里的关键就是建立这样一个中间表格:
+#+BEGIN_EXAMPLE
+blog_tags = Table('blog_tags',Base.metadata,
+    Column('blog_id',Integer,ForeignKey('blogs.id')),
+    Column('tag_id',Integer,ForeignKey('tags.id')))
+#+END_EXAMPLE
+
+然后建立一个这样的relationship:
+#+BEGIN_EXAMPLE
+    tags = relationship("Tag",secondary=blog_tags,backref=backref('blogs'))
+#+END_EXAMPLE
+
+其中 *secondary* 参数指定你新建的那个中间表格，然后这个中间表格任何数据都不需要你操心了，只需要如上直接对 ~blog1.tags~ 这个属性（应该是一个列表）操作就行了。
+
+具体利用ORM层来实现很简单，但我不敢想像sqlalchemy底层到底做了多少工作，不得不承认，这真是sqlalchemy Great的地方。然后值得一提的地方是原来的两个表格都没有外键约束了，可以说这个关系连接的工作完全抽象成为一个表格了。
+
+总之，类似one-to-many一样，在one那里管理某个many方的表格，然后回引backref让many方那个对象也可以使用某个属性，然后定义一个中间表格就行了。many-to-many数据模型还是很有用的。
+
+
+
+
+* 高级议题
+** cascade
+定义基于关系的删除行为
+
+#+BEGIN_EXAMPLE
+items = relationship("Item", cascade="all, delete-orphan")
+#+END_EXAMPLE
+默认值是 save-update  merge
+
+- save-update
+指一个对象 Session.add() 进入之后，和它有关的其他对象都应加进去。
+
+- merge 
+和Session.merge行为有关
+
+此外用的最多的是 all 和 delete-orphan
+
+all 指 save-update  merge  refresh-expire  expunge delete
+
+- delete
+和Session.delete行为有关，默认没加delete，则子对象只是parent_id那里只是赋空值，加了之后子对象也将删除。
+- delete-orphan
+增加delete 的删除行为，不仅子对象将被删除，而且子对象也将执行Session delete标记，也就是后面的子子对象也将删除如何和delete一起配合使用的话。
+
+** 自我引用表达树状结构
+用一个SQL表格就可以表达出这样的树状层级结构的（这在很大程度上弥补了python语言对于这样的树状结构的应付能力不足）:
+
+#+BEGIN_EXAMPLE
+root --+---> child1
+       +---> child2 --+--> subchild1
+       |              +--> subchild2
+       +---> child3
+#+END_EXAMPLE
+
+具体写法如下所示:
+#+BEGIN_SRC python
+class Folder(db.Model):
+    __tablename__ = 'folders'
+
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(400),nullable=False)
+    description = db.Column(db.String(800))
+    parent_id = db.Column(db.Integer,db.ForeignKey('folders.id'))
+    children = db.relationship("Folder",
+        backref=db.backref('parent',remote_side=[id]))
+#+END_SRC
+
+具体就是认为 ~parent_id~ 是NULL的认为是最高级节点，然后每一个子节点都需要描述自己的 ~parent_id~ 是谁。这里的children是引用的自己，大体类似 ~one-to-many~ 的写法，也就是一个节点有多个子节点，这个前面将过来。唯一的区别就是设置 ~remote_side=[id]~ ，似乎这种写法也是可以的 ~remote_side=id~ ，意思是parent_id是本地local端的，然后id列是remote端的。更多信息请参看 [[http://docs.sqlalchemy.org/en/latest/orm/self_referential.html][官方文档的这里]] 。
+ 
+
+** 面向ORM的内省机制
+如果原数据库表格已经存在，在前面提及可以如下:
+#+BEGIN_EXAMPLE
+users = Table('users',db,autoload=True)
+#+END_EXAMPLE
+来自动内省某个表格，而在面向ORM写法中，也是可以的。具体请参看 [[http://docs.sqlalchemy.org/en/latest/orm/extensions/automap.html][官方文档的这里]] 。其中最核心的代码是:
+
+#+BEGIN_EXAMPLE
+engine = create_engine('sqlite:///session.db')
+from sqlalchemy.ext.automap import automap_base
+AutoBase = automap_base(bind = engine)
+
+class OldTable(AutoBase):
+    __tablename__ = NewTable.__tablename__
+#+END_EXAMPLE
+
+但是具体schema并不是可以任意改动的，一般是继续扩展SQL数据库，然后搭建各种关系，实在有改动schema的必要，推荐采用migrate机制。下面是我写的一个简单的migrate脚本:
+#+BEGIN_SRC python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import sqlalchemy
+from sqlalchemy import *
+from sqlalchemy.orm import *
+from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.ext.declarative import declarative_base
+
+new_engine = create_engine('sqlite:///new_session.db')
+Base = declarative_base(bind = new_engine)
+old_engine = create_engine('sqlite:///session.db')
+
+class User(Base):
+    __tablename__ = 'user'
+    id = Column(Integer,primary_key=True)
+    username = Column(String(80),unique=True)
+    password = Column(String(80))
+
+    def __init__(self,username,password,**kwargs):
+        '''kwargs用于收集其他废参数'''
+        self.username = username
+        self.password = password
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+
+def migrate_database(NewTable,fromdb,todb):
+    if not database_exists(fromdb.url):
+        raise Exception
+    else:
+        NewTable.__table__.create(checkfirst=True)### create table
+
+    AutoBase = automap_base(bind = fromdb)
+
+    class OldTable(AutoBase):
+        __tablename__ = NewTable.__tablename__
+
+    AutoBase.prepare(fromdb, reflect=True)
+
+    Session = sessionmaker(bind=fromdb)
+    old_session = Session()
+
+    Session = sessionmaker(bind=todb)
+    new_session = Session()
+
+    for q in old_session.query(OldTable).all():
+        add_one = NewTable(**q.__dict__)
+        new_session.add(add_one)
+        new_session.commit()
+
+    print('done')
+
+
+if __name__ == '__main__':
+    migrate_database(User,old_engine,new_engine)
+#+END_SRC
+
+但是如果有多个表格加上关系之后情况变得更复杂了，上面的脚本
+#+BEGIN_EXAMPLE
+AutoBase.prepare(fromdb, reflect=True)
+#+END_EXAMPLE
+就是建立内省的模型和关系的，所以如果多个表格的话，这句话应该再放到后面些。然后后面添加新的数据因为sqlalchemy有自动处理相关关系对象的功能，这里倒问题不大，但也可能会有问题。也有其他一些模块是专门处理这个迁移数据库的问题的，但也绝不是一件轻松的事。总之SQL表格尽量设计好和可扩展性好，将自己的太多精力花在这上面是很浪费的。
+
+
+** 面向ORM的数据继承机制
+有时间补上。
+
+
+* 附录
+** 其他
+*** datetime数据类型
+sqlalchemy中DateTime 数据类型的默认值可以跟着 datetime.datetime.utcnow
+如下所示:
+
+#+BEGIN_EXAMPLE
+created_date = Column(DateTime, default=datetime.datetime.utcnow)
+#+END_EXAMPLE
+
+http://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime
+
+
+** 如何测试
+http://alextechrants.blogspot.fi/2013/08/unit-testing-sqlalchemy-apps.html
+
+
+
+** flask-sqlalchemy模块
+在真正学会sqlalchemy的orm风格之后，要做到会用flask框架的flask-sqlalchemy模块，几乎是不用花什么力气的，就如同其官方文档所描述的，看了一个tutorial例子，然后简单了解下命名空间的变动即可。
+
+参考了 [[http://alextechrants.blogspot.com/2013/11/10-common-stumbling-blocks-for.html][这个网页第七点]] ，原来flask-sqlalchemy可以继续使用如下这样的语法。
+
+#+BEGIN_EXAMPLE
+db.session.query(Company.address)
+#+END_EXAMPLE
+
+** 参考资料
+1. essential sqlalchemy ; author: Rick copeland ;press:O'REILLY
+2. [[http://www.rmunn.com/sqlalchemy-tutorial/tutorial.html][a step by step sqlalchemy tutorial]]  
+3. http://www.pysnap.com/sqlalchemy-essential-tutorial-and-techniques/
