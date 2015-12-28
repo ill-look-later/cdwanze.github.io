@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2015-12-28 一 10:58 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>python3编程指南补充</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">
+body {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
+}
+
+.title {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+
+.underline{
+    text-decoration: underline;
+}
+  #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+#content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">python3编程指南补充</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. __missing__ 方法</a></li>
+<li><a href="#orgheadline4">2. 字符串比较大小</a>
+<ul>
+<li><a href="#orgheadline2">2.1. 中文比较大小？</a></li>
+<li><a href="#orgheadline3">2.2. ord和chr函数</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">3. exec和eval</a>
+<ul>
+<li><a href="#orgheadline5">3.1. 如果执行import语句</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">4. assert语句</a></li>
+<li><a href="#orgheadline8">5. 属性管理的函数</a></li>
+<li><a href="#orgheadline9">6. __name__和__file__</a></li>
+<li><a href="#orgheadline10">7. locals和globals</a></li>
+<li><a href="#orgheadline11">8. product函数</a></li>
+<li><a href="#orgheadline12">9. @property装饰器</a></li>
+<li><a href="#orgheadline13">10. datetime.datetime类型转变成为time.time类型</a></li>
+<li><a href="#orgheadline14">11. __import__函数</a></li>
+<li><a href="#orgheadline15">12. 上下文环境确认with语句</a></li>
+<li><a href="#orgheadline19">13. 函数装饰器</a>
+<ul>
+<li><a href="#orgheadline16">13.1. 没有参数的函数装饰器</a></li>
+<li><a href="#orgheadline17">13.2. 有参数的函数装饰器</a></li>
+<li><a href="#orgheadline18">13.3. 函数装饰器用于缓存</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline21">14. 类装饰器</a>
+<ul>
+<li><a href="#orgheadline20">14.1. 类装饰器用于缓存升级版</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline22">15. and or not的运算优先级</a></li>
+<li><a href="#orgheadline28">16. 多进程</a>
+<ul>
+<li><a href="#orgheadline23">16.1. 进程fork</a></li>
+<li><a href="#orgheadline24">16.2. 子进程和父进程分开</a></li>
+<li><a href="#orgheadline25">16.3. 线程入门</a></li>
+<li><a href="#orgheadline26">16.4. 多线程: 一个定时器</a></li>
+<li><a href="#orgheadline27">16.5. 多线程下载大文件</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline1">__missing__ 方法</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+对于字典或者字典的子类，你可以通过定义 <code>__missing__</code> 方法来回避找不到键值而抛出的 <code>KeyError</code> ，参考了 <a href="http://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python">这个网页</a> 。如下所示:
+</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">NestedDict</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">UserDict</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Implement this data structure:</span>
+<span class="sd">{&quot;section&quot;:{},</span>
+<span class="sd">}</span>
+
+<span class="sd">learning from http://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">update_in_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">[</span><span class="n">section</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_in_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span><span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">section</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">delete_in_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">section</span><span class="p">,</span><span class="n">key</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="n">section</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">set_in_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">section</span><span class="p">,</span><span class="n">key</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">[</span><span class="n">section</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+
+<p>
+如果找不到该key，则该类会自动赋值一个新的 dict()并作为该key的值。你可能希望使用 <code>type(self)()</code> ，但这种风格对json的兼容性不太好，推荐还是都用dict类。
+</p>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline4">字符串比较大小</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+读者可以实验一下python中字符串之间是可以比较大小的：
+</p>
+<pre>
+&gt;&gt;&gt; 'abc' &gt; 'ab'
+True
+&gt;&gt;&gt; 'fabc' &gt; 'abc'
+True
+&gt;&gt;&gt; '3.04' &gt; '3'
+True
+</pre>
+
+<p>
+这个特性有的时候很有用的，具体是如何比较大小的呢？按照python官方文档的描述，采用的是词典编纂顺序。具体描述信息如下：
+</p>
+
+<blockquote>
+<p>
+序列之间比较大小是，首先两个序列各自的第一个元素开始比较，如果它们相同，则进行下一个比较，直到任何一个序列被穷尽。如果两个序列各自比较的类型都是相同的，那么整个过程将一直进行下去。如果两个序列是相等的则认为它们是相等的，如果某一个序列是另外一个序列的子序列，则那个短的序列认为比长的序列要小。具体到每一个元素的大小比较，是按照ASCII顺序对其进行比较的。
+</p>
+</blockquote>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline2">中文比较大小？</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+读者这时会想到，既然python中字符串都默认是unicode编码（utf-8），那么中文应该也是能够比较大小的吧，事实确实如此：
+</p>
+
+<pre>
+&gt;&gt;&gt; '章' &gt; '张'
+True
+&gt;&gt;&gt; '章' &lt; '张'
+False
+&gt;&gt;&gt; ord('章')
+31456
+&gt;&gt;&gt; ord('张')
+24352
+</pre>
+
+
+<p>
+感兴趣的读者可以打开字符映射表看一下，'张'对应的unicode编号是U+5F20，你输入0x5f20，返回的正是24352。如果你输入hex(24352)，返回的就是'0x5f20'。
+</p>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline3">ord和chr函数</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+ord函数接受 <em>一个</em> 字符，然后返回其unicode编码，十进制的。chr函数是ord函数的反向，比如你输入24352这个十进制uniocde，就返回了对应的字符。
+</p>
+<pre>
+&gt;&gt;&gt; chr(24352)
+'张'
+</pre>
+
+<p>
+所以我们可以总结到，python3的字符串比较大小，是基于utf-8编码的。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline6">exec和eval</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+exec和eval都可以用来执行python代码的字符串形式，exec没有返回值，eval有返回值。不过这两个函数使用都要慎重，按照diveintopython3  <a href="http://www.diveintopython3.net/advanced-iterators.html">第8章第九节</a> 的讲解，这些代码如果混入网络服务器中确实会很危险，如果一定要用，必须对输入字符串进行严格正则限定。
+</p>
+
+<p>
+不过话虽然这样说，但这两个函数的使用有时能够给程序的架构带来意想不到的好处。
+</p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">netloc</span> <span class="ow">in</span> <span class="n">netloc_id</span><span class="p">:</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">netloc_id</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">netloc</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;在调用模块&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="k">exec</span><span class="p">(</span><span class="s">&#39;from youget.{0} import youget&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="nb">globals</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">youget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;还不支持站点&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">netloc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span>
+</pre></div>
+
+<p>
+在比如说我写过一个根据小型python代码生成svg文件的小模块，具体绘图的python代码类似下面的样子：
+</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">pysvg.basicshapes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pysvg.core</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">svg</span> <span class="o">=</span> <span class="n">Svg</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">XMAX</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="n">YMAX</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">p0</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">p0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">Quantity</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">circle</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;fill&#39;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+<span class="n">rect</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+
+<span class="n">g1</span> <span class="o">=</span> <span class="n">Group</span><span class="p">(</span><span class="s">&#39;g1&#39;</span><span class="p">,</span><span class="n">circle</span><span class="p">,</span><span class="n">rect</span><span class="p">)</span>
+<span class="n">g1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;transform&#39;</span><span class="p">,</span><span class="s">&#39;translate(100)&#39;</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g1</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span>
+</pre></div>
+
+<p>
+这里不讨论那些类的具体细节，实际上很简单，就是编好 <code>__str__</code> 字符串输出控制函数。这里我们看到最后的那个print函数。然后字符串的输出流是用下面这个核心代码控制的参考了 <a href="http://stackoverflow.com/questions/701802/how-do-i-execute-a-string-containing-python-code-in-python">这个网页</a>
+</p>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline5">如果执行import语句</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+参考了 <a href="http://stackoverflow.com/questions/12505047/in-python-why-doesnt-an-import-in-an-exec-in-a-function-work">这个网页</a> ，如果在exec语句里面使用import语句，具体引入的变量名希望被外围程序使用，则需要如下所示。这里globals()返回当前全局变量值字典。
+</p>
+<pre>
+exec('from youget.{0} import youget'.format(target), globals())
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline7">assert语句</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+assert语句简单的理解就是 <code>assert True</code> ，正常刷过去，而 <code>assert False</code> 将抛出 <code>AssertionError</code> 。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline8">属性管理的函数</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+hasattr，setattr，getattr，delattr，这些函数都属于关于python中各个对象的属性管理函数，其都是内置函数。
+</p>
+
+<p>
+其中hasattr(object, name)检测某个对象有没有某个属性。
+</p>
+
+<p>
+setattr(object, name, value)用于设置某个对象的某个属性为某个值，\verb+setattr(x,a,3)+ 对应 \verb+x.a = 3+ 这样的语法。
+</p>
+
+<p>
+getattr(object, name[, default])用于取某个对象的某个属性的值，对应 \verb+object.name+ 这样的语法。
+</p>
+
+<p>
+delattr(object,name)用于删除某个对象的某个属性，对应\verb+del object.name+ 这样的语法。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline9">__name__和__file__</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+这里所谓脚本被引入是指用import或者from语句被另外一个脚本引入进去，而这里所谓的脚本被执行是指直接如 <code>python test.py</code> 这样的形式执行该py脚本。
+</p>
+
+<p>
+这两种形式很有一些区别，下面慢慢谈论:
+</p>
+
+<ol class="org-ol">
+<li><code>__name__</code> 的区别。这个大家应该很熟悉了。如果脚本是被引入的， <code>__name__</code> 的值是该引入的脚本文件名，比如引入的是 <code>test.py</code> ，那么该脚本被引入，对于这个test.py文件来说，其内的 <code>__name__</code> 的值就是 <code>test</code> ，也就是 <strong>模块名</strong> 。；而如果是作为脚本被执行，则该 <code>__name__</code> 是 <code>__main__</code> 。</li>
+
+<li><code>__file__</code> 的区别。如果脚本是被执行的，假设该脚本文件是 <code>hello.py</code> ，那么在这个被执行脚本中， <code>__file__</code> 的值是 <code>hello.py</code> ，也就是 <strong>文件名</strong> 。如果是被引用的，那么对于那个被引入的脚本来说， <code>__file__</code> 的值是该被引入脚本相对系统来说的 <strong>完整文件名</strong> ，比如是 <code>/home/wanze/桌面/hello.py</code> 。</li>
+
+<li>如果我们要得知本脚本在系统中的绝对位置，可以使用os.path模块的abspath函数。</li>
+</ol>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+<p>
+其将返回该脚本在系统所在的目录。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline10">locals和globals</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+python的 <code>locals()</code> 返回本函数内的局部变量字典值，而 <code>globals()</code> 则返回本模块文件的全局变量。 <code>locals</code> 是只读的，而 <code>globals()</code> 不是，我们可以利用 <code>globals()</code> 对脚本文件玩出一些新花样。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline11">product函数</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+product函数在 <code>itertools</code> 模块里面，按照官方文档的说明是product(A, B)返回值等价于((x,y) for x in A for y in B)，也就是各种可能的组合情况（类似于笛卡尔积的概念）:
+</p>
+<pre>
+&gt;&gt;&gt; list(product(['a','b'],['c']))
+[('a', 'c'), ('b', 'c')]
+</pre>
+
+<p>
+此外单一迭代加上 <strong>repeat</strong> 参数也会生成一些很有意思的结果:
+</p>
+<pre>
+&gt;&gt;&gt; list(product(['True','False'],repeat=len('abc')))
+[('True', 'True', 'True'), ('True', 'True', 'False'), ('True', 'False', 'True'), ('True', 'False', 'False'), ('False', 'True', 'True'), ('False', 'True', 'False'), ('False', 'False', 'True'), ('False', 'False', 'False')]
+</pre>
+
+<p>
+这可以看作:
+</p>
+<pre>
+&gt;&gt;&gt; list(product(['True','False'],['True','False'],['True','False']))
+[('True', 'True', 'True'), ('True', 'True', 'False'), ('True', 'False', 'True'), ('True', 'False', 'False'), ('False', 'True', 'True'), ('False', 'True', 'False'), ('False', 'False', 'True'), ('False', 'False', 'False')]
+</pre>
+
+<p>
+也就是这样2*2*2的笛卡尔积的组合形式。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline12">@property装饰器</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+简单的理解就是如下所示:
+</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Apple</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="s">&#39;red&#39;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span>
+
+<span class="n">apple</span> <span class="o">=</span> <span class="n">Apple</span><span class="p">()</span>
+</pre></div>
+
+<p>
+这样将给这个类定义个属性，具体调用这个属性就用这样的点号引用即可，然后实际执行的就是 <code>@property</code> 装饰的那个函数。 现在这个color属性只可读，不可更改。
+</p>
+<pre>
+&gt;&gt;&gt; apple.color
+'red'
+&gt;&gt;&gt; apple.color = 'yellow'
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AttributeError: can't set attribute
+</pre>
+
+<p>
+请参看 <a href="http://stackoverflow.com/questions/17330160/how-does-the-property-decorator-work">这个网页</a> ，这里讲到了 <code>@color.setter</code> 装饰器，来装饰某个函数之后，通过这个函数来修改color属性。然后还有 <code>@color.deleter</code> 装饰某个函数之后，来通过这个函数来删除某个属性。这里deleter的使用可能较少，一般 <code>@property</code> 就能满足大部分需求了，有的觉得需要修改某个属性则定义setter。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline13">datetime.datetime类型转变成为time.time类型</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+<a href="http://stackoverflow.com/questions/8022161/python-converting-from-datetime-datetime-to-time-time">http://stackoverflow.com/questions/8022161/python-converting-from-datetime-datetime-to-time-time</a>
+</p>
+
+<pre>
+&gt;&gt;&gt; t = datetime.datetime.now()
+&gt;&gt;&gt; t
+datetime.datetime(2011, 11, 5, 11, 26, 15, 37496)
+
+&gt;&gt;&gt; time.mktime(t.timetuple()) + t.microsecond / 1E6
+1320517575.037496
+</pre>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline14">__import__函数</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+<a href="http://stackoverflow.com/questions/2349991/python-how-to-import-other-python-files">http://stackoverflow.com/questions/2349991/python-how-to-import-other-python-files</a>
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline15">上下文环境确认with语句</h2>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline19">函数装饰器</h2>
+<div class="outline-text-2" id="text-13">
+</div><div class="outline-3">
+<h3 id="orgheadline16">没有参数的函数装饰器</h3>
+<div class="outline-text-3" id="text-13-1">
+<pre>
+def mydecorator(function):
+    def _mydecorator(*args,**kargs):
+        # do some stuff
+        res = function(*args,**kargs)##实际执行被装饰的函数
+        # do some other stuff
+        return res
+    return _mydecorator
+</pre>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline17">有参数的函数装饰器</h3>
+<div class="outline-text-3" id="text-13-2">
+<p>
+有参数的函数装饰器用到的情况更少了，稍微了解下即可，需要使用二级封装。arg1进入装饰器函数是以类似lisp中自由变量的形式存在的。
+</p>
+
+<pre>
+def mydecorator(arg1, arg2):
+    def _mydecorator(function):
+        def __mydecorator(*args,**kargs):
+            res = function(*args,**kargs)
+            return res
+        return __mydecorator
+    return _mydecorator
+</pre>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline18">函数装饰器用于缓存</h3>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline21">类装饰器</h2>
+<div class="outline-text-2" id="text-14">
+</div><div class="outline-3">
+<h3 id="orgheadline20">类装饰器用于缓存升级版</h3>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline22">and or not的运算优先级</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+一般是推荐用括号清晰表达，然后not我们知道优先级是最高的。我们再看下面这个例子:
+</p>
+<pre>
+&gt;&gt;&gt; True or True and False
+True
+</pre>
+
+<p>
+这个例子很好地说明了and和or的优先级顺序，具体就是 <span class="underline">and的优先级比or的要高</span> 。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline28">多进程</h2>
+<div class="outline-text-2" id="text-16">
+<p>
+进程的定义是: 一个正在执行的程序实例。每个进程都有一个唯一的进程ID，也就是所谓的 <strong>PID</strong> 。使用 <code>ps</code> 命令的第一个列就是每个进程的PID属性。在python中你可以使用 <code>os.getpid()</code> 来查看当前进程的PID。
+</p>
+
+<p>
+以前只有一个CPU的机器上，多任务操作系统实际上一次也只能运行一个进程，操作系统是通过不断切换各个进程给你一种多任务似乎同时在运行多个程序的感觉的。多CPU机器上是真的可以同时运行多个进程。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline23">进程fork</h3>
+<div class="outline-text-3" id="text-16-1">
+<p>
+进程fork简单来说就类似于git某个项目的fork，进行了一些基本代码信息和其他配置以及其他相关信息的复制或注册。这就相当于在当前代码环境下，你有两个分别单独运行的程序实例了。
+</p>
+
+<p>
+下面是一个非常简单的小例子，你可以把os.fork()语句移到print('before fork')之前来看看变化。
+</p>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;before fork &#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;say hello from&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;after fork&#39;</span><span class="p">)</span>
+</pre></div>
+
+<p>
+对于这个程序简单的理解就是，本py文件编译成字节码进入内存经过某些成为一个程序实例了（其中还包含其他一些信息），然后程序具体运行的时候会通过os.fork来调用系统的fork函数，然后复制本程序实例（以本程序实例目前已经所处的状态），因为print('before fork')已经执行了，所以子进程就不会执行这一行代码了，而是继续os.fork()下面的代码继续执行。此时就相当于有两个程序在运行了，至于后面的打印顺序那说不准的。
+</p>
+
+<p>
+关于操作系统具体如何fork的我们可以暂时不考虑，这两个程序实例里面的变量和运行环境基本上是一模一样的，除了运行的状态有所不同之外。fork可以做出一种程序多任务处理方案吧，不过os模块的fork方法目前只支持unix环境。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline24">子进程和父进程分开</h3>
+<div class="outline-text-3" id="text-16-2">
+<p>
+请看下面的代码: 
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;before fork &#39;</span><span class="p">)</span>
+<span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">pid</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;say hello from parent&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;say hello from child&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;after fork&#39;</span><span class="p">)</span>
+</pre></div>
+
+<p>
+其运行结果大致如下:
+</p>
+
+<pre>
+before fork 
+13762
+say hello from parent 13761
+0
+say hello from child 13762
+after fork
+after fork
+</pre>
+
+<p>
+我们看到在父进程那一边，pid是本父进程的子进程PID，而在子进程那一边，os.fork()返回的是0。可以利用这点将父进程的操作和子进程的操作分开。具体上面的代码if pid 那一块是父进程的，else那一块是子进程的。
+</p>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline25">线程入门</h3>
+<div class="outline-text-3" id="text-16-3">
+<p>
+线程的内部实施细节其实比进程要更加复杂，一般通俗的说法就是线程是轻量级进程，这里不深入讨论具体线程的细节。
+</p>
+
+<p>
+python操作线程的主要模块是 <strong>threading</strong>
+模块，简单的使用就是新建一个线程对象(Thread)，然后调用 <code>start</code> 方法来启动它，具体线程要做些什么由本线程对象的 <code>run</code> 确定，你可以重定义它，如果是默认的就是调用本线程Thread类新建是输入的 <code>target</code> 参数，这个target参数具体指向某个函数。下面是一个简单的例子: 
+</p>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">threading</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">randchar_number</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">number_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span><span class="mi">58</span><span class="p">))</span>
+    <span class="n">coden</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">number_list</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">coden</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;thread:&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span> <span class="o">=</span> <span class="n">randchar_number</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">,))</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+<pre>
+\begin{Verbatim}
+thread: 0
+thread: 1
+thread: 2
+thread: 3
+thread: 4
+thread: 5
+thread: 6
+thread: 7
+22972371
+</pre>
+
+<p>
+<strong>注意:</strong>  控制参数后面那个逗号必须加上。
+</p>
+
+<p>
+我不太喜欢这种风格，因为线程对接的那个函数实际上并不能return 什么值，而且其保存的值也依赖于前面的定义，并不能称之为真正意义上的函数（一个定义很好的函数必须复用特性很强）。所以线程还是如下类的风格编写。下面代码参考了  <a href="http://www.ibm.com/developerworks/aix/library/au-threadingpython/index.html">这个网页</a> 。
+</p>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">threading</span>
+
+<span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">number_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span><span class="mi">58</span><span class="p">))</span>
+        <span class="n">coden</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">number_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">coden</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getvalue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">MyThread</span><span class="p">()</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">+=</span> <span class="n">t</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+<pre>
+05649040
+&gt;&gt;&gt;
+</pre>
+
+<p>
+上面调用线程对象的 <code>join</code> 方法是确保该线程执行完了，其也可能返回异常。上面的做法不太标准，更标准的做法是单独写一行t.join代码: 
+</p>
+
+<pre>
+for t in threads:
+    t.join()
+</pre>
+
+<p>
+来确保各个线程都执行完了，如之前的形式并不能达到多任务并行处理的效果。
+</p>
+
+<p>
+上面的例子对线程的执行顺序没有特殊要求，如果有的话推荐使用python的queue模块，这里就略过了。
+</p>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline26">多线程: 一个定时器</h3>
+<div class="outline-text-3" id="text-16-4">
+<p>
+这个例子主要参考了 <a href="https://mail.python.org/pipermail/tutor/2004-November/033333.html">这个网页</a> 。
+</p>
+
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="k">class</span> <span class="nc">Timer</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">interval</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\a</span><span class="s">&#39;</span><span class="p">)):</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">set_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">interval</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
+
+<span class="c">#timer = Timer(5)</span>
+<span class="c">#timer.start()</span>
+
+<span class="k">class</span> <span class="nc">CountDownTimer</span><span class="p">(</span><span class="n">Timer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span>
+        <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">counter</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="c">####</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">()</span>
+
+<span class="c">#timer = CountDownTimer(5)</span>
+<span class="c">#timer.start()</span>
+
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;hello</span><span class="se">\a</span><span class="s">&#39;</span><span class="p">)</span>
+
+<span class="n">timer</span> <span class="o">=</span> <span class="n">CountDownTimer</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+<p>
+具体还是很简单的，这里之所以使用线程就是为了timer.sleep函数不冻结主程序。
+</p>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline27">多线程下载大文件</h3>
+<div class="outline-text-3" id="text-16-5">
+<p>
+本小节参考了 <a href="http://stackoverflow.com/questions/13973188/requests-with-multiple-connections">这个网页</a> 和 <a href="http://stackoverflow.com/questions/16694907/how-to-download-large-file-in-python-with-requests-py">这个网页</a> 。
+</p>
+
+<p>
+下面的 <code>get_content_tofile</code> 函数在目标内容大小大于1M的时候将启动多线程下载方法。其中 <code>guess_url_filename</code> 函数是根据url来猜测可能的目标下载文件名字，还只是一个尝试版本。
+</p>
+
+<p>
+注意下面使用requests.get函数的时候加上了 <code>stream=True</code> 参数，这样连接目标url的时候只是获得头文件信息而不会进一步下载content内容。这方便我们早期根据headers里面的信息做出一些判断。
+</p>
+
+<p>
+接下来根据HTTP头文件的 <code>content-length</code> 来判断要下载内容的大小，如果没有这个属性，那么目标url是没有content内容的，本函数将不会对这一情况做出反应，这通常是单网页url，使用requests的get方法获取网页文本内容即可。
+</p>
+
+<p>
+然后如果目标长度小于1M，那么就直接打开文件，使用requests模块里response对象的\verb+iter_content+方法来不断迭代完content内容。
+</p>
+
+<p>
+如果目标长度大于1M，则采用一种多线程下载方法。首先是\verb+get_content_partly+这个函数，接受url和index，这个index是一个简单的索引，具体多少bytes后面还需要计算。关于多线程操作和具体多少bytes的计算细节这里略过讨论了。唯一值得一提的就是HTTP协议的Range属性，begin-end，对应具体的范围0-1024，还包括1024位，所以实际上有1025个bytes，为了获得和我们python中一致的体验，我们让其end为begin+1024-1。这样就有1024个bytes位，然后定位是(0, 1024)，即和python中的一样，不包括1024位。
+</p>
+
+<p>
+然后还有一个小信息是，HTTP协议返回的头文件中的\textbf{content-range}属性，如果你请求Range越界了，那么将不会有这个属性。那么begin没有越界，end越界的请求如何呢？HTTP协议处理得很好，这种跨界情况都只返回最后那点content内容。
+</p>
+
+<p>
+最后写文件那里降低内存消耗，使用了下面的语句来强制文件流写入文件中，好释放内存，否则你的下载程序内存使用率是剧增的。
+</p>
+<pre>
+f.flush()
+os.fsync(f.fileno())
+</pre>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">def</span> <span class="nf">guess_url_filename</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;根据url来猜测可能的目标文件名，&#39;&#39;&#39;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c">###还有一个content-type信息可以利用</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">guess_element</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">guess_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;&#39;&#39;</span>
+<span class="s">    (.png|.flv)</span>
+<span class="s">    $           # end of string</span>
+<span class="s">    &#39;&#39;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">guess_pattern</span><span class="p">,</span><span class="n">guess_element</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">guess_element</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">guess_element</span> <span class="o">+</span> <span class="s">&#39;.html&#39;</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">class</span> <span class="nc">DownloadThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span><span class="n">begin</span><span class="p">,</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">300</span><span class="p">):</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">begin</span> <span class="o">=</span> <span class="n">begin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="n">chunk_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Range&#39;</span><span class="p">:</span><span class="s">&#39;bytes={begin}-{end}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">begin</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="p">),</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span><span class="o">-</span><span class="mi">1</span><span class="p">))}</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;content-range&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="c">###表示已经越界了</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;start download...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin</span><span class="o">/</span><span class="mi">1024</span><span class="p">,</span> <span class="s">&#39;KB&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getvalue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">get_content_partly</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">b</span><span class="s">&#39;&#39;</span>
+    <span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">300</span><span class="c"># 这个不能设置太大也不能设置太小</span>
+    <span class="n">block_size</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">chunk_size</span><span class="c"># 具体线程数</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">DownloadThread</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index</span> <span class="o">*</span> <span class="n">block_size</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">chunk_size</span> <span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">threads</span><span class="p">):</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+        <span class="k">if</span>  <span class="n">t</span><span class="o">.</span><span class="n">getvalue</span><span class="p">():</span>
+            <span class="n">content</span> <span class="o">+=</span> <span class="n">t</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">content</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">def</span> <span class="nf">get_content_tofile</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;简单的根据url获取content，并将其存入内容存入某个文件中。</span>
+<span class="sd">    如果某个内容size 小于1M 1000000 byte ，则采用多线程下载法&#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">guess_url_filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c"># NOTE the stream=True parameter</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;content-length&#39;</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;this url does not have a content .&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;content-length&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="s">&#39;1000000&#39;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span> <span class="c"># filter out keep-alive new chunks</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000000</span><span class="p">):</span><span class="c">###very huge</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">get_content_partly</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">content</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">fileno</span><span class="p">())</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&#39;end...&#39;</span><span class="p">)</span>
+                    <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
