@@ -1,0 +1,17 @@
+*.pdf filter=lfs diff=lfs merge=lfs -text
+皇帝新脑/皇帝新脑.pdf filter=lfs diff=lfs merge=lfs -text
+惊人的假说/惊人的假说.pdf filter=lfs diff=lfs merge=lfs -text
+可怕的对称/可怕的对称.pdf filter=lfs diff=lfs merge=lfs -text
+夸克和美洲豹/夸克与美洲豹.pdf filter=lfs diff=lfs merge=lfs -text
+千亿个太阳/千亿个太阳.pdf filter=lfs diff=lfs merge=lfs -text
+莎士比亚牛顿贝多芬创造模式/莎士比亚牛顿贝多芬创造模式.pdf filter=lfs diff=lfs merge=lfs -text
+熵:一种新的世界观/熵:一种新的世界观.pdf filter=lfs diff=lfs merge=lfs -text
+上帝与新物理学/上帝与新物理学.pdf filter=lfs diff=lfs merge=lfs -text
+时间简史/时间简史.pdf filter=lfs diff=lfs merge=lfs -text
+时间之箭/时间之箭.pdf filter=lfs diff=lfs merge=lfs -text
+时空本性/时空本性.pdf filter=lfs diff=lfs merge=lfs -text
+数学确定性的丧失/数学确定性的丧失.pdf filter=lfs diff=lfs merge=lfs -text
+终极理论之梦/终极理论之梦.pdf filter=lfs diff=lfs merge=lfs -text
+综合讨论类/前言.pdf filter=lfs diff=lfs merge=lfs -text
+综合讨论类/有理数总论.pdf filter=lfs diff=lfs merge=lfs -text
+综合讨论类/总论.pdf filter=lfs diff=lfs merge=lfs -text

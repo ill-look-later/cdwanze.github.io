@@ -1,0 +1,13 @@
+% !Mode:: "TeX:UTF-8"%確保文檔utf-8編碼
+\documentclass[tikz,border=2pt]{standalone}
+
+\usetikzlibrary{positioning}
+
+\begin{document}
+\begin{tikzpicture}
+\node[circle,draw] (5) {5};
+\node[circle,draw] (8) [right = of 5] {8};
+\draw [->] (5) to [bend right] node[below] {$+3$} (8);
+\draw [->] (8) to [bend right] node[above] {$-3$} (5);
+\end{tikzpicture}
+\end{document}
