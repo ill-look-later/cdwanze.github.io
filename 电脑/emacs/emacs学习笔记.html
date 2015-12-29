@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2015-12-27 日 22:59 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>emacs入门</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">
+body {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
+}
+
+.title{
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+  
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
+
+/*--------------------*/
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+}
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{padding: 2px;}
+p{
+    text-indent:2em;
+    line-height:180%;
+    }
+
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">emacs入门</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. 最基本的快捷键操作</a>
+<ul>
+<li><a href="#orgheadline1">1.1. 查找和替换</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline5">2. lisp语法简介</a>
+<ul>
+<li><a href="#orgheadline3">2.1. 设置变量</a></li>
+<li><a href="#orgheadline4">2.2. 定义函数</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">3. 最基本的配置</a>
+<ul>
+<li><a href="#orgheadline8">3.1. 加入smex插件</a>
+<ul>
+<li><a href="#orgheadline6">3.1.1. 自定义按键配置</a></li>
+<li><a href="#orgheadline7">3.1.2. 基本使用说明</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline10">4. 一些命令一览</a></li>
+<li><a href="#orgheadline11">5. DIY之门</a></li>
+<li><a href="#orgheadline14">6. 术语</a>
+<ul>
+<li><a href="#orgheadline12">6.1. 基本术语</a></li>
+<li><a href="#orgheadline13">6.2. 按键术语</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline15">7. 光标移动</a></li>
+<li><a href="#orgheadline16">8. tab都自动换成space</a></li>
+<li><a href="#orgheadline17">9. 80列规则</a></li>
+<li><a href="#orgheadline19">10. python模式</a>
+<ul>
+<li><a href="#orgheadline18">10.1. 分窗口控制</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline20">11. 快速删除一行</a></li>
+<li><a href="#orgheadline23">12. 快速启动emacs</a>
+<ul>
+<li><a href="#orgheadline21">12.1. 关闭frame和以前的不同了</a></li>
+<li><a href="#orgheadline22">12.2. 字体问题</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline26">13. 左侧文件树面板</a>
+<ul>
+<li><a href="#orgheadline24">13.1. pdf文件打开卡住问题</a></li>
+<li><a href="#orgheadline25">13.2. 可能的其他问题</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline27">14. 多个窗口之间的编号切换</a></li>
+<li><a href="#orgheadline28">15. markdown模式</a></li>
+<li><a href="#orgheadline29">16. markdown实时预览</a></li>
+<li><a href="#orgheadline32">17. 文字模式下的emacs操作</a>
+<ul>
+<li><a href="#orgheadline30">17.1. 移动光标</a></li>
+<li><a href="#orgheadline31">17.2. 切换窗口焦点</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<p>
+其实在你打开emacs开始输入文本的那一刻起，你就已经入门了。emacs说到底只是一个功能特别强大的文本编辑器，它主要的角色还是文本编辑器，一切都是围绕这个来展开的。
+</p>
+
+<div class="outline-2">
+<h2 id="orgheadline2">最基本的快捷键操作</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+快捷键用的最多的是C和M这两个字母，其中C是Control键，而M一般是Alt键吧。然后 <code>C-w</code> 表示同时按下Control键和w字母。然后 <code>C-x C-c</code> 中间有个空格，表示先按Ctrl+字母x，再停顿一下，然后再按Ctrl+字母c——这是退出emacs的命令。
+</p>
+
+<p>
+S表示Shift键，小写s表示Super键这个了解下，然后 <code>C-x 0</code> 表示关闭当前窗口， <code>C-x 1</code> 表示只留当前一个窗口， <code>C-x 2</code> 表示下面新开一个窗口， <code>C-x 3</code> 表示右边新开一个窗口， <code>M+x</code> 执行emacs lisp的内部命令， <code>C-g</code> 取消你在minibuff中一般的输入，这些都是很基本的了，读者请记住。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline1">查找和替换</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+查找和替换操作经常用到，所以快捷键最好也记住。向后查找的按键是 <code>C-s</code> ，你看快捷键这么简短，就说明这是一个很重要的快捷键。然后向前查找是 <code>C-r</code> 。继续向前或向后查找就是继续按 <code>C-s</code> 和 <code>C-r</code> 。
+</p>
+
+<p>
+替换操作的按键是 <code>M-%</code> ,先要输入匹配的字符串，然后输入要替换成为什么，然后接下来 按键 <strong>y</strong> 表示替换，按键 <strong>n</strong> 表示不替换，按键 <strong>!</strong> 表示全部替换。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline5">lisp语法简介</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+在进入接下来的讨论之前，先简单介绍下lisp的语法，这里不是要让读者学会lisp语言了，而是为了让你对接下来要接触的最基本的emacs lisp语法不会感到恐惧。
+</p>
+
+<p>
+以下例子读者如果有兴趣可以进入elisp的交互环境试验一下，具体按键是：
+</p>
+
+<pre>
+M-x ielm
+</pre>
+
+
+<p>
+lisp语言的一大特色就是里面的程序和数据都是列表，如
+</p>
+<pre>
+'(1, 2, 3)
+</pre>
+
+<p>
+这样的形式。
+</p>
+
+<p>
+这个引号很关键，因为你输入给lisp的字符串都会被eval一次，然后前面加个引号，那么里面的东西eval一次之后就成(1, 2, 3)这样的形式了（即去掉引号），也就是列表数据了。
+</p>
+
+<p>
+那么下面这个是什么呢？
+</p>
+<pre>
+x
+'x
+</pre>
+
+<p>
+上面的x如果被送入eval的话，将会发生寻址操作，也就是成变量了；而第二个x加上引号，eval之后，去掉引号，就是x这样的形式了，我们可以把这个x看作字符串，当然如果我们要将其送入eval，那么你可以认为这个x字符串又变成变量了。
+</p>
+
+<p>
+然后lisp中程序的结构就是一系列和数学结构类似的括号，学过数学括号结构的都知道，先算里面的再算外面的&#x2026;&#x2026;.，直到最终算成这样的形式
+</p>
+<pre>
+(+ 1 1)
+</pre>
+
+<p>
+lisp实际上也是类似的这样运算的，上面的(+ 1 1)送入lisp运算就会得到2。lisp处理这样的结构有一个原则，总认为这样的括号的第一个元素是一个函数，如果不是，将会发生错误。然后后面的东西都是一系列管他什么的参数。
+</p>
+
+<p>
+然后再来讲讲设置变量和定义函数。
+</p>
+</div>
+<div class="outline-3">
+<h3 id="orgheadline3">设置变量</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+设置变量有两个方法，一般为了方便使用的是setq吧。
+</p>
+<pre>
+(set 'x 1)
+(setq x 1)
+</pre>
+
+<p>
+set和setq的区别就在那个引号，setq不需要加上那个引号，第一个元素的字符形式总被视作变量。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline4">定义函数</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+最简单的形式如下所示：
+</p>
+<pre>
+(defun add (x y) (+ x y))
+</pre>
+
+<p>
+这样你就定义了一个add函数，然后(add x y)实际上就是执行的是(+ x y )。
+</p>
+
+<p>
+最简单的lisp语法简介就是这么多了，后面还会接触一些，当然要深入起来里面内容还很丰富的，但目前已经够我们继续探索下去了。
+</p>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline9">最基本的配置</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+首先是利用emacs的菜单来选择主题和其他相关配置，然后把你的设置保存好。这个我需要吐槽一下了，为什么emacs24了都还没有一个汉化方案，几个菜单汉化工作有那么难吗？就不能照顾一下新手啊。
+</p>
+
+<p>
+好了进入主文件夹的.emacs文件<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>，如果不出意外的读者已经会看到一个关于 <strong>custom-set-variables</strong> 的一些配置，读者用Enter键将其推到最下面吧，这些配置就放在那里，其内记录着你刚才的主题配置还有开始不要打开向导界面等等，最好还是留着。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline8">加入smex插件</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+本文档不会讨论其他的插件了，但这个smex插件真的非常有用，就在这里作为emacs插件安装的一般例子在这里说明了。你以后自己编写的插件其实就是一个el文件，其内其实就是一些elisp语言的代码，等你熟悉elisp语法了，编写自己的插件还是很简单的事了的。
+</p>
+
+<p>
+smex的官方github站在 <a href="https://github.com/nonsequitur/smex/">这里</a> ,不过看了我下面的介绍大致也差不多了。
+</p>
+
+<p>
+首先当然是git clone下来，很小的一个文件，就单独下载那个smex.el文件也是可以的，然后你将这个文件放在一个你喜欢的地方上，我放在"~/工作空间/emacs/"里面的。
+</p>
+
+<p>
+然后在.emacs文件中加入如下代码：
+</p>
+<div class="highlight"><pre><span class="c1">;smex插件设置</span>
+<span class="c1">;加入新的搜索路径</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;load-path</span> <span class="s">&quot;~/工作空间/emacs/smex&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;smex</span><span class="p">)</span><span class="c1">;加载某个模块</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;M-x&quot;</span><span class="p">)</span> <span class="ss">&#39;smex</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;M-X&quot;</span><span class="p">)</span> <span class="ss">&#39;smex-major-mode-commands</span><span class="p">)</span>
+<span class="c1">;; This is your old M-x.</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;C-c C-c M-x&quot;</span><span class="p">)</span> <span class="ss">&#39;execute-extended-command</span><span class="p">)</span>
+</pre></div>
+
+
+<p>
+下面详细讲解之。 <strong>add-to-list</strong> 是一个函数，其接受一个列表变量，然后将后面的一个元素加入该列表中。
+请看下面的例子，其中 <strong>nil</strong> 是一个空列表的意思：
+</p>
+<pre>
+ELISP&gt; (set 'x nil)
+nil
+ELISP&gt; x
+nil
+ELISP&gt; (add-to-list 'x 1)
+(1)
+
+ELISP&gt; (add-to-list 'x 2)
+(2 1)
+
+ELISP&gt; (add-to-list 'x 3)
+(3 2 1)
+</pre>
+
+<p>
+这里的 <strong>load-path</strong> 变量放着的就是emacs加载插件时的搜索路径，这里把一个新的smex插件所在的路径加进来了，注意路径的下面就应该放着目标el文件。
+</p>
+
+<p>
+以后你要加载新的插件"what"，大致也是类似的配置语句：
+</p>
+<pre>
+(add-to-list 'load-path "~/工作空间/emacs/what")
+</pre>
+
+<p>
+把what.el放入emacs文件夹里的what文件夹里面即可。
+</p>
+
+<p>
+然后接下来就是实际的加载这个插件了：
+</p>
+<pre>
+(require 'smex);加载某个模块
+</pre>
+
+<p>
+<strong>require</strong> 函数后面跟着插件的名字，对应的就是那个smex.el文件。
+</p>
+</div>
+
+<div class="outline-4">
+<h4 id="orgheadline6">自定义按键配置</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+接下来是进一步的按键配置：
+</p>
+
+<pre>
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+</pre>
+
+<p>
+这种自定义按键配置方式以后我们可以用来随意的配置后面学到的命令。
+</p>
+
+<p>
+<strong>global-set-key</strong> 函数后面跟着 <strong>kbd</strong> 函数对按键字符的封装，可以把第一个元素看作具体的按键，第二个元素看作具体调用的命令。
+</p>
+
+<p>
+这里第一个命令的意思是，如果你按下了Alt+x按键，那么将会触发smex命令。然后之前谈及Alt+x对应的命令实际上就是 <strong>execute-extended-command</strong> ，而经过这样的配置之后，以后就需要通过这么复杂的按键才能激活了，等于打入冷宫了。
+</p>
+</div>
+</div>
+
+
+<div class="outline-4">
+<h4 id="orgheadline7">基本使用说明</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+那么smex插件具体有什么用处了，现在我们重新打开emacs，然后按下M-x，这个时候我们会看到很多选项，这正是smex插件的功能，跟输入法一样基本，所以很有用的。
+</p>
+
+<p>
+基本的使用就是输入你想要的命令前面几个字母，smex会给出提示，然后你按下Tab键即可自动补全，然后smex跟输入法一样会记录你的操作习惯。然后就是enter直接输入第一个候选项，方向键向右将第二个候选项变为第一个候选项等等，方向键向左反之，方向键上下使用来切换历史记录的。
+</p>
+
+<p>
+基本使用说明就这么多，smex使用久了，会跟输入法一样使得你输入某些命令速度会非常的快，当然你也可以选择自定义按键配置来绑定新的按键。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline10">一些命令一览</h2>
+<div class="outline-text-2" id="text-4">
+<dl class="org-dl">
+<dt>set-default-font</dt><dd>设置默认字体</dd>
+<dt>set-frame-attribute</dt><dd>设置默认字体大小</dd>
+</dl>
+
+<p>
+以上两个命令一般放入.emacs文件中，如下配置成为全局配置。
+</p>
+<pre>
+(set-default-font "DejaVu Sans Mono");设置默认字体
+(set-frame-attribute 'default nil :height 110);设置默认字体大小11pt
+</pre>
+
+
+<dl class="org-dl">
+<dt>toggle-frame-maximized</dt><dd>窗口最大化</dd>
+</dl>
+<p>
+你可以将其加入.emacs文件让你的emacs一打开就窗口最大化。 <em>注意本命令只适用于emacs24.4+的版本。</em> 
+</p>
+
+<pre>
+(toggle-frame-maximized)
+</pre>
+
+<p>
+如果是emacs24.4之前的版本你想启动之后就窗口最大化，参考 <a href="http://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up">这个网站</a> ，在你的emacs初始化脚本上加上这么一句即可：
+</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;default-frame-alist</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">fullscreen</span> <span class="o">.</span> <span class="nv">maximized</span><span class="p">))</span>
+</pre></div>
+
+<dl class="org-dl">
+<dt>global-linum-mode</dt><dd>左侧显示行号</dd>
+</dl>
+
+<p>
+如下加入.emacs文件中你可以让你的emacs左侧永远显示行号，参考了 <a href="http://stackoverflow.com/questions/2034470/how-do-i-enable-line-numbers-on-the-left-everytime-i-open-emacs">这个网页</a> 。
+</p>
+<pre>
+(global-linum-mode t)
+</pre>
+
+
+<dl class="org-dl">
+<dt>global-visual-line-mode</dt><dd>显示的段落自动换行</dd>
+</dl>
+
+<p>
+如下加入.emacs文件中你可以让你的emacs显示的文件段落会自动换行。
+</p>
+<pre>
+(global-visual-line-mode t)
+</pre>
+
+<dl class="org-dl">
+<dt>help-with-tutorial</dt><dd>默认按键"C-h t"，打开新手教程</dd>
+
+<dt>describe-key</dt><dd>默认按键是"C-h k"，描述某个按键</dd>
+<dt>describe-function</dt><dd>默认按键"C-h f"， 描述某个函数</dd>
+<dt>describe-variable</dt><dd>默认按键"C-h v"，描述某个变量</dd>
+</dl>
+
+<p>
+通过以上三个函数你能够学习到emacs lisp的很多内部知识，是一条不错的获取信息的来源<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>。
+</p>
+
+<p>
+比如之前的"C-x 1"等等按键对应的命令如下：
+</p>
+<dl class="org-dl">
+<dt>delete-other-windows</dt><dd>默认按键"C-x 1"，关闭其他窗口</dd>
+<dt>split-window-below</dt><dd>默认按键"C-x 2"，下面新开一个窗口</dd>
+<dt>split-window-right</dt><dd>默认按键"C-x 3"，右边新开一个窗口</dd>
+<dt>delete-window</dt><dd>默认按键"C-x 0"，删除当前窗口</dd>
+</dl>
+
+<p>
+emacs lisp还有很多很多内容，学习到后面当然是参看手册了。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline11">DIY之门</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+下面这几个命令也很常用，我们可以将其定义为更加简短一点的命令
+</p>
+
+<dl class="org-dl">
+<dt>kill-buffer</dt><dd>默认按键"C-x k"，关闭当前buffer。</dd>
+<dt>switch-to-buffer</dt><dd>默认按键"C-x b"，切换buffer。</dd>
+<dt>find-file</dt><dd>默认按键"C-x C-f"，打开文件</dd>
+<dt>save-buffer</dt><dd>默认按键"C-x C-s"，保存某个buffer，或者说通常意义上的保存文件。</dd>
+<dt>save-some-buffers</dt><dd>默认按键"C-x s"，保存所有buffer，或者说保存所有文件。</dd>
+<dt>save-buffers-kill-terminal</dt><dd>默认按键"C-x C-c"，退出emacs。</dd>
+</dl>
+
+
+<p>
+你可以通过defun来定义新的函数，这里采用一种简单的机制defalias来给原函数取一个新的名字：
+</p>
+<pre>
+(defalias 'open 'find-file)
+(defalias 'save 'save-buffer)
+(defalias 'saveall 'save-some-buffers)
+(defalias 'kill 'kill-buffer)
+(defalias 'buffer 'switch-to-buffer)
+</pre>
+
+<p>
+然后我们再进入emacs，我们发现smex里面多了一个open命令，之前没有的，然后原有的find-file命令也还在。
+</p>
+
+<p>
+初步的试验已经有那么一点意思了，当然接下来所谓的DIY之门，就是编写自己的插件，这其中很大一部分就是编写自己的函数。elisp语言还有很多内容，不过本章节就此结束了。
+</p>
+</div>
+</div>
+
+
+
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline14">术语</h2>
+<div class="outline-text-2" id="text-6">
+</div><div class="outline-3">
+<h3 id="orgheadline12">基本术语</h3>
+<div class="outline-text-3" id="text-6-1">
+<dl class="org-dl">
+<dt>frame</dt><dd>emacs的图形界面或终端界面</dd>
+<dt>menu</dt><dd>frame上方的菜单栏</dd>
+<dt>tool</dt><dd>菜单栏下面的工具栏</dd>
+<dt>echo</dt><dd>主编辑窗口下面的响应信息，minibuffer也在这里显示。</dd>
+<dt>window</dt><dd>tool下面echo上面的主区域就是window区域，emacs可以分出很多个window出来，任何时候指的window是当前选中的那个window，同样emacs可以有很多buffer，当前选中的window对应的buffer为current buffer。</dd>
+<dt>buffer</dt><dd>每一个window具体编辑的就是一个buffer</dd>
+<dt>scroll bar</dt><dd>window的一边有一个scroll bar</dd>
+<dt>mode line</dt><dd>window的下面有一行mode line 格式如下:</dd>
+</dl>
+<p>
+cs:ch-fr buf  pos line  (major minor)
+</p>
+<hr >
+
+<dl class="org-dl">
+<dt>point</dt><dd>当前window下cursor的位置叫做point，具体emacs光标或覆盖在frob的o上，那么point的位置是在r和o之间。</dd>
+</dl>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline13">按键术语</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li>按键 a B SPC（空格） RET（回车） TAB DEL ESC F1 HOME LEFT</li>
+<li>组合按键 Control (usually labeled Ctrl), and META (usually labeled Alt) C-a 表示同时按下Control和a ，M-a 表示同时按下Alt和a。</li>
+<li>多个按键组合 C-x C-f 表示key sequence ，顺序按下如此键组合。</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline15">光标移动</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+按 C-n 移动到下一列，实际执行命令 (next-line)
+C-f (forward-char)
+M-f (forward-word)
+C-b (backward-char)
+M-b (backward-word)
+C-p (previous-line)
+C-a (move-beginning-of-line)
+C-e (move-end-of-line)
+</p>
+
+
+<p>
+C-x C-s (save-buffer)
+C-x C-f (find-file)
+C-x u undo
+按 F10 执行menu-bar-open命令，然后图形界面可以键盘方向键选定，终端界面可以上下移动辅以文字选定。
+按 C-g 退出minibuffer
+按 C-x C-c 退出Emacs (save-buffers-kill-terminal)
+按 C-k (kill-line) 删除本行
+</p>
+</div>
+</div>
+
+
+
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline16">tab都自动换成space</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+参考网页：<a href="http://www.emacswiki.org/emacs/NoTabs">NoTabs</a> 
+</p>
+
+<p>
+在.emacs文件里加入如下代码：
+</p>
+<pre>
+(setq-default indent-tabs-mode nil)
+</pre>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline17">80列规则</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+控制你的代码不超过80列是一个非常好的习惯，不仅可以起到控制自己写出缩进过于复杂的代码的冲动，而且这样写出来的代码直接复制粘贴就能很好地在网页或pdf文档上显示。
+</p>
+
+<p>
+下面是具体的配置文件：
+</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;load-path</span> <span class="s">&quot;~/工作空间/myemacs/fill-column-indicator&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;fill-column-indicator</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-globalized-minor-mode</span> <span class="nv">global-fci-mode</span> <span class="nv">fci-mode</span> 
+    <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">fci-mode</span> <span class="mi">1</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">global-fci-mode</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">fci-rule-column</span> <span class="mi">80</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">fci-rule-color</span> <span class="s">&quot;light green&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>
+该宏包的github地址在 <a href="https://github.com/alpaker/Fill-Column-Indicator">这里</a> ，该宏包的emacswiki地址在 <a href="http://www.emacswiki.org/emacs/FillColumnIndicator">这里</a> 。上面代码第五行是设置列宽80，然后第六行是设置竖线颜色。
+</p>
+
+<p>
+第三行第四行这样配置之后所有的模式下都会显示竖线，这个看各人的作业文档主要是什么了，如果主要是python脚本等编程语言，那么这样设置也没什么不妥的。如果你的作业文档主要是非编程语言或者有时是org模式之类的，推荐还是如下单独设置。
+</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;c-mode-hook</span> <span class="ss">&#39;fci-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;c++-mode-hook</span> <span class="ss">&#39;fci-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;python-mode-hook</span> <span class="ss">&#39;fci-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;emacs-lisp-mode-hook</span> <span class="ss">&#39;fci-mode</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline19">python模式</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+python模式推荐还是使用 <strong>python-mode</strong> 宏包而不是内置的 <code>python.el</code> 。宏包的下载在 <a href="http://melpa.org/#/python-mode">这里</a> ，如下简单设置之后使用 <code>C-c C-c</code> 就运行该python文件并进入交互模式，很是方便。这次默认的就是python3，我很满意了。我不清楚是不是我的python文件第一行总是有 <code>#!/usr/bin/env python3</code> 所以python-mode.el猜到了，还是只是现在就是简单的默认是调用python3了。如果你需要设置将其设置为python2，该宏包的github地址在 <a href="https://github.com/klen/python-mode">这里</a> ，然后再结合网络搜索找寻答案吧。
+</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;load-path</span> <span class="s">&quot;~/工作空间/myemacs/python-mode&quot;</span><span class="p">)</span><span class="c1">;加入新的搜索路径</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;python-mode</span><span class="p">)</span>
+</pre></div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline18">分窗口控制</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+参考了 <a href="http://stackoverflow.com/questions/24119221/customize-window-splitting-in-emacs-python-mode">这个网页</a> ，如果你希望在运行 <code>C-c C-c</code> 之后，弹出的窗口是左右平行的模式，而不是上下模式，可以如下设置:
+</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">setq-default</span> <span class="nv">py-split-windows-on-execute-function</span> <span class="ss">&#39;split-window-horizontally</span><span class="p">)</span>
+</pre></div>
+
+<p>
+这样具体效果如下图所示:
+</p>
+
+
+<figure>
+<p><img src="images/平行分出一个窗口.png" alt="平行分出一个窗口.png">
+</p>
+</figure>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline20">快速删除一行</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+快捷键是 <code>C-k</code> ，对应的命令是 <code>org-kill-line</code> 。emacs中的kill概念还不太熟悉，不过从表面来看效果就是从当前光标位置直到行尾的字符都将被删除，这通常很有用。
+</p>
+
+<p>
+然后所谓 kill 的字符串 可以通过 <code>C-y</code> 召回了。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline23">快速启动emacs</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+先用
+</p>
+<pre>
+emacs --daemon
+</pre>
+<p>
+命令启动一个后台服务器，这个命令可以考虑加入.bashrc文件中每次启动自动运行一次。
+</p>
+
+<p>
+然后把系统的desktop文件（你可以在 <code>/usr/share/applications</code> 那里找到它，你也可以在用户主文件夹的 <code>.local/share/applications</code> 那里再另外新建一个。 ）修改一下:
+</p>
+<pre>
+Exec=/usr/bin/emacsclient -c -a ""  %F
+</pre>
+
+<p>
+本来是 <code>emacs %F</code> ，改为emacsclient，这里的 <code>-c</code> 参数是启动图形界面。然后-a参数设置为空字符串，这样即使你前面没有建立一个emacs后台服务器，其也会自动创建一个。这样你双击对应emacs关联的文件就自动快速用emacsclient打开了。读者可以尝试一下，这样emacs打开文件确实很快了，但也带来了一些问题。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline21">关闭frame和以前的不同了</h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+emacs daemon是一个后台进程，你可以用 <code>ps aux |grep emacs</code> 来查看一下，哪怕你把所有的emacsclient建立的frame窗口都关闭了，emacs的后台daemon仍然存在。
+</p>
+
+<p>
+然后就是emacsclient编辑一个文件之后，不管你保存了没有没有任何提示就直接关闭了，这其实没什么，因为你用emacsclient打开的所有buffer都还是在的，所以你的编辑内容并没有丢失，但这很不符合用户的习惯。
+</p>
+
+<p>
+首先通过查看进程号然后kill相应的emacs daemon进程的做法最好不要用，在emacs里面可以输入命令 <code>kill-emacs</code> 来关闭emacs的后台服务进程，这个方法最好也不要用。总之手工kill emacs后台服务进程这个操作最好不要使用，如果你需要调试，就用以前的 <code>emacs test.org</code> 方式来启动另外一个完成的meacs进程来进行调试。
+</p>
+
+<p>
+然后如果你觉得接下来应该不需要使用emacs了，那么正确关闭emacs做法是使用快捷键 <code>C-x C-c</code> ，其对应的函数是 <code>save-buffers-kill-terminal</code> ，这个快捷键以前我已经接触过了，在一个完整emacs进程中，其就是退出emacs命令，其将确保所有的buffer都保存了，然后退出。值得一提的是这个函数并没有关闭emacs后台服务进程，实际上在熟悉emacsclient操作之后，最好不要去管emacs daemon这个概念，就认为这个 <code>C-x C-c</code> 就是正常退出emacs的命令即可。
+</p>
+
+<p>
+最后是关闭buffer操作，如果你只是简单点击窗口的关闭图标，那么只是关闭frame，buffer还是在那里。如果你编辑完了想要关闭这个buffer，那么执行 <code>kill-buffer</code> 即可，文档没有保存其会提示你的，并且最后还会提示你是否关闭本frame。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-3">
+<h3 id="orgheadline22">字体问题</h3>
+<div class="outline-text-3" id="text-12-2">
+<p>
+因为emacs daemon在启动的时候是没有图形界面的，所以之前的字体设置失效了，你需要如下设置<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>:
+</p>
+<div class="highlight"><pre><span class="c1">;; 解决client模式下的字体问题</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">myfontset</span> <span class="p">()</span>
+  <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">set-default-font</span> <span class="s">&quot;DejaVu Sans Mono&quot;</span><span class="p">)</span><span class="c1">;设置默认字体</span>
+  <span class="p">(</span><span class="nv">set-face-attribute</span> <span class="ss">&#39;default</span> <span class="no">nil</span> <span class="ss">:height</span> <span class="mi">110</span><span class="p">)</span><span class="c1">;设置默认字体大小11pt</span>
+<span class="p">)</span>
+
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;after-make-frame-functions</span>
+         <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">frame</span><span class="p">)</span>
+           <span class="p">(</span><span class="nv">select-frame</span> <span class="nv">frame</span><span class="p">)</span><span class="c1">;</span>
+               <span class="p">(</span><span class="nv">myfontset</span><span class="p">)))</span>
+</pre></div>
+
+<p>
+这里的思路就是等frame加载完成之后再加载之前的那些字体配置。
+</p>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline26">左侧文件树面板</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+一般现代IDE最大的一个特色就是左侧有一个文件树面板，方便快速切换文件，这个emacs下的neotree宏包可以实现类似的功能。该项目的github地址在 <a href="https://github.com/jaypei/emacs-neotree">这里</a> 。
+</p>
+
+<p>
+具体使用很简单，就是常规的加载:
+</p>
+<pre>
+(add-to-list 'load-path "/some/path/neotree")
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+</pre>
+
+<p>
+这样你就可以按下F8来快速切换到文件树面板了。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline24">pdf文件打开卡住问题</h3>
+<div class="outline-text-3" id="text-13-1">
+<p>
+emacs的docview功能可以直接看pdf文件，这有时会带来很大的便利，不过现在打开pdf文件有点卡，这可以通过将 <code>doc-view-continuous</code> 设置为nil来稍微缓和一下。
+</p>
+
+<pre>
+(custom-set-variables
+ '(doc-view-continuous nil)
+ )
+</pre>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline25">可能的其他问题</h3>
+<div class="outline-text-3" id="text-13-2">
+<p>
+neotree这个项目看得出来还有很多地方可以进一步完善，比如说emacsclient模式下似乎根目录读取有问题。
+</p>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline27">多个窗口之间的编号切换</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+window-numbering这个宏包不错，其github项目地址在 <a href="https://github.com/nschum/window-numbering.el">这里</a> 。该宏包实现了对各个窗口进行编号，使得你通过按 <code>M-1</code> 之类的就能快速切换各个窗口焦点。
+</p>
+
+<p>
+官方推荐的一个配置如下所示:
+</p>
+<pre>
+(setq window-numbering-assign-func
+      (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
+</pre>
+
+<p>
+然后还需要加上一句:
+</p>
+<pre>
+(window-numbering-mode)
+</pre>
+<p>
+实际开启编号模式，具体效果如下图所示:
+</p>
+
+
+<figure>
+<p><img src="images/窗口编号方便快速切换.png" alt="窗口编号方便快速切换.png">
+</p>
+</figure>
+
+<p>
+更多窗口操作知识请参看 <a href="http://blog.binchen.org/posts/emacs-zhong-de-wan-mei-duo-chuang-kou-cao-zuo.html">这个网页</a> ，介绍的挺好的。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline28">markdown模式</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+markdown-mode这个宏包给emacs加入了markdown的渲染，还有类似org模式的折叠等等功能。其github项目地址在 <a href="https://github.com/defunkt/markdown-mode">这里</a> 。
+</p>
+
+<p>
+就这样简单配置一下即可:
+</p>
+<pre>
+(add-to-list 'load-path "~/工作空间/myemacs/markdown-mode")
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+</pre>
+
+<p>
+里面的用法除了Tab折叠功能外，其他再慢慢了解，有些可能会用不到，下面介绍重头戏，markdowon的实时预览功能实现。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline29">markdown实时预览</h2>
+<div class="outline-text-2" id="text-16">
+<p>
+emacs-livedown这个宏包其是利用nodejs里面的livedown模块的功能，将markdown文档实时显示在网页端。其github项目地址在 <a href="https://github.com/shime/emacs-livedown">这里</a> 。
+</p>
+
+<p>
+首先你需要安装npm，然后通过npm安装livedown。
+</p>
+<pre>
+sudo npm install livedown
+</pre>
+
+<p>
+然后做如下配置:
+</p>
+<pre>
+(custom-set-variables
+ '(livedown:autostart t) ; automatically open preview when opening markdown files
+ '(livedown:port 1337))    ; port for livedown server ;一般nodejs的服务用这个端口
+(add-to-list 'load-path  "~/工作空间/myemacs/emacs-livedown")
+(require 'livedown)
+</pre>
+
+<p>
+你就可以用emacs双击一个md文件，然后在网页端就显示渲染好的网页了，而且livedown本身就支持实时根据md文件实时更新。上图片吧:
+</p>
+
+
+<figure>
+<p><img src="images/emacs的markdown模式.png" alt="emacs的markdown模式.png">
+</p>
+<figcaption><span class="figure-number">Figure 3:</span> emacs的markdown模式</figcaption>
+</figure>
+
+
+<figure>
+<p><img src="images/md文件对应的网页显示.png" alt="md文件对应的网页显示.png">
+</p>
+<figcaption><span class="figure-number">Figure 4:</span> md文件对应的网页显示</figcaption>
+</figure>
+
+
+<p>
+然后在emacsclient下另外开启一个frame还需要执行一下命令 <code>livedown:preview</code> 网页才会切换到这个md的预览。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline32">文字模式下的emacs操作</h2>
+<div class="outline-text-2" id="text-17">
+<p>
+通过ssh在远程主机上用emacs编辑文件，那就必须在文字模块下操作emacs，这带来了一些新的问题。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline30">移动光标</h3>
+<div class="outline-text-3" id="text-17-1">
+<p>
+参考了 <a href="http://dsec.pku.edu.cn/~jinlong/emacs/emacs.html">这个网页</a> 。
+</p>
+
+<p>
+一般通过键盘上的方向键移动辅助搜索跳转还是很快的，但有时不知怎么方向键移动也会出问题。这是只好借助下面这些快捷键了。
+</p>
+<pre>
+C-f    前进一个字符
+C-b    后退一个字符
+C-p    上移一行
+C-n    下移一行
+
+M-f    前进一个单词
+M-b    后退一个单词
+
+C-a    行首
+C-e    行尾
+</pre>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline31">切换窗口焦点</h3>
+<div class="outline-text-3" id="text-17-2">
+<p>
+这个前面也提过了，但在这里显然是一个重要问题，需要再次强调一下。 <code>C-x o</code> 进行切换各个窗口操作。
+</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara">一个隐藏配置文件，每次运行emacs之前都会先加载它。</div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara">参考了<a href="https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org">mastering-emacs-in-one-year-guide</a></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara">参考了<a href="http://floss.zoomquiet.io/data/20120229104733/index.html"> 这个网页</a> 。</div></div>
+
+
+</div>
+</div></div>
+</body>
+</html>

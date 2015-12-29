@@ -2,7 +2,6 @@
 #+LATEX_CLASS_OPTIONS:[11pt,oneside]
 #+LATEX_HEADER: \usepackage{article}
 
-#+INFOJS_OPT: view:showall
 
 #+TITLE: 编写emacs插件
 #+AUTHOR: 万泽(德山书生)
@@ -182,36 +181,6 @@ bool-vector-p
 - dotted pair notation 其实也是一种更 cons cell 结构，只是两端都有值 (a . b)
 - association list  基于前面的dotted pair notation:
 
-#+BEGIN_EXAMPLE
-*** Welcome to IELM ***  Type (describe-mode) for help.
-ELISP> '(("rose" . "red") ("lily" . "white") ("buttercup" . "yellow"))
-(("rose" . "red")
- ("lily" . "white")
- ("buttercup" . "yellow"))
-#+END_EXAMPLE
-
-这可以看作对应python语言的字典或map结构的存在。
-
-- hash-table hash-table类似于association list 但查找更快。后面再详细讨论。
-- function 实际上就是第一个元素为lambda的链表
-- macro 
-- autoload
-
-custom-variable-p
-------------
-编辑器相关对象
-- buffer bufferp
-- marker
-- window
-- frame
-- terminal
-- window configuration
-- frame configuration
-- process
-- stream
-- keymap
-- overlay
-- font
 
 ** 类型检测
 *** type-of
@@ -383,6 +352,7 @@ eval最后一个s表达式，这个快捷键很常用 ~C-x C-e~ ，用来执行�
 ** load-file-name
 load-file-name 返回该脚本所在的文件路径名，参考了 [[http://stackoverflow.com/questions/4088681/get-path-to-current-emacs-script-file-when-loaded-with-l-parameter][这个网页]] 。
 
+** file-name-directory
 如下面的代码将返回本脚本所在的目录路径，字符串形式。
 #+BEGIN_SRC emacs-lisp
 (file-name-directory load-file-name)
