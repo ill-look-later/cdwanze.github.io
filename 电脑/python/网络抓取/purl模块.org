@@ -1,0 +1,19 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: purl模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+在使用了requests模块之后，原python的urllib官方模块中大部分功能都可被取代了，而原来的urlparse模块里面的urlsplit和urljoin函数还是很有用的。在对于高级url操作来说，我最先接触的是furl模块，后来发现了这个purl模块，比较之后觉得purl模块更好用一些。其github地址在 [[https://github.com/codeinthehole/purl][这里]] 。
+
+更详细的讨论后面再补上。
+
+
+
+
