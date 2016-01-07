@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2016-01-07 四 16:15 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>ubuntu下玩暴雪游戏</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">
+body {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
+}
+
+.title {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.underline{
+    text-decoration: underline;
+}
+  #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+#content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">ubuntu下玩暴雪游戏</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. 魔兽争霸</a></li>
+<li><a href="#orgheadline2">2. 魔兽世界</a></li>
+<li><a href="#orgheadline3">3. 风暴英雄</a></li>
+<li><a href="#orgheadline4">4. 星际争霸2</a></li>
+<li><a href="#orgheadline5">5. 炉石传说</a></li>
+<li><a href="#orgheadline6">6. 暗黑3</a></li>
+<li><a href="#orgheadline10">7. 技术附录</a>
+<ul>
+<li><a href="#orgheadline7">7.1. 升级到最新的wine1.8</a></li>
+<li><a href="#orgheadline8">7.2. wine换成32位</a></li>
+<li><a href="#orgheadline9">7.3. 自建可运行的桌面图标</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+<div class="outline-2">
+<h2 id="orgheadline1">魔兽争霸</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+具体就是用wine来运行之。魔兽争霸以前测试过，最早期的wine1.4就能够完美运行了。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline2">魔兽世界</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+然后魔兽世界 wine1.6 我测试过，基本上运行没有任何问题。你需要做的就是把wine换成32位环境，下面会说的。然后推荐把系统图形驱动换成Navida官方闭源最新的那个。如果你只玩魔兽世界，那么就没有必要升级最新的wine1.8了，然后执行64位是不行的，直接运行那个32位的Wow.exe即可。然后你还需要做的就是将 <code>World of Warcraft/WTF</code> 这个文件夹删掉，并且给其可读可写权限。
+</p>
+
+<pre>
+chmod -R 766 WTF
+</pre>
+
+<p>
+然后基本上就没有其他问题了，网上说的opengl设置没有必要了。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline3">风暴英雄</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+升级到最新的wine1.8。（wine1.6我测试地面纹理渲染有问题。）
+</p>
+
+<p>
+先下载battle.net的官方安装文件，用wine运行之，记得把 <code>dbghelp</code> 停用了，如下图所示:
+<img src="images/wine_停用dbghelp.png" alt="wine_停用dbghelp.png">
+</p>
+
+<p>
+停用 <code>dbghelp</code> 是为了 battle.net 这个程序能够正常运行。如果你要玩炉石传说，事情可能会更加麻烦一点，如果不玩，那么这么配置之后就没问题了。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline4">星际争霸2</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+虽然没有测试，但因为风暴英雄就是星际争霸2的引擎，我估计问题不大。
+</p>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline5">炉石传说</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>升级到最新的wine1.8</li>
+<li>通过停用 <code>dbghelp</code> 把battle.net安装上。</li>
+<li>还是在wine的配置那里，把 <code>msvcp100</code> 添加上，如上面图片所示。</li>
+<li>运行  <code>winetricks wininet</code> , 不确定是不是必须的。</li>
+</ol>
+
+<p>
+<em>特别提醒</em> :: 我测试还是会出错，然后把那个 <code>dbghelp</code> 又开启过来，不管是原装先于内建或者内建先于原装都行，就可以正常运行了。但是你第一次开启 battle.net的时候还需要再把那个 <code>dbghelp</code> 停用，没有办法。 
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline6">暗黑3</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+没有测试。
+</p>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline10">技术附录</h2>
+<div class="outline-text-2" id="text-7">
+</div><div class="outline-3">
+<h3 id="orgheadline7">升级到最新的wine1.8</h3>
+<div class="outline-text-3" id="text-7-1">
+<pre>
+sudo add-apt-repository ppa:ubuntu-wine/ppa
+sudo apt-get update
+sudo apt-get install wine1.8
+</pre>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline8">wine换成32位</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+如果你是64位系统，推荐将wine的整个环境都换成32位，先做好备份工作，然后将 <code>.wine</code> 这个文件夹删除。然后运行:
+</p>
+<pre>
+WINEARCH=win32 WINEPREFIX=~/.wine winecfg
+</pre>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline9">自建可运行的桌面图标</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+没有必要做了，wine会自动创建一个桌面图标，这里写上主要是ubuntu的技术细节吧:
+</p>
+<ol class="org-ol">
+<li>新建一个 battlenet.desktop文件</li>
+</ol>
+<pre>
+sudo gedit ~/.local/share/applications/battlenet.desktop
+</pre>
+
+<pre>
+[Desktop Entry]
+Name=battlenet
+Exec=wine "C:\\Program Files\\Battle.net\\Battle.net.exe"
+Icon=battlenet.png
+Terminal=false
+Type=Application
+Categories=Application;Game;
+StartupNotify=false
+</pre>
+
+
+<ol class="org-ol">
+<li>弄一个 battlenet.png 图片放到主文件夹的 <code>.icons</code> 文件夹里面，没有则新建。</li>
+</ol>
+
+<p>
+然后在ubuntu左上角开始搜索，你就可以看到这个运行图标了。通过 <code>ln -s</code> 创建软链接到那个desktop文件则可以生成桌面点击方式。
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
