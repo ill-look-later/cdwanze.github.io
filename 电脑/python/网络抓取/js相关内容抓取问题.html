@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2016-01-07 四 16:56 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>js相关内容抓取问题</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">
+body {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
+}
+
+.title {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.underline{
+    text-decoration: underline;
+}
+  #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">js相关内容抓取问题</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. 到底该不该管js代码</a></li>
+<li><a href="#orgheadline5">2. selenium模块</a>
+<ul>
+<li><a href="#orgheadline2">2.1. 安装</a></li>
+<li><a href="#orgheadline3">2.2. 一个简单例子</a></li>
+<li><a href="#orgheadline4">2.3. 选中某个标签元素</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">3. 后台虚拟窗口运行</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div class="outline-2">
+<h2 id="orgheadline1">到底该不该管js代码</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+把这个问题先提出来就是要提醒读者，只有确定你要抓取的内容很重要而且必须把js展开内容才能获取，那么才考虑展开js代码。这倒不是实现上有多困难，而是成本太昂贵了。如下面所述及的，我们需要建立一种虚拟后台显示窗口，然后在这个窗口内运行如FireFox这样的浏览器。读者可以看到这种展开工作成本是极其昂贵的。所以如果你的程序一旦决定具体展开js代码了，那么你要清楚决定你程序性能的短板就在这里了，很多常规的程序优化技术和手段可能反倒是杯水车薪了，而围绕着这个具体展开，尽量减少具体的展开工作量，就成了程序性能优化的关键了。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline5">selenium模块</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+selenium模块的官方文档在 <a href="http://selenium-python.readthedocs.org/index.html">这里</a> 。下面就模块的最核心内容做出一些说明。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline2">安装</h3>
+<div class="outline-text-3" id="text-2-1">
+<pre>
+sudo pip3 install selenium
+</pre>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline3">一个简单例子</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+
+<span class="n">browser</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://www.163.com&#39;</span><span class="p">)</span>
+
+<span class="n">html</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">page_source</span>
+<span class="k">print</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">browser</span><span class="o">.</span><span class="n">current_url</span><span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+
+<p>
+这里调用的是火狐后台 <code>webdriver.Firefox</code> ，你还可以调用其他后台，这里略过讨论了。
+</p>
+
+<p>
+通过browser的 <code>get</code> 方法来在模拟浏览器中输入一个网址，然后通过 <code>page_source</code> 方法来获取目标网址源码， browser还有属性 <code>title</code> 当前网页标题； <code>current_url</code> 当前网址。然后通过 <code>quit</code> 方法关闭该浏览器。
+</p>
+
+<p>
+一般情况下获取目标网页的html解析之后的源码就可以了，通过其他工具如beautifulsoup等来进一步提取信息。selenium的browser还有很多方法来获取标签对象，某一两个信息提取任务的时候可以用一下，其主要是用于选中某个标签元素，然后进行额外的模拟人手工的如点击输入文本等动作的。
+</p>
+</div>
+</div>
+
+
+
+
+<div class="outline-3">
+<h3 id="orgheadline4">选中某个标签元素</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+前面提及的browser对象有很多选中某个或某些标签元素的方法:
+</p>
+<ul class="org-ul">
+<li>find_element_by_id</li>
+<li>find_element_by_name</li>
+<li>find_element_by_xpath</li>
+<li>find_element_by_link_text</li>
+<li>find_element_by_partial_link_text</li>
+<li>find_element_by_tag_name</li>
+<li>find_element_by_class_name</li>
+<li>find_element_by_css_selector</li>
+</ul>
+
+<p>
+然后这些方法若element改为elements则会选中多个标签元素，如: <code>find_elements_by_id</code> 。
+</p>
+
+<p>
+具体请参看官方文档，这里就不一一说明了。 <a href="https://saucelabs.com/resources/selenium/css-selectors">这篇网页</a> 介绍了Xpath和css选定的一些细节，介绍的很好。
+</p>
+
+<p>
+这些函数返回的是标签元素对象e，你可以通过 <code>e.get_attribute('src')</code> 来获取该标签的某个属性的值。然后还有其他一些方法，这里先略过讨论了。正如前所述及的，selenium的重点是模拟浏览器的各个动作，而不是要做类似beautifulsoup这样的api工作。所以其提供了 <code>e.click()</code> 就模拟了鼠标点击在该标签元素上的行为；还有 <code>e.send_keys(Keys.RETURN)</code> 就模拟了在该标签元素上按下回车键的行为。等等这些才是selenium的关注重点，更多相关细节请参看官方文档的相关 Action Chains 部分。
+</p>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline6">后台虚拟窗口运行</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+经过测试行为一切OK了，你就不希望再看到弹出的浏览器窗口了，你可以通过一种虚拟显示技术来做到。首先安装 <code>xvfb</code>:
+</p>
+<pre>
+sudo apt-get install xvfb
+</pre>
+
+<p>
+然后安装 <code>pyvirtualdisplay</code> 模块:
+</p>
+
+<pre>
+sudo pip3 install pyvirtualdisplay
+</pre>
+
+<p>
+这里参考了 <a href="http://coreygoldberg.blogspot.com/2011/06/python-headless-selenium-webdriver.html">这篇网页</a> 。大体例子如其所示:
+</p>
+<pre>
+def wget_forcejs(url):
+    from pyvirtualdisplay import Display
+    from selenium import webdriver
+
+    display = Display(visible=0, size=(800, 600))
+    display.start()
+
+    # now Firefox will run in a virtual display.
+    # you will not see the browser.
+    browser = webdriver.Firefox()
+    browser.get(url)
+
+    html = browser.page_source
+    print(browser.title)
+
+    browser.quit()
+    display.stop()
+    return html
+</pre>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: lxml模块
+#+AUTHOR: 万泽
+#+CREATOR: 编者:万泽
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 安装
+首先确认你的系统已经安装了如下软件包：
+#+BEGIN_SRC sh
+sudo apt-get install libxml2-dev libxslt-dev python-dev 
+#+END_SRC
+
+如果你使用的python3，那么确认安装了python3-dev。
+
+然后推荐用pip安装lxml：
+#+BEGIN_SRC sh
+sudo pip install lxml
+#+END_SRC
+
+如果你使用的python3，那么用 *pip3* 命令来安装。
+
+
+* xml文档结构
+这点参考资料 [[cite1]] 第二节介绍的比较好。不管html还是xhtml等，其都属于xml文档系，理论上lxml模块是能够处理所有的xml系文档的，不过下面的讨论只局限于html5文档。对于xml文档概念不熟悉的读者请简单看一下维基百科参考资料 [[cite2]] 即可。
+
+下面是一个简单的html5文档样例：
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet"  href="main.css"/>
+<title>your awesome website</title>
+</head>
+
+<body>
+<header>
+<h1>your awesome title</h1>
+</header>
+
+</body>
+</html>
+#+END_SRC
+
+这里不会深入讨论html文档的概念，而直接进入lxml模块的学习。
+
+一般使用
+#+BEGIN_SRC python
+from lxml import etree
+#+END_SRC
+
+然后使用etree子模块的parse某个html文档:
+#+BEGIN_SRC python
+tree = etree.parse('index.html')
+#+END_SRC
+
+这个tree数据结构如下图所示（图片来源[[http://www.w3schools.com][w3schools]]）
+
+#+CAPTION: htmltree
+[[file:images/htmltree.png]]
+
+其中tree变量很重要的一个方法是 *getroot* ：
+#+BEGIN_SRC python
+root = tree.getroot()
+#+END_SRC
+
+这个root变量对应的正是上图的Root Element。这里需要说一下，lxml模块将html文档里面的各个标签，也就是上图的Root下面的方框Element都视作Node，父元素和子元素之间是列表包含关系。你可以用 ~root[0]~ ， ~root[1]~ 来查看一下。
+
+其对应的就是head元素和body元素，可用python数据结构如下近似表示之：
+#+BEGIN_EXAMPLE
+root[head[meta[], link[], title[]], body[head[]...]...]
+#+END_EXAMPLE
+
+然后每一个元素都有很多属性，比如 *tag* 存储这个元素（标签）的名字， *text* 存储这个元素标签包围着的文本内容，比如
+#+BEGIN_EXAMPLE
+<title>your awesome title</title>
+#+END_EXAMPLE
+这里title这个元素的 *text* 就是文本：your awesome title。 还有一个 *tail* 属性似乎没什么用处。
+
+然后还有一个很重要的属性 *attrib* ，其对应的就是该元素标签的属性，是一个字典值： 
+#+BEGIN_SRC python
+attr = link.attrib
+#+END_SRC
+
+比如上面的link元素可以近似如下表示：
+#+BEGIN_EXAMPLE
+link[{'rel':'stylesheet', 'href':'main.css'}]
+#+END_EXAMPLE
+
+然后我试着将root变量的数据结构简单表示（显然元素是一个类结构，这里只是简单将其名字提出来，属性作为字典加进去。）如下：
+#+BEGIN_EXAMPLE
+root[head[meta[{'charset': 'utf-8'}],
+    link[{'rel':'stylesheet', 'href':'main.css'}], ...]
+#+END_EXAMPLE
+
+* 往里面加入内容
+一般没有必要完全从零开始新建一个xml文档了，继续上面的讨论我们用 *parse* 函数接受一个html文档模板之后，然后往里面加入一些内容或者做出一些修改，然后将其保存到一个新的文件即完成了一个新的html文档创建过程。
+
+如下所示: 
+#+BEGIN_EXAMPLE
+with open(filename,'w') as html:
+    ......
+    bstring = etree.tostring(tree)
+    string  = bstring.decode('utf-8')
+    print(string,file=html)
+#+END_EXAMPLE
+
+这里值得一提的在python3.4下（lxml version:3.3.3）， *tostring* 是输出的bytes类型，需要将其decode成为字符串才行。
+
+** Element类
+前面提到每一个元素都是一个类，其是通过 *Element* 类初始化函数来创建的。
+#+BEGIN_SRC python
+title = etree.Element("title")
+#+END_SRC
+
+这样对应的是<aside />，这个元素已经有tag属性了，但还没有其他字典属性或text属性，所以是一个简单的闭括号结构。之前谈到你可以通过 ~title.text~ 来索引该闭括号所包含的文本，同样你可以如此赋值修改：
+#+BEGIN_SRC python
+title.text = "your awesome title"
+#+END_SRC
+
+现在你可以用 *etree.tostring* 函数查看一下这个title对象成什么样子了，大致如下：
+#+BEGIN_EXAMPLE
+b'<title>your awesome title</title>'
+#+END_EXAMPLE
+
+类似的应该也可以通过 ~title.attrib~ 来设置元素的字典属性，不过推荐使用元素的 *set* 方法：
+#+BEGIN_SRC python
+title.set("style","color:red;")
+#+END_SRC
+
+现在title变成这样了：
+#+BEGIN_EXAMPLE
+>>> etree.tostring(title)
+b'<title style="color:red;">your awesome title</title>'
+#+END_EXAMPLE
+
+
+在创建元素的时候你可以如下所示更快捷地加入某些字典属性：
+#+BEGIN_EXAMPLE
+>>> a = etree.Element("a",href="index.html")
+>>> etree.tostring(a)
+b'<a href="index.html"/>'
+#+END_EXAMPLE
+
+不过似乎text属性并不能这样做。
+
+** SubElement类
+SubElement类和Element类很类似，除了其初始化函数第一个参数必须指明父元素是谁，然后后面的参数都和Element类一样，再必填一个tag属性。
+#+BEGIN_EXAMPLE
+SubElement(_parent, _tag, attrib=None)
+#+END_EXAMPLE
+
+那么我们必须需要依靠SubElement类的初始化函数来指定html文档中元素的父子继承关系吗？一般情况没必要这么。在平行级别下，就是常规的列表append和insert操作处理各个子元素之间的关系，然后你可以通过给具体的某个父元素命名，然后将某个子元素append或者insert进这个父元素列表中，即指明了其父子关系。而前面的SubElement说白了也只是一个简单的append操作罢了。SubElement类相当于一个高级封装，集大成者，有时很便捷，有时会很不灵活，看读者的使用喜好了。
+
+
+
+
+
+* 参考资料
+1. [[http://infohost.nmt.edu/tcc/help/pubs/pylxml/web/index.html][python xml processing with lxml]] <<cite1>>
+2. [[http://zh.wikipedia.org/zh/XML][xml维基]] <<cite2>>
