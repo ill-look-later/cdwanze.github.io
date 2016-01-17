@@ -1,0 +1,40 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: gfm简介
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+gfm的官方文档在 [[https://help.github.com/articles/github-flavored-markdown/][这里]] 。本文大体简要说明一下。
+
+关于markdown最基本的语法简介，我写了 [[https://a358003542.gitbooks.io/markdown-learning-notes/content/][一篇文章]] ，读者可以看一下。
+
+github flavored markdown 也就是github的markdown方言，其主要区别有:
+
+1. 下划线直接为下划线，下划线确实更多的是表现层而非内容层的东西，实际上org-mode我都希望下划线取消掉算了。
+
+2. URL 直接输入，比如 http://www.google.com ，其将直接转化成为链接。具体读者可以在 [[https://stackedit.io/editor][这个网页]] 上测试一下，其在google chrome里有个插件，叫 /StackEdit/ 。这个只是一个新功能支持，实际上原来的链接插入方式一样有效。
+
+3. 删除线 用:
+#+BEGIN_EXAMPLE
+~~删除线~~
+#+END_EXAMPLE
+属于添加的新特性。这个据我所指org-mode里面也是没有的。
+
+4. 当然最有名的就是代码块的染色支持了。
+
+#+BEGIN_EXAMPLE
+```elisp
+(+ 1 1)
+```
+#+END_EXAMPLE
+
+其中语言列表可以参看 [[https://github.com/github/linguist/blob/master/lib/linguist/languages.yml][这里]] 。
+
+5. 表格的额外特性支持，暂时我不太关心，略过了。
+
+6. html代码可以直接写进去，这个似乎讲起来markdown原义也是支持的。
