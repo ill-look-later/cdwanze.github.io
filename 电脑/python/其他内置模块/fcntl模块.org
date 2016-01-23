@@ -1,0 +1,30 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: fcntl模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+
+
+* lockf函数
+#+BEGIN_EXAMPLE
+    try:
+        fcntl.lockf (f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except IOError, e:
+        if e.errno == errno.EAGAIN:
+            sys.stderr.write ('[%s] Script already running.\n' % time.strftime ('%c') )
+            sys.exit (-1)
+        raise
+#+END_EXAMPLE
+lockf第一个参数是python中的文件对象，意思是具体对某个文件执行某个操作，这里的 ~fcntl.LOCK_EX~ 是获得一个排他锁，其还可以和 ~fcntl.LOCK_NB~ 用或逻辑连起来，意思是如果排他锁不能获得（这通常是指本程序之前某个实例还在运行），那么将会raise IOErro。
+
+最后程序进程快运行完了，最好将这个文件解锁，这并不需要你调用lockf然后加上 ~LOCK_UN~ 参数，其实简单的关闭原文件对象即可。——有的时候不关闭python程序结束后会自动关闭，但最好还是加上这样一句关闭命令。
+
+
+
+

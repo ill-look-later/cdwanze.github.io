@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>datetime模块</title>
+<!-- 2015-11-03 19:01 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js","TeX/mhchem.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        },
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">datetime模块</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 简介</a></li>
+<li><a href="#sec-2">2. timedelta对象</a></li>
+<li><a href="#sec-3">3. datetime对象</a>
+<ul>
+<li><a href="#sec-3-1">3.1. now和utcnow类方法</a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1. 查看pytz的所有时区</a></li>
+<li><a href="#sec-3-1-2">3.1.2. 具体给now方法指定一个时区</a></li>
+<li><a href="#sec-3-1-3">3.1.3. now方法和utcnow方法区别</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2. 可以调用的属性</a></li>
+<li><a href="#sec-3-3">3.3. strftime方法</a></li>
+<li><a href="#sec-3-4">3.4. 支持的时间间隔运算</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 简介</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+简单的日期时间操作用time模块里面的一些函数即可，datetime模块是用类的方式来处理的，适合大量处理日期时间的任务。然后值得一提的是mongodb的python接口pymongo里面，日期时间是可以直接输入datetime对象的，这很是方便。
+</p>
+
+<p>
+下面简要介绍之，更多内容请参看 <a href="https://docs.python.org/3.4/library/datetime.html">官方文档</a> 。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> timedelta对象</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+通过timedelta函数返回一个timedelta对象，也就是一个表示时间间隔的对象。函数参数情况如下所示:
+</p>
+
+<pre class="example">
+class datetime.timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[, hours[, weeks]]]]]]])
+</pre>
+
+<p>
+其没有必填参数，简单控制的话第一个整数就是多少天的间隔的意思:
+</p>
+
+<pre class="example">
+datetime.timedelta(10)
+</pre>
+
+<p>
+两个时间间隔对象可以彼此之间相加或相减，返回的仍是一个时间间隔对象。而更方便的是一个datetime对象如果减去一个时间间隔对象，那么返回的对应减去之后的datetime对象，然后两个datetime对象如果相减返回的是一个时间间隔对象。这很是方便。
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> datetime对象</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+通过datetime函数可以创建一个datetime对象:
+</p>
+<pre class="example">
+class datetime.datetime(year, month, day[, hour[, minute[, second[, microsecond[, tzinfo]]]]])
+</pre>
+
+<p>
+其中year，month和day是必填参数。下面是一个简单的例子:
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; db_t = {
+...  "date": datetime.datetime(1777,07,07)
+... }
+&gt;&gt;&gt; db_t
+{'date': datetime.datetime(1777, 7, 7, 0, 0)}
+</pre>
+
+<p>
+其通过pymongo存入mongodb之后是这样的形式:
+</p>
+<pre class="example">
+ISODate("1777-07-07T00:00:00.000Z")
+</pre>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> now和utcnow类方法</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+datetime对象有 <code>now</code> 和 <code>utcnow</code> 这两个类方法（classmethod）来返回当前日期时间的datetime对象。utcnow不可以接受参数，now方法可以接受一个tz指定时区的参数，我们可以通过pytz模块（注意，这是一个第三方模块，可以通过pip安装之。）来具体指明某个时区。
+</p>
+</div>
+
+<div id="outline-container-sec-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> 查看pytz的所有时区</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+参看 <a href="http://stackoverflow.com/questions/13866926/python-pytz-list-of-timezones">这个网页</a> 。
+</p>
+<pre class="example">
+&gt;&gt;&gt; pytz.all_timezones
+['Africa/Abidjan', 'Africa/Accra', 'Africa/Addis_Ababa', 'Africa/Algiers', ......
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> 具体给now方法指定一个时区</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+参看 <a href="http://stackoverflow.com/questions/2331592/datetime-datetime-utcnow-why-no-tzinfo">这个网页</a> 。
+</p>
+
+<pre class="example">
+import pytz
+datetime.datetime.now(tz = pytz.timezone("Asia/Hong_Kong"))
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-1-3" class="outline-4">
+<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> now方法和utcnow方法区别</h4>
+<div class="outline-text-4" id="text-3-1-3">
+<p>
+我们看下面这个例子:
+</p>
+<pre class="example">
+&gt;&gt;&gt; datetime.now(tz = pytz.timezone("UTC")),datetime.utcnow()
+(datetime.datetime(2015, 7, 11, 9, 25, 20, 266863, tzinfo=&lt;UTC&gt;), datetime.datetime(2015, 7, 11, 9, 25, 20, 266888))
+</pre>
+
+<p>
+如果我们给now方法指定默认的时区是"UTC"，那么我们看到其返回的datetime对象和utcnow返回的datetime对象基本上没什么区别，后面的微秒（ \(10^{-6}\) 秒）有点区别完全可以理解。然后我们再看now方法如果不加任何参数会如何:
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; now
+datetime.datetime(2015, 7, 11, 16, 34, 43, 144018)
+&gt;&gt;&gt; utcnow
+datetime.datetime(2015, 7, 11, 8, 34, 56, 319108)
+</pre>
+
+<p>
+这里now显示的时间和本地的时间是一致的，说明now默认的时区是本地的时区参数。谈到这里大家应该就明白了，如果是后台数据库有日期时间输入需求，为了保持时间戳的一致性，推荐都使用utcnow方法来生成时间戳，也就是实际上都以UTC格林威治时区为准。如果到前端需要显示给用户具体的日期时间了，如果要引用前端数据库的日期时间，才需要引入时区的考虑进行必要的转换。然后如果前端需要用python生成实时的时间，那么就用now方法再引入pytz的时区控制。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 可以调用的属性</h3>
+<div class="outline-text-3" id="text-3-2">
+<pre class="example">
+&gt;&gt;&gt; from datetime import datetime
+&gt;&gt;&gt; d = datetime.now()
+&gt;&gt;&gt; d.year
+2015
+&gt;&gt;&gt; d.month
+11
+&gt;&gt;&gt; d.day
+3
+&gt;&gt;&gt; d.hour
+18
+&gt;&gt;&gt; d.minute
+42
+&gt;&gt;&gt; d.second
+57
+&gt;&gt;&gt; d.tzinfo
+&gt;&gt;&gt; d
+datetime.datetime(2015, 11, 3, 18, 42, 57, 919613)
+</pre>
+
+<p>
+具体如上所示，含义一清二楚:
+</p>
+<dl class="org-dl">
+<dt> year </dt><dd>年
+</dd>
+<dt> month </dt><dd>月
+</dd>
+<dt> day </dt><dd>日
+</dd>
+<dt> hour </dt><dd>时
+</dd>
+<dt> minute </dt><dd>分
+</dd>
+<dt> second </dt><dd>秒
+</dd>
+<dt> microsecond </dt><dd>微秒
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> strftime方法</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+datetime对象可以如下调用 <code>strftiime</code> 方法或者 <code>__format__</code> 方法来得到一个好看的你想要的日期时间字符串格式:
+</p>
+<pre class="example">
+&gt;&gt;&gt; from datetime import datetime
+&gt;&gt;&gt; d = datetime.now()
+&gt;&gt;&gt; d.strftime('%T')
+'18:52:39'
+&gt;&gt;&gt; d.__format__('%F')
+'2015-11-03'
+</pre>
+
+<p>
+这里的格式符号python官方文档有所述及，而更实际上是和linux系统下的 <code>date</code> 命令的格式符一致的，读者可以用 <code>date --help</code> 来看一下，就可以看到如下信息:
+</p>
+
+<pre class="example">
+%%	一个文字的 %
+%a	当前locale 的星期名缩写(例如： 日，代表星期日)
+%A	当前locale 的星期名全称 (如：星期日)
+%b	当前locale 的月名缩写 (如：一，代表一月)
+%B	当前locale 的月名全称 (如：一月)
+%c	当前locale 的日期和时间 (如：2005年3月3日 星期四 23:05:25)
+%C	世纪；比如 %Y，通常为省略当前年份的后两位数字(例如：20)
+%d	按月计的日期(例如：01)
+%D	按月计的日期；等于%m/%d/%y
+%e	按月计的日期，添加空格，等于%_d
+%F	完整日期格式，等价于 %Y-%m-%d
+%g	ISO-8601 格式年份的最后两位 (参见%G)
+%G	ISO-8601 格式年份 (参见%V)，一般只和 %V 结合使用
+%h	等于%b
+%H	小时(00-23)
+%I	小时(00-12)
+%j	按年计的日期(001-366)
+%k   hour, space padded ( 0..23); same as %_H
+%l   hour, space padded ( 1..12); same as %_I
+%m   month (01..12)
+%M   minute (00..59)
+%n	换行
+%N	纳秒(000000000-999999999)
+%p	当前locale 下的"上午"或者"下午"，未知时输出为空
+%P	与%p 类似，但是输出小写字母
+%r	当前locale 下的 12 小时时钟时间 (如：11:11:04 下午)
+%R	24 小时时间的时和分，等价于 %H:%M
+%s	自UTC 时间 1970-01-01 00:00:00 以来所经过的秒数
+%S	秒(00-60)
+%t	输出制表符 Tab
+%T	时间，等于%H:%M:%S
+%u	星期，1 代表星期一
+%U	一年中的第几周，以周日为每星期第一天(00-53)
+%V	ISO-8601 格式规范下的一年中第几周，以周一为每星期第一天(01-53)
+%w	一星期中的第几日(0-6)，0 代表周一
+%W	一年中的第几周，以周一为每星期第一天(00-53)
+%x	当前locale 下的日期描述 (如：12/31/99)
+%X	当前locale 下的时间描述 (如：23:13:48)
+%y	年份最后两位数位 (00-99)
+%Y	年份
+%z +hhmm		数字时区(例如，-0400)
+%:z +hh:mm		数字时区(例如，-04:00)
+%::z +hh:mm:ss	数字时区(例如，-04:00:00)
+%:::z			数字时区带有必要的精度 (例如，-04，+05:30)
+%Z			按字母表排序的时区缩写 (例如，EDT)
+</pre>
+
+<p>
+其中的 <code>%F</code> 和 <code>%T</code> 在python官方文档中并无说明，可见其内部API是和这个 <code>date</code> 命令一致的。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 支持的时间间隔运算</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+前面提到了一个datetime对象减去一个timedelta对象返回一个datetime对象，然后一个datetime对象减去一个datetime对象返回一个时间间隔对象。比如此时之前一年的时间可以这样表达 <code>datetime.datetime.utcnow() - datetime.timedelta(365)</code> 。然后此时和爱因斯坦的生日时间间隔可以这样表达: <code>datetime.datetime.utcnow() - datetime.datetime(1879,03,14)</code> 。
+</p>
+
+<p>
+然后我们可以利用这个时间间隔来进行一些操作和判断。
+</p>
+<pre class="example">
+&gt;&gt;&gt; delta = datetime.datetime.utcnow() - datetime.datetime(1879,03,14)
+&gt;&gt;&gt; delta
+datetime.timedelta(49792, 35970, 903285)
+&gt;&gt;&gt; delta &gt; datetime.timedelta(120*365)
+True
+&gt;&gt;&gt; delta.days // 365
+136
+</pre>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-03 19:01.</p></div>
+</body>
+</html>

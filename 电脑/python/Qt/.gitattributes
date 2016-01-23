@@ -1,0 +1,4 @@
+C++-GUI-Programming-with-Qt-4.pdf filter=lfs diff=lfs merge=lfs -text
+C++[[:space:]]GUI[[:space:]]Qt4[[:space:]]编程.pdf filter=lfs diff=lfs merge=lfs -text
+pyqt-book.pdf filter=lfs diff=lfs merge=lfs -text
+The[[:space:]]Book[[:space:]]of[[:space:]]Qt[[:space:]]4[[:space:]]-[[:space:]]The[[:space:]]Art[[:space:]]of[[:space:]]Building[[:space:]]Qt[[:space:]]Applications.pdf filter=lfs diff=lfs merge=lfs -text

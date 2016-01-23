@@ -1,0 +1,136 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: setuptools模块
+#+AUTHOR: 万泽
+#+CREATOR: 编者:万泽
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+虽然官方内置distutils模块也能实现类似的功能，不过现在人们更常用的是第三方模块setuptools，相当于distutils模块的加强版，初学者推荐就使用setuptools模块。
+
+* 安装
+安装就是先安装pip3：
+#+BEGIN_EXAMPLE
+sudo apt-get install python3-pip
+#+END_EXAMPLE
+
+
+然后通过pip3来安装setuptools：
+#+BEGIN_EXAMPLE
+sudo pip3 install setuptools
+#+END_EXAMPLE
+
+
+* setuptools基础
+安装官方文档最简单的“setup.py”文件如下所示：
+#+BEGIN_SRC python
+from setuptools import setup, find_packages
+setup(
+    name = "HelloWorld",
+    version = "0.1",
+    packages = find_packages(),
+)
+#+END_SRC
+
+第一行是从setuptools模块中引入setup函数和find_packages函数。
+
+setup函数接受一系列的字典值，下面就setup函数的一些字典值的含义慢慢道来：
+
+- name ::  本软件的名字
+- version ::  本软件的版本号
+- author ::  本软件的作者
+- author_email ::  本软件作者的邮箱
+- maintainer ::  本软件的维护者
+- maintainer_email ::  本软件维护者的邮箱
+- contact ::  本软件的联系人。可以不写，则是维护者的名字，如果没有则是作者的名字。
+- contact_email ::  本软件的联系人的邮箱，可以不写，则是维护者的邮箱，如果没有则是作者的邮箱。
+- license ::  本软件的license
+- url ::  本软件项目主页地址
+- description ::  本软件的简要描述
+- long_description ::  本软件的完整描述，一般如下定义一行函数，然后读取本地目录下面README.md文件。
+
+#+BEGIN_SRC python
+import os.path
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+#+END_SRC
+
+然后long_description如下设置：
+#+BEGIN_SRC python
+long_description=read('README.md'),
+#+END_SRC
+
+- platforms ::  本软件经过测试可运行的平台
+- classifiers ::  本软件的分类，请参考[[https://pypi.python.org/pypi?%3Aaction=list_classifiers][这个网页]] 给出一些值。是字符串的列表。
+- keywords ::  本软件在pypi上搜索的关键词，字符串的列表。
+- packages ::  你的软件依赖的模块。一般如下使用：
+
+#+BEGIN_SRC python
+packages = find_packages(),
+#+END_SRC
+
+则你文件夹下有 ~__init__.py~ 文件的都将视作python模块并加入进去。
+
+除此之外你也可以直接手工输入你的模块名字，具体就是字符串的列表。
+- entry_point ::  entry_point属性视图解决在Linux [fn::windows下的情况不清楚。] 下的脚本调用问题。如下所示：
+
+#+BEGIN_SRC python
+  entry_points = {
+  'console_scripts' :[ 'zwc=zwc.zwc:main',],
+  }
+#+END_SRC
+
+其中zwc是你的shell调用的名字，然后zwc是你的模块，另外一个zwc是你的主模块的子模块，然后main是其中的main函数。这就是你的shell调用程序的接口了。类似的还有gui_script可以控制你调用GUI图形的命令入口。
+- install_requires ::  接受字符串的列表值，将你依赖的可以通过pip安装的模块名放入进去，然后你的软件安装会自动检测并安装这些依赖模块。
+- package_data ::  你的软件的模块额外附加的（除了py文件的）其他文件，具体设置类似这样 ~{"skeleton":['*.txt'],}~ 其中skeleton这里就是具体的你的软件的模块（对应的文件夹名），然后后面跟着的就是一系列的文件名列表，可以接受glob语法。注意这里只能包含你的模块文件夹也就是前面通过packages控制的文件夹下面的内容。
+- include_package_data ::  这个一般设置为True，似乎可以省略？
+
+其他不常用的属性值列在下面：
+- scripts ::  不推荐使用，推荐通过entry_point来生成脚本。
+- py_modules ::  不推荐使用，推荐使用packages来管理模块。
+- data_files ::  前面的package_data是只能在你的模块文件夹里面的其他数据文件等，然后可能还有一些数据文件你需要包含的，用data_files来控制，具体后面跟着的参数格式如下面例子所示：
+#+BEGIN_SRC python
+data_files = [('icos',['icos/wise.ico'])],
+#这是添加的icos文件夹下面的wise.ico文件
+data_files = [('',['skeleton.tar.gz'])],
+#这是添加的主目录下的skeleton.tar.gz文件
+#+END_SRC
+
+值得一提的是data_files不能接受glob语法。
+
+data_files已经不推荐使用了，推荐用package_data来管理，可以方便用pkg_resources里面的方法来引用其中的资源文件。具体说明请看后面。
+
+
+* pkg_resources模块来管理读取资源文件
+如下所示
+#+BEGIN_EXAMPLE
+from pkg_resources import resource_filename
+resource_stream('wise','icos/Folder-Documents.ico')
+#+END_EXAMPLE
+
+第一个参数是模块名字，第二个参数是模块中的文件的相对路径表达。
+
+上面的例子是resource_filename，返回的是引用的文件名。此外还有命令：resource_string，参数和resource_filename一样，除了它返回的是字节流。这个字节流可以赋值给某个变量从而直接使用，或者存储在某个文件里面。
+
+
+* 在pypi上注册你的软件
+具体很简单，就是
+#+BEGIN_SRC sh
+python3 setup.py register
+#+END_SRC
+
+你需要在pypi官网上注册一个帐号，然后你的软件不一定能够注册成功，因为很多好名字都被别人取了。。
+
+* 在pypi上上传你的软件
+#+BEGIN_SRC sh
+python3 setup.py sdist upload 
+#+END_SRC
+
+* 一个项目模板
+我在github上创建了一个小项目，这个小项目支持快速新建一个项目。
+
+[[https://github.com/a358003542/skeleton][https://github.com/a358003542/skeleton]] 
+

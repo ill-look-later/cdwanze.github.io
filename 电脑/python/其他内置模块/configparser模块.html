@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>configparser配置文件管理</title>
+<!-- 2015-11-02 17:38 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">configparser配置文件管理</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. ConfigParser模块</a></li>
+<li><a href="#sec-2">2. 配置文件的格式</a></li>
+<li><a href="#sec-3">3. SafeConfigParser类</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 读取一个配置文件</a></li>
+<li><a href="#sec-3-2">3.2. 获取某个值</a></li>
+<li><a href="#sec-3-3">3.3. 插入或修改某个值</a></li>
+<li><a href="#sec-3-4">3.4. 写入配置文件</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. 其他额外的一些方法</a>
+<ul>
+<li><a href="#sec-4-1">4.1. getint方法</a></li>
+<li><a href="#sec-4-2">4.2. getfloat方法</a></li>
+<li><a href="#sec-4-3">4.3. getboolean方法</a></li>
+<li><a href="#sec-4-4">4.4. items方法</a></li>
+<li><a href="#sec-4-5">4.5. has_section</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. python3的情况</a>
+<ul>
+<li><a href="#sec-5-1">5.1. 新建一个configparser对象</a></li>
+<li><a href="#sec-5-2">5.2. 读取某个config文件</a></li>
+<li><a href="#sec-5-3">5.3. 如同字典一般操作configparser对象</a></li>
+<li><a href="#sec-5-4">5.4. 调用write方法写入</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> ConfigParser模块</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+简单的配置文件管理就用python的内置模块ConfigParse，在python3下是configparser。
+</p>
+
+<p>
+具体使用新用户推荐就用 <code>SafeConfigParser</code> 类，其继承自 <code>Configparer</code> 类，其又继承自 <code>RawConfigParser</code> 类。我在初步学习了python2的ConfigParser模块的使用之后，一个感想就是config应该建立类似字典的api出来，这样对用户的使用更加友好，然后看到python3的configparser，果然python3对这个模块的修改让其更加简单易用了，现在python3里面的config更接近字典的api操作了。
+</p>
+
+<p>
+下面是python3官方文档提供的例子:
+</p>
+<pre class="example">
+&gt;&gt;&gt; import configparser
+&gt;&gt;&gt; config = configparser.ConfigParser()
+&gt;&gt;&gt; config['DEFAULT'] = {'ServerAliveInterval': '45',
+...                      'Compression': 'yes',
+...                      'CompressionLevel': '9'}
+&gt;&gt;&gt; config['bitbucket.org'] = {}
+&gt;&gt;&gt; config['bitbucket.org']['User'] = 'hg'
+&gt;&gt;&gt; config['topsecret.server.com'] = {}
+&gt;&gt;&gt; topsecret = config['topsecret.server.com']
+&gt;&gt;&gt; topsecret['Port'] = '50022'     # mutates the parser
+&gt;&gt;&gt; topsecret['ForwardX11'] = 'no'  # same here
+&gt;&gt;&gt; config['DEFAULT']['ForwardX11'] = 'yes'
+&gt;&gt;&gt; with open('example.ini', 'w') as configfile:
+...   config.write(configfile)
+</pre>
+<p>
+更多详细细节请参看python3的官方文档，下面主要就python2的ConfigParser模块作一些说明。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 配置文件的格式</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+配置文件还可以采用一种冒号分隔的格式，不过推荐就采用等号的格式，如下所示:
+</p>
+<pre class="example">
+[section1]
+key = value
+</pre>
+
+<p>
+其中value变成字符串之后两边的空格都会被移除。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> SafeConfigParser类</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+前面谈到新用户推荐就使用SafeConfigParser类来新建一个config对象，如下所示:
+</p>
+<pre class="example">
+import ConfigParser
+config = ConfigParser.SafeConfigParser()
+</pre>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 读取一个配置文件</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+如果有现有的配置文件需要读取，则调用config对象的 <strong>read</strong> 方法:
+</p>
+<pre class="example">
+config.read('test.cfg')
+</pre>
+
+<p>
+read方法调用完就行了，config对象已经存储了那些值了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 获取某个值</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+调用config对象的 <strong>get</strong> 方法，具体格式如下:
+</p>
+<pre class="example">
+config.get(section, option[, raw[, vars]])
+</pre>
+
+<p>
+其有两个必填参数，第一个是section的名字，默认的"DEFAULT"也可以这样填上去，然后第二个参数是该section下的某个键或说option。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 插入或修改某个值</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+调用config对象的 <strong>set</strong> 方法来进行修改某个值的操作，具体格式如下:
+</p>
+<pre class="example">
+config.set(section, option, value)
+</pre>
+
+<p>
+其有三个必填参数，第一个是section的名字，默认的"DEFAULT"也可以这样填上去，然后第二个是该section下某个键或说某个option，然后具体该option的值设置为第三个参数。
+</p>
+
+<p>
+然后需要注意的是，如果set方法对于的某个section名字原config对象还没有的话，会报错的。你需要先调用 <strong>add_section</strong> 方法来插入该section，然后才能正常用set设置某个键值。
+</p>
+
+<pre class="example">
+config.add_section('Section1')
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 写入配置文件</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+config对象修改好了之后，最后就是写入配置文件中去了。调用 <strong>write</strong> 方法，然后接一个文件对象，如下所示:
+</p>
+
+<pre class="example">
+config.write(open("test.cfg","w"))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 其他额外的一些方法</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> getint方法</h3>
+<div class="outline-text-3" id="text-4-1">
+<pre class="example">
+config.getint(section, option)
+</pre>
+<p>
+get方法的补充，从名字看得出来，其返回一个int值。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> getfloat方法</h3>
+<div class="outline-text-3" id="text-4-2">
+<pre class="example">
+config.getfloat(section, option)
+</pre>
+<p>
+get方法的补充，从名字看得出来，其返回一个float值。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> getboolean方法</h3>
+<div class="outline-text-3" id="text-4-3">
+<pre class="example">
+config.getboolean(section, option)
+</pre>
+<p>
+get方法的补充，从名字看得出来，其返回一个布尔值。
+</p>
+
+<p>
+具体规则是，字符串 "1" ，"true" ， "on" 不分大小写视作 True ； 字符串 "0" ， "false" ， "off" 不分大小写视作 False；其他都视作 ValueError。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> items方法</h3>
+<div class="outline-text-3" id="text-4-4">
+<pre class="example">
+config.items(section)
+</pre>
+<p>
+把某个section部分看作字典，调用类似字典的items方法，返回键值对列表。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> has_section</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+判断某个section是否存在，"DEFAULT"不在考虑范围内。
+</p>
+
+<pre class="example">
+config.has_section(section)
+</pre>
+
+
+<p>
+还有其他一些方法这里就不赘述了，具体请参看 <a href="https://docs.python.org/2/library/configparser.html">官方文档</a> 。
+</p>
+
+
+<hr >
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> python3的情况</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+python3之后configparser的使用更加简单了，具体就分为如下几步:
+</p>
+</div>
+
+<div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 新建一个configparser对象</h3>
+<div class="outline-text-3" id="text-5-1">
+<pre class="example">
+import configparser
+config = configparser.ConfigParser()
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 读取某个config文件</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+调用read方法具体读取某个config文件。
+</p>
+<pre class="example">
+config.read('test.cfg')
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 如同字典一般操作configparser对象</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+然后接下来就是如同字典一般操作这个configparser对象。其中 'DEFAULT' 是特殊的section，大致如下这样表达:
+</p>
+<pre class="example">
+config['DEFAULT'] = {'ServerAliveInterval': '45',
+                     'Compression': 'yes',
+                     'CompressionLevel': '9'}
+config['bitbucket.org'] = {}
+config['bitbucket.org']['User'] = 'hg'
+config['topsecret.server.com'] = {}
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 调用write方法写入</h3>
+<div class="outline-text-3" id="text-5-4">
+<pre class="example">
+with open('example.ini', 'w') as configfile:
+    config.write(configfile)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
+</body>
+</html>

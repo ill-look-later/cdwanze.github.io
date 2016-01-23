@@ -1,0 +1,172 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: learning asyncio
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* get_event_loop
+
+* 
+
+* loop
+
+** run_forever
+开启loop循环，如果其中stop函数被调用，则已经挂载的callback会继续执行然后退出，挂载的callback若进一步生成的挂载，则不会执行，要等到下一次执行run_forever才会被继续执行。
+
+
+** run_until_complete(future)
+
+   
+** is_running
+return the running status of event loop
+
+
+** stop
+
+** is_closed
+
+
+** close
+close the event loop imediately.
+
+
+** call_soon(callback,*args)
+the callback called imediately
+
+** call_later(delay,callback,*args)
+after delay seconds and call it.
+
+** call_at(when,callback,*args)
+call it at which time
+
+** time()
+return the current time based on event loop’s internal clock????????
+
+
+** create_task
+return a task object，简单理解就是给loop事件循环添加一个待执行的协程任务，然后这个任务对象可以内部可以添加计划多个任务流。
+
+** create_server
+Create a TCP server
+
+
+** create_connection(protocol_factory, host=None, port=None,...)
+streaming transport connection to a given Internet host and port: socket family AF_INET or AF_INET6 
+
+
+
+** create_datagram_endpoint
+
+** create_unix_server
+
+** create_unix_connection
+
+** add_reader
+
+** remove_reader
+
+** add_writer
+
+** remove_writer
+
+
+----
+下面是套接字的熟悉接口:
+** sock_recv
+
+** sock_sendall
+
+** sock_connect
+
+** sock_accept
+
+** getaddrinfo
+
+** getnameinfo
+
+-------
+unix only singal handle
+
+** add_signal_handler(signum, callback, *args)
+
+** remove_signal_handler(sig)
+
+
+* 传输层
+
+** close
+
+** is_closing
+
+** get_extra_info
+
+** pause_reading
+data_received将不会接受数据，直到resume_reading执行。
+
+** resume_reading
+
+** abort
+传输层立即被关停
+
+** can_write_eof
+
+** get_write_buffer_size
+
+** get_write_buffer_limits
+
+** set_write_buffer_limits
+
+** write(data)
+传输层写入字节流，这个方法并不会阻塞、
+
+** writelines(list_of_data)
+
+** write_eof()
+flush data然后关闭传输层
+
+
+
+-------
+** sendto
+datagram的传输层
+
+** abort
+datagram的传输层
+
+
+
+* 协议层
+定义自己的协议如下格式:
+#+BEGIN_EXAMPLE
+class MyProtocol(asyncio.Protocol):
+#+END_EXAMPLE
+
+然后就是定义各个重载方法，具体方法执行流程如下:
+
+#start -> connection_made() [-> data_received() *] [-> eof_received() ?] -> connection_lost() -> end
+
+** connection_made(transport)
+when connect is made, called once.
+
+** data_received(data)
+when some data is received, can be called many times.
+
+** eof_received
+end of this connection , called at most once.
+
+
+** connection_lost(exc)
+when the connection is lost
+
+
+
+* 协程函数
+
+
+
+* Task

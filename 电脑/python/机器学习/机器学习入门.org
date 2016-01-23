@@ -1,0 +1,35 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: 机器学习入门
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+
+机器学习问题就是给你一系列的样本数据，然后来预测下一组数据的可能情况。其中样本数据有很多维的输入，我们说它有很多属性（attribute）或特性（feature）。
+
+机器学习分为 supervised learning 监督学习 和 unsupervised learning 不监督学习。监督学习又分为: 分类问题和回归分析问题。
+
+
+#+BEGIN_EXAMPLE
+>>> from sklearn import datasets
+>>> iris = datasets.load_iris()
+>>> digits = datasets.load_digits()
+>>> digits.data
+array([[  0.,   0.,   5., ...,   0.,   0.,   0.],
+       [  0.,   0.,   0., ...,  10.,   0.,   0.],
+       [  0.,   0.,   0., ...,  16.,   9.,   0.],
+       ..., 
+       [  0.,   0.,   1., ...,   6.,   0.,   0.],
+       [  0.,   0.,   2., ...,  12.,   0.,   0.],
+       [  0.,   0.,  10., ...,  12.,   1.,   0.]])
+>>> 
+
+#+END_EXAMPLE
+
+* 参考资料
+1. [[http://scikit-learn.org/stable/tutorial/basic/tutorial.html][an introduction to machine learning with scikit-learn]]

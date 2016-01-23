@@ -190,9 +190,50 @@ print('Received', repr(data))
 
 
 
+
+** github pages自定义域名
+内容是放在github上的，下面重点说一下自定义域名的问题。域名及其相关概念请参看 [[http://www.pchou.info/web-build/2013/01/05/build-github-blog-page-03.html][这个网站]] ，后面适时我还会提到一些 。
+
+1. 首先是购买域名，推荐到 [[https://www.godaddy.com/][godaddy]] 上购买。买好的域名就可以在网页浏览器上刷了，只是还没有任何内容。
+
+2. 如果你面向的浏览者主要是国外用户，那么就在godaddy上设置好dns，和接下来要讲的在 [[https://www.dnspod.cn/][dnspot]] 上是类似的。如果你要使用dnspot的域名解析服务，又是在godaddy上买的域名，那么需要在godaddy上把dns服务器更改一下。
+
+如下图所示：
+#+CAPTION: godaddy-nameserver
+[[file:templates/images/godaddy-nameserver.png]]
+
+3. github pages 的根目录上新建一个 ~CNAME~ 文件，比如我的域名是 ~www.cdwanze.org~ ，那么就写上 ~www.cdwanze.org~ 。
+
+这个时候过了一会儿你如果点击你原来的github pages，那么就会转到对 ~http://www.cdwanze.org~ 的请求上。
+
+4. 你还需要在dnspot上设置好A和CNAME，你的网页才能正常工作。
+
+其中 *A* 是域名转IP地址，然后 *CNAME* 是什么域名请求转成什么域名请求。如下图所示这样设置[fn::请参看[[http://pigerla.com/github-pages/2014-11-17/setting-up-a-custom-domain-with-github-pages/][这个网页]]。]。
+
+#+CAPTION: dnspot设置
+[[file:templates/images/dnspot设置.png]]
+
+我们可以理解为对 ~www.cdwanze.org~ 的请求到了godaddy那里，然后godaddy说dns服务在dnspot那边，然后又跑到dnspot这里，遇到了这个CNAME设置，说转成 ~a358003542.github.io.~ 的域名请求，然后这里的A设置就是 ~a358003542.github.io.~ 这个域名请求送入这两个IP地址那里，这两个IP地址就是github pages的域名解析服务点。
+
+5. 还要等上几分钟，才会生效。
+
+
+
+
+
+
+
+
 * 参考资料
 1. 计算机网络自顶向下方法 , Author: James F. Kurose , Keith W. Ross ,陈鸣译 。
+
+这本书作为入门了解有关计算机网络相关知识还是很不错的，文档有点大，只好放在 [[https://drive.google.com/open?id=0ByWxOeitx54Pbk40MkU2a0VOUE0][google drive]] 那里了。
+
+
+
 2. Unix网络编程卷1: 套接字联网API , Author: W. R. Stevens , Bill Fenner 等著 , version: 第三版 
+
+
 
 
 

@@ -1,0 +1,149 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+
+#+TITLE: pathlib模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+自python3.4以后起，python3就内置了pathlib模块了，不过之前的python版本，通过pip安装pathlib之后，后面的使用也差不了太多了。下面的讨论主要参考了python3.4 pathlib模块的官方文档，以其为准。
+
+这个模块主要让我们对系统的路径更加灵活的操作，python取代bash进行系统运维的时候，有大量的对文件名，路径等的操作，pathlib将大大简化我们在这一块的工作量。
+
+下面的例子是在python2.7，通过pip安装pathlib环境下运行的。就一般的使用使用 ~Path~ 类即可。
+
+** 第一个例子
+#+BEGIN_SRC python
+from pathlib import Path
+import os
+
+p1 = Path(os.path.expanduser('~'))
+p2 = Path('.')
+
+print([x for x in p1.glob("*.pdf") if x.is_file()])
+print([x for x in p2.iterdir() if x.is_dir()])
+#+END_SRC
+
+其运行结果如下:
+#+BEGIN_EXAMPLE
+[PosixPath('/home/wanze/Pentaho Analytics for MongoDB.pdf'), PosixPath('/home/wanze/Python_for_Data_Analysis.pdf'), PosixPath('/home/wanze/pearsons.pdf'), PosixPath('/home/wanze/ecs_sdk.pdf'), PosixPath('/home/wanze/Pentaho Kettle Solutions.pdf')]
+[PosixPath('Rambutan'), PosixPath('wanze_private'), PosixPath('forebrain'), PosixPath('python-future')]
+#+END_EXAMPLE
+
+这里Path是可以接受相对路径语法的，所以"."和".."都是可用的。然后Path对象有方法glob和iterdir方法，其中glob就是类似linux的glob命令，这个后面细讲；然后iterdir将遍历当前目录。遍历之后返回了一个可迭代对象（读者可以看一下，是一个生成器对象），展开之后仍然是一个个Path对象。然后Path对象有 ~is_file~ 方法和 ~is_dir~ 方法来判断该Path对象是不是文件夹或者文件路径。
+
+
+* Path对象详解
+** 基于Path的遍历
+*** iterdir方法
+
+*** glob方法
+
+*** rglob方法
+
+然后和一些基于Path的判断函数结合，我们可以设计出一些更简便的函数:
+** 基于Path的判断
+*** exists()
+
+*** is_file()
+
+*** is_dir()
+
+*** is_symlink()
+
+
+
+#+BEGIN_EXAMPLE
+def ls_file(path="."):
+    return [p for p in Path(path).iterdir() if p.is_file()]
+
+def ls_dir(path="."):
+    return [p for p in Path(path).iterdir() if p.is_dir()]
+#+END_EXAMPLE
+
+** 基于Path的路径组合操作
+*** parts
+
+*** drive
+
+*** root
+
+
+*** anchor
+
+*** parents
+
+*** parent
+
+
+*** joinpath
+
+** 基于Path的常规命令操作
+
+*** cwd()
+
+*** stat()
+
+*** chmod(mode)
+
+*** rename(target)
+
+*** rmdir()
+
+
+*** lchmod(mode)
+
+*** lstat()
+
+*** mkdir(mode=0o777, parents=False)
+
+
+*** touch
+
+** 基于Path的文件操作
+*** suffix
+*** suffixes
+
+
+*** name
+
+
+*** stem
+
+*** open(mode='r', buffering=-1, encoding=None, errors=None, newline=None)
+
+
+*** as_uri
+
+*** as_posix
+
+*** is_absolute
+
+
+
+
+group()
+
+
+is_socket()
+
+is_fifo()
+
+is_block_device()
+
+is_char_device()
+
+owner()
+
+replace(target
+
+resolve
+
+symlink_to
+
+unlink

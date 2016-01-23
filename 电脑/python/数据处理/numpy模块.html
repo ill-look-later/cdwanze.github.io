@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>numpy模块</title>
+<!-- 2015-11-26 16:24 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js","TeX/mhchem.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        },
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">numpy模块</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. numpy基础</a>
+<ul>
+<li><a href="#sec-1-1">1.1. 安装</a></li>
+<li><a href="#sec-1-2">1.2. 引用惯例</a></li>
+<li><a href="#sec-1-3">1.3. numpy ndarray对象和python的列表的区别</a></li>
+<li><a href="#sec-1-4">1.4. ndarray对象</a>
+<ul>
+<li><a href="#sec-1-4-1">1.4.1. dtype清单</a>
+<ul>
+<li><a href="#sec-1-4-1-1">1.4.1.1. ndarray的dtype变换</a></li>
+<li><a href="#sec-1-4-1-2">1.4.1.2. dtype对象的从属关系</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4-2">1.4.2. shape属性</a></li>
+<li><a href="#sec-1-4-3">1.4.3. 创建一个ndarray对象</a>
+<ul>
+<li><a href="#sec-1-4-3-1">1.4.3.1. 从python数据结构中创建</a></li>
+<li><a href="#sec-1-4-3-2">1.4.3.2. arrange函数</a></li>
+<li><a href="#sec-1-4-3-3">1.4.3.3. linspace函数</a></li>
+<li><a href="#sec-1-4-3-4">1.4.3.4. zeros函数</a></li>
+<li><a href="#sec-1-4-3-5">1.4.3.5. ones函数</a></li>
+<li><a href="#sec-1-4-3-6">1.4.3.6. empty函数</a></li>
+<li><a href="#sec-1-4-3-7">1.4.3.7. indices函数</a></li>
+<li><a href="#sec-1-4-3-8">1.4.3.8. eye函数</a></li>
+<li><a href="#sec-1-4-3-9">1.4.3.9. 随机创建</a></li>
+<li><a href="#sec-1-4-3-10">1.4.3.10. 从文本创建</a></li>
+<li><a href="#sec-1-4-3-11">1.4.3.11. 从输入字节流创建</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4-4">1.4.4. 索引值</a>
+<ul>
+<li><a href="#sec-1-4-4-1">1.4.4.1. 索引多个值或说view</a>
+<ul>
+<li><a href="#sec-1-4-4-1-1">1.4.4.1.1. copy方法</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4-4-2">1.4.4.2. 布尔值索引</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4-5">1.4.5. ndarray对象转置</a></li>
+<li><a href="#sec-1-4-6">1.4.6. 基本的运算</a></li>
+<li><a href="#sec-1-4-7">1.4.7. flatten方法</a></li>
+<li><a href="#sec-1-4-8">1.4.8. sort方法</a></li>
+<li><a href="#sec-1-4-9">1.4.9. 通用的一些方法</a>
+<ul>
+<li><a href="#sec-1-4-9-1">1.4.9.1. 多个item的聚合</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4-10">1.4.10. bool值ndarray对象额外的方法</a></li>
+<li><a href="#sec-1-4-11">1.4.11. 子类化ndarray对象</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-5">1.5. 通用的一些函数</a>
+<ul>
+<li><a href="#sec-1-5-1">1.5.1. 一元通用函数</a></li>
+<li><a href="#sec-1-5-2">1.5.2. 二元通用函数</a></li>
+<li><a href="#sec-1-5-3">1.5.3. 集合类似操作的函数</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-6">1.6. 矩阵对象</a>
+<ul>
+<li><a href="#sec-1-6-1">1.6.1. matrix函数</a></li>
+<li><a href="#sec-1-6-2">1.6.2. 矩阵转置</a></li>
+<li><a href="#sec-1-6-3">1.6.3. 行矢量和列矢量</a></li>
+<li><a href="#sec-1-6-4">1.6.4. 矩阵的点乘</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-7">1.7. 随机数生成支持</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> numpy基础</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 安装</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+就简单用pip安装之，如果你是从源码安装，请确认安装了 <code>cython</code> 模块。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 引用惯例</h3>
+<div class="outline-text-3" id="text-1-2">
+<pre class="example">
+import numpy as np
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> numpy ndarray对象和python的列表的区别</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li>numpy array内部的item是固定内存size的，改变size将会重新创建一个array。
+</li>
+<li>numpy array内部的item是相同的data type的，因此是固定内存size的。
+</li>
+<li>numpy的array有助于大型数据的高级数学运算或其他操作，比python的序列那些执行会更有效率。
+</li>
+<li>一系列的科学和数学计算python模块都是基于numpy的array的，当然他们支持python的序列类型输入，但都是转变成为numpy的array之后再进行相关计算的，然后他们的输出也通常是numpy的array。
+</li>
+</ol>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> ndarray对象</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+numpy模块中很核心的一个概念就是ndarray对象。ndarray对象按照numpy官方手册的绘图是这样一个数据结构：
+</p>
+
+
+<figure>
+<p><img src="images/ndarray.png" alt="ndarray.png">
+</p>
+<figcaption><span class="figure-number">Figure 1:</span> ndarray</figcaption>
+</figure>
+
+<p>
+ndarray有一个头header来控制所有接下来存储的数据类型(dtype)，然后存储的数据则必然都是相同的数据类型，这是一个不同于列表的限定条件，这样约定将大大提高数据处理的效率。
+</p>
+
+<p>
+你可以利用array函数简单将一个列表变成ndarray对象：
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = np.array([1,2,3,4,5])
+&gt;&gt;&gt; x
+array([1, 2, 3, 4, 5])
+&gt;&gt;&gt; type(x)
+&lt;class 'numpy.ndarray'&gt;
+&gt;&gt;&gt; x.dtype
+dtype('int32')
+</pre>
+
+<p>
+在上面的例子中我们看到，每一个ndarray对象都有一个属性( <strong>dtype</strong> )，其存储的就是前面讲的ndarray对象后面一连串数据的数据类型，比如这里的数据类型是“int32”。
+</p>
+</div>
+
+
+<div id="outline-container-sec-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> dtype清单</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+这个基本上讨论numpy的资料都会把这个清单列出来，这里也列出来吧。
+</p>
+
+<dl class="org-dl">
+<dt> bool_ </dt><dd>True or False
+</dd>
+<dt> int_ </dt><dd>相当于C语言的long，一般是int32或int64。整数型其内细分:
+<dl class="org-dl">
+<dt> intc </dt><dd>等于C语言的int，int32或int64
+</dd>
+<dt> intp </dt><dd>整数用于索引，和C语言的ssize_t相同，一般是int32或int64。
+</dd>
+<dt> int8 </dt><dd>Byte（-128 ~ 127）
+</dd>
+<dt> int16 </dt><dd>Integer（-32769 ~ 32767）
+</dd>
+<dt> int32 </dt><dd>Integer
+</dd>
+<dt> int64 </dt><dd>Integer
+</dd>
+<dt> uint8 </dt><dd>Unsigned Integer（0 ~ 255）
+</dd>
+<dt> uint16 </dt><dd>Unsigned Integer（0 ~ 65535）
+</dd>
+<dt> uint32 </dt><dd>Unsigned Integer
+</dd>
+<dt> uint64 </dt><dd>Unsigned Integer
+</dd>
+</dl>
+</dd>
+<dt> float_ </dt><dd>具体为float64。浮点型细分为:
+<dl class="org-dl">
+<dt> float16 </dt><dd>半精度浮点型
+</dd>
+<dt> float32 </dt><dd>单精度浮点型
+</dd>
+<dt> float64 </dt><dd>双精度浮点型
+</dd>
+</dl>
+</dd>
+<dt> complex_ </dt><dd>就是complex128。 复数型细分为:
+<dl class="org-dl">
+<dt> complex64 </dt><dd>复数型，由32位浮点型组成
+</dd>
+<dt> complex128 </dt><dd>复数形，由64位浮点型组成
+</dd>
+</dl>
+</dd>
+</dl>
+
+<p>
+具体使用声明如下:
+</p>
+<pre class="example">
+&gt;&gt;&gt; t = np.array([1,2,3],dtype='int32')
+&gt;&gt;&gt; type(t)
+&lt;class 'numpy.ndarray'&gt;
+&gt;&gt;&gt; t.dtype
+dtype('int32')
+&gt;&gt;&gt;
+</pre>
+
+<p>
+在实际使用的时候，dtype若指定为int，则实际就是对应的 <code>np.int_</code>
+</p>
+<pre class="example">
+&gt;&gt;&gt; t = np.array([1,2,3],dtype='int')
+&gt;&gt;&gt; t.dtype
+dtype('int64')
+</pre>
+
+<p>
+类似的 <code>float</code> 对应 <code>np.float_</code> ; <code>bool</code> 对应 <code>np.bool_</code> ; <code>complex</code> 对应 <code>np.complex_</code> 。
+</p>
+</div>
+
+
+<div id="outline-container-sec-1-4-1-1" class="outline-5">
+<h5 id="sec-1-4-1-1"><span class="section-number-5">1.4.1.1</span> ndarray的dtype变换</h5>
+<div class="outline-text-5" id="text-1-4-1-1">
+<p>
+在改变某个ndarray对象的dtype的时候，原ndarray对象实际上被删除了，等于重新创建了一个ndarray对象。可以通过上面的类型声明来直接进行转换，如:
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; t = np.array([1,2,3],dtype='int8')
+&gt;&gt;&gt; t.dtype
+dtype('int8')
+&gt;&gt;&gt; new_t = np.int32(t)
+&gt;&gt;&gt; new_t.dtype
+dtype('int32')
+</pre>
+
+<p>
+还可以通过调用ndarray的 <code>astype</code> 方法来实现。注意这个方法是 <strong>非破坏型</strong> 方法，具体使用如下面例子所示：
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; t = np.array([1,2,3],dtype='int8')
+&gt;&gt;&gt; t.astype('int32')
+array([1, 2, 3], dtype=int32)
+&gt;&gt;&gt; t
+array([1, 2, 3], dtype=int8)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-1-2" class="outline-5">
+<h5 id="sec-1-4-1-2"><span class="section-number-5">1.4.1.2</span> dtype对象的从属关系</h5>
+<div class="outline-text-5" id="text-1-4-1-2">
+<p>
+用 <code>np.issubdtype</code> 函数来判断某个ndarray的dtype对象是不是整型的子集。
+</p>
+<pre class="example">
+&gt;&gt;&gt; t
+array([1, 2, 3], dtype=int8)
+&gt;&gt;&gt; t.dtype
+dtype('int8')
+&gt;&gt;&gt; np.issubdtype(t.dtype,'int')
+True
+&gt;&gt;&gt; np.issubdtype(t.dtype,'float')
+False
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> shape属性</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+此外，每一个ndarray对象都有 <code>shape</code> 属性，用于控制后面跟着的这些数据的维度。请看下面的例子：
+</p>
+<pre class="example">
+&gt;&gt;&gt; x
+array([1, 2, 3, 4, 5, 6])
+&gt;&gt;&gt; x.shape
+(6,)
+&gt;&gt;&gt; x.shape = (2,3)
+&gt;&gt;&gt; x
+array([[1, 2, 3],
+       [4, 5, 6]])
+</pre>
+
+<p>
+shape 属性用来控制对于后面数据维度的理解，一个数字表示一维，二个数字表示二维几行几列（也就是数学中我们常见的概念矩阵），三个数字表示三维等。这里直接修改ndarray对象的shape属性将直接影响程序对于该对象数据的理解，此外更常用的是用 <code>reshape</code> 方法，其并不原地修改某个ndarray对象的shape，而是返回一个被修改shape属性的新的ndarray对象。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3"><span class="section-number-4">1.4.3</span> 创建一个ndarray对象</h4>
+<div class="outline-text-4" id="text-1-4-3">
+</div><div id="outline-container-sec-1-4-3-1" class="outline-5">
+<h5 id="sec-1-4-3-1"><span class="section-number-5">1.4.3.1</span> 从python数据结构中创建</h5>
+<div class="outline-text-5" id="text-1-4-3-1">
+<p>
+这个就是前面接触过的 <code>np.array</code> 函数，用来接受一个python list 或 tuple ，从而返回一个ndarray对象。
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = np.array([[1+2j,2+3j],[3+4j,4+5j]])
+&gt;&gt;&gt; x
+array([[ 1.+2.j,  2.+3.j],
+       [ 3.+4.j,  4.+5.j]])
+&gt;&gt;&gt; x.dtype
+dtype('complex128')
+&gt;&gt;&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-3-2" class="outline-5">
+<h5 id="sec-1-4-3-2"><span class="section-number-5">1.4.3.2</span> arrange函数</h5>
+<div class="outline-text-5" id="text-1-4-3-2">
+<p>
+arange(start,end,step)  参数类似range函数。生成一个数据递增（减）的ndarray对象：
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; x = np.arange(5)
+&gt;&gt;&gt; x
+array([0, 1, 2, 3, 4])
+&gt;&gt;&gt; x = np.arange(1,10,0.5)
+&gt;&gt;&gt; type(x)
+&lt;class 'numpy.ndarray'&gt;
+&gt;&gt;&gt; x
+array([ 1. ,  1.5,  2. ,  2.5,  3. ,  3.5,  4. ,  4.5,  5. ,  5.5,  6. ,
+        6.5,  7. ,  7.5,  8. ,  8.5,  9. ,  9.5])
+</pre>
+
+<p>
+其实一维的，但通过reshape操作可以生成二维的ndarray对象，其可以接受 <code>dtype</code> 对象来控制dtype属性。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-3-3" class="outline-5">
+<h5 id="sec-1-4-3-3"><span class="section-number-5">1.4.3.3</span> linspace函数</h5>
+<div class="outline-text-5" id="text-1-4-3-3">
+<p>
+linspace函数可以看作上面 arange函数的补充，arange函数虽然指定了start和stop，最后的数值是不被包含的，然后具体生成了多少个item是不易知的，而linspace可以接受这样三个参数: <code>start end number</code> ，其中start和end一定是在ndarray中包含的，然后number给定了具体生成了多少个item。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; np.linspace(1,10,6)
+array([  1. ,   2.8,   4.6,   6.4,   8.2,  10. ])
+</pre>
+
+<p>
+结束元素包不包含倒不是很重要，关键是某些情况下你需要控制具体生成了多少个item，那么就需要使用 <code>linspace</code> 函数。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-3-4" class="outline-5">
+<h5 id="sec-1-4-3-4"><span class="section-number-5">1.4.3.4</span> zeros函数</h5>
+<div class="outline-text-5" id="text-1-4-3-4">
+<p>
+zeros函数用于快速创建一个ndarray对象，其内数据都填充的是 <code>0.</code> ，默认dtype是 <code>float64</code> 。其接受的一个参数你可以简单看作就是shape属性参数，如下所示：
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; np.zeros((10,))
+array([ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.])
+&gt;&gt;&gt; np.zeros(10)
+array([ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.])
+&gt;&gt;&gt; np.zeros((5,5))
+array([[ 0.,  0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.,  0.]])
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-3-5" class="outline-5">
+<h5 id="sec-1-4-3-5"><span class="section-number-5">1.4.3.5</span> ones函数</h5>
+<div class="outline-text-5" id="text-1-4-3-5">
+<p>
+ones函数类似于zeros函数，不同的是填充的数据是1。就不做例子演示了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-3-6" class="outline-5">
+<h5 id="sec-1-4-3-6"><span class="section-number-5">1.4.3.6</span> empty函数</h5>
+<div class="outline-text-5" id="text-1-4-3-6">
+<p>
+empty函数和前面谈论的 zeros ones 函数类似，除了各个item都是原内存的随机数值，并不做任何修改。
+</p>
+<pre class="example">
+&gt;&gt;&gt; np.empty((2,3))
+array([[  0.00000000e+000,   4.99297208e-317,   4.94026911e-317],
+       [  6.94094003e-310,   1.03878549e-013,   0.00000000e+000]])
+&gt;&gt;&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-3-7" class="outline-5">
+<h5 id="sec-1-4-3-7"><span class="section-number-5">1.4.3.7</span> indices函数</h5>
+</div>
+
+
+<div id="outline-container-sec-1-4-3-8" class="outline-5">
+<h5 id="sec-1-4-3-8"><span class="section-number-5">1.4.3.8</span> eye函数</h5>
+<div class="outline-text-5" id="text-1-4-3-8">
+<p>
+eye函数生成的就是所谓的对角行列式的东西（numpy有matrix矩阵对象，其是作为ndarray对象的子类实现。为了和后面的matrix对象区分，那么ndarray对象一定要对应到某个数学概念的话，大概就是行列式了吧。）
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; np.eye(3)
+array([[ 1.,  0.,  0.],
+       [ 0.,  1.,  0.],
+       [ 0.,  0.,  1.]])
+&gt;&gt;&gt; np.eye(4,k=1)
+array([[ 0.,  1.,  0.,  0.],
+       [ 0.,  0.,  1.,  0.],
+       [ 0.,  0.,  0.,  1.],
+       [ 0.,  0.,  0.,  0.]])
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-4-3-9" class="outline-5">
+<h5 id="sec-1-4-3-9"><span class="section-number-5">1.4.3.9</span> 随机创建</h5>
+</div>
+
+<div id="outline-container-sec-1-4-3-10" class="outline-5">
+<h5 id="sec-1-4-3-10"><span class="section-number-5">1.4.3.10</span> 从文本创建</h5>
+<div class="outline-text-5" id="text-1-4-3-10">
+<p>
+np.save and np.load
+</p>
+
+
+<p>
+或者存储多个ndarray对象和加载多个ndarray对象
+</p>
+<pre class="example">
+np.savez('array_archive.npz', a=arr, b=arr)
+arch = np.load('array_archive.npz')
+arch['a']
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-3-11" class="outline-5">
+<h5 id="sec-1-4-3-11"><span class="section-number-5">1.4.3.11</span> 从输入字节流创建</h5>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-4-4" class="outline-4">
+<h4 id="sec-1-4-4"><span class="section-number-4">1.4.4</span> 索引值</h4>
+<div class="outline-text-4" id="text-1-4-4">
+<p>
+ndarray对于值的索引操作和python中列表索引值的操作非常相似，即方括号语法索引 <code>[index]</code> :
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; x = np.array([[1,2,3],[4,5,6],[7,8,9]])
+&gt;&gt;&gt; x
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+&gt;&gt;&gt; x[0]
+array([1, 2, 3])
+&gt;&gt;&gt; x[0][0]
+1
+&gt;&gt;&gt; y[1][5]
+5
+</pre>
+
+<p>
+此外你还可以用这种语法:
+</p>
+<pre class="example">
+&gt;&gt;&gt; x
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+&gt;&gt;&gt; x[0,0]
+1
+&gt;&gt;&gt; x[1,1]
+5
+&gt;&gt;&gt;
+</pre>
+
+<p>
+通过上面描述的索引值语法可以直接修改该ndarray对象的这个元素的值。此外numpy还提供了另外一种表示语法： <code>[a,b]</code> ，对于ndarray对象其和 <code>[a][b]</code> 的意思是一样的，推荐ndarray对象就用python的原来表示方法，意思也很明确，是a维的第b个元素。但是矩阵 <em>不</em> 支持 <code>[a][b]</code> 这种索引语法，而只支持 <code>[a,b]</code> 这种表示语法，推荐对于矩阵都用带逗号的这种索引方法，表示矩阵的a行b列。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; A = np.matrix([[1,2,3],[4,5,6],[7,8,9]])
+&gt;&gt;&gt; A[0]
+matrix([[1, 2, 3]])
+&gt;&gt;&gt; A[0][0]#并没有索引下去
+matrix([[1, 2, 3]])
+&gt;&gt;&gt; A[0,0]
+1
+</pre>
+</div>
+
+
+<div id="outline-container-sec-1-4-4-1" class="outline-5">
+<h5 id="sec-1-4-4-1"><span class="section-number-5">1.4.4.1</span> 索引多个值或说view</h5>
+<div class="outline-text-5" id="text-1-4-4-1">
+<p>
+同样ndarray对象也有在上面谈及的索引规则下 <code>[start:end:step]</code> :
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = np.array([[1,2,3],[4,5,6],[7,8,9]])
+&gt;&gt;&gt; x
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+&gt;&gt;&gt; x[::-1]
+array([[7, 8, 9],
+       [4, 5, 6],
+       [1, 2, 3]])
+&gt;&gt;&gt; y = np.arange(10)
+&gt;&gt;&gt; y
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+&gt;&gt;&gt; y[0::2]
+array([0, 2, 4, 6, 8])
+</pre>
+
+<p>
+支持索引多个值，但注意上面不是说切片，而是 <strong>view</strong> 视图。因为python的list如果你索引多个值，切片了，则等于制造了一个新的列表，如:
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; lst = [1,2,3,4,5]
+&gt;&gt;&gt; lst[0:2]
+[1, 2]
+&gt;&gt;&gt; x = lst[0:2]
+&gt;&gt;&gt; x[0] = 12
+&gt;&gt;&gt; x
+[12, 2]
+&gt;&gt;&gt; lst
+[1, 2, 3, 4, 5]
+</pre>
+
+<p>
+在调用 <code>lst[0:2]</code> 时，python程序是制造一个新的子列表，然后赋值给x，但是我们看ndarray对象不是这样的:
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; array = np.array([1,2,3,4,5])
+&gt;&gt;&gt; array
+array([1, 2, 3, 4, 5])
+&gt;&gt;&gt; x = array[:2]
+&gt;&gt;&gt; x
+array([1, 2])
+&gt;&gt;&gt; x[0] = 12
+&gt;&gt;&gt; x
+array([12,  2])
+&gt;&gt;&gt; array
+array([12,  2,  3,  4,  5])
+</pre>
+
+<p>
+这就是ndarray对象索引多个值称之为 <strong>视图</strong> 的原因，其返回的还是指向原处的那个片段！
+</p>
+
+<p>
+最后对于索引多个值的视图赋值操作，是所有元素都赋值为那个值:
+</p>
+<pre class="example">
+&gt;&gt;&gt; x[:] = 99
+&gt;&gt;&gt; array
+array([99, 99,  3,  4,  5])
+</pre>
+</div>
+
+<div id="outline-container-sec-1-4-4-1-1" class="outline-6">
+<h6 id="sec-1-4-4-1-1"><span class="section-number-6">1.4.4.1.1</span> copy方法</h6>
+<div class="outline-text-6" id="text-1-4-4-1-1">
+<p>
+如果你希望达到原python的那种索引多个值的效果而不影响原ndarray对象，你可以调用ndarrary对象的 <code>copy</code> 方法:
+</p>
+<pre class="example">
+array[:2].copy()
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-4-2" class="outline-5">
+<h5 id="sec-1-4-4-2"><span class="section-number-5">1.4.4.2</span> 布尔值索引</h5>
+<div class="outline-text-5" id="text-1-4-4-2">
+<p>
+布尔值索引是基于 ndarray对象进行布尔值判断操作，如 <code>== &gt; &lt;</code> 等等之类的时候，将输出一个原维度的bool值ndarray对象。然后将这个ndarray对象送入array的索引输入框中，其将返回bool值为True的那些值。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; array
+array([0, 0, 3, 4, 5])
+&gt;&gt;&gt; array == 0
+array([ True,  True, False, False, False], dtype=bool)
+&gt;&gt;&gt; array[array == 0]
+array([0, 0])
+&gt;&gt;&gt; array[array == 0] = 99
+&gt;&gt;&gt; array
+array([99, 99,  3,  4,  5])
+</pre>
+
+<p>
+布尔值索引返回的也是 <strong>视图</strong> ，对齐操作将改变原ndarray对象。
+</p>
+
+<p>
+你还可以用 <code>&amp;</code> 和 <code>|</code> 来形成组合逻辑，但不能使用 and 和 or 。
+</p>
+
+<p>
+一大用法就是利用某个item各个属性的映射关系，利用其他属性来过滤另外某个data:
+</p>
+<pre class="example">
+&gt;&gt;&gt; data = np.random.randn(7,3)
+&gt;&gt;&gt; data
+array([[-0.82117767,  1.02481308,  0.50908019],
+       [ 0.79851282,  0.37692996, -1.0129145 ],
+       [-1.30120201,  1.71270027,  0.2113716 ],
+       [-1.33386207,  0.02978504, -0.58061781],
+       [ 0.72466458,  1.94170572,  2.09521622],
+       [-1.24241997, -1.20557331, -0.66292731],
+       [-0.66145326,  0.28330579,  0.2803069 ]])
+&gt;&gt;&gt; names = np.array(['a','b','c','a','b','d','a'])
+&gt;&gt;&gt; data[names == 'a']
+array([[-0.82117767,  1.02481308,  0.50908019],
+       [-1.33386207,  0.02978504, -0.58061781],
+       [-0.66145326,  0.28330579,  0.2803069 ]])
+</pre>
+<p>
+这里将索引的是每一行，其行对应的name是'a'的值。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-5" class="outline-4">
+<h4 id="sec-1-4-5"><span class="section-number-4">1.4.5</span> ndarray对象转置</h4>
+<div class="outline-text-4" id="text-1-4-5">
+<p>
+就是调用ndarray对象的 <code>T</code> 属性，这更接近于矩阵中的转置操作（但是对于一维ndarray并没有任何改变）。而之前提及的 <code>data[::-1]</code> 这么使用，只是把行翻转了一下，对于一维倒是整个array都翻转了。
+</p>
+<pre class="example">
+&gt;&gt;&gt; data = np.random.randn(4,3)
+&gt;&gt;&gt; data
+array([[ 0.53700477, -1.30139712,  1.12184318],
+       [-0.91918847,  1.52850268,  0.73218978],
+       [-1.14840704, -0.0413753 ,  0.52820585],
+       [ 1.84307255,  0.21356674,  0.23331023]])
+&gt;&gt;&gt; data.T
+array([[ 0.53700477, -0.91918847, -1.14840704,  1.84307255],
+       [-1.30139712,  1.52850268, -0.0413753 ,  0.21356674],
+       [ 1.12184318,  0.73218978,  0.52820585,  0.23331023]])
+&gt;&gt;&gt; data[::-1]
+array([[ 1.84307255,  0.21356674,  0.23331023],
+       [-1.14840704, -0.0413753 ,  0.52820585],
+       [-0.91918847,  1.52850268,  0.73218978],
+       [ 0.53700477, -1.30139712,  1.12184318]])
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-6" class="outline-4">
+<h4 id="sec-1-4-6"><span class="section-number-4">1.4.6</span> 基本的运算</h4>
+<div class="outline-text-4" id="text-1-4-6">
+<p>
+两个ndarray对象之间进行基本的数学运算，如果两个ndarray维度是相同的，则称之为 <code>vectorization</code> ，矢量化操作。大致意思就是 加减乘除幂 具体操作都是 <span class="underline">对应的元素和对应的元素进行加减乘除幂操作</span> :
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; x = np.array([[4,0,5],[-1,3,2]])
+&gt;&gt;&gt; x
+array([[ 4,  0,  5],
+       [-1,  3,  2]])
+&gt;&gt;&gt; y = np.array([[1,1,1],[3,5,7]])
+&gt;&gt;&gt; y
+array([[1, 1, 1],
+       [3, 5, 7]])
+&gt;&gt;&gt; x + y
+array([[5, 1, 6],
+       [2, 8, 9]])
+&gt;&gt;&gt; x - y
+array([[ 3, -1,  4],
+       [-4, -2, -5]])
+&gt;&gt;&gt; x * 2
+array([[ 8,  0, 10],
+       [-2,  6,  4]])
+&gt;&gt;&gt; x ** 2
+array([[16,  0, 25],
+       [ 1,  9,  4]])
+</pre>
+
+<p>
+如果两个ndarray对象的维度（多维的情况不讨论了吧），如果 列维数目相同，则似乎也是可以的，但应该不推荐这么使用。而如果列维数目不同，则会抛出 <code>ValueError</code> 。
+</p>
+<pre class="example">
+&gt;&gt;&gt; z = np.array([1,2,3])
+&gt;&gt;&gt; x+z
+array([[5, 2, 8],
+       [0, 5, 5]])
+</pre>
+
+<p>
+然后我们知道矩阵里面还有其他一些算法，如点乘之类的，这个后面再讨论吧。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-4-7" class="outline-4">
+<h4 id="sec-1-4-7"><span class="section-number-4">1.4.7</span> flatten方法</h4>
+<div class="outline-text-4" id="text-1-4-7">
+<p>
+flatten，拉平。flatten是ndarray对象（包括矩阵）的一个方法，可将其变为一维形式， <em>非破坏型</em> 方法。
+</p>
+
+<p>
+这里将flatten方法归到矩阵这里是因为多维数组必须各个维度所含元素数目相等（也就是必须要有类似矩阵的空间矩形排布感）才有意义。然后矩阵返回的是行矢量形式。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; x = np.array([[1,2,3],[4,5,6],[7,8,9]])
+&gt;&gt;&gt; x
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+&gt;&gt;&gt; x.flatten()
+array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+&gt;&gt;&gt; x
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+&gt;&gt;&gt; y = np.array([[1,2,3],[4,5,6,7]])
+&gt;&gt;&gt; y
+array([[1, 2, 3], [4, 5, 6, 7]], dtype=object)
+&gt;&gt;&gt; y.flatten()
+array([[1, 2, 3], [4, 5, 6, 7]], dtype=object)
+&gt;&gt;&gt; z
+matrix([[1, 2, 3],
+        [4, 5, 6]])
+&gt;&gt;&gt; z.flatten()
+matrix([[1, 2, 3, 4, 5, 6]])
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-8" class="outline-4">
+<h4 id="sec-1-4-8"><span class="section-number-4">1.4.8</span> sort方法</h4>
+<div class="outline-text-4" id="text-1-4-8">
+<p>
+sort方法虽然可以作用多维，但似乎对一维更显的有意义些，其实一个 <em>破坏型</em> 方法。
+</p>
+
+<p>
+如下所示，注意看，每一行并没有变动，只在行内一维情况下排序。
+</p>
+<pre class="example">
+&gt;&gt;&gt; data
+array([[ 0.68518059,  1.05271585,  1.00174264],
+       [-1.44506879,  1.45532422,  1.30856608],
+       [ 0.1121552 , -3.04487041, -0.03301996]])
+&gt;&gt;&gt; data.sort()
+&gt;&gt;&gt; data
+array([[ 0.68518059,  1.00174264,  1.05271585],
+       [-1.44506879,  1.30856608,  1.45532422],
+       [-3.04487041, -0.03301996,  0.1121552 ]])
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-4-9" class="outline-4">
+<h4 id="sec-1-4-9"><span class="section-number-4">1.4.9</span> 通用的一些方法</h4>
+<div class="outline-text-4" id="text-1-4-9">
+<p>
+这些方法不仅适用于一维ndarray对象也适用矩阵对象等。
+</p>
+</div>
+
+<div id="outline-container-sec-1-4-9-1" class="outline-5">
+<h5 id="sec-1-4-9-1"><span class="section-number-5">1.4.9.1</span> 多个item的聚合</h5>
+<div class="outline-text-5" id="text-1-4-9-1">
+<ul class="org-ul">
+<li>sum
+</li>
+<li>mean
+</li>
+<li>std
+</li>
+<li>var
+</li>
+<li>min
+</li>
+<li>max
+</li>
+<li>argmin
+</li>
+<li>argmax
+</li>
+<li>cumsum
+</li>
+<li>cumprod
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4-10" class="outline-4">
+<h4 id="sec-1-4-10"><span class="section-number-4">1.4.10</span> bool值ndarray对象额外的方法</h4>
+<div class="outline-text-4" id="text-1-4-10">
+<ul class="org-ul">
+<li>all
+</li>
+<li>any
+</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-4-11" class="outline-4">
+<h4 id="sec-1-4-11"><span class="section-number-4">1.4.11</span> 子类化ndarray对象</h4>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 通用的一些函数</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+这些函数都是针对ndarray对象或矩阵对象等的所有item的，这些函数具有通用性。
+</p>
+</div>
+
+<div id="outline-container-sec-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1"><span class="section-number-4">1.5.1</span> 一元通用函数</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<dl class="org-dl">
+<dt> np.sqrt </dt><dd></dd>
+</dl>
+<pre class="example">
+&gt;&gt;&gt; data = np.arange(10)
+&gt;&gt;&gt; data
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+&gt;&gt;&gt; np.sqrt(data)
+array([ 0.        ,  1.        ,  1.41421356,  1.73205081,  2.        ,
+        2.23606798,  2.44948974,  2.64575131,  2.82842712,  3.        ])
+</pre>
+
+
+<dl class="org-dl">
+<dt> np.exp </dt><dd>\(e^{item}\)
+</dd>
+<dt> np.abs </dt><dd>abs(item)
+</dd>
+<dt> np.square </dt><dd>\(item^2\)
+</dd>
+</dl>
+
+<p>
+log
+log2
+log10
+sign
+floor
+rint
+modf
+isnan
+isfinite
+isinf
+cos
+sin
+tan
+tanh
+cosh
+sinh
+arccos
+arcsin
+arctan
+arcsinh
+arccosh
+arctanh
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2"><span class="section-number-4">1.5.2</span> 二元通用函数</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<p>
+两个ndarray对象item对item的操作
+</p>
+
+<p>
+add
+substract
+multiply
+divide
+power
+maximum
+minimum
+mod
+copysign
+greater
+less
+less_equal
+not_equal
+logical_and
+logical_or
+logical_xor
+</p>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-sec-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3"><span class="section-number-4">1.5.3</span> 集合类似操作的函数</h4>
+<div class="outline-text-4" id="text-1-5-3">
+<p>
+unique(x) 
+intersect1d(x, y)
+union1d(x, y) 
+in1d(x, y) 
+setdiff1d(x, y)
+setxor1d(x, y)
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> 矩阵对象</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+矩阵对象是ndarray对象的子类，也就是说ndarray对象的一些属性和方法它都是可以使用的。行矢量和列矢量是属于矩阵中的特殊情况。矩阵这个概念在以后的数学运算中较为重要，然后对于一些概念，比如转置啊，点乘啊等，总之和矩阵的数学运算相关的，虽然ndarray对象也可以做，但推荐将其变成矩阵（matrix）对象之后再处理，这样容易理清概念。
+</p>
+</div>
+
+<div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1"><span class="section-number-4">1.6.1</span> matrix函数</h4>
+<div class="outline-text-4" id="text-1-6-1">
+<p>
+用numpy的matrix函数可以创建一个矩阵对象:
+</p>
+<pre class="example">
+&gt;&gt;&gt; data = np.random.randn(3,3)
+&gt;&gt;&gt; data
+array([[-0.79589206, -0.97535141,  1.05750453],
+       [ 0.05051448,  0.19753523,  0.99618112],
+       [ 2.09805081, -0.33623748,  0.26033154]])
+&gt;&gt;&gt; x = np.matrix(data)
+&gt;&gt;&gt; type(x)
+&lt;class 'numpy.matrixlib.defmatrix.matrix'&gt;
+&gt;&gt;&gt; x
+matrix([[-0.79589206, -0.97535141,  1.05750453],
+        [ 0.05051448,  0.19753523,  0.99618112],
+        [ 2.09805081, -0.33623748,  0.26033154]])
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2"><span class="section-number-4">1.6.2</span> 矩阵转置</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+<code>transpose</code> 方法，将矩阵转置过来。只返回结果， <em>非破坏型</em> 方法。
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = np.matrix([[1,2,3],[4,5,6],[7,8,9]])
+&gt;&gt;&gt; x
+matrix([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+&gt;&gt;&gt; x.transpose()
+matrix([[1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9]])
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3"><span class="section-number-4">1.6.3</span> 行矢量和列矢量</h4>
+<div class="outline-text-4" id="text-1-6-3">
+<p>
+行矢量和列矢量是矩阵的特殊情况，需要用matrix函数创建之。行矢量转置之后就是列矢量请注意看它的写法。
+</p>
+<pre class="example">
+&gt;&gt;&gt; x = np.matrix([1,2,3,4,5])
+&gt;&gt;&gt; x
+matrix([[1, 2, 3, 4, 5]])
+&gt;&gt;&gt; x.transpose()
+matrix([[1],
+        [2],
+        [3],
+        [4],
+        [5]])
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4"><span class="section-number-4">1.6.4</span> 矩阵的点乘</h4>
+<div class="outline-text-4" id="text-1-6-4">
+<p>
+学过线性代数印像最深的可能就是矩阵那个怪异的乘法运算了。这里有了numpy模块的支持，就可以直接用 <code>*</code> 来执行两个矩阵的乘法，或者 <code>np.dot</code> 函数。
+</p>
+
+<pre class="example">
+&gt;&gt;&gt; A = np.matrix([[1,0,3,-1],[2,1,0,2]])
+&gt;&gt;&gt; B = np.matrix([[4,1,0],[-1,1,3],[2,0,1],[1,3,4]])
+&gt;&gt;&gt; A * B
+matrix([[ 9, -2, -1],
+        [ 9,  9, 11]])
+&gt;&gt;&gt; x = np.matrix([1,2,3])
+&gt;&gt;&gt; y = np.matrix([4,5,6]).transpose()
+&gt;&gt;&gt; x * y
+matrix([[32]])
+&gt;&gt;&gt; y * x
+matrix([[ 4,  8, 12],
+        [ 5, 10, 15],
+        [ 6, 12, 18]])
+&gt;&gt;&gt; np.dot(x,y)
+matrix([[32]])
+&gt;&gt;&gt; np.dot(y,x)
+matrix([[ 4,  8, 12],
+        [ 5, 10, 15],
+        [ 6, 12, 18]])
+&gt;&gt;&gt;
+</pre>
+
+
+<p>
+diag Return the diagonal (or off-diagonal) elements of a square matrix as a 1D array, or convert a 1D array into a square
+matrix with zeros on the off-diagonal
+dot Matrix multiplication
+trace Compute the sum of the diagonal elements
+det Compute the matrix determinant
+eig Compute the eigenvalues and eigenvectors of a square matrix
+inv Compute the inverse of a square matrix
+pinv Compute the Moore-Penrose pseudo-inverse inverse of a square matrix
+qr Compute the QR decomposition
+svd Compute the singular value decomposition (SVD)
+solve Solve the linear system Ax = b for x, where A is a square matrix
+lstsq Compute the least-squares solution to y = Xb
+</p>
+
+
+
+
+
+<p>
+多个如下的线性方程的组合叫做线性方程组。其中$a_1a_2 \ldots b$可以是实数或复数。
+</p>
+\begin{equation}
+a_1x_1 + a_2x_2 + \cdots + a_nx_n = b
+\end{equation}
+
+<p>
+线性方程组的解有三种情况：无解，有唯一的解，有无穷多的解。其中如果是无解的，那么称这个线性方程组是不相容的，反之是相容的。
+</p>
+
+<p>
+\section{解线性方程组}
+这个线性方程组，
+</p>
+\begin{align}
+x_1 - 2x_2 + x_3 =0 \\
+2x_2 - 8x_3  = 8\\
+-4x_1 + 5x_2 + 9x_3 = -9
+\end{align}
+<p>
+用矩阵形式$ax = b$表示就是：
+\[
+</p>
+\begin{bmatrix}
+1 & -2 & 1 \\
+0 & 2 & -8 \\
+-4 & 5 & 9
+\end{bmatrix}
+\begin{bmatrix}
+x_1  \\
+x_2 \\
+x_3
+\end{bmatrix}
+<p>
+=
+</p>
+\begin{bmatrix}
+0 \\
+8 \\
+-9
+\end{bmatrix}
+<p>
+\]
+</p>
+
+<p>
+用numpy模块的linalg\sidenote{linear algebra}子模块的solve函数可以解上面谈及的$ax = b$的线性方程组，其中solve的第一个参数是a第二个参数是b，上面的线性方程组解法如下：
+</p>
+\begin{xverbatim}[129]{py}
+import numpy as np
+a = np.matrix([[1,-2,1],[0,2,-8],[-4,5,9]])
+b = np.matrix([0,8,-9]).transpose()
+x = np.linalg.solve(a,b)
+print(x)
+\end{xverbatim}
+
+<p>
+上面矩阵形式$ ax = b $中，a有个名字叫\textbf{系数矩阵}，如果你把a和b横向合并成为一个新的矩阵，那么这个矩阵叫做\textbf{增广矩阵}，即用numpy模块的hstack命令处理之，如下所示：
+</p>
+\begin{tcbpython}[]
+import numpy as np
+a = np.matrix([[1,-2,1],[0,2,-8],[-4,5,9]])
+b = np.matrix([0,8,-9]).transpose()
+c = np.hstack((a,b))
+\end{tcbpython}
+<p>
+上面c的结果这里用稍微漂亮的形式输入如下：
+\[\begin{bmatrix}
+1& -2& 1&  0 \\
+0&  2& -8&  8 \\
+-4& 5&  9& -9
+\end{bmatrix}
+\]
+</p>
+
+<p>
+关于计算机的内部解法细节我还不太清楚。
+</p>
+
+
+<p>
+手工解法简单的就是代换等等常规运算，这里略过，其基础就是基本的两边等式操作法则，比如同时乘以一个数，两个不变等等。更复杂一点的需要将其做成增广矩阵的形式，然后运用高斯消元法。就是不断地运用以下操作：
+</p>
+\begin{itemize}
+\item 一行同时乘以一个非零的数
+\item 两行对换
+\item 一行换成它自身和另一行的倍数的和
+\end{itemize}
+<p>
+增广矩阵对应的值不变。
+</p>
+
+<p>
+操作的目的是将增广矩阵的左下角都化为零，最后形成阶梯矩阵形式。
+</p>
+
+<p>
+基于上面的阶梯矩阵形式，我们对于这个线性方程组的解的大致情况，马上就有一个直观的判断了：如果有一行系数矩阵那一行都是零了，而最后有个非零的数，那么就是类似于$ 0x_1 + 0x_2 &ctdot;  = 2$这样的形式，所有的参数都和零相乘了反而得到一个数，这显然是荒谬的，那么肯定这个线性方程组无解。如果这个增广矩阵有一行全是零，然后我们有两个未知量就需要两个线性方程，三个未知量需要三个有意义的线性方程，如果现在n个未知量有n个线性方程，现在推出有一行全为零也就是少了一个约束条件，那么可以肯定这个线性方程组有多个解。
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> 随机数生成支持</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+seed Seed the random number generator
+permutation Return a random permutation of a sequence, or return a permuted range
+shuffle Randomly permute a sequence in place
+rand Draw samples from a uniform distribution
+randint Draw random integers from a given low-to-high range
+randn Draw samples from a normal distribution with mean 0 and standard deviation 1 (MATLAB-like interface)
+binomial Draw samples a binomial distribution
+normal Draw samples from a normal (Gaussian) distribution
+beta Draw samples from a beta distribution
+chisquare Draw samples from a chi-square distribution
+gamma Draw samples from a gamma distribution
+uniform Draw samples from a uniform [0, 1) distribution
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 参考资料</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>numpy user手册
+</li>
+<li>numpy reference 手册
+</li>
+<li>python for data analysis; Author:Wes McKinney; Version: 2012
+</li>
+<li>线性代数及其应用
+</li>
+</ol>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>); 最后修改时间: 2015-11-26 16:24.</p></div>
+</body>
+</html>

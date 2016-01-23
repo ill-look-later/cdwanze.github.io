@@ -1,0 +1,371 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: argparse模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+一般制作python命令行脚本，推荐使用argparse模块，
+
+下面简要介绍了python3的官方文档argparse模块的用法，用于快速制作一个可以刷参数的python脚本，更多信息请参看 [[https://docs.python.org/3/library/argparse.html][官方文档]] 。
+
+首先看下面这个简单的情况:
+#+BEGIN_SRC python
+import argparse
+usage = '''
+this is a example to show argparse usage
+'''
+parser = argparse.ArgumentParser(usage=usage)
+
+args = parser.parse_args()
+#+END_SRC
+
+这是简单的一个例子了，现在脚本还不可以接受任何参数，只可以用 ~-h~ 或 ~--help~ 来查看一些信息，如下所示。
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py -h
+usage: 
+this is a example to show argparse usage
+ [-h]
+
+optional arguments:
+  -h, --help  show this help message and exit
+#+END_EXAMPLE
+
+其首先是新建一个parser，上面ArgumentParser的usage是可选参数，就是命令行的一些描述信息。然后需要调用parser的 ~parse_args~ 方法，其就是具体将命令行接受的一些参数刷进去。
+
+
+* 简单添加一个参数
+上面的例子太简单了，现在开始简单添加一个参数。
+#+BEGIN_EXAMPLE
+import argparse
+usage = '''
+this is a example to show argparse usage
+'''
+parser = argparse.ArgumentParser(usage=usage)
+
+parser.add_argument('--config',help="the config file path")
+
+args = parser.parse_args()
+
+print(args)
+#+END_EXAMPLE
+这样命令行的帮助信息就变成如下所示了:
+
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py -h
+usage: 
+this is a example to show argparse usage
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --config CONFIG  the config file path
+#+END_EXAMPLE
+
+如果我们如下输入则有:
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py --config='config.cfg'
+Namespace(config='config.cfg')
+#+END_EXAMPLE
+
+我们看到 ~parse_args~ 方法返回的是Namespace对象，推荐用 ~vars~ 函数来将其处理成为字典值，这样会更好地方便后面的使用。
+
+#+BEGIN_SRC python
+import argparse
+usage = '''
+this is a example to show argparse usage
+'''
+parser = argparse.ArgumentParser(usage=usage)
+parser.add_argument('-c','--config',help="the config file path")
+args = vars(parser.parse_args())
+
+print(args)
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py -h
+usage: 
+this is a example to show argparse usage
+python3 hello.py
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+                        the config file path
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py --config='config.cfg'
+{'config': 'config.cfg'}
+#+END_EXAMPLE
+
+上面代码稍作修改，在长名字可选参数前面还可以加上短名字可选参数支持，然后我们看到 ~parse_args~ 方法经过 ~vars~ 处理之后返回的是字典值。该字典的key默认对应的是长名字可选参数。你还可以自己设置目标参数名:
+
+* 添加参数的其他选项设置
+下面演示了如何设置目标参数在脚本中具体对应的变量名:
+#+BEGIN_SRC python
+import argparse
+usage = '''
+this is a example to show argparse usage
+'''
+parser = argparse.ArgumentParser(usage=usage)
+parser.add_argument('-c','--config',dest="configpath",help="the config file path")
+args = vars(parser.parse_args())
+
+print(args)
+#+END_SRC
+
+然后我们看到字典输入如下:
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py --config='config.cfg'
+{'configpath': 'config.cfg'}
+#+END_EXAMPLE
+
+当然一般就默认设置成为和长名字可选参数一致，没必要这么折腾。类似的你还可以继续用 ~add_argument~ 方法来添加其他的可选参数，然后 ~add_argument~ 还有如下一些选项配置:
+
+- required=True :: 该参数一定要输入值，否则报错
+- help :: 描述信息，前面已经看到了。
+- default :: 该参数的默认值，默认是None，你可以选择设置成另外一个值。 
+- type :: 目标参数的数据类型，默认是字符串，可以设置为int或float。注意设置格式如下，不是字符串的那种设置形式:
+#+BEGIN_EXAMPLE
+parser.add_argument('--delay',type=int)
+#+END_EXAMPLE
+
+
+必填参数的添加如下所示，除了这个"target"名字前面没有"-"之外，和可选参数用法大致类似，其刷入args字典之后的key就是"target"这个名字。
+#+BEGIN_EXAMPLE
+parser.add_argument('target',help="必填参数")
+#+END_EXAMPLE
+
+不过必填参数和可选参数在某些细节上还是有点差异的，后面会提及。
+
+** nargs选项设置
+nargs设置之后该参数在脚本中具体对应的变量将是一个列表。其中nargs可以设置为一个数字，比如 ~nargs=4~ ，则脚本对该参数将接受4个输入值，然后将其收集进一个列表里面。
+
+此外还有:
+- nargs='*' :: 这通常是对可选参数进行设置，当然也可以作用于必填参数，但这让必填参数失去意义了。其将收集任意多的输入参数值，而如果多个可选参数之间这样使用星号是可以的，具体如官方文档所述:
+#+BEGIN_EXAMPLE
+>>> parser = argparse.ArgumentParser()
+>>> parser.add_argument('--foo', nargs='*')
+>>> parser.add_argument('--bar', nargs='*')
+>>> parser.add_argument('baz', nargs='*')
+>>> parser.parse_args('a b --foo x y --bar 1 2'.split())
+Namespace(bar=['1', '2'], baz=['a', 'b'], foo=['x', 'y'])
+#+END_EXAMPLE
+
+- nargs='+' :: 这通常作用于必填参数，其意义有点类似于正则表达式里面的'+'号，和上面的'*'号比起来其必须有一个输入值，否则将报错。
+
+- nargs='?' :: 这个'?'号具体使用情况挺复杂的，我不太喜欢，而且其和nargs其他的一些设置比较起来显得有点格格不入。首先其对应的变量值不是列表而是单个值！其次其改变了默认值的行为。如果该参数不输入，比如 ~--foo~ 这个东西完全不输入在命令行里面，那么foo默认取default的值，如果加入了 ~--foo~ 这个东西但是后面又不跟值，则foo取 *const* 选项赋的值。不太喜欢这个东西。
+
+* 一个完整的例子 
+下面给出一个完整的例子:
+#+BEGIN_SRC python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import argparse
+usage = '''
+resize the image
+'''
+
+def main():
+    parser = argparse.ArgumentParser(usage=usage)
+    parser.add_argument('-c','--config',dest="configpath",help="the config file path")
+    parser.add_argument('inputimg',help="the input image",nargs='+')
+    parser.add_argument('--width',help="the input image",type=int)
+
+    args = vars(parser.parse_args())
+
+    configpath = args['configpath']
+    width = args['width']
+    inputimg = args['inputimg']
+
+    for inputimg in args['inputimg']:
+        print('resize image')
+        print('the input image is {}'.format(inputimg))
+        print('the target width is {}'.format(width))
+
+
+if __name__ == '__main__':
+    main()
+#+END_SRC
+
+
+具体运行情况如下所示:
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu64:~/图片$ python3 resizeimg.py --help
+usage: 
+resize the image
+
+positional arguments:
+  inputimg              the input image
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIGPATH, --config CONFIGPATH
+                        the config file path
+  --width WIDTH         the input image
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu64:~/图片$ python3 resizeimg.py --width=300 *.png
+resize image
+the input image is 2015-01-27 13:16:46 的屏幕截图.png
+the target width is 300
+resize image
+the input image is 2015-05-03 18:17:19屏幕截图.png
+the target width is 300
+resize image
+the input image is 2015-05-03 18:20:45屏幕截图.png
+the target width is 300
+....
+#+END_EXAMPLE
+
+
+* 一个通用刷参数的函数
+#+BEGIN_SRC python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import argparse
+usage = '''
+resize the image
+'''
+
+def get_env():
+    return globals()
+
+def even(n):
+    '''偶数判断函数'''
+    if not isinstance(n, int):
+        raise NotIntegerError
+
+    if n % 2 ==0:
+        return True
+
+def str2num(string):
+    try:
+        return int(string)
+    except ValueError:
+        try:
+            return float(string)
+        except ValueError:
+            return string
+
+def init_argv(usage=''):
+    parser = argparse.ArgumentParser(usage=usage)
+    parser.add_argument('-c','--config',dest="configpath",help="the config file path")
+    parser.add_argument('--args',dest='more_args',help="more you input args will be passed as a genernal way, longname and the string type",nargs=argparse.REMAINDER)
+
+    args = vars(parser.parse_args())
+    more_args = args['more_args']
+    print(more_args)
+
+    for i,arg in enumerate(more_args):
+        if even(i):
+            longname = arg[2:]
+            args[longname] = str2num(more_args[i+1])
+
+    return args
+
+
+def main():
+    env = get_env()
+    env.update(init_argv(usage))
+
+    print('resize image')
+    print('the input image is {},type: {}'.format(inputimg,type(inputimg)))
+    print('the target width is {},typpe:{}'.format(width,type(width)))
+
+
+if __name__ == '__main__':
+    main()
+#+END_SRC
+
+这里约定通用刷额外参数一次只能接受一个值，而且必须赋值。这是没有办法的，也许能够写出更灵活的支持吧。然后我们定义一个脚本的 ~globals()~ 全局变量字典值为 *env* 变量，即本脚本所处的全局环境。这个环境的概念很重要。以后我们扩展脚本都将基于这个环境。
+
+这个脚本并没有用到configpath，不过以后这个功能应该需要加进去，推荐使用cfg文件格式（configparser模块支持）或者简单的一个简单的字典值的json文件（json不推荐做配置管理，不过一个字典的情况是可以接受的。）。读入之后刷入进 *env* 中。我们这里约定具体各个参数配置优先级如下:
+
+-----
+具体命令行参数 > 配置文件
+-----
+
+最后脚本全局环境env将上面谈及的这些字典配置都 *update* 进去。
+
+* 通用脚本函数支持
+继续上面的例子，然后这里加入了对于配置文件的支持。具体是刷的cfg文件的DEFAULT section，可以进一步设置其他的section的配置。
+#+BEGIN_SRC python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
+import argparse
+usage = '''
+resize the image
+'''
+
+def get_env():
+    return globals()
+
+def even(n):
+    '''偶数判断函数'''
+    if not isinstance(n, int):
+        raise NotIntegerError
+
+    if n % 2 ==0:
+        return True
+
+def str2num(string):
+    try:
+        return int(string)
+    except ValueError:
+        try:
+            return float(string)
+        except ValueError:
+            return string
+
+def init_argv(usage=''):
+    parser = argparse.ArgumentParser(usage=usage)
+    parser.add_argument('-c','--config',dest="configpath",help="the config file path")
+    parser.add_argument('--args',dest='more_args',help="more you input args will be passed as a genernal way, longname and the string type",nargs=argparse.REMAINDER)
+
+    args = vars(parser.parse_args())
+    more_args = args['more_args']
+    print(more_args)
+
+    for i,arg in enumerate(more_args):
+        if even(i):
+            longname = arg[2:]
+            args[longname] = str2num(more_args[i+1])
+
+    return args
+
+import configparser
+def init_config(configpath,configsection='DEFAULT'):
+    config = configparser.ConfigParser()
+    config.read(configpath)
+    return dict(config[configsection])
+
+
+def init_env():
+    env = get_env()
+    args = init_argv(usage)
+
+    configpath  = args['configpath']
+    if configpath:
+        env.update(init_config(configpath))
+
+    env.update(args)
+
+def main():
+    init_env()
+
+    print('resize image')
+    print('the input image is {},type: {}'.format(inputimg,type(inputimg)))
+    print('the target width is {},typpe:{}'.format(width,type(width)))
+
+    print('i am from config file the start_date is {},typpe:{}'.format(start_date,type(start_date)))
+
+
+if __name__ == '__main__':
+    main()
+#+END_SRC

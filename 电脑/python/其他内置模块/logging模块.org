@@ -1,0 +1,103 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+
+#+TITLE: logging模块入门
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 前言
+在软件开发中，两个东西最易被初学者忽视，但实际上却是最有用的工具: 一个是单元测试；一个是日志输出管理。python的官方内置模块logging可以帮助你更好地管理自己的日志汇报系统。一个好的日志汇报系统不仅能够帮助程序员调试debug，用户向专业人员汇报发生错误时候的信息，还可以帮助人们理解程序具体是如何运行的和运行到了那里，在干些什么，这些都是非常有用的。
+
+
+** 什么时候使用logging
+有的时候一些简单的函数调试就可以使用print函数来进行一些输出信息，但这通常不是很专业的做法。即使是最简单的函数也是推荐使用单元测试的方法。而在大型软件项目中，print函数则是更应该少出现，只有那些程序员希望用户看到的信息才能使用print函数（当然某些经过io重定向的print函数不在这里的讨论范围之内）。
+
+程序员有时想要看看某个大型软件内部具体是如何运作的，丑陋的做法是print，然后注释掉。这样也不是不可以，只是最好程序员做的一切工作都能保存起来拿到台面上，毕竟这都是劳动。logging模块的第一个用途就出来了: 我们可以使用 ~logging.info()~ 这个函数，来输出某些信息，这些信息只有在你调低了logging等级之后（默认的是 *WARNING* ），才会显示出来。低于 *WARNING* 等级的还有一个函数 ~logging.debug()~ 。info函数的信息通常是程序员用来确认程序是按照预期运行的，debug函数的信息通常是出现某个bug了，程序员希望有助于他debug的输出信息。
+
+~logging.warn()~ 函数用来发出警告信息，并且程序员应该修改程序来避免这个信息出现； ~logging.warning~ 函数用来发出警告信息，这种情况程序员表示在我的预料之中，是用户不应该这样做，程序不需要修改，但信息应该被记录。
+
+然后特别重大的错误或异常捕捉，这个使用python的try...except...语句，或者raise抛出异常，这自不必多说。只是有某些情况，程序员不愿抛出这个异常，而是希望压抑这个错误，则可以使用logging模块的 ~error()~ 函数或者 ~exception()~ 函数或者 ~critical()~ 函数。
+
+具体这些函数的严重等级是: DEBUG < INFO < WARNING < ERROR < CRITICAL
+
+最简单的一个使用例子如下所示:
+
+#+BEGIN_SRC python
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+logging.debug('debug')
+logging.info('info')
+logging.warning('warning')
+#+END_SRC
+
+这里的basicConfig函数对整个日志系统进行一些配置。比如这里设置日志报告等级 ~level=logging.DEBUG~ ，这样我们将会看到 *DEBUG* 以及 *DEBUG* 以上等级的日志信息；然后如果设置为 ~logging.INFO~ ，则就只看到 *INFO* 和 *WARNING* 信息了。
+
+
+** 将日志信息输出到文件中
+更专业的做法是将日志输出到文件中去，即使是自己调试，对于大型软件项目来说，日志信息是很多的，将其保存到文件，然后用编辑器或者shell工具或者其他工具查看会更便捷一些。要将这些日志信息都输出到某个文件中很简单，在 *basicConfig* 设置 *filename* 参数即可:
+#+BEGIN_SRC python
+import logging
+
+logging.basicConfig(filename='test.log', level=logging.DEBUG)
+
+logging.debug('debug')
+logging.info('info')
+logging.warning('warning')
+#+END_SRC
+
+默认的 *filemode* 是 "a" ，也就是日志信息一直累积在那里。你可以多运行几次这个小py脚本，来看看具体的效果。 *filemode* 也可以设置为 "w" ，则只保存最后那次运行的日志信息。
+
+
+* 更复杂项目的做法
+对于稍微复杂一点的项目，首先需要明白你在写的脚本主要是何用途，如果该py文件主要是作为模块被其他python脚本（这里所谓的python脚本指主要为更高层的流程调用有命令行接口的python脚本）引用，那么在这个py文件中，我们应该使用logging。如果该py文件主要作为py脚本而被执行，那么我们应该使用logger来获得更多样化的报告形式。这里值得提醒读者的是，logging其实就是logging模块默认的logger，也就是py脚本里你同样需要配置 ~logging.basicConfig~ 之后被引用的模块文件里面的logging才会输出。
+
+总的说来我不太喜欢logger这个概念，也许对于初学者logging就完全够用了，再说因为py文件的灵活性，你并不能确定那个py文件是python脚本还是py模块，最简单灵活的做法还是统一用logging，这样可以避免因为引入额外的logger概念而引起的困扰和混乱。
+
+我写了这样一个函数，来优化了默认logging的行为。
+#+BEGIN_SRC python
+import logging
+def setup_logging(name,logpath=None,level=logging.DEBUG,filemode='a'):
+    if logpath is not None:
+        import datetime
+        import os
+        logfilename = '{}_'.format(name) + datetime.datetime.utcnow().__format__('%F')
+        filename = os.path.join(logpath,logfilename)
+        logging.basicConfig(filename=filename,format='%(asctime)s - %(levelname)s: %(module)s %(message)s', level=level,datefmt='%I:%M:%S',filemode=filemode)
+    else:
+        logging.basicConfig(format='{} %(asctime)s - %(levelname)s: %(module)s %(message)s'.format(name), level=level,datefmt='%F %I:%M:%S')
+#+END_SRC
+
+在实际使用的时候，写上 ~setup_logging~ 这个函数即可，其中logpath如果不设置，那么将打印在终端，如果设置，则打印到某个文件，默认的文件名就是你给他取得名字加上日期。然后这些额外的信息都在后面的log报告中没提及了。
+
+这里的format涉及到的一些参数设置如下所示:
+- %(levelname)s 类似'DEBUG'这样的logging level
+- %(message)s 具体输出的信息 
+- %(asctime)s 具体时间，默认是'2003-07-08 16:49:45,896'，你可以通过 *datefmt* 选项来进一步设置格式，格式设置和strftime命令类似。
+- %(filename)s 文件名，更简洁的表达是模块名。
+- %(module)s 模块名
+- %(funcName)s 函数名
+- %(lineno)d 具体logging代码在第几行
+
+- %(name)s logger的名字，默认是'root'。
+- %(process)d 进程号
+- %(processName)s 进程名
+- %(thread)d 线程号
+- %(threadName)s 线程名
+
+这样设置的好处是在我们的目标py脚本具体执行代码前面加上这个setup_logging命令即可，而前面所有的函数类或者模块，都应该使用logging进行日志输出管理。
+
+
+
+
+* 参考资料
+1. [[https://docs.python.org/3.4/howto/logging.html][官方文档logging how to]] ，然后 [[https://chareice.com/articles/2014/11/24/python-logging%E5%BA%93%E8%AF%A6%E8%A7%A3.html][这个网页]] 相当于官方文档logging how to 的中文版。
+2.  
+
+

@@ -1,168 +1,113 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-<title>事件驱动编程</title>
-<!-- 2015-11-15 10:06 -->
+<!-- 2016-01-08 五 16:54 -->
 <meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>事件驱动编程</title>
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="万泽(德山书生)">
 <meta  name="description" content="制作者邮箱：a358003542@gmail.com"
 >
-<style type="text/css"> /*
- * with_bootstrap.css
- *
- * Copyright 2015 wanze <a358003542@gmail.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- *
- *
- */
-
-@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-    margin: 0px;
-}
+<style type="text/css">
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    background-color: #f5f5f5;
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
 }
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-.container {
-  width: auto;
-  max-width: 750px;
-  padding: 0 15px;
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
 }
-.container .text-muted {
-  margin: 20px 0;
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
 }
 
-/* background-color: #f8f8f8; */
-.navbar-default{
-    background-color: #fff;
-}
-/*--------------------*/
-
-#content{
-    margin: 0 auto;
-    max-width: 750px;
-    padding: 17px;
-    line-height:160%;
-    font-size:16px;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-weight: 700;
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
-
-
-pre{line-height:180%;font-size:90%;}
-code,kbd,pre,samp {
-  font-family: monospace, serif;
-}
-
-code{  padding: 2px;}
-p{
-    text-indent:2em;/*段落缩进*/
-    line-height:180%;/*行间距*/
-    }
-
-.title{
+.title {
+    display: block;
     text-align: center;
-}
-.org-ol li , .org-ul li , org-dl dt{
-    margin-top: 0.5em; /*增大li之间的垂直space*/
-    margin-bottom: 0.5em; /*增大li之间的垂直space*/
-}
-p.verse{
-    margin-left: 3%;
-    text-indent:0em;
+    padding: 10px;
 }
 
-.right{
-    margin-left: auto;
-    margin-right: 0px;
-    text-align: right;
-}
-.left{
-    margin-left: 0px;
-    margin-right: auto;
-    text-align: left;
-}
-.center{
+.center-block {
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
 }
 
 .underline{
     text-decoration: underline;
 }
+  #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
 
 video{
-    width: 750px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
 
 figure p{
-    text-indent:0em;/*段落缩进*/
+    text-indent:0em;
 }
 img{
-    max-width: 700px;
+    max-width: 95%;
 }
 
 figure{
     text-align: center;
-}
-
-table, th, td
-{
-    margin:0 auto;
-    min-width:2em;
-    text-align:center ;
-    padding: 5px;
-}
-
-table{
-    border-top: 2px solid ;
-    border-bottom: 2px solid ;
-}
-thead{
-    border-bottom: 1px solid ;
 }
 
 /*  class  */
@@ -186,251 +131,128 @@ thead{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-/*
-http://thomasf.github.io/solarized-css/
-*/
-
-dfn {
-  font-style: italic;
-}
-dd{
-    margin-left:2em;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-
-
-.tag {
-  background-color: #eee8d5;
-  color: #d33682;
-  padding: 0 0.2em;
-}
-
-
-.todo,
-.next,
-.done {
-  color: #fdf6e3;
-  background-color: #dc322f;
-  padding: 0 0.2em;
-}
-.tag {
-  -webkit-border-radius: 0.35em;
-  -moz-border-radius: 0.35em;
-  border-radius: 0.35em;
-}
-.TODO {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #2aa198;
-}
-.NEXT {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.ACTIVE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.DONE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-.WAITING {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #cb4b16;
-}
-.HOLD {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.NOTE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.CANCELLED {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-
-
-/*
-pygmentize -f html -S colorful -a .highlight
-*/
-
 .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #ffffff; }
-.highlight .c { color: #888888 } /* Comment */
-.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
-.highlight .k { color: #008800; font-weight: bold } /* Keyword */
-.highlight .o { color: #333333 } /* Operator */
-.highlight .cm { color: #888888 } /* Comment.Multiline */
-.highlight .cp { color: #557799 } /* Comment.Preproc */
-.highlight .c1 { color: #888888 } /* Comment.Single */
-.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
 .highlight .ge { font-style: italic } /* Generic.Emph */
 .highlight .gr { color: #FF0000 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #00A000 } /* Generic.Inserted */
 .highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
 .highlight .gs { font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
 .highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
-.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
-.highlight .s { background-color: #fff0f0 } /* Literal.String */
-.highlight .na { color: #0000CC } /* Name.Attribute */
-.highlight .nb { color: #007020 } /* Name.Builtin */
-.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
-.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
-.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
-.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
-.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
-.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #007700 } /* Name.Tag */
-.highlight .nv { color: #996633 } /* Name.Variable */
-.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
 .highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
-.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
-.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
-.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
-.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
-.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
-.highlight .sc { color: #0044DD } /* Literal.String.Char */
-.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
-.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
-.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
-.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
-.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
-.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
-.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
-.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
-.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
-.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #336699 } /* Name.Variable.Class */
-.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
-.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
-.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
-
- </style>
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body>
-<header class="header">
-<nav class="navbar navbar-default navbar-static-top"><div class="container">
-<div class="navbar-header">
-<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
-<div id="navbar">
-<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
-</div>
-</nav></header><div id="content">
+<div id="content">
+<header>
 <h1 class="title">事件驱动编程</h1>
-<nav id="table-of-contents">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. 前言</a>
+<li><a href="#orgheadline4">1. 前言</a>
 <ul>
-<li><a href="#sec-1-1">1.1. yield from 关键词</a></li>
-<li><a href="#sec-1-2">1.2. loop-with-callbacks</a></li>
-<li><a href="#sec-1-3">1.3. loop-with-coroutines</a></li>
+<li><a href="#orgheadline1">1.1. yield from 关键词</a></li>
+<li><a href="#orgheadline2">1.2. loop-with-callbacks</a></li>
+<li><a href="#orgheadline3">1.3. loop-with-coroutines</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2. asyncio模块详解</a>
+<li><a href="#orgheadline15">2. asyncio模块详解</a>
 <ul>
-<li><a href="#sec-2-1">2.1. 添加回调</a>
+<li><a href="#orgheadline9">2.1. 添加回调</a>
 <ul>
-<li><a href="#sec-2-1-1">2.1.1. add_reader方法</a></li>
-<li><a href="#sec-2-1-2">2.1.2. remove_reader方法</a></li>
-<li><a href="#sec-2-1-3">2.1.3. add_writer方法</a></li>
-<li><a href="#sec-2-1-4">2.1.4. remove_writer方法</a></li>
+<li><a href="#orgheadline5">2.1.1. add_reader方法</a></li>
+<li><a href="#orgheadline6">2.1.2. remove_reader方法</a></li>
+<li><a href="#orgheadline7">2.1.3. add_writer方法</a></li>
+<li><a href="#orgheadline8">2.1.4. remove_writer方法</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-2">2.2. 自定义协议</a></li>
-<li><a href="#sec-2-3">2.3. 添加Task</a></li>
-<li><a href="#sec-2-4">2.4. 协程任务结果聚合</a>
+<li><a href="#orgheadline10">2.2. 自定义协议</a></li>
+<li><a href="#orgheadline11">2.3. 添加Task</a></li>
+<li><a href="#orgheadline14">2.4. 协程任务结果聚合</a>
 <ul>
-<li><a href="#sec-2-4-1">2.4.1. 使用Queue</a></li>
-<li><a href="#sec-2-4-2">2.4.2. 使用gather函数</a></li>
+<li><a href="#orgheadline12">2.4.1. 使用Queue</a></li>
+<li><a href="#orgheadline13">2.4.2. 使用gather函数</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-3">3. 参考资料</a></li>
+<li><a href="#orgheadline16">3. 参考资料</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-2">
+<h2 id="orgheadline4">前言</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-本文紧跟着 <a href="套接字编程入门.html">套接字编程入门</a>  一文，继续向前探索。在本文开始前，强烈建议读者读读 <a href="#cite1">参考资料1</a> ，该文其中说明asyncio模块部分很是重要。
+本文紧跟着 <a href="套接字编程入门.html">套接字编程入门</a>  一文，继续向前探索。在本文开始前，强烈建议读者读读 <a href="#orgtarget1">参考资料1</a> ，该文其中说明asyncio模块部分很是重要。
 </p>
 </div>
 
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> yield from 关键词</h3>
+<div class="outline-3">
+<h3 id="orgheadline1">yield from 关键词</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-在开始前有必要详细说明一下yield from关键词。我们从 <a href="#cite1">参考资料1</a> 看到python的内在处理机制是将所谓的协程概念和异步编程概念等都和python中的生成器迭代器概念重合了。实际上我们可以简单地将一个协程看作一个生成器对象，然后Task这个对象是基于Future这个对象的:
+在开始前有必要详细说明一下yield from关键词。我们从 <a href="#orgtarget1">参考资料1</a> 看到python的内在处理机制是将所谓的协程概念和异步编程概念等都和python中的生成器迭代器概念重合了。实际上我们可以简单地将一个协程看作一个生成器对象，然后Task这个对象是基于Future这个对象的:
 </p>
-<pre class="example">
+<pre>
 class Task(Future):
     """A coroutine wrapped in a Future."""
 </pre>
@@ -439,7 +261,7 @@ class Task(Future):
 而Future对象的理解关键点还是在生成器概念和yield from这个关键词上（请读者参看 <a href="http://simeonvisser.com/posts/python-3-using-yield-from-in-generators-part-1.html">这个网页</a> ）。当然就作为python中函数的执行和生成器的惰性运算机制，比如:
 </p>
 
-<pre class="example">
+<pre>
 gen.send('None')
 </pre>
 <p>
@@ -450,7 +272,7 @@ gen.send('None')
 我们先看到这个例子:
 </p>
 
-<pre class="example">
+<pre>
 def generator2():
     for i in range(10):
         yield i
@@ -472,7 +294,7 @@ print(list(gen))
 <p>
 其结果输出如下:
 </p>
-<pre class="example">
+<pre>
 return value of yield-from: None
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 </pre>
@@ -520,7 +342,7 @@ b和c这两个子协程或者说子生成器可以通过在一个新的函数中
 <p>
 其输出如下:
 </p>
-<pre class="example">
+<pre>
 result of yield: None
 result of 2nd yield: None
 return value of yield-from: done
@@ -535,7 +357,7 @@ return value of yield-from: done
 <p>
 最后来说明一下yield from语句和可迭代对象之间的关系:
 </p>
-<pre class="example">
+<pre>
 class Test():
     def __iter__(self):
         yield self
@@ -551,7 +373,7 @@ gen = test()
 print(list(gen))
 </pre>
 
-<pre class="example">
+<pre>
 True
 [&lt;__main__.Test object at 0x7f66f7810ef0&gt;]
 &gt;&gt;&gt;
@@ -564,8 +386,8 @@ True
 </div>
 
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> loop-with-callbacks</h3>
+<div class="outline-3">
+<h3 id="orgheadline2">loop-with-callbacks</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 通过DefaultSelector构建起来的事件循环还有基于套接字的操作，下面代码来自 <a href="https://github.com/aosabook/500lines">500lines</a> 。若读者已经读过前面的套接字编程入门一文，那么理解这个脚本应该不成问题了。其中值得注意的是其刷url和处理重复url的python方法较好，值得我们学习。
@@ -683,8 +505,8 @@ True
 </div>
 
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> loop-with-coroutines</h3>
+<div class="outline-3">
+<h3 id="orgheadline3">loop-with-coroutines</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 如果读者理解了yield from关键词，那么下面的代码也是很好理解的。这段代码基于上面的代码然后稍作修改而来。
@@ -867,8 +689,8 @@ True
 </div>
 
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> asyncio模块详解</h2>
+<div class="outline-2">
+<h2 id="orgheadline15">asyncio模块详解</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 一般首先你需要通过 <code>get_event_loop</code> 函数来获取一个全局性的事件驱动循环，其返回一个EventLoop对象，asyncio模块为EventLoop对象提供了很多方法，很多任务都可以通过调用这个EventLoop对象的方法来完成，下面简称为loop。
@@ -887,13 +709,13 @@ loop的 <code>close</code> 方法，关闭事件循环。loop的 <code>stop</cod
 </p>
 </div>
 
-<div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 添加回调</h3>
+<div class="outline-3">
+<h3 id="orgheadline9">添加回调</h3>
 <div class="outline-text-3" id="text-2-1">
-</div><div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> add_reader方法</h4>
+</div><div class="outline-4">
+<h4 id="orgheadline5">add_reader方法</h4>
 <div class="outline-text-4" id="text-2-1-1">
-<pre class="example">
+<pre>
 BaseEventLoop.add_reader(fd, callback, *args)
 </pre>
 
@@ -903,8 +725,8 @@ BaseEventLoop.add_reader(fd, callback, *args)
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-2" class="outline-4">
-<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> remove_reader方法</h4>
+<div class="outline-4">
+<h4 id="orgheadline6">remove_reader方法</h4>
 <div class="outline-text-4" id="text-2-1-2">
 <p>
 移除某个reader。
@@ -912,21 +734,21 @@ BaseEventLoop.add_reader(fd, callback, *args)
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-3" class="outline-4">
-<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> add_writer方法</h4>
+<div class="outline-4">
+<h4 id="orgheadline7">add_writer方法</h4>
 <div class="outline-text-4" id="text-2-1-3">
 <p>
 监听可写事件。
 </p>
 
-<pre class="example">
+<pre>
 BaseEventLoop.add_writer(fd, callback, *args)
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-4" class="outline-4">
-<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> remove_writer方法</h4>
+<div class="outline-4">
+<h4 id="orgheadline8">remove_writer方法</h4>
 <div class="outline-text-4" id="text-2-1-4">
 <p>
 移除某个writer。
@@ -935,14 +757,14 @@ BaseEventLoop.add_writer(fd, callback, *args)
 </div>
 </div>
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 自定义协议</h3>
+<div class="outline-3">
+<h3 id="orgheadline10">自定义协议</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 自定义的协议继承自Protocol类，然后其调用loop的 <code>create_server</code> 来接受这个协议类来时间创建一个协程式的服务器程序:
 </p>
 
-<pre class="example">
+<pre>
 coroutine BaseEventLoop.create_server(protocol_factory, host=None, port=None, ...)
 </pre>
 
@@ -970,7 +792,7 @@ coroutine BaseEventLoop.create_server(protocol_factory, host=None, port=None, ..
 <p>
 上面的代码运行效果大致如下所示:
 </p>
-<pre class="example">
+<pre>
 wanze@wanze-ubuntu:~$ netcat localhost 4444
 d
 d
@@ -987,21 +809,21 @@ a
 其定义的方法有:
 </p>
 <dl class="org-dl">
-<dt> connection_made </dt><dd></dd>
+<dt>connection_made</dt><dd></dd>
 </dl>
 <p>
 这个callback继承自Protocol类，逻辑是如果一个连接建好了，那么执行该函数。其接受一个参数transport。也就是具体协议的传输层。
 </p>
 
 <dl class="org-dl">
-<dt> data_received </dt><dd></dd>
+<dt>data_received</dt><dd></dd>
 </dl>
 <p>
 这个callback继承自Protocol类，如果某个数据传进来了，那么该函数将被执行。其接受一个参数就是传进来的data。
 </p>
 
 <dl class="org-dl">
-<dt> eof_received </dt><dd></dd>
+<dt>eof_received</dt><dd></dd>
 </dl>
 <p>
 数据结束完毕是调用。你可以在另外一端用transport发送写入结束信号 <code>write_eof()</code> 。
@@ -1010,26 +832,26 @@ a
 </div>
 
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 添加Task</h3>
+<div class="outline-3">
+<h3 id="orgheadline11">添加Task</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 通过loop的 <code>create_task</code> 方法来给事件循环添加一个Task任务。一般我们使用不用再去考虑Future的概念了，简单理解就是给loop事件循环添加一个待执行的协程任务，然后这个任务对象可以内部可以添加计划多个任务流，大抵如此。
 </p>
 
-<pre class="example">
+<pre>
 BaseEventLoop.create_task(coro)
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 协程任务结果聚合</h3>
+<div class="outline-3">
+<h3 id="orgheadline14">协程任务结果聚合</h3>
 <div class="outline-text-3" id="text-2-4">
-</div><div id="outline-container-sec-2-4-1" class="outline-4">
-<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> 使用Queue</h4>
+</div><div class="outline-4">
+<h4 id="orgheadline12">使用Queue</h4>
 <div class="outline-text-4" id="text-2-4-1">
-<pre class="example">
+<pre>
 from asyncio import JoinableQueue as Queue
 </pre>
 
@@ -1037,7 +859,7 @@ from asyncio import JoinableQueue as Queue
 asyncio提供了Queue对象支持。一般使用将其绑定在主事件循环上。
 </p>
 
-<pre class="example">
+<pre>
 queue = Queue(loop=self.loop)
 </pre>
 
@@ -1045,26 +867,21 @@ queue = Queue(loop=self.loop)
 然后其含的重要方法有:
 </p>
 <dl class="org-dl">
-<dt> get方法 </dt><dd>获取一个item，协程方法。（你需要先确保task_done，之后item才能正常使用，否则你get的是一个协程对象）
-</dd>
-<dt> put方法 </dt><dd>放入一个任务协程对象，如果queue满了则会等待，协程方法。
-</dd>
-<dt> task_done方法 </dt><dd>阻塞程序，确保queue下一次要get的item已经完成了（也就是协程函数已经展开了）
-</dd>
-<dt> put_nowait方法 </dt><dd>放入一个任务协程对象不阻塞，如果queue满了则会抛出异常（若Queue设的是默认的maxsize=0，则queue永远都不会满的） 
-</dd>
-<dt> join方法 </dt><dd>queue里所有的item任务都要完成，程序有个计数器，若加入一个任务到queue，则计数器加一，若一个task_done()被执行，则计数器减去一，如果计数器未完成任务等于0了，则join方法unblock。但需要注意的是这个join方法本身也是协程式的，即其对于主程序来说本没有阻塞。
-</dd>
+<dt>get方法</dt><dd>获取一个item，协程方法。（你需要先确保task_done，之后item才能正常使用，否则你get的是一个协程对象）</dd>
+<dt>put方法</dt><dd>放入一个任务协程对象，如果queue满了则会等待，协程方法。</dd>
+<dt>task_done方法</dt><dd>阻塞程序，确保queue下一次要get的item已经完成了（也就是协程函数已经展开了）</dd>
+<dt>put_nowait方法</dt><dd>放入一个任务协程对象不阻塞，如果queue满了则会抛出异常（若Queue设的是默认的maxsize=0，则queue永远都不会满的）</dd>
+<dt>join方法</dt><dd>queue里所有的item任务都要完成，程序有个计数器，若加入一个任务到queue，则计数器加一，若一个task_done()被执行，则计数器减去一，如果计数器未完成任务等于0了，则join方法unblock。但需要注意的是这个join方法本身也是协程式的，即其对于主程序来说本没有阻塞。</dd>
 </dl>
 </div>
 </div>
 
 
 
-<div id="outline-container-sec-2-4-2" class="outline-4">
-<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> 使用gather函数</h4>
+<div class="outline-4">
+<h4 id="orgheadline13">使用gather函数</h4>
 <div class="outline-text-4" id="text-2-4-2">
-<pre class="example">
+<pre>
 asyncio.gather(*coros_or_futures, loop=None, return_exceptions=False)
 </pre>
 <p>
@@ -1085,20 +902,15 @@ gather函数将收集一些协程函数或任务或futures等，等所有的结�
 
 
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> 参考资料</h2>
+<div class="outline-2">
+<h2 id="orgheadline16">参考资料</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
-<li>a-web-crawler-with-asyncio-coroutines <a href="http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html">这种原英文网页</a> , <a href="http://damnever.github.io/2015/10/12/a-web-crawler-with-asyncio-coroutines/">这里有个中文翻译网页</a> 。 <a id="cite1" name="cite1"></a>
-</li>
-<li><a href="http://www.getoffmalawn.com/blog/playing-with-asyncio">playing-with-asyncio</a> 
-</li>
+<li>a-web-crawler-with-asyncio-coroutines <a href="http://aosabook.org/en/500L/a-web-crawler-with-asyncio-coroutines.html">这种原英文网页</a> , <a href="http://damnever.github.io/2015/10/12/a-web-crawler-with-asyncio-coroutines/">这里有个中文翻译网页</a> 。 <a id="orgtarget1"></a></li>
+<li><a href="http://www.getoffmalawn.com/blog/playing-with-asyncio">playing-with-asyncio</a></li>
 </ol>
 </div>
 </div>
 </div>
-<footer class="footer">
-<div class="container">
-<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-15 10:06.</p></div>
 </body>
 </html>

@@ -1,0 +1,22 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: matplotlib模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+
+\section{matplotlib棒状图上加上说明文字}
+\href{http://stackoverflow.com/questions/7423445/how-can-i-display-text-over-columns-in-a-bar-chart-in-matplotlib}{参考网站}
+
+\section{matplotlib加入中文}
+\href{http://blog.sciencenet.cn/blog-43412-343002.html }{参考网站}
+
+
+
+
+

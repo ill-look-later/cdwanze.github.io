@@ -1,0 +1,152 @@
+% Created 2015-02-19 四 04:15
+\documentclass[11pt,oneside]{article}
+\usepackage{}
+\usepackage{article}
+\author{万泽}
+\date{\today}
+\title{setuptools模块}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={制作者邮箱：a358003542@gmail.com},
+  pdfcreator={编者:万泽}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+虽然官方内置distutils模块也能实现类似的功能，不过现在人们更常用的是第三方模块setuptools，相当于distutils模块的加强版，初学者推荐就使用setuptools模块。
+
+\section{安装}
+\label{sec-1}
+安装就是先安装pip3：
+\begin{Verbatim}
+sudo apt-get install python3-pip
+\end{Verbatim}
+
+
+然后通过pip3来安装setuptools：
+\begin{Verbatim}
+sudo pip3 install setuptools
+\end{Verbatim}
+
+
+\section{setuptools基础}
+\label{sec-2}
+安装官方文档最简单的“setup.py”文件如下所示：
+\begin{tcbpython}
+from setuptools import setup, find_packages
+setup(
+    name = "HelloWorld",
+    version = "0.1",
+    packages = find_packages(),
+)
+\end{tcbpython}
+
+第一行是从setuptools模块中引入setup函数和find\_packages函数。
+
+setup函数接受一系列的字典值，下面就setup函数的一些字典值的含义慢慢道来：
+
+\begin{description}
+\item[{name}] 本软件的名字
+\item[{version}] 本软件的版本号
+\item[{author}] 本软件的作者
+\item[{author\_email}] 本软件作者的邮箱
+\item[{maintainer}] 本软件的维护者
+\item[{maintainer\_email}] 本软件维护者的邮箱
+\item[{contact}] 本软件的联系人。可以不写，则是维护者的名字，如果没有则是作者的名字。
+\item[{contact\_email}] 本软件的联系人的邮箱，可以不写，则是维护者的邮箱，如果没有则是作者的邮箱。
+\item[{license}] 本软件的license
+\item[{url}] 本软件项目主页地址
+\item[{description}] 本软件的简要描述
+\item[{long\_description}] 本软件的完整描述，一般如下定义一行函数，然后读取本地目录下面README.md文件。
+\end{description}
+
+\begin{tcbpython}
+import os.path
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+\end{tcbpython}
+
+然后long\_description如下设置：
+\begin{tcbpython}
+long_description=read('README.md'),
+\end{tcbpython}
+
+\begin{description}
+\item[{platforms}] 本软件经过测试可运行的平台
+\item[{classifiers}] 本软件的分类，请参考\href{https://pypi.python.org/pypi?\%3Aaction=list_classifiers}{这个网页} 给出一些值。是字符串的列表。
+\item[{keywords}] 本软件在pypi上搜索的关键词，字符串的列表。
+\item[{packages}] 你的软件依赖的模块。一般如下使用：
+\end{description}
+
+\begin{tcbpython}
+packages = find_packages(),
+\end{tcbpython}
+
+则你文件夹下有 \verb~__init__.py~ 文件的都将视作python模块并加入进去。
+
+除此之外你也可以直接手工输入你的模块名字，具体就是字符串的列表。
+\begin{description}
+\item[{entry\_point}] entry\_point属性视图解决在Linux \footnote{windows下的情况不清楚。} 下的脚本调用问题。如下所示：
+\end{description}
+
+\begin{tcbpython}
+entry_points = {
+'console_scripts' :[ 'zwc=zwc.zwc:main',],
+}
+\end{tcbpython}
+
+其中zwc是你的shell调用的名字，然后zwc是你的模块，另外一个zwc是你的主模块的子模块，然后main是其中的main函数。这就是你的shell调用程序的接口了。类似的还有gui\_script可以控制你调用GUI图形的命令入口。
+\begin{description}
+\item[{install\_requires}] 接受字符串的列表值，将你依赖的可以通过pip安装的模块名放入进去，然后你的软件安装会自动检测并安装这些依赖模块。
+\item[{package\_data}] 你的软件的模块额外附加的（除了py文件的）其他文件，具体设置类似这样 \verb~{"skeleton":['*.txt'],}~ 其中skeleton这里就是具体的你的软件的模块（对应的文件夹名），然后后面跟着的就是一系列的文件名列表，可以接受glob语法。注意这里只能包含你的模块文件夹也就是前面通过packages控制的文件夹下面的内容。
+\item[{include\_package\_data}] 这个一般设置为True，似乎可以省略？
+\end{description}
+
+其他不常用的属性值列在下面：
+\begin{description}
+\item[{scripts}] 不推荐使用，推荐通过entry\_point来生成脚本。
+\item[{py\_modules}] 不推荐使用，推荐使用packages来管理模块。
+\item[{data\_files}] 前面的package\_data是只能在你的模块文件夹里面的其他数据文件等，然后可能还有一些数据文件你需要包含的，用data\_files来控制，具体后面跟着的参数格式如下面例子所示：
+\end{description}
+\begin{tcbpython}
+data_files = [('icos',['icos/wise.ico'])],
+#这是添加的icos文件夹下面的wise.ico文件
+data_files = [('',['skeleton.tar.gz'])],
+#这是添加的主目录下的skeleton.tar.gz文件
+\end{tcbpython}
+
+值得一提的是data\_files不能接受glob语法。
+
+data\_files已经不推荐使用了，推荐用package\_data来管理，可以方便用pkg\_resources里面的方法来引用其中的资源文件。具体说明请看后面。
+
+
+\section{pkg\_resources模块来管理读取资源文件}
+\label{sec-3}
+如下所示
+\begin{Verbatim}
+from pkg_resources import resource_filename
+resource_stream('wise','icos/Folder-Documents.ico')
+\end{Verbatim}
+
+第一个参数是模块名字，第二个参数是模块中的文件的相对路径表达。
+
+上面的例子是resource\_filename，返回的是引用的文件名。此外还有命令：resource\_string，参数和resource\_filename一样，除了它返回的是字节流。这个字节流可以赋值给某个变量从而直接使用，或者存储在某个文件里面。
+
+
+\section{在pypi上注册你的软件}
+\label{sec-4}
+具体很简单，就是
+\begin{tcbbash}
+sudo python3 setup.py register
+\end{tcbbash}
+
+你需要在pypi官网上注册一个帐号，然后你的软件不一定能够注册成功，因为很多好名字都被别人取了。。
+
+\section{一个项目模板}
+\label{sec-5}
+我在github上创建了一个小项目，这个小项目支持快速新建一个项目。
+
+\href{https://github.com/a358003542/skeleton}{\url{https://github.com/a358003542/skeleton}} 
+% 编者:万泽
+\end{document}

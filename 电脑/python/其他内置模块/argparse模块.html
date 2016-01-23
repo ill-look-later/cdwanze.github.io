@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>argparse模块</title>
+<!-- 2015-11-02 17:38 -->
+<meta  charset="utf-8">
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css"> /*
+ * with_bootstrap.css
+ *
+ * Copyright 2015 wanze <a358003542@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ *
+ *
+ */
+
+@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 750px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+/* background-color: #f8f8f8; */
+.navbar-default{
+    background-color: #fff;
+}
+/*--------------------*/
+
+#content{
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 17px;
+    line-height:160%;
+    font-size:16px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+
+pre{line-height:180%;font-size:90%;}
+code,kbd,pre,samp {
+  font-family: monospace, serif;
+}
+
+code{  padding: 2px;}
+p{
+    text-indent:2em;/*段落缩进*/
+    line-height:180%;/*行间距*/
+    }
+
+.title{
+    text-align: center;
+}
+.org-ol li , .org-ul li , org-dl dt{
+    margin-top: 0.5em; /*增大li之间的垂直space*/
+    margin-bottom: 0.5em; /*增大li之间的垂直space*/
+}
+p.verse{
+    margin-left: 3%;
+    text-indent:0em;
+}
+
+.right{
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
+}
+.left{
+    margin-left: 0px;
+    margin-right: auto;
+    text-align: left;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+
+video{
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;/*段落缩进*/
+}
+img{
+    max-width: 700px;
+}
+
+figure{
+    text-align: center;
+}
+
+table, th, td
+{
+    margin:0 auto;
+    min-width:2em;
+    text-align:center ;
+    padding: 5px;
+}
+
+table{
+    border-top: 2px solid ;
+    border-bottom: 2px solid ;
+}
+thead{
+    border-bottom: 1px solid ;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+http://thomasf.github.io/solarized-css/
+*/
+
+dfn {
+  font-style: italic;
+}
+dd{
+    margin-left:2em;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+.tag {
+  background-color: #eee8d5;
+  color: #d33682;
+  padding: 0 0.2em;
+}
+
+
+.todo,
+.next,
+.done {
+  color: #fdf6e3;
+  background-color: #dc322f;
+  padding: 0 0.2em;
+}
+.tag {
+  -webkit-border-radius: 0.35em;
+  -moz-border-radius: 0.35em;
+  border-radius: 0.35em;
+}
+.TODO {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #2aa198;
+}
+.NEXT {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.ACTIVE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #268bd2;
+}
+.DONE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+.WAITING {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #cb4b16;
+}
+.HOLD {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.NOTE {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #d33682;
+}
+.CANCELLED {
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background-color: #859900;
+}
+
+
+/*
+pygmentize -f html -S colorful -a .highlight
+*/
+
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #ffffff; }
+.highlight .c { color: #888888 } /* Comment */
+.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.highlight .k { color: #008800; font-weight: bold } /* Keyword */
+.highlight .o { color: #333333 } /* Operator */
+.highlight .cm { color: #888888 } /* Comment.Multiline */
+.highlight .cp { color: #557799 } /* Comment.Preproc */
+.highlight .c1 { color: #888888 } /* Comment.Single */
+.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
+.highlight .s { background-color: #fff0f0 } /* Literal.String */
+.highlight .na { color: #0000CC } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
+.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #007700 } /* Name.Tag */
+.highlight .nv { color: #996633 } /* Name.Variable */
+.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.highlight .sc { color: #0044DD } /* Literal.String.Char */
+.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
+.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
+.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
+.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #336699 } /* Name.Variable.Class */
+.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
+.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
+.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+
+ </style>
+</head>
+<body>
+<header class="header">
+<nav class="navbar navbar-default navbar-static-top"><div class="container">
+<div class="navbar-header">
+<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
+<div id="navbar">
+<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
+</div>
+</nav></header><div id="content">
+<h1 class="title">argparse模块</h1>
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 简单添加一个参数</a></li>
+<li><a href="#sec-2">2. 添加参数的其他选项设置</a>
+<ul>
+<li><a href="#sec-2-1">2.1. nargs选项设置</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. 一个完整的例子</a></li>
+<li><a href="#sec-4">4. 一个通用刷参数的函数</a></li>
+<li><a href="#sec-5">5. 通用脚本函数支持</a></li>
+</ul>
+</div>
+</nav>
+<p>
+一般制作python命令行脚本，推荐使用argparse模块，
+</p>
+
+<p>
+下面简要介绍了python3的官方文档argparse模块的用法，用于快速制作一个可以刷参数的python脚本，更多信息请参看 <a href="https://docs.python.org/3/library/argparse.html">官方文档</a> 。
+</p>
+
+<p>
+首先看下面这个简单的情况:
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">usage</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">this is a example to show argparse usage</span>
+<span class="s">&#39;&#39;&#39;</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">)</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</pre></div>
+
+<p>
+这是简单的一个例子了，现在脚本还不可以接受任何参数，只可以用 <code>-h</code> 或 <code>--help</code> 来查看一些信息，如下所示。
+</p>
+<pre class="example">
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py -h
+usage: 
+this is a example to show argparse usage
+ [-h]
+
+optional arguments:
+  -h, --help  show this help message and exit
+</pre>
+
+<p>
+其首先是新建一个parser，上面ArgumentParser的usage是可选参数，就是命令行的一些描述信息。然后需要调用parser的 <code>parse_args</code> 方法，其就是具体将命令行接受的一些参数刷进去。
+</p>
+
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 简单添加一个参数</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+上面的例子太简单了，现在开始简单添加一个参数。
+</p>
+<pre class="example">
+import argparse
+usage = '''
+this is a example to show argparse usage
+'''
+parser = argparse.ArgumentParser(usage=usage)
+
+parser.add_argument('--config',help="the config file path")
+
+args = parser.parse_args()
+
+print(args)
+</pre>
+<p>
+这样命令行的帮助信息就变成如下所示了:
+</p>
+
+<pre class="example">
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py -h
+usage: 
+this is a example to show argparse usage
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --config CONFIG  the config file path
+</pre>
+
+<p>
+如果我们如下输入则有:
+</p>
+<pre class="example">
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py --config='config.cfg'
+Namespace(config='config.cfg')
+</pre>
+
+<p>
+我们看到 <code>parse_args</code> 方法返回的是Namespace对象，推荐用 <code>vars</code> 函数来将其处理成为字典值，这样会更好地方便后面的使用。
+</p>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">usage</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">this is a example to show argparse usage</span>
+<span class="s">&#39;&#39;&#39;</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-c&#39;</span><span class="p">,</span><span class="s">&#39;--config&#39;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;the config file path&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+<pre class="example">
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py -h
+usage: 
+this is a example to show argparse usage
+python3 hello.py
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+                        the config file path
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py --config='config.cfg'
+{'config': 'config.cfg'}
+</pre>
+
+<p>
+上面代码稍作修改，在长名字可选参数前面还可以加上短名字可选参数支持，然后我们看到 <code>parse_args</code> 方法经过 <code>vars</code> 处理之后返回的是字典值。该字典的key默认对应的是长名字可选参数。你还可以自己设置目标参数名:
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 添加参数的其他选项设置</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+下面演示了如何设置目标参数在脚本中具体对应的变量名:
+</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">usage</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">this is a example to show argparse usage</span>
+<span class="s">&#39;&#39;&#39;</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-c&#39;</span><span class="p">,</span><span class="s">&#39;--config&#39;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">&quot;configpath&quot;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;the config file path&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+<p>
+然后我们看到字典输入如下:
+</p>
+<pre class="example">
+wanze@wanze-ubuntu64:~/桌面$ python3 hello.py --config='config.cfg'
+{'configpath': 'config.cfg'}
+</pre>
+
+<p>
+当然一般就默认设置成为和长名字可选参数一致，没必要这么折腾。类似的你还可以继续用 <code>add_argument</code> 方法来添加其他的可选参数，然后 <code>add_argument</code> 还有如下一些选项配置:
+</p>
+
+<dl class="org-dl">
+<dt> required=True </dt><dd>该参数一定要输入值，否则报错
+</dd>
+<dt> help </dt><dd>描述信息，前面已经看到了。
+</dd>
+<dt> default </dt><dd>该参数的默认值，默认是None，你可以选择设置成另外一个值。 
+</dd>
+<dt> type </dt><dd>目标参数的数据类型，默认是字符串，可以设置为int或float。注意设置格式如下，不是字符串的那种设置形式:
+</dd>
+</dl>
+<pre class="example">
+parser.add_argument('--delay',type=int)
+</pre>
+
+
+<p>
+必填参数的添加如下所示，除了这个"target"名字前面没有"-"之外，和可选参数用法大致类似，其刷入args字典之后的key就是"target"这个名字。
+</p>
+<pre class="example">
+parser.add_argument('target',help="必填参数")
+</pre>
+
+<p>
+不过必填参数和可选参数在某些细节上还是有点差异的，后面会提及。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> nargs选项设置</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+nargs设置之后该参数在脚本中具体对应的变量将是一个列表。其中nargs可以设置为一个数字，比如 <code>nargs=4</code> ，则脚本对该参数将接受4个输入值，然后将其收集进一个列表里面。
+</p>
+
+<p>
+此外还有:
+</p>
+<dl class="org-dl">
+<dt> nargs='*' </dt><dd>这通常是对可选参数进行设置，当然也可以作用于必填参数，但这让必填参数失去意义了。其将收集任意多的输入参数值，而如果多个可选参数之间这样使用星号是可以的，具体如官方文档所述:
+</dd>
+</dl>
+<pre class="example">
+&gt;&gt;&gt; parser = argparse.ArgumentParser()
+&gt;&gt;&gt; parser.add_argument('--foo', nargs='*')
+&gt;&gt;&gt; parser.add_argument('--bar', nargs='*')
+&gt;&gt;&gt; parser.add_argument('baz', nargs='*')
+&gt;&gt;&gt; parser.parse_args('a b --foo x y --bar 1 2'.split())
+Namespace(bar=['1', '2'], baz=['a', 'b'], foo=['x', 'y'])
+</pre>
+
+<dl class="org-dl">
+<dt> nargs='+' </dt><dd>这通常作用于必填参数，其意义有点类似于正则表达式里面的'+'号，和上面的'*'号比起来其必须有一个输入值，否则将报错。
+</dd>
+
+<dt> nargs='?' </dt><dd>这个'?'号具体使用情况挺复杂的，我不太喜欢，而且其和nargs其他的一些设置比较起来显得有点格格不入。首先其对应的变量值不是列表而是单个值！其次其改变了默认值的行为。如果该参数不输入，比如 <code>--foo</code> 这个东西完全不输入在命令行里面，那么foo默认取default的值，如果加入了 <code>--foo</code> 这个东西但是后面又不跟值，则foo取 <strong>const</strong> 选项赋的值。不太喜欢这个东西。
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 一个完整的例子</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+下面给出一个完整的例子:
+</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">usage</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">resize the image</span>
+<span class="s">&#39;&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-c&#39;</span><span class="p">,</span><span class="s">&#39;--config&#39;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">&quot;configpath&quot;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;the config file path&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;inputimg&#39;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;the input image&quot;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="s">&#39;+&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--width&#39;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;the input image&quot;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+
+    <span class="n">configpath</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">&#39;configpath&#39;</span><span class="p">]</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">&#39;width&#39;</span><span class="p">]</span>
+    <span class="n">inputimg</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">&#39;inputimg&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">inputimg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="s">&#39;inputimg&#39;</span><span class="p">]:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;resize image&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;the input image is {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputimg</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;the target width is {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">width</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+
+<p>
+具体运行情况如下所示:
+</p>
+<pre class="example">
+wanze@wanze-ubuntu64:~/图片$ python3 resizeimg.py --help
+usage: 
+resize the image
+
+positional arguments:
+  inputimg              the input image
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIGPATH, --config CONFIGPATH
+                        the config file path
+  --width WIDTH         the input image
+</pre>
+
+<pre class="example">
+wanze@wanze-ubuntu64:~/图片$ python3 resizeimg.py --width=300 *.png
+resize image
+the input image is 2015-01-27 13:16:46 的屏幕截图.png
+the target width is 300
+resize image
+the input image is 2015-05-03 18:17:19屏幕截图.png
+the target width is 300
+resize image
+the input image is 2015-05-03 18:20:45屏幕截图.png
+the target width is 300
+....
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 一个通用刷参数的函数</h2>
+<div class="outline-text-2" id="text-4">
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">usage</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">resize the image</span>
+<span class="s">&#39;&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">get_env</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">globals</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">even</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;偶数判断函数&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">NotIntegerError</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">str2num</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">string</span>
+
+<span class="k">def</span> <span class="nf">init_argv</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-c&#39;</span><span class="p">,</span><span class="s">&#39;--config&#39;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">&quot;configpath&quot;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;the config file path&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--args&#39;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">&#39;more_args&#39;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;more you input args will be passed as a genernal way, longname and the string type&quot;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">REMAINDER</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+    <span class="n">more_args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">&#39;more_args&#39;</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">more_args</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">more_args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">even</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">longname</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+            <span class="n">args</span><span class="p">[</span><span class="n">longname</span><span class="p">]</span> <span class="o">=</span> <span class="n">str2num</span><span class="p">(</span><span class="n">more_args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">args</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">get_env</span><span class="p">()</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">init_argv</span><span class="p">(</span><span class="n">usage</span><span class="p">))</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;resize image&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;the input image is {},type: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputimg</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">inputimg</span><span class="p">)))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;the target width is {},typpe:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">width</span><span class="p">)))</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+<p>
+这里约定通用刷额外参数一次只能接受一个值，而且必须赋值。这是没有办法的，也许能够写出更灵活的支持吧。然后我们定义一个脚本的 <code>globals()</code> 全局变量字典值为 <strong>env</strong> 变量，即本脚本所处的全局环境。这个环境的概念很重要。以后我们扩展脚本都将基于这个环境。
+</p>
+
+<p>
+这个脚本并没有用到configpath，不过以后这个功能应该需要加进去，推荐使用cfg文件格式（configparser模块支持）或者简单的一个简单的字典值的json文件（json不推荐做配置管理，不过一个字典的情况是可以接受的。）。读入之后刷入进 <strong>env</strong> 中。我们这里约定具体各个参数配置优先级如下:
+</p>
+
+<hr >
+<p>
+具体命令行参数 &gt; 配置文件
+</p>
+<hr >
+
+<p>
+最后脚本全局环境env将上面谈及的这些字典配置都 <strong>update</strong> 进去。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 通用脚本函数支持</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+继续上面的例子，然后这里加入了对于配置文件的支持。具体是刷的cfg文件的DEFAULT section，可以进一步设置其他的section的配置。
+</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">usage</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">resize the image</span>
+<span class="s">&#39;&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">get_env</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">globals</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">even</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;偶数判断函数&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">NotIntegerError</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">str2num</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">string</span>
+
+<span class="k">def</span> <span class="nf">init_argv</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-c&#39;</span><span class="p">,</span><span class="s">&#39;--config&#39;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">&quot;configpath&quot;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;the config file path&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;--args&#39;</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">&#39;more_args&#39;</span><span class="p">,</span><span class="n">help</span><span class="o">=</span><span class="s">&quot;more you input args will be passed as a genernal way, longname and the string type&quot;</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">REMAINDER</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+    <span class="n">more_args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">&#39;more_args&#39;</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">more_args</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">more_args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">even</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">longname</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+            <span class="n">args</span><span class="p">[</span><span class="n">longname</span><span class="p">]</span> <span class="o">=</span> <span class="n">str2num</span><span class="p">(</span><span class="n">more_args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">args</span>
+
+<span class="kn">import</span> <span class="nn">configparser</span>
+<span class="k">def</span> <span class="nf">init_config</span><span class="p">(</span><span class="n">configpath</span><span class="p">,</span><span class="n">configsection</span><span class="o">=</span><span class="s">&#39;DEFAULT&#39;</span><span class="p">):</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">configpath</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="n">configsection</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">init_env</span><span class="p">():</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">get_env</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">init_argv</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
+
+    <span class="n">configpath</span>  <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s">&#39;configpath&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">configpath</span><span class="p">:</span>
+        <span class="n">env</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">init_config</span><span class="p">(</span><span class="n">configpath</span><span class="p">))</span>
+
+    <span class="n">env</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">init_env</span><span class="p">()</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;resize image&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;the input image is {},type: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputimg</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">inputimg</span><span class="p">)))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;the target width is {},typpe:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">width</span><span class="p">)))</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;i am from config file the start_date is {},typpe:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">start_date</span><span class="p">)))</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p class="text-muted">作者: 万泽(德山书生); 编者: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-20 01:36.</p></div>
+</body>
+</html>

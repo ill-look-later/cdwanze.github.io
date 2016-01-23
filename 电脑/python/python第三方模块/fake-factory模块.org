@@ -1,0 +1,85 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+
+#+TITLE: fake-factory模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+在我们测试的时候，常常需要造点假数据，而花心思去设计那些数据可能会有意无意的避开某些问题，同时极大的浪费脑力。fake-factory可以帮助你快速构建假数据。其github项目地址在 [[https://github.com/joke2k/faker][这里]] 。
+
+该项目支持pip安装:
+#+BEGIN_EXAMPLE
+sudo pip install fake-factory
+#+END_EXAMPLE
+
+第一个测试例子如下所示:
+
+#+BEGIN_SRC python
+from faker import Factory
+
+faker = Factory.create()
+
+for i in range(50):
+    print faker.name()
+#+END_SRC
+
+
+然后中文名字例子如下，就是在Factory的create方法那里指定语言locale（默认是"en_EN"）:
+#+BEGIN_SRC python
+from faker import Factory
+
+faker = Factory.create('zh_CN')
+
+for i in range(100):
+    print faker.name()
+#+END_SRC
+
+
+
+
+
+
+* 附录
+** 语言locale代码
+#+BEGIN_EXAMPLE
+bg_BG - Bulgarian
+cs_CZ - Czech
+de_DE - German
+dk_DK - Danish
+el_GR - Greek
+en_CA - English (Canada)
+en_GB - English (Great Britain)
+en_US - English (United States)
+es_ES - Spanish (Spain)
+es_MX - Spanish (Mexico)
+fa_IR - Persian (Iran)
+fi_FI - Finnish
+fr_FR - French
+hi_IN - Hindi
+it_IT - Italian
+ja_JP - Japanese
+ko_KR - Korean
+lt_LT - Lithuanian
+lv_LV - Latvian
+ne_NP - Nepali
+nl_NL - Dutch (Netherlands)
+no_NO - Norwegian
+pl_PL - Polish
+pt_BR - Portuguese (Brazil)
+pt_PT - Portuguese (Portugal)
+ru_RU - Russian
+sl_SI - Slovene
+sv_SE - Swedish
+tr_TR - Turkish
+zh_CN - Chinese (China)
+zh_TW - Chinese (Taiwan)
+#+END_EXAMPLE
+
+
+

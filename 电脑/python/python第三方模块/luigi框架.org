@@ -1,0 +1,111 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: luigi框架
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+虽然luigi从源码上很简单，但我觉得最好将其称之为框架。模块和框架的区别在于当你引入一个框架时，整个软件的思路架构都会发生某种变动，而模块并没有那么大的影响，更像是一个额外的函数或者类，方便你的使用。总的来说我是不喜欢框架这种束缚人的东西的，但是顶层流程控制不同，它必然内在地对整个系统的架构发生某种深刻的影响，luigi正是这样一个项目，方便你进行你的软件或系统的顶层流程控制，所以最好称之为框架。
+
+luigi框架的github项目地址在 [[https://github.com/spotify/luigi][这里]] ，其可以用pip简单安装之。官方文档也不能说没有或语焉不详，但对于顶层流程控制这个内在极丰富的领域来说，确实文档显得单薄了些。好在luigi框架源码结构清晰，也很简单。不过就算把luigi源码分析得差不多了，至于顶层流程控制这个领域来说，也只能说才刚刚开始。
+
+
+
+* task
+luigi源码 ~__init__.py~ 文件一开始就是
+#+BEGIN_EXAMPLE
+from luigi import task
+#+END_EXAMPLE
+
+也确实该框架最核心的一个概念就是这个Task类。下面演示一个最基本的例子，通过这个基本的例子我们能够学到很多东西。
+
+#+BEGIN_SRC python
+import luigi
+
+class Test(luigi.Task):
+    count = luigi.IntParameter()
+    x = luigi.Parameter(default="hello luigi")
+
+    def run(self):
+        print self.count
+        print self.x
+        print self.get_params()
+
+if __name__ == '__main__':
+    luigi.run()
+#+END_SRC
+
+首先我们看到luigi.IntParameter那里，这些变量在Task对象中都可以使用如self.count这样的语法引用，然而更重要的是这些变量都自动进入命令行封装了。
+
+读者可以先简单看下这个命令行目前支持的选项，Test类一般为本脚本任务流的最终任务出口:
+#+BEGIN_EXAMPLE
+python test1.py Test --help
+#+END_EXAMPLE
+
+其中count参量还需要输入值脚本才能正常运行:
+#+BEGIN_EXAMPLE
+python test1.py Test --local-scheduler --count=10
+#+END_EXAMPLE
+
+然后脚本要正常运行你还需要加上 ~--local-scheduler~ ，这个所谓的scheduler可以简单的理解为luigi的任务调度器，这里设置为了本地的调度器。luigi还支持远程调度器，这样多台机器上可以使用同一的远程的任务调度器，这些机器会协同来完成任务工作流。
+
+
+** run方法
+run方法是Task对象很重要的一个方法，表明执行该任务其应该做些什么事情。
+
+** get_params方法
+Task对象的 ~get_params~ 方法（其是一个类方法）会返回本任务对象收集的参数。这在有时需要传递全局型参数时很有用。
+
+
+** output方法
+下面看第二个例子:
+#+BEGIN_SRC python
+from __future__ import print_function
+
+import luigi
+
+class Test(luigi.Task):
+    count = luigi.IntParameter()
+    x = luigi.Parameter(default="hello luigi")
+
+
+    def output(self):
+        return luigi.LocalTarget("test2out.txt")
+
+    def run(self):
+        with self.output().open("w") as f:
+            print(self.count,file=f)
+            print(self.x,file=f)
+            print(self.get_params(),file=f)
+
+if __name__ == '__main__':
+    luigi.run()
+#python test2.py Test --local-scheduler --count=10
+#+END_SRC
+这个例子演示了output方法的作用，Test任务对象主体run方法作用和之前一样，这里打开了一个文件，而这个文件对象的获取是借助于output的返回的。这里output方法返回的一定是所谓的Target对象，其一定有一个exists方法，通常对应的是某个文件，如果存在则返回True，如果不存在则返回False（这个存在与否的信息方便luigi进行流程控制）。然后具体到LocalTarget对象，其就对应的是本地的某个文件对象。其有一个open方法，目前只有两种模式"r"或"w"。然后后面就和操作常规python文件对象一样了。
+
+这个小程序简单将之前的那些信息写入到那个文件中去了。
+
+
+** requires方法
+到requires方法这里
+
+
+* parameter
+
+** 参数对象的值
+参数对象进来之后还是什么luigi专门的Parameter对象，并不能在python中正常使用，需要类似 ~p.value~ 这样把值提出来之后才能变成常规的python值。
+
+* target
+
+
+* 配置文件
+
+
+http://blog.kissdata.com/2014/05/28/lugi.html#luigi
+

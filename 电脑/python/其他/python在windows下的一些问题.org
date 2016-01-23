@@ -1,0 +1,50 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: python在windows下的一些问题
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+* 什么是windows的dll文件
+** 静态链接
+静态链接是将应用程序调用的库函数拷贝到可执行文件里面。当多个程序调用相同的函数，将会出现同一个函数的多个拷贝。 
+
+** 动态链接
+动态链接是程序运行时动态地加载所需的函数。比如windows下的dll文件或者linux下的so文件，从这些引入库中拷贝的是重定位信息，然后在需要的时候从这些文件中导入相应的函数。
+
+
+
+* python对接win32 api模块
+python对接win32 api模块推荐使用pywin32模块。
+
+
+* 在windows下安装python的模块
+如果有网络那么推荐就使用pip命令来安装，是很方便的，无需多言。如果没有网络的情况那么推荐下载exe或者whl包来安装，其中whl包就是对应的pip install命令，使用的pip wheel技术。
+
+如果实在需要手工安装，通常纯python写的模块没什么问题，就是一些模块使用了cython技术等，其中cython那一块很是引起了我的兴趣。如果有c代码，那么需要安装visual studio2010开发环境，这很不方便。还有一个不是很完美的替代方案就是安装mingw程序，然后写一个distutils.cfg文件，内容如下：
+
+#+BEGIN_EXAMPLE
+[build]
+compiler = mingw32
+#+END_EXAMPLE
+
+然后将其放入 ~C:\Python34\Lib\distutils~ 里面，cython可以安装成功，但是有的又不行，是一个不太完美的备选方案。
+
+
+
+* cygwin环境下pygmentize的编码问题
+在cygwin环境下，安装好emacs-win32之后，相关配置跟上，就可以很自如的使用emacs的org模式了，其中额外pygments宏包出现了编码问题，加上 ~-O encoding=utf-8~ 之后可以解决，代码如下所示：
+
+#+BEGIN_EXAMPLE
+        (format "pygmentize -O encoding=utf-8  -f html -l %s" lang)
+#+END_EXAMPLE
+
+
+* windows下cmd编码问题
+在windows下通过geany调用python解释器，是进入的cmd终端模式，目前（win7）默认的是GBK编码，最好改成UTF-8编码。
+
+65001 regid t  .... 字体 ... 待核实。
+
