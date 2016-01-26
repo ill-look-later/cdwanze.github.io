@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2016-01-26 二 18:12 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>http学习笔记</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">
+body {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
+}
+
+.title {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.underline{
+    text-decoration: underline;
+}
+   #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">http学习笔记</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. URL结构</a></li>
+<li><a href="#orgheadline5">2. http header详解</a>
+<ul>
+<li><a href="#orgheadline2">2.1. http 请求信息包</a></li>
+<li><a href="#orgheadline3">2.2. 请求header详解</a></li>
+<li><a href="#orgheadline4">2.3. http 响应信息包</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">3. http状态码详解</a></li>
+<li><a href="#orgheadline7">4. 名词解释</a></li>
+<li><a href="#orgheadline8">5. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+
+<div class="outline-2">
+<h2 id="orgheadline1">URL结构</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+URL结构如下:
+</p>
+<pre>
+scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+</pre>
+
+<p>
+其中:
+</p>
+<dl class="org-dl">
+<dt>scheme</dt><dd>描述访问服务器的协议，也就是如何获取该资源，最常见的是http，此外还有ftp等。</dd>
+<dt>user:password</dt><dd>这里用于http认证</dd>
+<dt>host</dt><dd>那里获取资源</dd>
+<dt>port</dt><dd>连接端口号是多少</dd>
+<dt>path</dt><dd>具体访问该资源的path</dd>
+<dt>query</dt><dd>其他额外参数</dd>
+<dt>fragment</dt><dd>片段，为client使用。还有一个params不太常用。</dd>
+</dl>
+
+<p>
+URL是只支持ascii字符表示的，其他的字符要经过utf-8编码操作。具体转义字符是 <code>%</code> ，比如空格SPACE，具体在URL中的表示就是 <code>%20</code> 。即使是ascii里面，也有一些字符需要转义，然后比如中文字符等，也需要如此utf-8编码和转义。比如 "书"
+</p>
+
+<pre>
+&gt;&gt;&gt; '书'.encode('utf-8')
+b'\xe4\xb9\xa6'
+</pre>
+
+<p>
+在URL中对应的就是 <code>%e4%b9%a6</code> 。还有其他一些细节，当然实际操作中各个编程语言都提供了良好的函数接口了的，比如python的urlencode函数。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline5">http header详解</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+本小节主要参考了 <a href="http://kb.cnblogs.com/page/92320/">这个网页</a> ，内容整理得不错，都搬过来了，做备份用。
+</p>
+
+<p>
+http协议过程分为http请求过程和http响应过程，http请求过程就是发送http请求信息包，http响应过程就是发送http响应信息包的过程。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline2">http 请求信息包</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+http请求信息包格式如下:
+</p>
+<pre>
+&lt;method&gt; &lt;URL&gt; &lt;version&gt;
+
+&lt;headers&gt;
+
+&lt;entity-body&gt;
+</pre>
+
+<p>
+比如打开google主页的请求包是:
+</p>
+<pre>
+GET / HTTP/1.1
+Host: www.google.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+........
+</pre>
+
+<p>
+其中第一行为大家熟知， 就是 <code>GET</code> 方法，具体打开的URL是 <code>/</code> ，然后http的version是 <code>HTTP/1.1</code> 。然后后面的请求包header内容不定，后面再细讲。请求信息包大多都没有entity-body，也就是额外的content内容，但就算没有header完了也要留一空白行。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline3">请求header详解</h3>
+<div class="outline-text-3" id="text-2-2">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">header</th>
+<th scope="col" class="org-left">解释</th>
+<th scope="col" class="org-left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Accept</td>
+<td class="org-left">指定客户端能够接收的内容类型</td>
+<td class="org-left">Accept: text/plain, text/html</td>
+</tr>
+
+<tr>
+<td class="org-left">Accept-Charset</td>
+<td class="org-left">浏览器可以接受的字符编码集</td>
+<td class="org-left">Accept-Charset: iso-8859-5</td>
+</tr>
+
+<tr>
+<td class="org-left">Accept-Encoding</td>
+<td class="org-left">指定浏览器可以支持的web服务器返回内容压缩编码类型</td>
+<td class="org-left">Accept-Encoding: compress, gzip</td>
+</tr>
+
+<tr>
+<td class="org-left">Accept-Language</td>
+<td class="org-left">浏览器可接受的语言</td>
+<td class="org-left">Accept-Language: en,zh</td>
+</tr>
+
+<tr>
+<td class="org-left">Accept-Ranges</td>
+<td class="org-left">可以请求网页实体的一个或者多个子范围字段</td>
+<td class="org-left">Accept-Ranges: bytes</td>
+</tr>
+
+<tr>
+<td class="org-left">Authorization</td>
+<td class="org-left">HTTP授权的授权证书</td>
+<td class="org-left">Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+
+<tr>
+<td class="org-left">Cache-Control</td>
+<td class="org-left">指定请求和响应遵循的缓存机制</td>
+<td class="org-left">Cache-Control: no-cache</td>
+</tr>
+
+<tr>
+<td class="org-left">Connection</td>
+<td class="org-left">表示是否需要持久连接   （HTTP 1.1默认进行持久连接）</td>
+<td class="org-left">Connection: close</td>
+</tr>
+
+<tr>
+<td class="org-left">Cookie</td>
+<td class="org-left">HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</td>
+<td class="org-left">Cookie: $Version=1; Skin=new;</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Length</td>
+<td class="org-left">请求的内容长度</td>
+<td class="org-left">Content-Length: 348</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Type</td>
+<td class="org-left">请求的与实体对应的MIME信息</td>
+<td class="org-left">Content-Type: application/x-www-form-urlencoded</td>
+</tr>
+
+<tr>
+<td class="org-left">Date</td>
+<td class="org-left">请求发送的日期和时间</td>
+<td class="org-left">Date: Tue, 15 Nov 2010 08:12:31 GMT</td>
+</tr>
+
+<tr>
+<td class="org-left">Expect</td>
+<td class="org-left">请求的特定的服务器行为</td>
+<td class="org-left">Expect: 100-continue</td>
+</tr>
+
+<tr>
+<td class="org-left">From</td>
+<td class="org-left">发出请求的用户的Email</td>
+<td class="org-left">From: user@email.com</td>
+</tr>
+
+<tr>
+<td class="org-left">Host</td>
+<td class="org-left">指定请求的服务器的域名和端口号</td>
+<td class="org-left">Host: www.zcmhi.com</td>
+</tr>
+
+<tr>
+<td class="org-left">If-Match</td>
+<td class="org-left">只有请求内容与实体相匹配才有效</td>
+<td class="org-left">If-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+
+<tr>
+<td class="org-left">If-Modified-Since</td>
+<td class="org-left">如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304代码</td>
+<td class="org-left">If-Modified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+
+<tr>
+<td class="org-left">If-None-Match</td>
+<td class="org-left">如果内容未改变返回304代码，参数为服务器先前发送的Etag，与服务器回应的Etag比较判断是否改变</td>
+<td class="org-left">If-None-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+
+<tr>
+<td class="org-left">If-Range</td>
+<td class="org-left">如果实体未改变，服务器发送客户端丢失的部分，否则发送整个实体。参数也为Etag</td>
+<td class="org-left">If-Range: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+
+<tr>
+<td class="org-left">If-Unmodified-Since</td>
+<td class="org-left">只在实体在指定时间之后未被修改才请求成功</td>
+<td class="org-left">If-Unmodified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+
+<tr>
+<td class="org-left">Max-Forwards</td>
+<td class="org-left">限制信息通过代理和网关传送的时间</td>
+<td class="org-left">Max-Forwards: 10</td>
+</tr>
+
+<tr>
+<td class="org-left">Pragma</td>
+<td class="org-left">用来包含实现特定的指令</td>
+<td class="org-left">Pragma: no-cache</td>
+</tr>
+
+<tr>
+<td class="org-left">Proxy-Authorization</td>
+<td class="org-left">连接到代理的授权证书</td>
+<td class="org-left">Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+
+<tr>
+<td class="org-left">Range</td>
+<td class="org-left">只请求实体的一部分，指定范围</td>
+<td class="org-left">Range: bytes=500-999</td>
+</tr>
+
+<tr>
+<td class="org-left">Referer</td>
+<td class="org-left">先前网页的地址，当前请求网页紧随其后,即来路</td>
+<td class="org-left">Referer: <a href="http://www.zcmhi.com/archives/71.html">http://www.zcmhi.com/archives/71.html</a></td>
+</tr>
+
+<tr>
+<td class="org-left">TE</td>
+<td class="org-left">客户端愿意接受的传输编码，并通知服务器接受接受尾加头信息</td>
+<td class="org-left">TE: trailers,deflate;q=0.5</td>
+</tr>
+
+<tr>
+<td class="org-left">Upgrade</td>
+<td class="org-left">向服务器指定某种传输协议以便服务器进行转换（如果支持）</td>
+<td class="org-left">Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11</td>
+</tr>
+
+<tr>
+<td class="org-left">User-Agent</td>
+<td class="org-left">User-Agent的内容包含发出请求的用户信息</td>
+<td class="org-left">User-Agent: Mozilla/5.0 (Linux; X11)</td>
+</tr>
+
+<tr>
+<td class="org-left">Via</td>
+<td class="org-left">通知中间网关或代理服务器地址，通信协议</td>
+<td class="org-left">Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)</td>
+</tr>
+
+<tr>
+<td class="org-left">Warning</td>
+<td class="org-left">关于消息实体的警告信息</td>
+<td class="org-left">Warn: 199 Miscellaneous warning</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline4">http 响应信息包</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+http响应信息包格式如下:
+</p>
+<pre>
+&lt;version&gt; &lt;status-code&gt; &lt;reason-phrase&gt;
+
+&lt;headers&gt;
+
+&lt;entity-body&gt;
+</pre>
+
+<p>
+比如:
+</p>
+<pre>
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 231
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 02 Sep 2015 08:47:52 GMT
+....
+</pre>
+
+<p>
+这个响应体 <code>HTTP/1.1</code> 就是的就是http的version，然后 <code>200</code> 是具体的http状态码，然后 <code>OK</code> 是一个描述文字。然后是响应体的header，然后空一行，然后是响应信息包的具体发送的cotent内容。
+</p>
+
+<p>
+http的方法method和状态码为大家所熟知，下面就header的一些内容列出来说明之。
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline6">http状态码详解</h2>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline7">名词解释</h2>
+<div class="outline-text-2" id="text-4">
+<dl class="org-dl">
+<dt>MIME type</dt><dd>其全称是Multipurpose Internet Mail Extensions ，可以看得出来和email系统有关，但不管怎么说，我们知道其在http里面用于描述文件类型即可。具体就是对应的</dd>
+</dl>
+<pre>
+Content-type : image/jpeg
+</pre>
+<p>
+这一行，image/jpeg 就是MIME type描述，image是主文件类型，jpeg是次文件类型。最常见的是html文件，其MIME type是 <code>text/html</code> 。
+</p>
+
+<dl class="org-dl">
+<dt>URI</dt><dd>Uniform Resource Identifier ，此外常见的还有URN和URL概念。参考了 <a href="http://stackoverflow.com/questions/4913343/what-is-the-difference-between-uri-url-and-urn">这个网页</a> 。URN和URL都属于URI的范畴，也就是都视同用一连串的字符串来将所有的资源文件分别表示出来，而URN和URL是两种不同的标识方法，URL有点类似于门牌号码街道的描述，其大致有如下结构:</dd>
+</dl>
+
+<pre>
+scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+</pre>
+
+<p>
+而URN比如:
+</p>
+<pre>
+urn:isbn:0451450523
+</pre>
+
+<p>
+目前几乎绝大部分URI就是URL，URN只在某些特别领域使用。
+</p>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline8">参考资料</h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>http权威指南</li>
+</ol>
+</div>
+</div>
+</div>
+</body>
+</html>
