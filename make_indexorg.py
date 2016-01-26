@@ -51,8 +51,10 @@ THE_INIT_STRING = r'''
 #+AUTHOR: 万泽(德山书生)
 #+CREATOR: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
 #+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
-
+#+OPTIONS: toc:2
 #+HTML_HEAD: <link rel="stylesheet"  href="index.css"/>
+
+----------------------
 '''
 
 def get_dirpath(dirlist):

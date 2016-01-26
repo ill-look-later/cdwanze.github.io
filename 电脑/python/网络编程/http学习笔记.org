@@ -1,0 +1,157 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: http学习笔记
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* URL结构
+URL结构如下:
+#+BEGIN_EXAMPLE
+scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+#+END_EXAMPLE
+
+其中:
+- scheme :: 描述访问服务器的协议，也就是如何获取该资源，最常见的是http，此外还有ftp等。
+- user:password :: 这里用于http认证
+- host :: 那里获取资源
+- port :: 连接端口号是多少
+- path :: 具体访问该资源的path
+- query :: 其他额外参数
+- fragment :: 片段，为client使用。还有一个params不太常用。
+
+URL是只支持ascii字符表示的，其他的字符要经过utf-8编码操作。具体转义字符是 ~%~ ，比如空格SPACE，具体在URL中的表示就是 ~%20~ 。即使是ascii里面，也有一些字符需要转义，然后比如中文字符等，也需要如此utf-8编码和转义。比如 "书"
+
+#+BEGIN_EXAMPLE
+>>> '书'.encode('utf-8')
+b'\xe4\xb9\xa6'
+#+END_EXAMPLE
+
+在URL中对应的就是 ~%e4%b9%a6~ 。还有其他一些细节，当然实际操作中各个编程语言都提供了良好的函数接口了的，比如python的urlencode函数。
+
+
+* http header详解
+本小节主要参考了 [[http://kb.cnblogs.com/page/92320/][这个网页]] ，内容整理得不错，都搬过来了，做备份用。
+
+http协议过程分为http请求过程和http响应过程，http请求过程就是发送http请求信息包，http响应过程就是发送http响应信息包的过程。
+
+** http 请求信息包
+http请求信息包格式如下:
+#+BEGIN_EXAMPLE
+<method> <URL> <version>
+
+<headers>
+
+<entity-body>
+#+END_EXAMPLE
+
+比如打开google主页的请求包是:
+#+BEGIN_EXAMPLE
+GET / HTTP/1.1
+Host: www.google.com
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+........
+
+#+END_EXAMPLE
+
+其中第一行为大家熟知， 就是 ~GET~ 方法，具体打开的URL是 ~/~ ，然后http的version是 ~HTTP/1.1~ 。然后后面的请求包header内容不定，后面再细讲。请求信息包大多都没有entity-body，也就是额外的content内容，但就算没有header完了也要留一空白行。
+
+** 请求header详解
+| header              | 解释                                                                                      | 示例                                                    |
+|---------------------+-------------------------------------------------------------------------------------------+---------------------------------------------------------|
+| Accept              | 	指定客户端能够接收的内容类型                                                      | Accept: text/plain, text/html                           |
+| Accept-Charset      | 浏览器可以接受的字符编码集                                                                | Accept-Charset: iso-8859-5                              |
+| Accept-Encoding     | 指定浏览器可以支持的web服务器返回内容压缩编码类型                                         | Accept-Encoding: compress, gzip                         |
+| Accept-Language     | 浏览器可接受的语言                                                                        | Accept-Language: en,zh                                  |
+| Accept-Ranges       | 可以请求网页实体的一个或者多个子范围字段                                                  | Accept-Ranges: bytes                                    |
+| Authorization       | HTTP授权的授权证书                                                                        | Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==       |
+| Cache-Control       | 指定请求和响应遵循的缓存机制                                                              | Cache-Control: no-cache                                 |
+| Connection          | 表示是否需要持久连接   （HTTP 1.1默认进行持久连接）                                       | Connection: close                                       |
+| Cookie              | HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。                 | Cookie: $Version=1; Skin=new;                           |
+| Content-Length      | 请求的内容长度                                                                            | Content-Length: 348                                     |
+| Content-Type        | 请求的与实体对应的MIME信息                                                                | Content-Type: application/x-www-form-urlencoded         |
+| Date                | 请求发送的日期和时间                                                                      | Date: Tue, 15 Nov 2010 08:12:31 GMT                     |
+| Expect              | 请求的特定的服务器行为                                                                    | Expect: 100-continue                                    |
+| From                | 发出请求的用户的Email                                                                     | From: user@email.com                                    |
+| Host                | 指定请求的服务器的域名和端口号                                                            | 	Host: www.zcmhi.com                             |
+| If-Match            | 只有请求内容与实体相匹配才有效                                                            | If-Match: “737060cd8c284d8af7ad3082f209582d”          |
+| If-Modified-Since   | 如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304代码                       | If-Modified-Since: Sat, 29 Oct 2010 19:43:31 GMT        |
+| If-None-Match       | 如果内容未改变返回304代码，参数为服务器先前发送的Etag，与服务器回应的Etag比较判断是否改变 | If-None-Match: “737060cd8c284d8af7ad3082f209582d”     |
+| If-Range            | 如果实体未改变，服务器发送客户端丢失的部分，否则发送整个实体。参数也为Etag                | If-Range: “737060cd8c284d8af7ad3082f209582d”          |
+| If-Unmodified-Since | 只在实体在指定时间之后未被修改才请求成功                                                  | If-Unmodified-Since: Sat, 29 Oct 2010 19:43:31 GMT      |
+| Max-Forwards        | 	限制信息通过代理和网关传送的时间                                                  | Max-Forwards: 10                                        |
+| Pragma              | 用来包含实现特定的指令                                                                    | 	Pragma: no-cache                                |
+| Proxy-Authorization | 连接到代理的授权证书                                                                      | Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== |
+| Range               | 只请求实体的一部分，指定范围                                                              | Range: bytes=500-999                                    |
+| Referer             | 先前网页的地址，当前请求网页紧随其后,即来路                                               | 	Referer: http://www.zcmhi.com/archives/71.html  |
+| TE                  | 客户端愿意接受的传输编码，并通知服务器接受接受尾加头信息                                  | TE: trailers,deflate;q=0.5                              |
+| Upgrade             | 向服务器指定某种传输协议以便服务器进行转换（如果支持）                                    | Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11          |
+| User-Agent          | User-Agent的内容包含发出请求的用户信息                                                    | 	User-Agent: Mozilla/5.0 (Linux; X11)            |
+| Via                 | 通知中间网关或代理服务器地址，通信协议                                                    | Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)             |
+| Warning             | 关于消息实体的警告信息                                                                    | Warn: 199 Miscellaneous warning                         |
+
+
+** http 响应信息包
+http响应信息包格式如下:
+#+BEGIN_EXAMPLE
+<version> <status-code> <reason-phrase>
+
+<headers>
+
+<entity-body>
+#+END_EXAMPLE
+
+比如:
+#+BEGIN_EXAMPLE
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Length: 231
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 02 Sep 2015 08:47:52 GMT
+....
+
+
+#+END_EXAMPLE
+
+这个响应体 ~HTTP/1.1~ 就是的就是http的version，然后 ~200~ 是具体的http状态码，然后 ~OK~ 是一个描述文字。然后是响应体的header，然后空一行，然后是响应信息包的具体发送的cotent内容。
+
+http的方法method和状态码为大家所熟知，下面就header的一些内容列出来说明之。
+
+
+
+* http状态码详解
+
+
+
+* 名词解释
+- MIME type :: 其全称是Multipurpose Internet Mail Extensions ，可以看得出来和email系统有关，但不管怎么说，我们知道其在http里面用于描述文件类型即可。具体就是对应的
+#+BEGIN_EXAMPLE
+Content-type : image/jpeg
+#+END_EXAMPLE
+这一行，image/jpeg 就是MIME type描述，image是主文件类型，jpeg是次文件类型。最常见的是html文件，其MIME type是 ~text/html~ 。
+
+- URI :: Uniform Resource Identifier ，此外常见的还有URN和URL概念。参考了 [[http://stackoverflow.com/questions/4913343/what-is-the-difference-between-uri-url-and-urn][这个网页]] 。URN和URL都属于URI的范畴，也就是都视同用一连串的字符串来将所有的资源文件分别表示出来，而URN和URL是两种不同的标识方法，URL有点类似于门牌号码街道的描述，其大致有如下结构:
+
+#+BEGIN_EXAMPLE
+scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+#+END_EXAMPLE
+
+而URN比如:
+#+BEGIN_EXAMPLE
+urn:isbn:0451450523
+#+END_EXAMPLE
+
+目前几乎绝大部分URI就是URL，URN只在某些特别领域使用。
+
+* 参考资料
+1. http权威指南
+
+
+
+
+

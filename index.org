@@ -1,0 +1,425 @@
+
+#+TITLE: 我的网站
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+#+OPTIONS: toc:2
+#+HTML_HEAD: <link rel="stylesheet"  href="index.css"/>
+
+----------------------
+* 其他
+1. [[file:其他/gfm简介.html][gfm简介.html]]
+* 化学
+** 化学信息学
+1. [[file:化学/化学信息学/化学信息学简介.html][化学信息学简介.html]]
+*** 小分子结构显示
+1. [[file:化学/化学信息学/小分子结构显示/小分子结构显示.html][小分子结构显示.html]]
+** 普通化学
+1. [[file:化学/普通化学/general-chemistry.pdf][general-chemistry.pdf]]
+2. [[file:化学/普通化学/普通化学.pdf][普通化学.pdf]]
+** 电化学
+1. [[file:化学/电化学/电化学-小九见善八.pdf][电化学-小九见善八.pdf]]
+2. [[file:化学/电化学/电化学入门.html][电化学入门.html]]
+** 精细化学
+*** 胶粘剂
+1. [[file:化学/精细化学/胶粘剂/胶粘剂原料清单.html][胶粘剂原料清单.html]]
+* 思想
+** 一种新科学
+1. [[file:思想/一种新科学/一种新科学.pdf][一种新科学.pdf]]
+2. [[file:思想/一种新科学/一种新科学.html][一种新科学.html]]
+** 什么是数学
+1. [[file:思想/什么是数学/什么是数学.pdf][什么是数学.pdf]]
+** 卢梭
+*** 忏悔录
+1. [[file:思想/卢梭/忏悔录/忏悔录.pdf][忏悔录.pdf]]
+*** 爱弥儿
+1. [[file:思想/卢梭/爱弥儿/爱弥儿.pdf][爱弥儿.pdf]]
+*** 社会契约论
+1. [[file:思想/卢梭/社会契约论/社会契约论.pdf][社会契约论.pdf]]
+*** 论人类不平等的起源和基础
+1. [[file:思想/卢梭/论人类不平等的起源和基础/论人类不平等的起源和基础.pdf][论人类不平等的起源和基础.pdf]]
+** 叔本华
+*** 要某孤独要某庸俗
+1. [[file:思想/叔本华/要某孤独要某庸俗/要某孤独要某庸俗+.pdf][要某孤独要某庸俗+.pdf]]
+2. [[file:思想/叔本华/要某孤独要某庸俗/要某孤独要某庸俗.html][要某孤独要某庸俗.html]]
+** 古今数学思想
+1. [[file:思想/古今数学思想/古今数学思想.html][古今数学思想.html]]
+** 庄子
+1. [[file:思想/庄子/庄子.pdf][庄子.pdf]]
+** 德山书生
+1. [[file:思想/德山书生/论五权分立.pdf][论五权分立.pdf]]
+2. [[file:思想/德山书生/人工智能的为和不为.html][人工智能的为和不为.html]]
+3. [[file:思想/德山书生/论五权分立.html][论五权分立.html]]
+** 新阶级
+1. [[file:思想/新阶级/新阶级.html][新阶级.html]]
+2. [[file:思想/新阶级/新阶级.pdf][新阶级.pdf]]
+** 最后的沉思
+1. [[file:思想/最后的沉思/最后的沉思.pdf][最后的沉思.pdf]]
+** 柏拉图
+*** 理想国
+1. [[file:思想/柏拉图/理想国/The Republic.pdf][The Republic.pdf]]
+2. [[file:思想/柏拉图/理想国/理想国.pdf][理想国.pdf]]
+** 爱因斯坦
+*** 相对论的意义
+1. [[file:思想/爱因斯坦/相对论的意义/相对论的意义.pdf][相对论的意义.pdf]]
+** 物理学和哲学
+1. [[file:思想/物理学和哲学/物理学和哲学.pdf][物理学和哲学.pdf]]
+** 老子
+1. [[file:思想/老子/道德经.pdf][道德经.pdf]]
+2. [[file:思想/老子/道德经.html][道德经.html]]
+** 自然哲学的数学原理
+1. [[file:思想/自然哲学的数学原理/自然哲学的数学原理.pdf][自然哲学的数学原理.pdf]]
+** 菊与刀
+1. [[file:思想/菊与刀/菊与刀.pdf][菊与刀.pdf]]
+** 西方哲学史
+1. [[file:思想/西方哲学史/西方哲学史第一卷.html][西方哲学史第一卷.html]]
+2. [[file:思想/西方哲学史/The  History Of Western Philosophy.pdf][The  History Of Western Philosophy.pdf]]
+3. [[file:思想/西方哲学史/西方哲学史上.pdf][西方哲学史上.pdf]]
+4. [[file:思想/西方哲学史/西方哲学史下.pdf][西方哲学史下.pdf]]
+** 计算机和人脑
+1. [[file:思想/计算机和人脑/计算机和人脑.html][计算机和人脑.html]]
+2. [[file:思想/计算机和人脑/计算机与人脑.pdf][计算机与人脑.pdf]]
+** 论美国的民主
+1. [[file:思想/论美国的民主/论美国的民主.pdf][论美国的民主.pdf]]
+2. [[file:思想/论美国的民主/Democracy-in-America.pdf][Democracy-in-America.pdf]]
+** 费曼
+*** 费曼物理学讲义
+1. [[file:思想/费曼/费曼物理学讲义/费曼物理讲义第三卷.pdf][费曼物理讲义第三卷.pdf]]
+2. [[file:思想/费曼/费曼物理学讲义/费曼物理讲义第二卷.pdf][费曼物理讲义第二卷.pdf]]
+3. [[file:思想/费曼/费曼物理学讲义/费曼物理学讲义第一卷.html][费曼物理学讲义第一卷.html]]
+4. [[file:思想/费曼/费曼物理学讲义/费曼物理讲义第一卷.pdf][费曼物理讲义第一卷.pdf]]
+*** 量子电动力学通俗演义
+1. [[file:思想/费曼/量子电动力学通俗演义/量子电动力学通俗演义.pdf][量子电动力学通俗演义.pdf]]
+** 高观点下的初等数学
+1. [[file:思想/高观点下的初等数学/高观点下的初等数学.html][高观点下的初等数学.html]]
+* 教育
+** 人物传记
+*** 玻尔兹曼
+1. [[file:教育/人物传记/玻尔兹曼/玻尔兹曼.pdf][玻尔兹曼.pdf]]
+** 科普
+*** 上帝与新物理学
+1. [[file:教育/科普/上帝与新物理学/上帝与新物理学.pdf][上帝与新物理学.pdf]]
+*** 千亿个太阳
+1. [[file:教育/科普/千亿个太阳/千亿个太阳.pdf][千亿个太阳.pdf]]
+*** 可怕的对称
+1. [[file:教育/科普/可怕的对称/可怕的对称.pdf][可怕的对称.pdf]]
+*** 夸克和美洲豹
+1. [[file:教育/科普/夸克和美洲豹/夸克与美洲豹.pdf][夸克与美洲豹.pdf]]
+*** 惊人的假说
+1. [[file:教育/科普/惊人的假说/惊人的假说.pdf][惊人的假说.pdf]]
+*** 数学确定性的丧失
+1. [[file:教育/科普/数学确定性的丧失/数学确定性的丧失.pdf][数学确定性的丧失.pdf]]
+*** 时空本性
+1. [[file:教育/科普/时空本性/时空本性.pdf][时空本性.pdf]]
+*** 时间之箭
+1. [[file:教育/科普/时间之箭/时间之箭.pdf][时间之箭.pdf]]
+*** 时间简史
+1. [[file:教育/科普/时间简史/时间简史.pdf][时间简史.pdf]]
+*** 熵:一种新的世界观
+1. [[file:教育/科普/熵:一种新的世界观/熵:一种新的世界观.pdf][熵:一种新的世界观.pdf]]
+*** 皇帝新脑
+1. [[file:教育/科普/皇帝新脑/皇帝新脑.pdf][皇帝新脑.pdf]]
+*** 终极理论之梦
+1. [[file:教育/科普/终极理论之梦/终极理论之梦.pdf][终极理论之梦.pdf]]
+*** 综合讨论类
+1. [[file:教育/科普/综合讨论类/前言.html][前言.html]]
+2. [[file:教育/科普/综合讨论类/有理数总论.html][有理数总论.html]]
+3. [[file:教育/科普/综合讨论类/总论.html][总论.html]]
+4. [[file:教育/科普/综合讨论类/前言.pdf][前言.pdf]]
+5. [[file:教育/科普/综合讨论类/总论.pdf][总论.pdf]]
+6. [[file:教育/科普/综合讨论类/有理数总论.pdf][有理数总论.pdf]]
+*** 莎士比亚牛顿贝多芬创造模式
+1. [[file:教育/科普/莎士比亚牛顿贝多芬创造模式/莎士比亚牛顿贝多芬创造模式.pdf][莎士比亚牛顿贝多芬创造模式.pdf]]
+* 数学
+1. [[file:数学/数值分析.pdf][数值分析.pdf]]
+2. [[file:数学/微积分.pdf][微积分.pdf]]
+3. [[file:数学/程序员的数学.pdf][程序员的数学.pdf]]
+4. [[file:数学/微分方程.pdf][微分方程.pdf]]
+5. [[file:数学/同济线性代数教材.pdf][同济线性代数教材.pdf]]
+6. [[file:数学/概率论与数理统计.pdf][概率论与数理统计.pdf]]
+7. [[file:数学/线性代数及其应用.pdf][线性代数及其应用.pdf]]
+* 电脑
+** c语言
+1. [[file:电脑/c语言/Practical C Programming.pdf][Practical C Programming.pdf]]
+2. [[file:电脑/c语言/step-by-step-into-argp.pdf][step-by-step-into-argp.pdf]]
+3. [[file:电脑/c语言/C程序设计语言.pdf][C程序设计语言.pdf]]
+4. [[file:电脑/c语言/gcc中文手册.pdf][gcc中文手册.pdf]]
+5. [[file:电脑/c语言/c语言学习笔记.html][c语言学习笔记.html]]
+6. [[file:电脑/c语言/gnu make manual .pdf][gnu make manual .pdf]]
+7. [[file:电脑/c语言/Programming from the Ground Up .pdf][Programming from the Ground Up .pdf]]
+8. [[file:电脑/c语言/gcc参考.pdf][gcc参考.pdf]]
+9. [[file:电脑/c语言/c++语言学习笔记.html][c++语言学习笔记.html]]
+10. [[file:电脑/c语言/算法手写代码必备手册.pdf][算法手写代码必备手册.pdf]]
+** emacs
+1. [[file:电脑/emacs/ANSI Common Lisp.pdf][ANSI Common Lisp.pdf]]
+2. [[file:电脑/emacs/Paradigms-of-Artificial-Intelligence.pdf][Paradigms-of-Artificial-Intelligence.pdf]]
+3. [[file:电脑/emacs/eintr.pdf][eintr.pdf]]
+4. [[file:电脑/emacs/org模式.html][org模式.html]]
+5. [[file:电脑/emacs/elisp.pdf][elisp.pdf]]
+6. [[file:电脑/emacs/On Lisp.pdf][On Lisp.pdf]]
+7. [[file:电脑/emacs/org.pdf][org.pdf]]
+8. [[file:电脑/emacs/emacs学习笔记.html][emacs学习笔记.html]]
+9. [[file:电脑/emacs/common lisp a gentle introduction .pdf][common lisp a gentle introduction .pdf]]
+10. [[file:电脑/emacs/emacs.pdf][emacs.pdf]]
+11. [[file:电脑/emacs/elisp学习笔记.html][elisp学习笔记.html]]
+** html5
+1. [[file:电脑/html5/persona快速登录.html][persona快速登录.html]]
+2. [[file:电脑/html5/javascript学习基础篇.html][javascript学习基础篇.html]]
+3. [[file:电脑/html5/html5入门.html][html5入门.html]]
+4. [[file:电脑/html5/html5-cheat-sheet.pdf][html5-cheat-sheet.pdf]]
+5. [[file:电脑/html5/html5进阶.html][html5进阶.html]]
+*** mathjax
+1. [[file:电脑/html5/mathjax/mathjax.pdf][mathjax.pdf]]
+** java
+1. [[file:电脑/java/java语言学习笔记.html][java语言学习笔记.html]]
+2. [[file:电脑/java/android开发学习笔记.html][android开发学习笔记.html]]
+3. [[file:电脑/java/学习android.pdf][学习android.pdf]]
+4. [[file:电脑/java/Java语言程序设计基础篇.pdf][Java语言程序设计基础篇.pdf]]
+5. [[file:电脑/java/Java编程思想.pdf][Java编程思想.pdf]]
+** latex
+1. [[file:电脑/latex/LaTeX命令参考手册.pdf][LaTeX命令参考手册.pdf]]
+2. [[file:电脑/latex/lshort-cn.pdf][lshort-cn.pdf]]
+3. [[file:电脑/latex/classwriterguide.pdf][classwriterguide.pdf]]
+4. [[file:电脑/latex/Mathmode.pdf][Mathmode.pdf]]
+5. [[file:电脑/latex/texbook.pdf][texbook.pdf]]
+6. [[file:电脑/latex/TeX-programming-notes.pdf][TeX-programming-notes.pdf]]
+7. [[file:电脑/latex/Typesetting Chemical Equations.pdf][Typesetting Chemical Equations.pdf]]
+8. [[file:电脑/latex/latex123.pdf][latex123.pdf]]
+9. [[file:电脑/latex/symbols-a4.pdf][symbols-a4.pdf]]
+10. [[file:电脑/latex/typeset-equations-in-latex.pdf][typeset-equations-in-latex.pdf]]
+*** latex companion
+1. [[file:电脑/latex/latex companion/The Latex Companion, 2nd Edition.pdf][The Latex Companion, 2nd Edition.pdf]]
+2. [[file:电脑/latex/latex companion/The LaTeX companion (2nd ed., 2004) part2.pdf][The LaTeX companion (2nd ed., 2004) part2.pdf]]
+3. [[file:电脑/latex/latex companion/The LaTeX companion (2nd ed., 2004) part3.pdf][The LaTeX companion (2nd ed., 2004) part3.pdf]]
+4. [[file:电脑/latex/latex companion/The LaTeX companion (2nd ed., 2004) part1.pdf][The LaTeX companion (2nd ed., 2004) part1.pdf]]
+*** tikz制图
+1. [[file:电脑/latex/tikz制图/tikz制图详解.html][tikz制图详解.html]]
+2. [[file:电脑/latex/tikz制图/tikz.pdf][tikz.pdf]]
+3. [[file:电脑/latex/tikz制图/pgfplots.pdf][pgfplots.pdf]]
+4. [[file:电脑/latex/tikz制图/chemfig.pdf][chemfig.pdf]]
+*** xelatex指南
+1. [[file:电脑/latex/xelatex指南/xelatex指南.html][xelatex指南.html]]
+*** 一些宏包文档
+1. [[file:电脑/latex/一些宏包文档/titlepages.pdf][titlepages.pdf]]
+2. [[file:电脑/latex/一些宏包文档/boxes.pdf][boxes.pdf]]
+3. [[file:电脑/latex/一些宏包文档/amsmath.pdf][amsmath.pdf]]
+4. [[file:电脑/latex/一些宏包文档/Charles Batts - Beamer Tutorial.pdf][Charles Batts - Beamer Tutorial.pdf]]
+5. [[file:电脑/latex/一些宏包文档/fancyvrb.pdf][fancyvrb.pdf]]
+6. [[file:电脑/latex/一些宏包文档/examclass.pdf][examclass.pdf]]
+7. [[file:电脑/latex/一些宏包文档/wallpapermanual.pdf][wallpapermanual.pdf]]
+8. [[file:电脑/latex/一些宏包文档/hyperref.pdf][hyperref.pdf]]
+9. [[file:电脑/latex/一些宏包文档/siunitx.pdf][siunitx.pdf]]
+10. [[file:电脑/latex/一些宏包文档/enumitem.pdf][enumitem.pdf]]
+11. [[file:电脑/latex/一些宏包文档/Morepgfbeamer.pdf][Morepgfbeamer.pdf]]
+12. [[file:电脑/latex/一些宏包文档/mhchem.pdf][mhchem.pdf]]
+13. [[file:电脑/latex/一些宏包文档/standalone.pdf][standalone.pdf]]
+14. [[file:电脑/latex/一些宏包文档/moresize.pdf][moresize.pdf]]
+15. [[file:电脑/latex/一些宏包文档/arrayjobx.pdf][arrayjobx.pdf]]
+16. [[file:电脑/latex/一些宏包文档/booktabs.pdf][booktabs.pdf]]
+17. [[file:电脑/latex/一些宏包文档/tcolorbox.pdf][tcolorbox.pdf]]
+18. [[file:电脑/latex/一些宏包文档/minted.pdf][minted.pdf]]
+19. [[file:电脑/latex/一些宏包文档/xcolor.pdf][xcolor.pdf]]
+20. [[file:电脑/latex/一些宏包文档/beameruserguide.pdf][beameruserguide.pdf]]
+21. [[file:电脑/latex/一些宏包文档/fancyhdr.pdf][fancyhdr.pdf]]
+** linux
+1. [[file:电脑/linux/鸟哥的linux私房菜.pdf][鸟哥的linux私房菜.pdf]]
+2. [[file:电脑/linux/advanced programingm in the unix environment.pdf][advanced programingm in the unix environment.pdf]]
+3. [[file:电脑/linux/Markdown.pdf][Markdown.pdf]]
+4. [[file:电脑/linux/linux shell实例精解.pdf][linux shell实例精解.pdf]]
+5. [[file:电脑/linux/Subversion Quick Reference Card.pdf][Subversion Quick Reference Card.pdf]]
+6. [[file:电脑/linux/UNIX网络编程卷1：套接字联网API.pdf][UNIX网络编程卷1：套接字联网API.pdf]]
+7. [[file:电脑/linux/mastering-regular-expressions.pdf][mastering-regular-expressions.pdf]]
+*** apache2
+1. [[file:电脑/linux/apache2/apache2学习笔记.html][apache2学习笔记.html]]
+*** bash编程
+1. [[file:电脑/linux/bash编程/bash编程高级篇.html][bash编程高级篇.html]]
+2. [[file:电脑/linux/bash编程/bash编程123.html][bash编程123.html]]
+*** gcc
+1. [[file:电脑/linux/gcc/gcc参考.html][gcc参考.html]]
+2. [[file:电脑/linux/gcc/gcc手册.html][gcc手册.html]]
+*** git
+1. [[file:电脑/linux/git/github基础.html][github基础.html]]
+2. [[file:电脑/linux/git/git进阶.html][git进阶.html]]
+*** gunicorn
+1. [[file:电脑/linux/gunicorn/gunicorn-docs.pdf][gunicorn-docs.pdf]]
+2. [[file:电脑/linux/gunicorn/gunicorn how to.html][gunicorn how to.html]]
+*** linux系统进阶
+1. [[file:电脑/linux/linux系统进阶/linux系统进阶.html][linux系统进阶.html]]
+2. [[file:电脑/linux/linux系统进阶/linux其他知识.html][linux其他知识.html]]
+*** makefile
+1. [[file:电脑/linux/makefile/makefile学习笔记.html][makefile学习笔记.html]]
+*** nginx
+1. [[file:电脑/linux/nginx/Nginx HTTP Server, 2nd Edition.pdf][Nginx HTTP Server, 2nd Edition.pdf]]
+2. [[file:电脑/linux/nginx/Mastering Nginx.pdf][Mastering Nginx.pdf]]
+*** svn
+1. [[file:电脑/linux/svn/svn基础.html][svn基础.html]]
+*** ubuntu
+1. [[file:电脑/linux/ubuntu/ubuntu入门.html][ubuntu入门.html]]
+2. [[file:电脑/linux/ubuntu/ubuntu下玩暴雪游戏.html][ubuntu下玩暴雪游戏.html]]
+3. [[file:电脑/linux/ubuntu/ubuntu找不到软件包.html][ubuntu找不到软件包.html]]
+*** 正则表达式
+1. [[file:电脑/linux/正则表达式/正则表达式入门.html][正则表达式入门.html]]
+*** 版本控制
+1. [[file:电脑/linux/版本控制/Pro Git 中文版.pdf][Pro Git 中文版.pdf]]
+2. [[file:电脑/linux/版本控制/Git Community Book 中文版.pdf][Git Community Book 中文版.pdf]]
+** python
+1. [[file:电脑/python/Testing Python.pdf][Testing Python.pdf]]
+2. [[file:电脑/python/Python Projects.pdf][Python Projects.pdf]]
+*** Odoo
+1. [[file:电脑/python/Odoo/OpenERP 应用和开发基础.pdf][OpenERP 应用和开发基础.pdf]]
+2. [[file:电脑/python/Odoo/OpenERP不花钱.pdf][OpenERP不花钱.pdf]]
+3. [[file:电脑/python/Odoo/odoo-reference.pdf][odoo-reference.pdf]]
+4. [[file:电脑/python/Odoo/精通Odoo.pdf][精通Odoo.pdf]]
+5. [[file:电脑/python/Odoo/odoo-new-api-guide-line.pdf][odoo-new-api-guide-line.pdf]]
+6. [[file:电脑/python/Odoo/精通Odoo.html][精通Odoo.html]]
+7. [[file:电脑/python/Odoo/erppeek.pdf][erppeek.pdf]]
+*** PyQt5
+1. [[file:电脑/python/PyQt5/PyQt5杂项.html][PyQt5杂项.html]]
+2. [[file:电脑/python/PyQt5/PyQt5中级教程.html][PyQt5中级教程.html]]
+3. [[file:电脑/python/PyQt5/PyQt5入门.html][PyQt5入门.html]]
+4. [[file:电脑/python/PyQt5/PyQt5入门.pdf][PyQt5入门.pdf]]
+*** Qt
+1. [[file:电脑/python/Qt/pyqt-book.pdf][pyqt-book.pdf]]
+2. [[file:电脑/python/Qt/C++ GUI Qt4 编程.pdf][C++ GUI Qt4 编程.pdf]]
+3. [[file:电脑/python/Qt/C++-GUI-Programming-with-Qt-4.pdf][C++-GUI-Programming-with-Qt-4.pdf]]
+4. [[file:电脑/python/Qt/The Book of Qt 4 - The Art of Building Qt Applications.pdf][The Book of Qt 4 - The Art of Building Qt Applications.pdf]]
+*** flask
+1. [[file:电脑/python/flask/精通flask.html][精通flask.html]]
+2. [[file:电脑/python/flask/Jinja2.pdf][Jinja2.pdf]]
+3. [[file:电脑/python/flask/jinja2模板系统.html][jinja2模板系统.html]]
+4. [[file:电脑/python/flask/Flask-SQLAlchemy.pdf][Flask-SQLAlchemy.pdf]]
+5. [[file:电脑/python/flask/Flask.pdf][Flask.pdf]]
+6. [[file:电脑/python/flask/flask-restful.pdf][flask-restful.pdf]]
+7. [[file:电脑/python/flask/Werkzeug模块.html][Werkzeug模块.html]]
+8. [[file:电脑/python/flask/Flask Web Development.pdf][Flask Web Development.pdf]]
+9. [[file:电脑/python/flask/Werkzeug.pdf][Werkzeug.pdf]]
+*** python3语言
+1. [[file:电脑/python/python3语言/python cookbook.pdf][python cookbook.pdf]]
+2. [[file:电脑/python/python3语言/intermediate-and-advanced-software-carpentry.pdf][intermediate-and-advanced-software-carpentry.pdf]]
+3. [[file:电脑/python/python3语言/python3语言学习基础篇.html][python3语言学习基础篇.html]]
+4. [[file:电脑/python/python3语言/python3编程指南.pdf][python3编程指南.pdf]]
+5. [[file:电脑/python/python3语言/Programming Python.pdf][Programming Python.pdf]]
+6. [[file:电脑/python/python3语言/python2到python3的移植问题.html][python2到python3的移植问题.html]]
+7. [[file:电脑/python/python3语言/python入门教程.pdf][python入门教程.pdf]]
+8. [[file:电脑/python/python3语言/python3语言学习补充.html][python3语言学习补充.html]]
+9. [[file:电脑/python/python3语言/python3语言学习进阶篇.html][python3语言学习进阶篇.html]]
+10. [[file:电脑/python/python3语言/Python学习手册第4版.pdf][Python学习手册第4版.pdf]]
+11. [[file:电脑/python/python3语言/magicmethods.pdf][magicmethods.pdf]]
+*** python第三方模块
+1. [[file:电脑/python/python第三方模块/paramiko-docs.pdf][paramiko-docs.pdf]]
+2. [[file:电脑/python/python第三方模块/schedule模块.html][schedule模块.html]]
+3. [[file:电脑/python/python第三方模块/dateutil.pdf][dateutil.pdf]]
+4. [[file:电脑/python/python第三方模块/python-magic模块.html][python-magic模块.html]]
+5. [[file:电脑/python/python第三方模块/paramiko模块.html][paramiko模块.html]]
+6. [[file:电脑/python/python第三方模块/setuptools.pdf][setuptools.pdf]]
+7. [[file:电脑/python/python第三方模块/fake-factory模块.html][fake-factory模块.html]]
+8. [[file:电脑/python/python第三方模块/pint.pdf][pint.pdf]]
+9. [[file:电脑/python/python第三方模块/virtualenv模块.html][virtualenv模块.html]]
+10. [[file:电脑/python/python第三方模块/luigi框架.html][luigi框架.html]]
+11. [[file:电脑/python/python第三方模块/setuptools模块.html][setuptools模块.html]]
+*** 其他
+1. [[file:电脑/python/其他/Python for Finance.pdf][Python for Finance.pdf]]
+2. [[file:电脑/python/其他/Learning Cython Programming.pdf][Learning Cython Programming.pdf]]
+3. [[file:电脑/python/其他/Bioinformatics Programming Using Python.pdf][Bioinformatics Programming Using Python.pdf]]
+4. [[file:电脑/python/其他/python在windows下的一些问题.html][python在windows下的一些问题.html]]
+5. [[file:电脑/python/其他/Speech and Language Processing.pdf][Speech and Language Processing.pdf]]
+6. [[file:电脑/python/其他/Python for Unix and Linux System Administration.pdf][Python for Unix and Linux System Administration.pdf]]
+*** 其他内置模块
+1. [[file:电脑/python/其他内置模块/logging模块.html][logging模块.html]]
+2. [[file:电脑/python/其他内置模块/collections模块.html][collections模块.html]]
+3. [[file:电脑/python/其他内置模块/csv模块.html][csv模块.html]]
+4. [[file:电脑/python/其他内置模块/fcntl模块.html][fcntl模块.html]]
+5. [[file:电脑/python/其他内置模块/functools模块.html][functools模块.html]]
+6. [[file:电脑/python/其他内置模块/configparser模块.html][configparser模块.html]]
+7. [[file:电脑/python/其他内置模块/ast模块.html][ast模块.html]]
+8. [[file:电脑/python/其他内置模块/argparse模块.html][argparse模块.html]]
+9. [[file:电脑/python/其他内置模块/json模块.html][json模块.html]]
+10. [[file:电脑/python/其他内置模块/pathlib模块.html][pathlib模块.html]]
+11. [[file:电脑/python/其他内置模块/datetime模块.html][datetime模块.html]]
+12. [[file:电脑/python/其他内置模块/tempfile模块.html][tempfile模块.html]]
+13. [[file:电脑/python/其他内置模块/unittest模块.html][unittest模块.html]]
+14. [[file:电脑/python/其他内置模块/inspect模块.html][inspect模块.html]]
+*** 图像处理
+1. [[file:电脑/python/图像处理/OpenCV-Python-Toturial-中文版.pdf][OpenCV-Python-Toturial-中文版.pdf]]
+2. [[file:电脑/python/图像处理/pillow模块.html][pillow模块.html]]
+3. [[file:电脑/python/图像处理/Programming Computer Vision with Python.pdf][Programming Computer Vision with Python.pdf]]
+4. [[file:电脑/python/图像处理/opencv模块.html][opencv模块.html]]
+5. [[file:电脑/python/图像处理/OpenCV Computer Vision with Python.pdf][OpenCV Computer Vision with Python.pdf]]
+6. [[file:电脑/python/图像处理/pillow.pdf][pillow.pdf]]
+7. [[file:电脑/python/图像处理/Learning Image Processing with OpenCV.pdf][Learning Image Processing with OpenCV.pdf]]
+*** 外围设备
+1. [[file:电脑/python/外围设备/Real+World+Instrumentation.pdf][Real+World+Instrumentation.pdf]]
+*** 数据处理
+1. [[file:电脑/python/数据处理/Python-for-Data-Analysis.pdf][Python-for-Data-Analysis.pdf]]
+2. [[file:电脑/python/数据处理/Doing Math with Python.pdf][Doing Math with Python.pdf]]
+3. [[file:电脑/python/数据处理/numpy-ref-1.8.1.pdf][numpy-ref-1.8.1.pdf]]
+4. [[file:电脑/python/数据处理/数据处理入门.html][数据处理入门.html]]
+5. [[file:电脑/python/数据处理/numpy-user-1.8.1.pdf][numpy-user-1.8.1.pdf]]
+6. [[file:电脑/python/数据处理/scipy模块.html][scipy模块.html]]
+7. [[file:电脑/python/数据处理/numpy模块.html][numpy模块.html]]
+8. [[file:电脑/python/数据处理/matplotlib模块.html][matplotlib模块.html]]
+9. [[file:电脑/python/数据处理/scipy-ref-0.14.0.pdf][scipy-ref-0.14.0.pdf]]
+10. [[file:电脑/python/数据处理/Introduction to Python for Econometrics, Statistics and Data Analysis.pdf][Introduction to Python for Econometrics, Statistics and Data Analysis.pdf]]
+11. [[file:电脑/python/数据处理/pandas.pdf][pandas.pdf]]
+12. [[file:电脑/python/数据处理/Matplotlib.pdf][Matplotlib.pdf]]
+13. [[file:电脑/python/数据处理/python和统计学.html][python和统计学.html]]
+*** 数据库
+1. [[file:电脑/python/数据库/postgresql基础.html][postgresql基础.html]]
+2. [[file:电脑/python/数据库/Using SQLite.pdf][Using SQLite.pdf]]
+3. [[file:电脑/python/数据库/sqlalchemy.pdf][sqlalchemy.pdf]]
+4. [[file:电脑/python/数据库/SQL and Relational Theory.pdf][SQL and Relational Theory.pdf]]
+5. [[file:电脑/python/数据库/SQL必知必会.pdf][SQL必知必会.pdf]]
+6. [[file:电脑/python/数据库/sqlalchemy详解.html][sqlalchemy详解.html]]
+7. [[file:电脑/python/数据库/Essential SQLAlchemy.pdf][Essential SQLAlchemy.pdf]]
+8. [[file:电脑/python/数据库/sqlite3模块.html][sqlite3模块.html]]
+9. [[file:电脑/python/数据库/psycopg2模块.html][psycopg2模块.html]]
+10. [[file:电脑/python/数据库/MongoDB-The-Definitive-Guide.pdf][MongoDB-The-Definitive-Guide.pdf]]
+11. [[file:电脑/python/数据库/PostgreSQL-Up-and-Running.pdf][PostgreSQL-Up-and-Running.pdf]]
+12. [[file:电脑/python/数据库/sql数据库入门(sqlite3).html][sql数据库入门(sqlite3).html]]
+13. [[file:电脑/python/数据库/MongoDB-manual.pdf][MongoDB-manual.pdf]]
+14. [[file:电脑/python/数据库/psycopg.pdf][psycopg.pdf]]
+15. [[file:电脑/python/数据库/mysql学习笔记.html][mysql学习笔记.html]]
+16. [[file:电脑/python/数据库/postgresql-9.3-A4.pdf][postgresql-9.3-A4.pdf]]
+17. [[file:电脑/python/数据库/MongoDB in Action.pdf][MongoDB in Action.pdf]]
+18. [[file:电脑/python/数据库/mongodb学习笔记.html][mongodb学习笔记.html]]
+19. [[file:电脑/python/数据库/mysql-refman-5.6-en.a4.pdf][mysql-refman-5.6-en.a4.pdf]]
+20. [[file:电脑/python/数据库/迁移数据库(alembic模块).html][迁移数据库(alembic模块).html]]
+21. [[file:电脑/python/数据库/MongoDB and Python.pdf][MongoDB and Python.pdf]]
+*** 文本处理
+1. [[file:电脑/python/文本处理/用Python进行自然语言处理.pdf][用Python进行自然语言处理.pdf]]
+2. [[file:电脑/python/文本处理/Mastering Python Regular Expressions.pdf][Mastering Python Regular Expressions.pdf]]
+3. [[file:电脑/python/文本处理/Python 3 Text Processing with NLTK 3 Cookboo.pdf][Python 3 Text Processing with NLTK 3 Cookboo.pdf]]
+4. [[file:电脑/python/文本处理/文本处理入门.html][文本处理入门.html]]
+5. [[file:电脑/python/文本处理/Python 文本处理指南.pdf][Python 文本处理指南.pdf]]
+6. [[file:电脑/python/文本处理/NLTK Essentials.pdf][NLTK Essentials.pdf]]
+7. [[file:电脑/python/文本处理/Natural Language Processing with Python.pdf][Natural Language Processing with Python.pdf]]
+*** 机器学习
+1. [[file:电脑/python/机器学习/Python Machine Learning.pdf][Python Machine Learning.pdf]]
+2. [[file:电脑/python/机器学习/scikit-learn-docs.pdf][scikit-learn-docs.pdf]]
+3. [[file:电脑/python/机器学习/Machine Learning in Python.pdf][Machine Learning in Python.pdf]]
+*** 算法
+1. [[file:电脑/python/算法/Python Algorithms.pdf][Python Algorithms.pdf]]
+2. [[file:电脑/python/算法/编程珠玑.pdf][编程珠玑.pdf]]
+3. [[file:电脑/python/算法/集体智慧编程.pdf][集体智慧编程.pdf]]
+4. [[file:电脑/python/算法/Data Structures and Algorithms in Python.pdf][Data Structures and Algorithms in Python.pdf]]
+5. [[file:电脑/python/算法/intro-algorithm.pdf][intro-algorithm.pdf]]
+*** 网络抓取
+1. [[file:电脑/python/网络抓取/scrapy.pdf][scrapy.pdf]]
+2. [[file:电脑/python/网络抓取/OReilly Web Scraping with Python.pdf][OReilly Web Scraping with Python.pdf]]
+3. [[file:电脑/python/网络抓取/lxml模块.html][lxml模块.html]]
+4. [[file:电脑/python/网络抓取/Getting Started with Beautiful Soup.pdf][Getting Started with Beautiful Soup.pdf]]
+5. [[file:电脑/python/网络抓取/js相关内容抓取问题.html][js相关内容抓取问题.html]]
+6. [[file:电脑/python/网络抓取/lxmldoc-3.4.1.pdf][lxmldoc-3.4.1.pdf]]
+7. [[file:电脑/python/网络抓取/BeautifulSoup模块.html][BeautifulSoup模块.html]]
+*** 网络编程
+1. [[file:电脑/python/网络编程/aiohttp.pdf][aiohttp.pdf]]
+2. [[file:电脑/python/网络编程/套接字编程入门.html][套接字编程入门.html]]
+3. [[file:电脑/python/网络编程/Computer-Networking-Principles.pdf][Computer-Networking-Principles.pdf]]
+4. [[file:电脑/python/网络编程/requests模块详解.html][requests模块详解.html]]
+5. [[file:电脑/python/网络编程/http权威指南.pdf][http权威指南.pdf]]
+6. [[file:电脑/python/网络编程/计算机网络理论知识.html][计算机网络理论知识.html]]
+7. [[file:电脑/python/网络编程/http学习笔记.html][http学习笔记.html]]
+8. [[file:电脑/python/网络编程/Twisted Network Programming Essentials.pdf][Twisted Network Programming Essentials.pdf]]
+9. [[file:电脑/python/网络编程/WAMP协议简介.html][WAMP协议简介.html]]
+10. [[file:电脑/python/网络编程/Python Requests Essentials.pdf][Python Requests Essentials.pdf]]
+11. [[file:电脑/python/网络编程/事件驱动编程.html][事件驱动编程.html]]
