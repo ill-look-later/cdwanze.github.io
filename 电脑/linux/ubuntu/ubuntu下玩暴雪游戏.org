@@ -40,8 +40,7 @@ chmod -R 766 WTF
 3. 还是在wine的配置那里，把 ~msvcp100~ 添加上，如上面图片所示。
 4. 运行  ~winetricks wininet~ , 不确定是不是必须的。
 
-/特别提醒/ :: 我测试还是会出错，然后把那个 ~dbghelp~ 又开启过来，不管是原装先于内建或者内建先于原装都行，就可以正常运行了。但是你第一次开启 battle.net的时候还需要再把那个 ~dbghelp~ 停用，没有办法。 
-
+/特别提醒/ :: 我测试还是会出错，然后把那个 ~dbghelp~ 又开启过来，不管是原装先于内建或者内建先于原装都行，就可以正常运行了。但是你第一次开启 battle.net的时候还需要再把那个 ~dbghelp~ 停用，没有办法。 最新的战网更新显示 ~dbghelp~ 就默认为原装先于内建然后一点问题都没有了。
 
 
 * 暗黑3
@@ -86,3 +85,6 @@ StartupNotify=false
 
 然后在ubuntu左上角开始搜索，你就可以看到这个运行图标了。通过 ~ln -s~ 创建软链接到那个desktop文件则可以生成桌面点击方式。
 
+
+** 参考资料
+1. [[http://www.webupd8.org/2014/09/how-to-install-world-of-warcraft-in.html][http://www.webupd8.org/2014/09/how-to-install-world-of-warcraft-in.html]]

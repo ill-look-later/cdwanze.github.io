@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-01-26 二 22:49 -->
+<!-- 2016-01-28 四 17:03 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>http学习笔记</title>
@@ -229,16 +229,17 @@ table tr:nth-child(even) {
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">1. URL结构</a></li>
-<li><a href="#orgheadline5">2. http header详解</a>
+<li><a href="#orgheadline6">2. http header详解</a>
 <ul>
 <li><a href="#orgheadline2">2.1. http 请求信息包</a></li>
-<li><a href="#orgheadline3">2.2. 请求header详解</a></li>
+<li><a href="#orgheadline3">2.2. 请求headers详解</a></li>
 <li><a href="#orgheadline4">2.3. http 响应信息包</a></li>
+<li><a href="#orgheadline5">2.4. 响应headers详解</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline6">3. http状态码详解</a></li>
-<li><a href="#orgheadline7">4. 名词解释</a></li>
-<li><a href="#orgheadline8">5. 参考资料</a></li>
+<li><a href="#orgheadline7">3. http状态码详解</a></li>
+<li><a href="#orgheadline8">4. 名词解释</a></li>
+<li><a href="#orgheadline9">5. 参考资料</a></li>
 </ul>
 </div>
 </nav>
@@ -284,7 +285,7 @@ b'\xe4\xb9\xa6'
 
 
 <div class="outline-2">
-<h2 id="orgheadline5">http header详解</h2>
+<h2 id="orgheadline6">http header详解</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 本小节主要参考了 <a href="http://kb.cnblogs.com/page/92320/">这个网页</a> ，内容整理得不错，都搬过来了，做备份用。
@@ -327,7 +328,7 @@ Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline3">请求header详解</h3>
+<h3 id="orgheadline3">请求headers详解</h3>
 <div class="outline-text-3" id="text-2-2">
 <table>
 
@@ -567,18 +568,210 @@ http的方法method和状态码为大家所熟知，下面就header的一些内�
 </p>
 </div>
 </div>
+
+<div class="outline-3">
+<h3 id="orgheadline5">响应headers详解</h3>
+<div class="outline-text-3" id="text-2-4">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">header</th>
+<th scope="col" class="org-left">解释</th>
+<th scope="col" class="org-left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Accept-Ranges</td>
+<td class="org-left">表明服务器是否支持指定范围请求及哪种类型的分段请求</td>
+<td class="org-left">Accept-Ranges: bytes</td>
+</tr>
+
+<tr>
+<td class="org-left">Age</td>
+<td class="org-left">从原始服务器到代理缓存形成的估算时间（以秒计，非负）</td>
+<td class="org-left">Age: 12</td>
+</tr>
+
+<tr>
+<td class="org-left">Allow</td>
+<td class="org-left">对某网络资源的有效的请求行为，不允许则返回405</td>
+<td class="org-left">Allow: GET, HEAD</td>
+</tr>
+
+<tr>
+<td class="org-left">Cache-Control</td>
+<td class="org-left">告诉所有的缓存机制是否可以缓存及哪种类型</td>
+<td class="org-left">Cache-Control: no-cache</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Encoding</td>
+<td class="org-left">web服务器支持的返回内容压缩编码类型。</td>
+<td class="org-left">Content-Encoding: gzip</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Language</td>
+<td class="org-left">响应体的语言</td>
+<td class="org-left">Content-Language: en,zh</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Length</td>
+<td class="org-left">响应体的长度</td>
+<td class="org-left">Content-Length: 348</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Location</td>
+<td class="org-left">请求资源可替代的备用的另一地址</td>
+<td class="org-left">Content-Location: /index.htm</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-MD5</td>
+<td class="org-left">返回资源的MD5校验值</td>
+<td class="org-left">Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ==</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Range</td>
+<td class="org-left">在整个返回体中本部分的字节位置</td>
+<td class="org-left">Content-Range: bytes 21010-47021/47022</td>
+</tr>
+
+<tr>
+<td class="org-left">Content-Type</td>
+<td class="org-left">返回内容的MIME类型</td>
+<td class="org-left">Content-Type: text/html; charset=utf-8</td>
+</tr>
+
+<tr>
+<td class="org-left">Date</td>
+<td class="org-left">原始服务器消息发出的时间</td>
+<td class="org-left">Date: Tue, 15 Nov 2010 08:12:31 GMT</td>
+</tr>
+
+<tr>
+<td class="org-left">ETag</td>
+<td class="org-left">请求变量的实体标签的当前值</td>
+<td class="org-left">ETag: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+
+<tr>
+<td class="org-left">Expires</td>
+<td class="org-left">响应过期的日期和时间</td>
+<td class="org-left">Expires: Thu, 01 Dec 2010 16:00:00 GMT</td>
+</tr>
+
+<tr>
+<td class="org-left">Last-Modified</td>
+<td class="org-left">请求资源的最后修改时间</td>
+<td class="org-left">Last-Modified: Tue, 15 Nov 2010 12:45:26 GMT</td>
+</tr>
+
+<tr>
+<td class="org-left">Location</td>
+<td class="org-left">用来重定向接收方到非请求URL的位置来完成请求或标识新的资源</td>
+<td class="org-left">Location: <a href="http://www.zcmhi.com/archives/94.html">http://www.zcmhi.com/archives/94.html</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Pragma</td>
+<td class="org-left">包括实现特定的指令，它可应用到响应链上的任何接收方</td>
+<td class="org-left">Pragma: no-cache</td>
+</tr>
+
+<tr>
+<td class="org-left">Proxy-Authenticate</td>
+<td class="org-left">它指出认证方案和可应用到代理的该URL上的参数</td>
+<td class="org-left">Proxy-Authenticate: Basic</td>
+</tr>
+
+<tr>
+<td class="org-left">refresh</td>
+<td class="org-left">应用于重定向或一个新的资源被创造，在5秒之后重定向</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Retry-After</td>
+<td class="org-left">如果实体暂时不可取，通知客户端在指定时间之后再次尝试</td>
+<td class="org-left">Retry-After: 120</td>
+</tr>
+
+<tr>
+<td class="org-left">Server</td>
+<td class="org-left">web服务器软件名称</td>
+<td class="org-left">Server: Apache/1.3.27 (Unix) (Red-Hat/Linux)</td>
+</tr>
+
+<tr>
+<td class="org-left">Set-Cookie</td>
+<td class="org-left">设置Http Cookie</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Trailer</td>
+<td class="org-left">指出头域在分块传输编码的尾部存在</td>
+<td class="org-left">Trailer: Max-Forwards</td>
+</tr>
+
+<tr>
+<td class="org-left">Transfer-Encoding</td>
+<td class="org-left">文件传输编码</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Vary</td>
+<td class="org-left">告诉下游代理是使用缓存响应还是从原始服务器请求</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Via</td>
+<td class="org-left">告知代理客户端响应是通过哪里发送的</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Warning</td>
+<td class="org-left">警告实体可能存在的问题</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">WWW-Authenticate</td>
+<td class="org-left">表明客户端请求实体应该使用的授权方案</td>
+<td class="org-left">WWW-Authenticate: Basic</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline7">http状态码详解</h2>
 </div>
 
 
 
 <div class="outline-2">
-<h2 id="orgheadline6">http状态码详解</h2>
-</div>
-
-
-
-<div class="outline-2">
-<h2 id="orgheadline7">名词解释</h2>
+<h2 id="orgheadline8">名词解释</h2>
 <div class="outline-text-2" id="text-4">
 <dl class="org-dl">
 <dt>MIME type</dt><dd>其全称是Multipurpose Internet Mail Extensions ，可以看得出来和email系统有关，但不管怎么说，我们知道其在http里面用于描述文件类型即可。具体就是对应的</dd>
@@ -612,7 +805,7 @@ urn:isbn:0451450523
 </div>
 
 <div class="outline-2">
-<h2 id="orgheadline8">参考资料</h2>
+<h2 id="orgheadline9">参考资料</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
 <li>http权威指南</li>

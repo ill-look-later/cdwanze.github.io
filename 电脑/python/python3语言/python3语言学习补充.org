@@ -281,11 +281,53 @@ def mydecorator(arg1, arg2):
 #+END_EXAMPLE
 
 
-** 函数装饰器用于缓存
-
 
 * 类装饰器
-** 类装饰器用于缓存升级版
+装饰器在python中扮演着非常重要的地位，下面简要介绍之。
+
+1. 无参数装饰器
+如果你的装饰器不需要参数，那么就简单用一个函数装饰器即可。
+
+def mydecorator(function):
+    def _mydecorator(*args,**kargs):
+        # do some stuff
+        res = function(*args,**kargs)##实际执行被装饰的函数
+        # do some other stuff
+        return res
+    return _mydecorator
+
+2. 有参数的装饰器 或者 有状态的装饰器 一律采用 内置类对象的风格，这样更加清晰。
+
+最核心的部分如下所示
+def plan(every, unit, at=None, loop=None,**kwargs):
+    def _plan(func):
+        return Plan(func,every,unit,at=at,loop=loop, **kwargs)
+    return _plan
+
+具体函数的参数传递给了你的对象的 _call_ 方法
+    def _call_(self,*fn_args):
+        """Used as a decorator"""
+        if self.auto_start:
+            self.loop.call_soon_threadsafe(self.func,*fn_args)
+
+@plan(every=0,unit="minute")
+def job(name):
+    print("I'm working...{}".format(name))
+
+当你执行
+job(name)
+
+实际上执行的是
+job(name) = plan(job)(name)
+
+plan() 返回的 Plan(....) 对象
+你的装饰器参数全部都传递了这个Plan对象，存储状态，额外的操作都是可以的。
+
+或者说
+
+job(name) = Plan(job,. .. .. ..)(name)
+
+也就是job这个原来是个函数的东西经过装饰器装饰之后， 实际上是一个 Plan对象了。﻿
 
 * and or not的运算优先级
 一般是推荐用括号清晰表达，然后not我们知道优先级是最高的。我们再看下面这个例子:
