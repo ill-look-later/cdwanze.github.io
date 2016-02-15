@@ -1,0 +1,7 @@
+程序员的数学.pdf filter=lfs diff=lfs merge=lfs -text
+概率论与数理统计.pdf filter=lfs diff=lfs merge=lfs -text
+数值分析.pdf filter=lfs diff=lfs merge=lfs -text
+同济线性代数教材.pdf filter=lfs diff=lfs merge=lfs -text
+微分方程.pdf filter=lfs diff=lfs merge=lfs -text
+微积分.pdf filter=lfs diff=lfs merge=lfs -text
+线性代数及其应用.pdf filter=lfs diff=lfs merge=lfs -text
