@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2015-12-28 一 10:58 -->
+<!-- 2016-02-03 三 17:02 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>python3编程指南补充</title>
@@ -38,10 +38,16 @@ body {
     padding: 10px;
 }
 
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .underline{
     text-decoration: underline;
 }
-  #content {
+   #content {
     display: block;
     margin-left: 10%;
     margin-right: 10%;
@@ -125,152 +131,29 @@ figure{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
-.highlight .c { color: #008800; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #008800 } /* Comment.Preproc */
-.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
-.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BB4444 } /* Literal.String */
-.highlight .na { color: #BB4444 } /* Name.Attribute */
-.highlight .nb { color: #AA22FF } /* Name.Builtin */
-.highlight .nc { color: #0000FF } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #00A000 } /* Name.Function */
-.highlight .nl { color: #A0A000 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #B8860B } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
-.highlight .sc { color: #BB4444 } /* Literal.String.Char */
-.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
-.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
-.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
-.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
-.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
-.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #B8860B } /* Name.Variable.Class */
-.highlight .vg { color: #B8860B } /* Name.Variable.Global */
-.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
-#content {
-    display: block;
-    margin-left: 10%;
-    margin-right: 10%;
-}
 
-code {
-    padding: 2px 4px;
-    color: #c7254e;
-    background-color: #f9f2f4;
-    border-radius: 4px;
-}
-
-pre {
-    display: block;
-    padding: 9.5px;
-    margin: 0 0 10px;
-    font-size: 13px;
-    line-height: 1.42857143;
-    color: #333;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #f5f5f5;
+/*
+table
+*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 16px 0;
+    empty-cells: show;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%;
+    display: table;
 }
 
-
-blockquote {
-    padding: 10px 20px;
-    margin: 0 0 20px;
-    font-size: 17.5px;
-    border-left: 5px solid #eee;
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+table th,table td{
+    padding:8px;
 }
 
-
-p{
-    text-indent:2em;
-    line-height:150%;
-}
-
-li, dt{
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-}
-
-video{
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-figure p{
-    text-indent:0em;
-}
-img{
-    max-width: 95%;
-}
-
-figure{
-    text-align: center;
-}
-
-/*  class  */
-.framed{
-    max-width:700px;
-    border:1px solid ;
-    padding: 1em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.notecard{
-    width: 320px;
-    position:relative;
-    right: -215px;
-    padding: 1em;
-    margin:0 auto;
-    border: solid 1px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
 }
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
@@ -388,16 +271,16 @@ figure{
 <li><a href="#orgheadline13">10. datetime.datetime类型转变成为time.time类型</a></li>
 <li><a href="#orgheadline14">11. __import__函数</a></li>
 <li><a href="#orgheadline15">12. 上下文环境确认with语句</a></li>
-<li><a href="#orgheadline19">13. 函数装饰器</a>
+<li><a href="#orgheadline18">13. 函数装饰器</a>
 <ul>
 <li><a href="#orgheadline16">13.1. 没有参数的函数装饰器</a></li>
 <li><a href="#orgheadline17">13.2. 有参数的函数装饰器</a></li>
-<li><a href="#orgheadline18">13.3. 函数装饰器用于缓存</a></li>
 </ul>
 </li>
 <li><a href="#orgheadline21">14. 类装饰器</a>
 <ul>
-<li><a href="#orgheadline20">14.1. 类装饰器用于缓存升级版</a></li>
+<li><a href="#orgheadline19">14.1. 无参数装饰器</a></li>
+<li><a href="#orgheadline20">14.2. 有参数的装饰器</a></li>
 </ul>
 </li>
 <li><a href="#orgheadline22">15. and or not的运算优先级</a></li>
@@ -782,7 +665,7 @@ datetime.datetime(2011, 11, 5, 11, 26, 15, 37496)
 
 
 <div class="outline-2">
-<h2 id="orgheadline19">函数装饰器</h2>
+<h2 id="orgheadline18">函数装饰器</h2>
 <div class="outline-text-2" id="text-13">
 </div><div class="outline-3">
 <h3 id="orgheadline16">没有参数的函数装饰器</h3>
@@ -818,19 +701,94 @@ def mydecorator(arg1, arg2):
 </pre>
 </div>
 </div>
-
-
-<div class="outline-3">
-<h3 id="orgheadline18">函数装饰器用于缓存</h3>
 </div>
-</div>
+
 
 
 <div class="outline-2">
 <h2 id="orgheadline21">类装饰器</h2>
 <div class="outline-text-2" id="text-14">
-</div><div class="outline-3">
-<h3 id="orgheadline20">类装饰器用于缓存升级版</h3>
+<p>
+装饰器在python中扮演着非常重要的地位，下面简要介绍之。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline19">无参数装饰器</h3>
+<div class="outline-text-3" id="text-14-1">
+<p>
+如果你的装饰器不需要参数，那么就简单用一个函数装饰器即可。
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">mydecorator</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_mydecorator</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
+        <span class="c"># do some stuff</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kargs</span><span class="p">)</span><span class="c">##实际执行被装饰的函数</span>
+        <span class="c"># do some other stuff</span>
+        <span class="k">return</span> <span class="n">res</span>
+    <span class="k">return</span> <span class="n">_mydecorator</span>
+</pre></div>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline20">有参数的装饰器</h3>
+<div class="outline-text-3" id="text-14-2">
+<p>
+或者 有状态的装饰器 一律采用 内置类对象的风格，这样更加清晰。
+</p>
+
+<p>
+最核心的部分如下所示
+</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">plan</span><span class="p">(</span><span class="n">every</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_plan</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Plan</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="n">every</span><span class="p">,</span><span class="n">unit</span><span class="p">,</span><span class="n">at</span><span class="o">=</span><span class="n">at</span><span class="p">,</span><span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_plan</span>
+</pre></div>
+
+
+<p>
+具体函数的参数传递给了你的对象的 <code>__call__</code> 方法
+</p>
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">_call_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">fn_args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Used as a decorator&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_start</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">call_soon_threadsafe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span><span class="o">*</span><span class="n">fn_args</span><span class="p">)</span>
+
+<span class="nd">@plan</span><span class="p">(</span><span class="n">every</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">unit</span><span class="o">=</span><span class="s">&quot;minute&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">job</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I&#39;m working...{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+
+
+<p>
+当你执行
+job(name)
+</p>
+
+<p>
+实际上执行的是
+job(name) = plan(job)(name)
+</p>
+
+<p>
+plan() 返回的 Plan(&#x2026;.) 对象
+你的装饰器参数全部都传递了这个Plan对象，存储状态，额外的操作都是可以的。
+</p>
+
+<p>
+或者说
+</p>
+
+<p>
+job(name) = Plan(job,. .. .. ..)(name)
+</p>
+
+<p>
+也就是job这个原来是个函数的东西经过装饰器装饰之后， 实际上是一个 Plan对象了。﻿
+</p>
+</div>
 </div>
 </div>
 

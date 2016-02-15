@@ -1,0 +1,221 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: click模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+click模块是一个类似getopt和argparse的python第三方模块，在简单了解之后，觉得其简直就是python快速创建命令行工具的类似requests之于urllib的存在，writed human-friendly, 便民的。click的官方文档在 [[http://click.pocoo.org][这里]] ，下面就让我们来学习这么好的一个模块吧。
+
+官方文档的第一个例子如下:
+#+BEGIN_SRC python
+import click
+
+@click.command()
+@click.option('--count', default=1, help='Number of greetings.')
+@click.option('--name', prompt='Your name',
+              help='The person to greet.')
+def hello(count, name):
+    """Simple program that greets NAME for a total of COUNT times."""
+    for x in range(count):
+        click.echo('Hello %s!' % name)
+
+if __name__ == '__main__':
+    hello()
+#+END_SRC
+
+我们看到一切都是很直观明了的， ~@click.command()~ 用来装饰一个函数，然后用 ~@click.option~ 来具体添加命令行选项。其中第一个就是命令行选项的名字，然后 ~help~ ， ~default~ 的意义我们是清楚的（类似的还有 ~type~ 来控制数据类型）。然后我们注意到某个选项比如上面的name是可以请求输入来获得值的。然后我们可以用 ~click.echo~ 来进行打印操作（不是print函数是为了获得更好的python2和3的兼容性，这个是随意的，直接用print函数也是可以的）。
+
+具体脚本运行情况如下所示:
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu:~/桌面$ python3 test2.py --help
+Usage: test2.py [OPTIONS]
+
+  Simple program that greets NAME for a total of COUNT times.
+
+Options:
+  --count INTEGER  Number of greetings.
+  --name TEXT      The person to greet.
+  --help           Show this message and exit.
+#+END_EXAMPLE
+
+我们看到该函数的 ~__doc__~ 说明文档就直接成了该命令行的描述性文档了。
+
+更棒的是其 ~prompt~ 机制和具体命令行输入参数是兼容的:
+#+BEGIN_EXAMPLE
+wanze@wanze-ubuntu:~/桌面$ python3 test2.py --count=3 --name=wanze
+Hello wanze!
+Hello wanze!
+Hello wanze!
+#+END_EXAMPLE
+
+* 必填参数，文件操作和如何测试
+必填参数用 ~@click.argument()~ 来装饰添加之，如下所示:
+#+BEGIN_SRC python
+import click
+
+@click.command()
+@click.argument('input', type=click.File('rb'))
+@click.argument('output', type=click.File('wb'))
+def inout(input, output):
+    while True:
+        chunk = input.read(1024)
+        if not chunk:
+            break
+        output.write(chunk)
+
+if __name__ == '__main__':
+    inout()
+#+END_SRC
+
+这里的 ~click.File()~ 接受一个文件名，然后就已经打开了，在函数里面直接作为一个文件对象可以使用了。文件就推荐使用click模块的这个类型来处理，其对Unicode和bytes处理较好，并有其他优化。当然你也可以使用 ~click.Path~ 类型，其在函数里面相当于一个优化的Path文件名，同样提供了Unicode和bytes兼容支持等。
+
+#+BEGIN_SRC python
+@click.command()
+@click.argument('f', type=click.Path(exists=True))
+def touch(f):
+    click.echo(click.format_filename(f))
+#+END_SRC
+
+在上面的例子中我们看到脚本最后那里写上:
+#+BEGIN_EXAMPLE
+if __name__ == '__main__':
+    inout()
+#+END_EXAMPLE
+脚本就可以正常测试了:
+#+BEGIN_EXAMPLE
+bash>>> python3 test5.py test.py output.txt
+#+END_EXAMPLE
+
+但是更好的做法是用测试式开发风格:
+
+#+BEGIN_SRC python
+import click
+
+from click.testing import CliRunner
+
+def test_inout():
+    @click.command()
+    @click.argument('input', type=click.File('rb'))
+    @click.argument('output', type=click.File('wb'))
+    def inout(input, output):
+        while True:
+            chunk = input.read(1024)
+            if not chunk:
+                break
+            output.write(chunk)
+
+    runner = CliRunner()
+
+    with runner.isolated_filesystem():
+        string = 'Hello World!'
+        with open('hello.txt', 'w') as f:
+            f.write(string)
+
+        result = runner.invoke(inout, ['hello.txt','hello2.txt'])
+
+        assert result.exit_code == 0
+        with open('hello2.txt','r') as f:
+            s = f.read()
+            assert s == string
+
+
+if __name__ == '__main__':
+    test_inout()
+#+END_SRC
+
+具体是新建一个 ~CliRunner~ 对象，然后调用其 ~invoke~ 方法来具体执行某个命令，然后的 ~Result~ 对象有 ~exit_code~ 和 ~output~ 等属性。其中 ~result.output~ 一般为屏幕回显的文字。
+
+然后我们看到上面的runner调用了 ~isolated_filesystem()~ 方法，通过暂停程序我们会发现这样在 ~/tmp~ 文件夹里面会出现一个临时文件夹，然后一切文件操作都在里面进行，完了就会被删除。
+
+
+** 标准输入和标准输出
+值得一提的是标准输入和标准输出可以用 '-' 简单表示。比如上面的例子:
+#+BEGIN_EXAMPLE
+bash>>> python3 test4.py - output.txt
+test test
+
+bash>>> python3 test4.py test.py -
+#+END_EXAMPLE
+
+标准输入的那个例子你需要按下 ~Ctrl-D~ 来结束文件流。
+
+
+
+* 分组和多个子命令
+click模块在分组和建立多个子命令功能上也设计得很简洁:
+#+BEGIN_SRC python
+import click
+
+@click.group()
+def cli():
+    pass
+
+@cli.command()
+def initdb():
+    click.echo('Initialized the database')
+
+@cli.command()
+def dropdb():
+    click.echo('Dropped the database')
+
+if __name__ == '__main__':
+    cli()
+#+END_SRC
+
+通过 ~@click.group~ 来定义某个命令组，然后通过这个命令组函数的command方法 ~@cli.command()~ 来添加某个子命令。
+
+
+
+* 命令行选项详解
+
+
+
+* 全局环境变量控制
+
+* 命令行选项控制其他动作
+
+
+
+
+* 带颜色的终端回显
+click借助python模块 ~colorama~ 的力量有在终端显示带颜色的字体的功能，首先确认按照了 ~colorama~ :
+#+BEGIN_EXAMPLE
+pip install colorama
+#+END_EXAMPLE
+
+简单的使用就是:
+#+BEGIN_EXAMPLE
+import click
+
+click.secho('Hello World!', fg='green')
+click.secho('Some more text', bg='white', fg='black')
+click.secho('ATTENTION', blink=True, bold=True)
+#+END_EXAMPLE
+
+其中fg是前景颜色，也可以说字体颜色吧，颜色选项有:
+#+BEGIN_EXAMPLE
+Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE.
+#+END_EXAMPLE
+
+然后bg是背景颜色:
+#+BEGIN_EXAMPLE
+Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE.
+#+END_EXAMPLE
+
+然后还有其他一些style:
+#+BEGIN_EXAMPLE
+dim=True
+bold=True
+blink=True
+underline=True
+reverse=True
+#+END_EXAMPLE
+
+其中dim是淡化，bold是加粗，blink意思应该是闪烁，但是没看到效果。underline是下划线，reverse是前景色和背景色翻转。
+
