@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-02-15 一 15:21 -->
+<!-- 2016-02-23 二 12:27 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>click模块</title>
@@ -246,7 +246,26 @@ table tr:nth-child(even) {
 </ul>
 </li>
 <li><a href="#orgheadline4">3. 分组和多个子命令</a></li>
-<li><a href="#orgheadline5">4. 带颜色的终端回显</a></li>
+<li><a href="#orgheadline15">4. 命令行选项详解</a>
+<ul>
+<li><a href="#orgheadline5">4.1. default</a></li>
+<li><a href="#orgheadline6">4.2. type</a></li>
+<li><a href="#orgheadline7">4.3. 接受多个输入</a></li>
+<li><a href="#orgheadline8">4.4. count</a></li>
+<li><a href="#orgheadline9">4.5. 布尔值</a></li>
+<li><a href="#orgheadline10">4.6. 短名选项和长名选项和布尔值</a></li>
+<li><a href="#orgheadline11">4.7. 多个choice选项的用法</a></li>
+<li><a href="#orgheadline14">4.8. 请求输入prompt控制</a>
+<ul>
+<li><a href="#orgheadline12">4.8.1. 请求输入密码</a></li>
+<li><a href="#orgheadline13">4.8.2. 请求的默认值控制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline16">5. 全局环境变量控制</a></li>
+<li><a href="#orgheadline17">6. 命令行选项控制其他动作</a></li>
+<li><a href="#orgheadline18">7. 带颜色的终端回显</a></li>
 </ul>
 </div>
 </nav>
@@ -459,9 +478,217 @@ click模块在分组和建立多个子命令功能上也设计得很简洁:
 </div>
 
 
+
 <div class="outline-2">
-<h2 id="orgheadline5">带颜色的终端回显</h2>
+<h2 id="orgheadline15">命令行选项详解</h2>
 <div class="outline-text-2" id="text-4">
+<p>
+click模块必填参数通过 <code>argument()</code> 引入，然后可选参数通过 <code>option()</code> 引入，这里值得一提的是这两个函数的参数并不完全一样，比如说option可以跟 <code>prompt</code> 来做到当该可选参数没有输入的时候，则请求输入；但argument并无此概念。更多细节请参看下面的请求输入一小节。
+</p>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline5">default</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+设置默认值，显然argument必填参数无此概念。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline6">type</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+控制数据类型，这个都有。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline7">接受多个输入</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+<code>nargs</code> 如果设置为大于等于1的值，则命令行中要刷入这么多值，这个和argparse模块类似，不同的是不定量的多个值的情况是 <code>nargs=-1</code> ，相当于内置模块argparse的 <code>*</code> 。然后对应argparse的 <code>+</code> 也就是必须要有一个以上的值的情况，则需要额外加上 <code>required=True</code> 来控制。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline8">count</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+这个是option有，在某种情景下可能很有用。
+</p>
+<pre>
+@click.command()
+@click.option('-v', '--verbose', count=True)
+def log(verbose):
+    click.echo('Verbosity: %s' % verbose)
+$ log -vvv
+Verbosity: 3
+</pre>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline9">布尔值</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+如果默认 <code>default=True</code> 这样设置了，那么默认就是存储的布尔值了，其实际上暗含加上了 <code>is_flag=True</code> 。所以如果没有设置default，则可以通过 <code>is_flag</code> 来控制具体存储的是布尔值。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline10">短名选项和长名选项和布尔值</h3>
+<div class="outline-text-3" id="text-4-6">
+<pre>
+import sys
+
+@click.command()
+@click.option('--shout/--no-shout', ' /-S', default=False)
+def info(shout):
+    rv = sys.platform
+    if shout:
+        rv = rv.upper() + '!!!!111'
+    click.echo(rv)
+</pre>
+
+<pre>
+bash&gt;&gt;&gt; python3 test.py 
+linux
+bash&gt;&gt;&gt; python3 test.py --shout
+LINUX!!!!111
+bash&gt;&gt;&gt; python3 test.py -S
+linux
+</pre>
+
+<p>
+也就是通过上面的这种 <code>/</code> 分割语句来创建这种多个flag的布尔值控制，其中 <code>/</code> 左边是True，右边是False，然后短名选项跟着写入就是了。 <strong>注意</strong> 上面例子短名情况前面的空格是不可少的。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline11">多个choice选项的用法</h3>
+<div class="outline-text-3" id="text-4-7">
+<div class="highlight"><pre><span></span><span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s1">&#39;--hash-type&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="s1">&#39;md5&#39;</span><span class="p">,</span> <span class="s1">&#39;sha1&#39;</span><span class="p">]))</span>
+<span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="n">hash_type</span><span class="p">):</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">hash_type</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline14">请求输入prompt控制</h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+这个只是option才有的概念。最简单的情况如下所示:
+</p>
+<div class="highlight"><pre><span></span><span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s1">&#39;--name&#39;</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s1">&#39;Your name please&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Hello </span><span class="si">%s</span><span class="s1">!&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+<p>
+弹出提示只有在你没有输入 <code>--name=</code> 给出值时才会出来。
+</p>
+</div>
+
+<div class="outline-4">
+<h4 id="orgheadline12">请求输入密码</h4>
+<div class="outline-text-4" id="text-4-8-1">
+<p>
+如下所示:
+</p>
+<div class="highlight"><pre><span></span><span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s1">&#39;--password&#39;</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">hide_input</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+              <span class="n">confirmation_prompt</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Encrypting password to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;rot13&#39;</span><span class="p">))</span>
+</pre></div>
+
+<p>
+也就是额外加上了两个选项控制: <code>hide_input=True</code> 和 <code>confirmation_prompt=True</code> 。上面的这种组合可以简单写为:
+</p>
+<div class="highlight"><pre><span></span><span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.password_option</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Encrypting password to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;rot13&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+
+<div class="outline-4">
+<h4 id="orgheadline13">请求的默认值控制</h4>
+<div class="outline-text-4" id="text-4-8-2">
+<p>
+请求prompt是可以通过 <code>default</code> 来设置默认值的，在那种情况下你直接按下Enter就相当于输入默认值了。然后你还可以如下来获取系统环境下的某个值作为默认值。
+</p>
+
+<div class="highlight"><pre><span></span><span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s1">&#39;--username&#39;</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;USER&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello,&quot;</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span>
+</pre></div>
+
+<p>
+此外click模块还提供了如下的prompt快捷请求输入命令。
+</p>
+<pre>
+value = click.prompt('Please enter a valid integer', type=int)
+</pre>
+
+<p>
+还有如下的 <code>confirm</code> 函数也很有用:
+</p>
+<pre>
+if click.confirm('Do you want to continue?'):
+    click.echo('Well done!')
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline16">全局环境变量控制</h2>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline17">命令行选项控制其他动作</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+如下所示，通过 <code>is_eager=True</code> 来让该选项优先级高于其他选项。然后 <code>expose_value=False</code> 意思是如果没有输入这个选项，则不影响原命令的执行流。然后 <code>callback</code> 就是具体要跳转到的那个函数上。
+</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_version</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">or</span> <span class="n">ctx</span><span class="o">.</span><span class="n">resilient_parsing</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Version 1.0&#39;</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+<span class="nd">@click.command</span><span class="p">()</span>
+<span class="nd">@click.option</span><span class="p">(</span><span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">print_version</span><span class="p">,</span>
+              <span class="n">expose_value</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">is_eager</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">)</span>
+</pre></div>
+
+<p>
+这里最关键性的问题是理解 <code>ctx</code> <code>param</code> 和 <code>value</code> 这几个参数。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline18">带颜色的终端回显</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 click借助python模块 <code>colorama</code> 的力量有在终端显示带颜色的字体的功能，首先确认按照了 <code>colorama</code> :
 </p>
