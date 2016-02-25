@@ -9,7 +9,7 @@
 #+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
 
 
-虽然官方内置distutils模块也能实现类似的功能，不过现在人们更常用的是第三方模块setuptools，相当于distutils模块的加强版，初学者推荐就使用setuptools模块。
+虽然官方内置distutils模块也能实现类似的功能，不过现在人们更常用的是第三方模块setuptools，相当于distutils模块的加强版，初学者推荐就使用setuptools模块。更多内容请参看 [[https://pythonhosted.org/setuptools/index.html][官方文档]] 。
 
 * 安装
 安装就是先安装pip3：
@@ -84,7 +84,12 @@ packages = find_packages(),
 #+END_SRC
 
 其中zwc是你的shell调用的名字，然后zwc是你的模块，另外一个zwc是你的主模块的子模块，然后main是其中的main函数。这就是你的shell调用程序的接口了。类似的还有gui_script可以控制你调用GUI图形的命令入口。
+
 - install_requires ::  接受字符串的列表值，将你依赖的可以通过pip安装的模块名放入进去，然后你的软件安装会自动检测并安装这些依赖模块。
+
+- setup_requires :: 和 ~install_requires~ 类似，所不同的是这个更加侧重于本 ~setup.py~ 所需要的依赖。然后注意 ~setup_requires~ 只是把依赖模块下载下来，还没有具体安装，因为 ~setup.py~ 具体还在执行。如果你希望某个依赖模块至于 ~setup.py~ 就可用，则需要将该依赖模块加入到 ~install_requires~ 和 ~setup_requires~ 中。
+
+
 - package_data ::  你的软件的模块额外附加的（除了py文件的）其他文件，具体设置类似这样 ~{"skeleton":['*.txt'],}~ 其中skeleton这里就是具体的你的软件的模块（对应的文件夹名），然后后面跟着的就是一系列的文件名列表，可以接受glob语法。注意这里只能包含你的模块文件夹也就是前面通过packages控制的文件夹下面的内容。
 - include_package_data ::  这个一般设置为True，似乎可以省略？
 

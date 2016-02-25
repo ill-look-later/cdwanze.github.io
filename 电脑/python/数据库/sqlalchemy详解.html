@@ -1,168 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-<title>sqlalchemy详解</title>
-<!-- 2015-11-23 14:13 -->
+<!-- 2016-02-18 四 21:01 -->
 <meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>sqlalchemy详解</title>
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="万泽(德山书生)">
 <meta  name="description" content="制作者邮箱：a358003542@gmail.com"
 >
-<style type="text/css"> /*
- * with_bootstrap.css
- *
- * Copyright 2015 wanze <a358003542@gmail.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- *
- *
- */
-
-@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-    margin: 0px;
-}
+<style type="text/css">
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    background-color: #f5f5f5;
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
 }
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-.container {
-  width: auto;
-  max-width: 750px;
-  padding: 0 15px;
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
 }
-.container .text-muted {
-  margin: 20px 0;
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
 }
 
-/* background-color: #f8f8f8; */
-.navbar-default{
-    background-color: #fff;
-}
-/*--------------------*/
-
-#content{
-    margin: 0 auto;
-    max-width: 750px;
-    padding: 17px;
-    line-height:160%;
-    font-size:16px;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-weight: 700;
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
-
-
-pre{line-height:180%;font-size:90%;}
-code,kbd,pre,samp {
-  font-family: monospace, serif;
-}
-
-code{  padding: 2px;}
-p{
-    text-indent:2em;/*段落缩进*/
-    line-height:180%;/*行间距*/
-    }
-
-.title{
+.title {
+    display: block;
     text-align: center;
-}
-.org-ol li , .org-ul li , org-dl dt{
-    margin-top: 0.5em; /*增大li之间的垂直space*/
-    margin-bottom: 0.5em; /*增大li之间的垂直space*/
-}
-p.verse{
-    margin-left: 3%;
-    text-indent:0em;
+    padding: 10px;
 }
 
-.right{
-    margin-left: auto;
-    margin-right: 0px;
-    text-align: right;
-}
-.left{
-    margin-left: 0px;
-    margin-right: auto;
-    text-align: left;
-}
-.center{
+.center-block {
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
 }
 
 .underline{
     text-decoration: underline;
 }
+   #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    /*word-wrap: break-word;*/
+    word-wrap: normal; /* horizontal scrolling */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
 
 video{
-    width: 750px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
 
 figure p{
-    text-indent:0em;/*段落缩进*/
+    text-indent:0em;
 }
 img{
-    max-width: 700px;
+    max-width: 95%;
 }
 
 figure{
     text-align: center;
-}
-
-table, th, td
-{
-    margin:0 auto;
-    min-width:2em;
-    text-align:center ;
-    padding: 5px;
-}
-
-table{
-    border-top: 2px solid ;
-    border-bottom: 2px solid ;
-}
-thead{
-    border-bottom: 1px solid ;
 }
 
 /*  class  */
@@ -188,305 +134,216 @@ thead{
 }
 
 /*
-http://thomasf.github.io/solarized-css/
+table
 */
-
-dfn {
-  font-style: italic;
-}
-dd{
-    margin-left:2em;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 16px 0;
+    empty-cells: show;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: table;
 }
 
-
-
-.tag {
-  background-color: #eee8d5;
-  color: #d33682;
-  padding: 0 0.2em;
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+table th,table td{
+    padding:8px;
 }
 
-
-.todo,
-.next,
-.done {
-  color: #fdf6e3;
-  background-color: #dc322f;
-  padding: 0 0.2em;
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
 }
-.tag {
-  -webkit-border-radius: 0.35em;
-  -moz-border-radius: 0.35em;
-  border-radius: 0.35em;
-}
-.TODO {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #2aa198;
-}
-.NEXT {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.ACTIVE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.DONE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-.WAITING {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #cb4b16;
-}
-.HOLD {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.NOTE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.CANCELLED {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-
-
-/*
-pygmentize -f html -S colorful -a .highlight
-*/
-
 .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #ffffff; }
-.highlight .c { color: #888888 } /* Comment */
-.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
-.highlight .k { color: #008800; font-weight: bold } /* Keyword */
-.highlight .o { color: #333333 } /* Operator */
-.highlight .cm { color: #888888 } /* Comment.Multiline */
-.highlight .cp { color: #557799 } /* Comment.Preproc */
-.highlight .c1 { color: #888888 } /* Comment.Single */
-.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #8f5902; font-style: italic } /* Comment */
+.highlight .err { color: #a40000; border: 1px solid #ef2929 } /* Error */
+.highlight .g { color: #000000 } /* Generic */
+.highlight .k { color: #204a87; font-weight: bold } /* Keyword */
+.highlight .l { color: #000000 } /* Literal */
+.highlight .n { color: #000000 } /* Name */
+.highlight .o { color: #ce5c00; font-weight: bold } /* Operator */
+.highlight .x { color: #000000 } /* Other */
+.highlight .p { color: #000000; font-weight: bold } /* Punctuation */
+.highlight .ch { color: #8f5902; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #8f5902; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #8f5902; font-style: italic } /* Comment.Preproc */
+.highlight .cpf { color: #8f5902; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #8f5902; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #8f5902; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #a40000 } /* Generic.Deleted */
+.highlight .ge { color: #000000; font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #ef2929 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .go { color: #000000; font-style: italic } /* Generic.Output */
+.highlight .gp { color: #8f5902 } /* Generic.Prompt */
+.highlight .gs { color: #000000; font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
-.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
-.highlight .s { background-color: #fff0f0 } /* Literal.String */
-.highlight .na { color: #0000CC } /* Name.Attribute */
-.highlight .nb { color: #007020 } /* Name.Builtin */
-.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
-.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
-.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
-.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
-.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
-.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #007700 } /* Name.Tag */
-.highlight .nv { color: #996633 } /* Name.Variable */
-.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
-.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
-.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
-.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
-.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
-.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
-.highlight .sc { color: #0044DD } /* Literal.String.Char */
-.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
-.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
-.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
-.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
-.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
-.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
-.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
-.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
-.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
-.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #336699 } /* Name.Variable.Class */
-.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
-.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
-.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
-
- </style>
+.highlight .gt { color: #a40000; font-weight: bold } /* Generic.Traceback */
+.highlight .kc { color: #204a87; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #204a87; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #204a87; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #204a87; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #204a87; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #204a87; font-weight: bold } /* Keyword.Type */
+.highlight .ld { color: #000000 } /* Literal.Date */
+.highlight .m { color: #0000cf; font-weight: bold } /* Literal.Number */
+.highlight .s { color: #4e9a06 } /* Literal.String */
+.highlight .na { color: #c4a000 } /* Name.Attribute */
+.highlight .nb { color: #204a87 } /* Name.Builtin */
+.highlight .nc { color: #000000 } /* Name.Class */
+.highlight .no { color: #000000 } /* Name.Constant */
+.highlight .nd { color: #5c35cc; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #ce5c00 } /* Name.Entity */
+.highlight .ne { color: #cc0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #000000 } /* Name.Function */
+.highlight .nl { color: #f57900 } /* Name.Label */
+.highlight .nn { color: #000000 } /* Name.Namespace */
+.highlight .nx { color: #000000 } /* Name.Other */
+.highlight .py { color: #000000 } /* Name.Property */
+.highlight .nt { color: #204a87; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #000000 } /* Name.Variable */
+.highlight .ow { color: #204a87; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #f8f8f8; text-decoration: underline } /* Text.Whitespace */
+.highlight .mb { color: #0000cf; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #0000cf; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #0000cf; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000cf; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #0000cf; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { color: #4e9a06 } /* Literal.String.Backtick */
+.highlight .sc { color: #4e9a06 } /* Literal.String.Char */
+.highlight .sd { color: #8f5902; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4e9a06 } /* Literal.String.Double */
+.highlight .se { color: #4e9a06 } /* Literal.String.Escape */
+.highlight .sh { color: #4e9a06 } /* Literal.String.Heredoc */
+.highlight .si { color: #4e9a06 } /* Literal.String.Interpol */
+.highlight .sx { color: #4e9a06 } /* Literal.String.Other */
+.highlight .sr { color: #4e9a06 } /* Literal.String.Regex */
+.highlight .s1 { color: #4e9a06 } /* Literal.String.Single */
+.highlight .ss { color: #4e9a06 } /* Literal.String.Symbol */
+.highlight .bp { color: #3465a4 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #000000 } /* Name.Variable.Class */
+.highlight .vg { color: #000000 } /* Name.Variable.Global */
+.highlight .vi { color: #000000 } /* Name.Variable.Instance */
+.highlight .il { color: #0000cf; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body>
-<header class="header">
-<nav class="navbar navbar-default navbar-static-top"><div class="container">
-<div class="navbar-header">
-<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
-<div id="navbar">
-<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
-</div>
-</nav></header><div id="content">
+<div id="content">
+<header>
 <h1 class="title">sqlalchemy详解</h1>
-<nav id="table-of-contents">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. 前言</a>
+<li><a href="#orgheadline4">1. 前言</a>
 <ul>
-<li><a href="#sec-1-1">1.1. 安装</a></li>
-<li><a href="#sec-1-2">1.2. 引用惯例</a></li>
-<li><a href="#sec-1-3">1.3. 简介</a></li>
+<li><a href="#orgheadline1">1.1. 安装</a></li>
+<li><a href="#orgheadline2">1.2. 引用惯例</a></li>
+<li><a href="#orgheadline3">1.3. 简介</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2. 非ORM风格</a>
+<li><a href="#orgheadline34">2. 非ORM风格</a>
 <ul>
-<li><a href="#sec-2-1">2.1. 创建一个Engine</a>
+<li><a href="#orgheadline10">2.1. 创建一个Engine</a>
 <ul>
-<li><a href="#sec-2-1-1">2.1.1. 连接sqlite3</a>
+<li><a href="#orgheadline7">2.1.1. 连接sqlite3</a>
 <ul>
-<li><a href="#sec-2-1-1-1">2.1.1.1. 连接sqlite3 in-memory</a></li>
-<li><a href="#sec-2-1-1-2">2.1.1.2. 连接sqlite3 on-disk</a></li>
+<li><a href="#orgheadline5">2.1.1.1. 连接sqlite3 in-memory</a></li>
+<li><a href="#orgheadline6">2.1.1.2. 连接sqlite3 on-disk</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-1-2">2.1.2. 连接mysql</a></li>
-<li><a href="#sec-2-1-3">2.1.3. 连接postgresql</a></li>
+<li><a href="#orgheadline8">2.1.2. 连接mysql</a></li>
+<li><a href="#orgheadline9">2.1.3. 连接postgresql</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-2">2.2. MetaData对象</a>
+<li><a href="#orgheadline14">2.2. MetaData对象</a>
 <ul>
-<li><a href="#sec-2-2-1">2.2.1. 创建一个unbound MetaData对象</a></li>
-<li><a href="#sec-2-2-2">2.2.2. bind一个Engine对象</a></li>
-<li><a href="#sec-2-2-3">2.2.3. 测试数据库是否存在</a></li>
+<li><a href="#orgheadline11">2.2.1. 创建一个unbound MetaData对象</a></li>
+<li><a href="#orgheadline12">2.2.2. bind一个Engine对象</a></li>
+<li><a href="#orgheadline13">2.2.3. 测试数据库是否存在</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-3">2.3. 创建一个Table对象</a>
+<li><a href="#orgheadline23">2.3. 创建一个Table对象</a>
 <ul>
-<li><a href="#sec-2-3-1">2.3.1. 利用已存在的Table</a></li>
-<li><a href="#sec-2-3-2">2.3.2. 实际在数据库中创建表格</a></li>
-<li><a href="#sec-2-3-3">2.3.3. 列的属性设置</a></li>
-<li><a href="#sec-2-3-4">2.3.4. 列的数据类型声明</a>
+<li><a href="#orgheadline15">2.3.1. 利用已存在的Table</a></li>
+<li><a href="#orgheadline16">2.3.2. 实际在数据库中创建表格</a></li>
+<li><a href="#orgheadline17">2.3.3. 列的属性设置</a></li>
+<li><a href="#orgheadline19">2.3.4. 列的数据类型声明</a>
 <ul>
-<li><a href="#sec-2-3-4-1">2.3.4.1. mysql方言的额外类型</a></li>
+<li><a href="#orgheadline18">2.3.4.1. mysql方言的额外类型</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-3-5">2.3.5. postgresql额外的类型</a></li>
-<li><a href="#sec-2-3-6">2.3.6. Oracle额外的类型</a></li>
-<li><a href="#sec-2-3-7">2.3.7. 更多的类型支持</a></li>
+<li><a href="#orgheadline20">2.3.5. postgresql额外的类型</a></li>
+<li><a href="#orgheadline21">2.3.6. Oracle额外的类型</a></li>
+<li><a href="#orgheadline22">2.3.7. 更多的类型支持</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-4">2.4. insert语句</a></li>
-<li><a href="#sec-2-5">2.5. delete语句</a></li>
-<li><a href="#sec-2-6">2.6. update语句</a></li>
-<li><a href="#sec-2-7">2.7. select语句</a>
+<li><a href="#orgheadline24">2.4. insert语句</a></li>
+<li><a href="#orgheadline25">2.5. delete语句</a></li>
+<li><a href="#orgheadline26">2.6. update语句</a></li>
+<li><a href="#orgheadline29">2.7. select语句</a>
 <ul>
-<li><a href="#sec-2-7-1">2.7.1. ResultProxy对象</a></li>
-<li><a href="#sec-2-7-2">2.7.2. RowProxy对象</a></li>
+<li><a href="#orgheadline27">2.7.1. ResultProxy对象</a></li>
+<li><a href="#orgheadline28">2.7.2. RowProxy对象</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-8">2.8. 多表连接</a>
+<li><a href="#orgheadline33">2.8. 多表连接</a>
 <ul>
-<li><a href="#sec-2-8-1">2.8.1. 交叉连接或笛卡尔积</a></li>
-<li><a href="#sec-2-8-2">2.8.2. 内连接</a></li>
-<li><a href="#sec-2-8-3">2.8.3. 外连接</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#sec-3">3. ORM风格</a>
-<ul>
-<li><a href="#sec-3-1">3.1. CRUD操作</a>
-<ul>
-<li><a href="#sec-3-1-1">3.1.1. 增加记录</a></li>
-<li><a href="#sec-3-1-2">3.1.2. 查询记录</a>
-<ul>
-<li><a href="#sec-3-1-2-1">3.1.2.1. 过滤排序等操作</a></li>
-<li><a href="#sec-3-1-2-2">3.1.2.2. 返回结果</a></li>
-<li><a href="#sec-3-1-2-3">3.1.2.3. text函数</a></li>
-</ul>
-</li>
-<li><a href="#sec-3-1-3">3.1.3. 更改记录</a></li>
-<li><a href="#sec-3-1-4">3.1.4. 删除记录</a></li>
-</ul>
-</li>
-<li><a href="#sec-3-2">3.2. ORM层的关系</a>
-<ul>
-<li><a href="#sec-3-2-1">3.2.1. one-to-many模型</a></li>
-<li><a href="#sec-3-2-2">3.2.2. one-to-one模型</a></li>
-<li><a href="#sec-3-2-3">3.2.3. many-to-one模型</a></li>
-<li><a href="#sec-3-2-4">3.2.4. many-to-many模型</a></li>
+<li><a href="#orgheadline30">2.8.1. 交叉连接或笛卡尔积</a></li>
+<li><a href="#orgheadline31">2.8.2. 内连接</a></li>
+<li><a href="#orgheadline32">2.8.3. 外连接</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-4">4. 高级议题</a>
+<li><a href="#orgheadline48">3. ORM风格</a>
 <ul>
-<li><a href="#sec-4-1">4.1. cascade</a></li>
-<li><a href="#sec-4-2">4.2. 自我引用表达树状结构</a></li>
-<li><a href="#sec-4-3">4.3. 面向ORM的内省机制</a></li>
-<li><a href="#sec-4-4">4.4. 面向ORM的数据继承机制</a></li>
+<li><a href="#orgheadline42">3.1. CRUD操作</a>
+<ul>
+<li><a href="#orgheadline35">3.1.1. 增加记录</a></li>
+<li><a href="#orgheadline39">3.1.2. 查询记录</a>
+<ul>
+<li><a href="#orgheadline36">3.1.2.1. 过滤排序等操作</a></li>
+<li><a href="#orgheadline37">3.1.2.2. 返回结果</a></li>
+<li><a href="#orgheadline38">3.1.2.3. text函数</a></li>
 </ul>
 </li>
-<li><a href="#sec-5">5. 附录</a>
-<ul>
-<li><a href="#sec-5-1">5.1. 其他</a>
-<ul>
-<li><a href="#sec-5-1-1">5.1.1. datetime数据类型</a></li>
+<li><a href="#orgheadline40">3.1.3. 更改记录</a></li>
+<li><a href="#orgheadline41">3.1.4. 删除记录</a></li>
 </ul>
 </li>
-<li><a href="#sec-5-2">5.2. 如何测试</a></li>
-<li><a href="#sec-5-3">5.3. flask-sqlalchemy模块</a></li>
-<li><a href="#sec-5-4">5.4. 参考资料</a></li>
+<li><a href="#orgheadline47">3.2. ORM层的关系</a>
+<ul>
+<li><a href="#orgheadline43">3.2.1. one-to-many模型</a></li>
+<li><a href="#orgheadline44">3.2.2. one-to-one模型</a></li>
+<li><a href="#orgheadline45">3.2.3. many-to-one模型</a></li>
+<li><a href="#orgheadline46">3.2.4. many-to-many模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline53">4. 高级议题</a>
+<ul>
+<li><a href="#orgheadline49">4.1. cascade</a></li>
+<li><a href="#orgheadline50">4.2. 自我引用表达树状结构</a></li>
+<li><a href="#orgheadline51">4.3. 面向ORM的内省机制</a></li>
+<li><a href="#orgheadline52">4.4. 面向ORM的数据继承机制</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline59">5. 附录</a>
+<ul>
+<li><a href="#orgheadline55">5.1. 其他</a>
+<ul>
+<li><a href="#orgheadline54">5.1.1. datetime数据类型</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline56">5.2. 如何测试</a></li>
+<li><a href="#orgheadline57">5.3. flask-sqlalchemy模块</a></li>
+<li><a href="#orgheadline58">5.4. 参考资料</a></li>
 </ul>
 </li>
 </ul>
@@ -494,8 +351,8 @@ pygmentize -f html -S colorful -a .highlight
 </nav>
 
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-2">
+<h2 id="orgheadline4">前言</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 老实说sqlalchemy这个模块特别难学，主要原因倒不是这个模块本身，阻碍我很好地学习这个模块的是这个心态，认为自己可以直接学习sqlalchemyORM封装就行了，不用学习SQL语句。这是错误的。要学好sqlalchemy必须先学习好SQL语句，要完全发挥出sqlalchemy的威力，也必须先学会SQL语句和对应的SQL实现。然后还有一个误区，我们在使用上也不一定要使用class这样的类声明风格。实际上sqlalchemy这个模块里面内容是很丰富的，是很灵活的。它是可以完全取代sqlite3模块和psycopg2模块等初级的DB API，然后还提供了高级的ORM封装。
@@ -503,20 +360,20 @@ pygmentize -f html -S colorful -a .highlight
 </div>
 
 
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 安装</h3>
+<div class="outline-3">
+<h3 id="orgheadline1">安装</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 sqlalchemy的安装简单用pip3命令安装之即可:
 </p>
-<pre class="example">
+<pre>
 sudo pip3 install sqlalchemy
 </pre>
 
 <p>
 惯例python模块安装好之后进去输入版本号测试下安装情况:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; import sqlalchemy
 &gt;&gt;&gt; sqlalchemy.__version__
 '1.0.8'
@@ -524,13 +381,13 @@ sudo pip3 install sqlalchemy
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 引用惯例</h3>
+<div class="outline-3">
+<h3 id="orgheadline2">引用惯例</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 在后面都默认有如下引用:
 </p>
-<pre class="example">
+<pre>
 from sqlalchemy import *
 </pre>
 <p>
@@ -539,8 +396,8 @@ from sqlalchemy import *
 </div>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 简介</h3>
+<div class="outline-3">
+<h3 id="orgheadline3">简介</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 通过sqlalchemy连接具体的某个数据库，前面有一些准备工作要做，参考 <a href="http://www.aosabook.org/en/sqlalchemy.html">sqlalchemy architecture</a> 一文的描述:
@@ -561,11 +418,11 @@ from sqlalchemy import *
 </div>
 
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> 非ORM风格</h2>
+<div class="outline-2">
+<h2 id="orgheadline34">非ORM风格</h2>
 <div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 创建一个Engine</h3>
+</div><div class="outline-3">
+<h3 id="orgheadline10">创建一个Engine</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 创建一个 <code>Engine</code> 对象实际上对应的就是和数据库的连接操作。具体是通过 <code>create_engine</code> 函数创建的Engine对象，其一开始并没有实际连接数据库，只有具体要求某个操作的时候才会去连接。
@@ -573,20 +430,20 @@ from sqlalchemy import *
 </div>
 
 
-<div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> 连接sqlite3</h4>
+<div class="outline-4">
+<h4 id="orgheadline7">连接sqlite3</h4>
 <div class="outline-text-4" id="text-2-1-1">
-</div><div id="outline-container-sec-2-1-1-1" class="outline-5">
-<h5 id="sec-2-1-1-1"><span class="section-number-5">2.1.1.1</span> 连接sqlite3 in-memory</h5>
+</div><div class="outline-5">
+<h5 id="orgheadline5">连接sqlite3 in-memory</h5>
 <div class="outline-text-5" id="text-2-1-1-1">
-<pre class="example">
+<pre>
 engine = create_engine('sqlite://')
 </pre>
 
 <p>
 但是推荐采用如下写法:
 </p>
-<pre class="example">
+<pre>
 engine = create_engine('sqlite:///:memory:',echo=True)
 </pre>
 <p>
@@ -595,10 +452,10 @@ engine = create_engine('sqlite:///:memory:',echo=True)
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-1-2" class="outline-5">
-<h5 id="sec-2-1-1-2"><span class="section-number-5">2.1.1.2</span> 连接sqlite3 on-disk</h5>
+<div class="outline-5">
+<h5 id="orgheadline6">连接sqlite3 on-disk</h5>
 <div class="outline-text-5" id="text-2-1-1-2">
-<pre class="example">
+<pre>
 engine = create_engine('sqlite:///sqlite3_learning_example.db')
 </pre>
 
@@ -606,7 +463,7 @@ engine = create_engine('sqlite:///sqlite3_learning_example.db')
 上面的db文件是创建在命令行当前工作目录下的，也就是相对路径表达。此外还可以如下写上绝对路径表达:
 </p>
 
-<pre class="example">
+<pre>
 engine = create_engine('sqlite:////absolute/path/to/foo.db')
 </pre>
 
@@ -614,14 +471,14 @@ engine = create_engine('sqlite:////absolute/path/to/foo.db')
 在三个斜杠线的基础上还需要加上一个斜杠线。作为这种形式的通用表达，前面必定有两个斜杠线，然后第二个斜杠线和第三个斜杠线之间是登录信息的描述，因为sqlite3没有这些信息，所以空了，如下所示:
 </p>
 
-<pre class="example">
+<pre>
 dialect://username:password@host:port/database
 </pre>
 
 <p>
 或者某个方言系统再加上某个驱动:
 </p>
-<pre class="example">
+<pre>
 dialect+driver://username:password@host:port/database
 </pre>
 
@@ -629,47 +486,42 @@ dialect+driver://username:password@host:port/database
 这里的方言可以有:
 </p>
 <dl class="org-dl">
-<dt> sqlite </dt><dd>默认的driver的官方的 <strong>sqlite3</strong> 模块，这个应该不需要改动。
-</dd>
-<dt> mysql </dt><dd>默认的dirver是 <strong>mysql-python</strong> ，但推荐使用 <strong>pymysql</strong> ，你需要用pip安装之。
-</dd>
+<dt>sqlite</dt><dd>默认的driver的官方的 <strong>sqlite3</strong> 模块，这个应该不需要改动。</dd>
+<dt>mysql</dt><dd>默认的dirver是 <strong>mysql-python</strong> ，但推荐使用 <strong>pymysql</strong> ，你需要用pip安装之。</dd>
 </dl>
-<pre class="example">
+<pre>
 engine = create_engine('mysql+pymysql://root@localhost/test')
 </pre>
 <dl class="org-dl">
-<dt> postgresql </dt><dd>默认的driver是 <strong>psycopg2</strong> ，这个还行。
-</dd>
-<dt> oracle </dt><dd>默认的driver是 <strong>cx_oracle</strong> 。
-</dd>
-<dt> mssql </dt><dd>默认的driver是 <strong>pyodbc</strong> 。
-</dd>
+<dt>postgresql</dt><dd>默认的driver是 <strong>psycopg2</strong> ，这个还行。</dd>
+<dt>oracle</dt><dd>默认的driver是 <strong>cx_oracle</strong> 。</dd>
+<dt>mssql</dt><dd>默认的driver是 <strong>pyodbc</strong> 。</dd>
 </dl>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-sec-2-1-2" class="outline-4">
-<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> 连接mysql</h4>
+<div class="outline-4">
+<h4 id="orgheadline8">连接mysql</h4>
 <div class="outline-text-4" id="text-2-1-2">
-<pre class="example">
+<pre>
 engine = create_engine('mysql+pymysql://localhost/mysql_db')
 </pre>
 
 <p>
 确保你安装了pymysql:
 </p>
-<pre class="example">
+<pre>
 sudo pip3 install pymysql
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-3" class="outline-4">
-<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> 连接postgresql</h4>
+<div class="outline-4">
+<h4 id="orgheadline9">连接postgresql</h4>
 <div class="outline-text-4" id="text-2-1-3">
-<pre class="example">
+<pre>
 engine = create_engine('postgres://rick:foo@localhost:5432/pg_db')
 </pre>
 </div>
@@ -677,33 +529,33 @@ engine = create_engine('postgres://rick:foo@localhost:5432/pg_db')
 </div>
 
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> MetaData对象</h3>
+<div class="outline-3">
+<h3 id="orgheadline14">MetaData对象</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 MetaData对象你可以看作比Table层更高一级的抽象，里面存放着Table对象的一些metadata描述信息。一个简单的理解是将一个MetaData对象看作sqlalchemy内部的database概念。
 </p>
 </div>
 
-<div id="outline-container-sec-2-2-1" class="outline-4">
-<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> 创建一个unbound MetaData对象</h4>
+<div class="outline-4">
+<h4 id="orgheadline11">创建一个unbound MetaData对象</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 通过 <code>MetaData()</code> 默认创建的就是一个unbound MetaData对象。
 </p>
-<pre class="example">
+<pre>
 metadata = MetaData()
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-2-2-2" class="outline-4">
-<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> bind一个Engine对象</h4>
+<div class="outline-4">
+<h4 id="orgheadline12">bind一个Engine对象</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 你可以如下将一个unbound MetaData对象具体 <code>bind</code> 一个Engine对象。
 </p>
-<pre class="example">
+<pre>
 engine = create_engine('sqlite://')
 metadata = MetaData()
 metadata.bind = engine
@@ -712,7 +564,7 @@ metadata.bind = engine
 <p>
 或者在上面创建的时候就指定:
 </p>
-<pre class="example">
+<pre>
 engine = create_engine('sqlite://')
 metadata = MetaData(engine)
 </pre>
@@ -720,14 +572,14 @@ metadata = MetaData(engine)
 <p>
 或者你还可以直接engine的URL表达来后台自动创建一个engine，于是有:
 </p>
-<pre class="example">
+<pre>
 metadata = MetaData('sqlite://')
 </pre>
 
 <p>
 对于初学者用的最多的还是 <code>BoundMetaData</code> ，通过上面谈及的方法创建了一个 <code>BoundMetaData</code> 对象之后，某个Table对象关联了该 <code>BoundMetaData</code> 对象，然后该Table对象就可以直接通过:
 </p>
-<pre class="example">
+<pre>
 table.create()
 </pre>
 <p>
@@ -737,26 +589,26 @@ table.create()
 </div>
 
 
-<div id="outline-container-sec-2-2-3" class="outline-4">
-<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> 测试数据库是否存在</h4>
+<div class="outline-4">
+<h4 id="orgheadline13">测试数据库是否存在</h4>
 <div class="outline-text-4" id="text-2-2-3">
 <p>
 这里关于 <code>sqlalchemy_utils</code> 的想法来自 <a href="http://stackoverflow.com/questions/6506578/how-to-create-a-new-database-using-sqlalchemy">这个网页</a> 。
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">create_database</span>
 
 
 <span class="k">def</span> <span class="nf">init_sqlalchemy</span><span class="p">(</span><span class="n">dburl</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">dburl</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c">###确保目标数据库是存在的。</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c1">###确保目标数据库是存在的。</span>
         <span class="n">create_database</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
     <span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">metadata</span>
 
-<span class="n">metadata</span> <span class="o">=</span> <span class="n">init_sqlalchemy</span><span class="p">(</span><span class="s">&#39;sqlite:///test.db&#39;</span><span class="p">)</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">init_sqlalchemy</span><span class="p">(</span><span class="s1">&#39;sqlite:///test.db&#39;</span><span class="p">)</span>
 </pre></div>
 
 <p>
@@ -775,33 +627,33 @@ table.create()
 </div>
 
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 创建一个Table对象</h3>
+<div class="outline-3">
+<h3 id="orgheadline23">创建一个Table对象</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 下面是一个完整的例子，最后创建了一个Table表格。这里的 <code>db</code> 也就是前面谈及的MetaData对象，我们看到在创建Table对象的时候第一个参数是具体创建的SQL表格的名字，第二个就是该表格bind的某个MetaData对象，也可以简单理解为该表格对象存入该MetaData对象代表的database中。然后后面调用 <code>db.create_all()</code> ，所有这些bind到该db上的表格都将创建。你还可以用 <code>users.create()</code> 来单独创建某个表格。
 </p>
 
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">create_database</span>
 
 
 <span class="k">def</span> <span class="nf">init_sqlalchemy</span><span class="p">(</span><span class="n">dburl</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">dburl</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c">###确保目标数据库是存在的。</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c1">###确保目标数据库是存在的。</span>
         <span class="n">create_database</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
     <span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">metadata</span>
 
-<span class="n">db</span> <span class="o">=</span> <span class="n">init_sqlalchemy</span><span class="p">(</span><span class="s">&#39;sqlite:///test.db&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">init_sqlalchemy</span><span class="p">(</span><span class="s1">&#39;sqlite:///test.db&#39;</span><span class="p">)</span>
 
-<span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;users&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;user_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">)),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;password&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
+<span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">db</span><span class="o">.</span><span class="n">create_all</span><span class="p">()</span>
@@ -809,13 +661,13 @@ table.create()
 </div>
 
 
-<div id="outline-container-sec-2-3-1" class="outline-4">
-<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> 利用已存在的Table</h4>
+<div class="outline-4">
+<h4 id="orgheadline15">利用已存在的Table</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 如果某个数据库的某个Table已经存在了，那么你就没有必要如上去创建一个Table对象了，只需要如下做就可以获得该Table对象了:
 </p>
-<pre class="example">
+<pre>
 users = Table('users',db,autoload=True)
 </pre>
 
@@ -826,41 +678,41 @@ users = Table('users',db,autoload=True)
 </div>
 
 
-<div id="outline-container-sec-2-3-2" class="outline-4">
-<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> 实际在数据库中创建表格</h4>
+<div class="outline-4">
+<h4 id="orgheadline16">实际在数据库中创建表格</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
 具体可以整个metadata对象，调用 <code>create_all</code> 方法来创建所有表格（其也有 <code>checkfirst</code> 参数。）:
 </p>
-<pre class="example">
+<pre>
 db.create_all()
 </pre>
 
 <p>
 或者该Table对象具体调用 <code>create</code> 方法来自我创建之。在应用推荐加上 <code>checkfirst=True</code> 设置，这样就算数据库中该表格已经存在也不会报错。如下所示:
 </p>
-<pre class="example">
+<pre>
 users.create(checkfirst=True)
 </pre>
 
 <p>
 类似的还有如下用法用于安装删除某个表格，即使该表格不存在也不会报错:
 </p>
-<pre class="example">
+<pre>
 users.drop(checkfirst=True)
 </pre>
 
 <p>
 这里代码改成了这个样子了:
 </p>
-<div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
-    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;users&#39;</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">NoSuchTableError</span><span class="p">:</span>
-    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;users&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;user_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">)),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;password&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
 <p>
@@ -870,34 +722,25 @@ users.drop(checkfirst=True)
 </div>
 
 
-<div id="outline-container-sec-2-3-3" class="outline-4">
-<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> 列的属性设置</h4>
+<div class="outline-4">
+<h4 id="orgheadline17">列的属性设置</h4>
 <div class="outline-text-4" id="text-2-3-3">
 <p>
 创建表格对象后面一系列的参数就是具体各个列Column对象，其第一个参数是具体列的名字，然后第二个参数该列所存储的值的类型，后面还可以跟其他一些可选项作为属性的进一步修饰。具体如下所示:
 </p>
 
 <dl class="org-dl">
-<dt> primary_key </dt><dd>设置该列为主键列或者称之为主键约束
-</dd>
-<dt> unique </dt><dd>该列加上唯一约束，即该列的值不可重复。主键约束是一种特殊的唯一约束。
-</dd>
-<dt> nullable </dt><dd>该列可不可为空
-</dd>
-<dt> default </dt><dd>该列的默认值设置
-</dd>
-<dt> index </dt><dd>该列是否加入索引
-</dd>
-<dt> auto_increment </dt><dd>Integer的列数值自动递增
-</dd>
-<dt> ForeignKey('brand.id') </dt><dd>设置外键约束
-</dd>
-<dt> CheckConstraint('amount &gt; 0') </dt><dd>设置Check约束
-</dd>
-<dt> onupdate </dt><dd>最常见的用法如下:
-</dd>
+<dt>primary_key</dt><dd>设置该列为主键列或者称之为主键约束</dd>
+<dt>unique</dt><dd>该列加上唯一约束，即该列的值不可重复。主键约束是一种特殊的唯一约束。</dd>
+<dt>nullable</dt><dd>该列可不可为空</dd>
+<dt>default</dt><dd>该列的默认值设置</dd>
+<dt>index</dt><dd>该列是否加入索引</dd>
+<dt>auto_increment</dt><dd>Integer的列数值自动递增</dd>
+<dt>ForeignKey('brand.id')</dt><dd>设置外键约束</dd>
+<dt>CheckConstraint('amount &gt; 0')</dt><dd>设置Check约束</dd>
+<dt>onupdate</dt><dd>最常见的用法如下:</dd>
 </dl>
-<pre class="example">
+<pre>
 onupdate=datetime.utcnow
 </pre>
 <p>
@@ -906,8 +749,8 @@ onupdate=datetime.utcnow
 </div>
 </div>
 
-<div id="outline-container-sec-2-3-4" class="outline-4">
-<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> 列的数据类型声明</h4>
+<div class="outline-4">
+<h4 id="orgheadline19">列的数据类型声明</h4>
 <div class="outline-text-4" id="text-2-3-4">
 <p>
 下面对各个列存储的值的可能类型描述详细介绍之，更多信息请参看文档查看之。
@@ -916,98 +759,98 @@ onupdate=datetime.utcnow
 
 
 <colgroup>
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">Class name</th>
-<th scope="col" class="left">Python Type</th>
-<th scope="col" class="left">SQL Type (for SQLitedriver)</th>
-<th scope="col" class="left">Arguments</th>
+<th scope="col" class="org-left">Class name</th>
+<th scope="col" class="org-left">Python Type</th>
+<th scope="col" class="org-left">SQL Type (for SQLitedriver)</th>
+<th scope="col" class="org-left">Arguments</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="left">String</td>
-<td class="left">string</td>
-<td class="left">TEXT or VARCHAR</td>
-<td class="left">length</td>
+<td class="org-left">String</td>
+<td class="org-left">string</td>
+<td class="org-left">TEXT or VARCHAR</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">Integer</td>
-<td class="left">int</td>
-<td class="left">INTEGER</td>
-<td class="left">none</td>
+<td class="org-left">Integer</td>
+<td class="org-left">int</td>
+<td class="org-left">INTEGER</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">SmallInteger</td>
-<td class="left">int</td>
-<td class="left">SMALLINT</td>
-<td class="left">none</td>
+<td class="org-left">SmallInteger</td>
+<td class="org-left">int</td>
+<td class="org-left">SMALLINT</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">Numeric</td>
-<td class="left">float,Decimal</td>
-<td class="left">NUMERIC</td>
-<td class="left">precision=10, length=2</td>
+<td class="org-left">Numeric</td>
+<td class="org-left">float,Decimal</td>
+<td class="org-left">NUMERIC</td>
+<td class="org-left">precision=10, length=2</td>
 </tr>
 
 <tr>
-<td class="left">Float</td>
-<td class="left">float</td>
-<td class="left">NUMERIC</td>
-<td class="left">precision=10</td>
+<td class="org-left">Float</td>
+<td class="org-left">float</td>
+<td class="org-left">NUMERIC</td>
+<td class="org-left">precision=10</td>
 </tr>
 
 <tr>
-<td class="left">DateTime</td>
-<td class="left">datetime.datetime</td>
-<td class="left">TIMESTAMP</td>
-<td class="left">none</td>
+<td class="org-left">DateTime</td>
+<td class="org-left">datetime.datetime</td>
+<td class="org-left">TIMESTAMP</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">time</td>
-<td class="left">datetime.time</td>
-<td class="left">TIME</td>
-<td class="left">none</td>
+<td class="org-left">time</td>
+<td class="org-left">datetime.time</td>
+<td class="org-left">TIME</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">Date</td>
-<td class="left">datetime.date</td>
-<td class="left">DATE</td>
-<td class="left">none</td>
+<td class="org-left">Date</td>
+<td class="org-left">datetime.date</td>
+<td class="org-left">DATE</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">Binary</td>
-<td class="left">byte string</td>
-<td class="left">BLOB</td>
-<td class="left">length</td>
+<td class="org-left">Binary</td>
+<td class="org-left">byte string</td>
+<td class="org-left">BLOB</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">Boolean</td>
-<td class="left">bool</td>
-<td class="left">BOOLEAN</td>
-<td class="left">none</td>
+<td class="org-left">Boolean</td>
+<td class="org-left">bool</td>
+<td class="org-left">BOOLEAN</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">Unicode</td>
-<td class="left">unicode</td>
-<td class="left">TEXT or VARCHAR</td>
-<td class="left">length</td>
+<td class="org-left">Unicode</td>
+<td class="org-left">unicode</td>
+<td class="org-left">TEXT or VARCHAR</td>
+<td class="org-left">length</td>
 </tr>
 </tbody>
 </table>
@@ -1016,169 +859,156 @@ onupdate=datetime.utcnow
 大致就这些，然后sqlalchemy还有一些类名大致和上面的某个等同，只是多了一个使用上的名字。 
 </p>
 <dl class="org-dl">
-<dt> FLOAT </dt><dd>等同于 Numeric
-</dd>
-<dt> TEXT </dt><dd>等同于 String
-</dd>
-<dt> DECIMAL </dt><dd>等同于 Numeric
-</dd>
-<dt> INT </dt><dd>等同于 Integer
-</dd>
-<dt> INTEGER </dt><dd>等同于 Integer
-</dd>
-<dt> TIMESTAMP </dt><dd>等同于 DateTime
-</dd>
-<dt> DATETIME </dt><dd>等同于 DateTime
-</dd>
-<dt> CLOB </dt><dd>等同于 String
-</dd>
-<dt> VARCHAR </dt><dd>等同于 String
-</dd>
-<dt> CHAR </dt><dd>等同于 String
-</dd>
-<dt> NCHAR </dt><dd>等同于 Unicode
-</dd>
-<dt> BLOB </dt><dd>等同于 Binary
-</dd>
-<dt> BOOLEAN </dt><dd>等同于 Boolean
-</dd>
+<dt>FLOAT</dt><dd>等同于 Numeric</dd>
+<dt>TEXT</dt><dd>等同于 String</dd>
+<dt>DECIMAL</dt><dd>等同于 Numeric</dd>
+<dt>INT</dt><dd>等同于 Integer</dd>
+<dt>INTEGER</dt><dd>等同于 Integer</dd>
+<dt>TIMESTAMP</dt><dd>等同于 DateTime</dd>
+<dt>DATETIME</dt><dd>等同于 DateTime</dd>
+<dt>CLOB</dt><dd>等同于 String</dd>
+<dt>VARCHAR</dt><dd>等同于 String</dd>
+<dt>CHAR</dt><dd>等同于 String</dd>
+<dt>NCHAR</dt><dd>等同于 Unicode</dd>
+<dt>BLOB</dt><dd>等同于 Binary</dd>
+<dt>BOOLEAN</dt><dd>等同于 Boolean</dd>
 </dl>
 </div>
 
-<div id="outline-container-sec-2-3-4-1" class="outline-5">
-<h5 id="sec-2-3-4-1"><span class="section-number-5">2.3.4.1</span> mysql方言的额外类型</h5>
+<div class="outline-5">
+<h5 id="orgheadline18">mysql方言的额外类型</h5>
 <div class="outline-text-5" id="text-2-3-4-1">
 <table>
 
 
 <colgroup>
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">Class name</th>
-<th scope="col" class="left">Python type</th>
-<th scope="col" class="left">SQL type</th>
-<th scope="col" class="left">Arguments</th>
+<th scope="col" class="org-left">Class name</th>
+<th scope="col" class="org-left">Python type</th>
+<th scope="col" class="org-left">SQL type</th>
+<th scope="col" class="org-left">Arguments</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="left">MSEnum</td>
-<td class="left">string</td>
-<td class="left">ENUM</td>
-<td class="left">values</td>
+<td class="org-left">MSEnum</td>
+<td class="org-left">string</td>
+<td class="org-left">ENUM</td>
+<td class="org-left">values</td>
 </tr>
 
 <tr>
-<td class="left">MSTinyInteger</td>
-<td class="left">int</td>
-<td class="left">TINYINT</td>
-<td class="left">length</td>
+<td class="org-left">MSTinyInteger</td>
+<td class="org-left">int</td>
+<td class="org-left">TINYINT</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">MSBigInteger</td>
-<td class="left">int</td>
-<td class="left">BIGINT</td>
-<td class="left">length</td>
+<td class="org-left">MSBigInteger</td>
+<td class="org-left">int</td>
+<td class="org-left">BIGINT</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">MSDouble</td>
-<td class="left">float</td>
-<td class="left">DOUBLE</td>
-<td class="left">length=10,precision=2</td>
+<td class="org-left">MSDouble</td>
+<td class="org-left">float</td>
+<td class="org-left">DOUBLE</td>
+<td class="org-left">length=10,precision=2</td>
 </tr>
 
 <tr>
-<td class="left">MSTinyText</td>
-<td class="left">string</td>
-<td class="left">TINYTEXT</td>
-<td class="left">none</td>
+<td class="org-left">MSTinyText</td>
+<td class="org-left">string</td>
+<td class="org-left">TINYTEXT</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">MSMediumText</td>
-<td class="left">string</td>
-<td class="left">MEDIUMTEXT</td>
-<td class="left">none</td>
+<td class="org-left">MSMediumText</td>
+<td class="org-left">string</td>
+<td class="org-left">MEDIUMTEXT</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">MSLongText</td>
-<td class="left">string</td>
-<td class="left">LONGTEXT</td>
-<td class="left">none</td>
+<td class="org-left">MSLongText</td>
+<td class="org-left">string</td>
+<td class="org-left">LONGTEXT</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">MSNVarChar</td>
-<td class="left">unicode</td>
-<td class="left">NATIONAL VARCHAR</td>
-<td class="left">length</td>
+<td class="org-left">MSNVarChar</td>
+<td class="org-left">unicode</td>
+<td class="org-left">NATIONAL VARCHAR</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">MSTinyBlob</td>
-<td class="left">byte string</td>
-<td class="left">TINYBLOB</td>
-<td class="left">none</td>
+<td class="org-left">MSTinyBlob</td>
+<td class="org-left">byte string</td>
+<td class="org-left">TINYBLOB</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">MSMediumBlob</td>
-<td class="left">byte string</td>
-<td class="left">MEDIUMBLOB</td>
-<td class="left">none</td>
+<td class="org-left">MSMediumBlob</td>
+<td class="org-left">byte string</td>
+<td class="org-left">MEDIUMBLOB</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">MSLongBlob</td>
-<td class="left">byte string</td>
-<td class="left">LONGBLOB</td>
-<td class="left">none</td>
+<td class="org-left">MSLongBlob</td>
+<td class="org-left">byte string</td>
+<td class="org-left">LONGBLOB</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">MSBinary</td>
-<td class="left">byte string</td>
-<td class="left">BINARY</td>
-<td class="left">length</td>
+<td class="org-left">MSBinary</td>
+<td class="org-left">byte string</td>
+<td class="org-left">BINARY</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">MSVarBinary</td>
-<td class="left">byte string</td>
-<td class="left">VARBINARY</td>
-<td class="left">length</td>
+<td class="org-left">MSVarBinary</td>
+<td class="org-left">byte string</td>
+<td class="org-left">VARBINARY</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">MSSet</td>
-<td class="left">set</td>
-<td class="left">SET</td>
-<td class="left">set values</td>
+<td class="org-left">MSSet</td>
+<td class="org-left">set</td>
+<td class="org-left">SET</td>
+<td class="org-left">set values</td>
 </tr>
 
 <tr>
-<td class="left">MSYear</td>
-<td class="left">int</td>
-<td class="left">YEAR</td>
-<td class="left">length</td>
+<td class="org-left">MSYear</td>
+<td class="org-left">int</td>
+<td class="org-left">YEAR</td>
+<td class="org-left">length</td>
 </tr>
 
 <tr>
-<td class="left">MSBit</td>
-<td class="left">long</td>
-<td class="left">BIT</td>
-<td class="left">length</td>
+<td class="org-left">MSBit</td>
+<td class="org-left">long</td>
+<td class="org-left">BIT</td>
+<td class="org-left">length</td>
 </tr>
 </tbody>
 </table>
@@ -1187,56 +1017,56 @@ onupdate=datetime.utcnow
 </div>
 
 
-<div id="outline-container-sec-2-3-5" class="outline-4">
-<h4 id="sec-2-3-5"><span class="section-number-4">2.3.5</span> postgresql额外的类型</h4>
+<div class="outline-4">
+<h4 id="orgheadline20">postgresql额外的类型</h4>
 <div class="outline-text-4" id="text-2-3-5">
 <table>
 
 
 <colgroup>
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">Class name</th>
-<th scope="col" class="left">Python type</th>
-<th scope="col" class="left">SQL type</th>
-<th scope="col" class="left">Arguments</th>
+<th scope="col" class="org-left">Class name</th>
+<th scope="col" class="org-left">Python type</th>
+<th scope="col" class="org-left">SQL type</th>
+<th scope="col" class="org-left">Arguments</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="left">PGArray</td>
-<td class="left">any TypeEngine</td>
-<td class="left">type engine[]</td>
-<td class="left">TypeEngine</td>
+<td class="org-left">PGArray</td>
+<td class="org-left">any TypeEngine</td>
+<td class="org-left">type engine[]</td>
+<td class="org-left">TypeEngine</td>
 </tr>
 
 <tr>
-<td class="left">PGBigInteger</td>
-<td class="left">int,long</td>
-<td class="left">BIGINT</td>
-<td class="left">none</td>
+<td class="org-left">PGBigInteger</td>
+<td class="org-left">int,long</td>
+<td class="org-left">BIGINT</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">PGInet</td>
-<td class="left">none</td>
-<td class="left">INET</td>
-<td class="left">none</td>
+<td class="org-left">PGInet</td>
+<td class="org-left">none</td>
+<td class="org-left">INET</td>
+<td class="org-left">none</td>
 </tr>
 
 <tr>
-<td class="left">PGInterval</td>
-<td class="left">none</td>
-<td class="left">INTERVAL</td>
-<td class="left">none</td>
+<td class="org-left">PGInterval</td>
+<td class="org-left">none</td>
+<td class="org-left">INTERVAL</td>
+<td class="org-left">none</td>
 </tr>
 </tbody>
 </table>
@@ -1244,35 +1074,35 @@ onupdate=datetime.utcnow
 </div>
 
 
-<div id="outline-container-sec-2-3-6" class="outline-4">
-<h4 id="sec-2-3-6"><span class="section-number-4">2.3.6</span> Oracle额外的类型</h4>
+<div class="outline-4">
+<h4 id="orgheadline21">Oracle额外的类型</h4>
 <div class="outline-text-4" id="text-2-3-6">
 <table>
 
 
 <colgroup>
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">Class name</th>
-<th scope="col" class="left">Python type</th>
-<th scope="col" class="left">SQL type</th>
-<th scope="col" class="left">Arguments</th>
+<th scope="col" class="org-left">Class name</th>
+<th scope="col" class="org-left">Python type</th>
+<th scope="col" class="org-left">SQL type</th>
+<th scope="col" class="org-left">Arguments</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="left">Oracle</td>
-<td class="left">byte string</td>
-<td class="left">RAW</td>
-<td class="left">length</td>
+<td class="org-left">Oracle</td>
+<td class="org-left">byte string</td>
+<td class="org-left">RAW</td>
+<td class="org-left">length</td>
 </tr>
 </tbody>
 </table>
@@ -1280,8 +1110,8 @@ onupdate=datetime.utcnow
 </div>
 
 
-<div id="outline-container-sec-2-3-7" class="outline-4">
-<h4 id="sec-2-3-7"><span class="section-number-4">2.3.7</span> 更多的类型支持</h4>
+<div class="outline-4">
+<h4 id="orgheadline22">更多的类型支持</h4>
 <div class="outline-text-4" id="text-2-3-7">
 <p>
 前面谈及的sqlalchemy_util模块里面有很多额外的类型支持。
@@ -1292,14 +1122,14 @@ onupdate=datetime.utcnow
 
 
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> insert语句</h3>
+<div class="outline-3">
+<h3 id="orgheadline24">insert语句</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 上面谈及的Table对象调用 <code>insert</code> 方法即可产生一个临时表达语句对象（大概类似的东西，这个词是我杜撰的。），比如在执行 <code>i = users.insert()</code> 之后:
 </p>
 
-<pre class="example">
+<pre>
 &gt;&gt;&gt; type(i)
 &lt;class 'sqlalchemy.sql.dml.Insert'&gt;
 &gt;&gt;&gt; str(i)
@@ -1311,7 +1141,7 @@ onupdate=datetime.utcnow
 这个i临时表达语句对象有 <code>execute</code> 方法，其可以接受一些参数，比如如下所示:
 </p>
 
-<pre class="example">
+<pre>
 i = users.insert()
 i.execute(name='Mary', age=30, password='secret')
 </pre>
@@ -1320,7 +1150,7 @@ i.execute(name='Mary', age=30, password='secret')
 这个语句执行之后，该数据就被插入进数据库了。你还可以用execute方法来插入多个值，如下所示:
 </p>
 
-<pre class="example">
+<pre>
 i.execute({'name': 'John', 'age': 42},
           {'name': 'Susan', 'age': 57},
           {'name': 'Carl', 'age': 33})
@@ -1329,7 +1159,7 @@ i.execute({'name': 'John', 'age': 42},
 <p>
 然后如果我们需要使用 <code>insert ignore</code> 这样的语句，则需要这样处理:
 </p>
-<pre class="example">
+<pre>
 i = users.insert().prefix_with('or ignore')
 'INSERT or ignore INTO users (user_id, name, age, password) VALUES (?, ?, ?, ?)'
 &gt;&gt;&gt;
@@ -1346,14 +1176,14 @@ i = users.insert().prefix_with('or ignore')
 </div>
 
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5"><span class="section-number-3">2.5</span> delete语句</h3>
+<div class="outline-3">
+<h3 id="orgheadline25">delete语句</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 delete语句的使用也类似上面insert语句所谈及的，除了根据SQL delete语句的实际情况，其为第一个可选参数为where过滤字句，如下所示:
 </p>
 
-<pre class="example">
+<pre>
 d = users.delete(users.c.password == None)
 &gt;&gt;&gt; str(d)
 'DELETE FROM users WHERE users.password IS NULL'
@@ -1367,21 +1197,21 @@ d = users.delete(users.c.password == None)
 上面的delete语句是将users表格中password为空的行都删除，然后如果在构建delete语句时，不填任何where语句，则是表格所有记录都将被删除。
 </p>
 
-<pre class="example">
+<pre>
 d = users.delete()
 </pre>
 </div>
 </div>
 
 
-<div id="outline-container-sec-2-6" class="outline-3">
-<h3 id="sec-2-6"><span class="section-number-3">2.6</span> update语句</h3>
+<div class="outline-3">
+<h3 id="orgheadline26">update语句</h3>
 <div class="outline-text-3" id="text-2-6">
 <p>
 然后是update语句，下面来更新那几个user的password。 <code>update</code> 语句的参数设置如下:
 </p>
 
-<pre class="example">
+<pre>
 update(whereclause=None, values=None, inline=False, **kwargs)
 </pre>
 
@@ -1389,7 +1219,7 @@ update(whereclause=None, values=None, inline=False, **kwargs)
 我们可以看到其第一个可选参数和delete一样是 <code>whereclause</code> where过滤字句，然后第二个values要跟一个字典值，用来表示具体设置的某些值。下面演示逐步构建update语句的风格，这种风格同样适用于 <code>insert</code> , <code>update</code> , <code>select</code> 语句的构建。
 </p>
 
-<pre class="example">
+<pre>
 u1 = users.update()
 u2 = u1.where(users.c.name == 'John').values(password='123456')
 &gt;&gt;&gt; str(u1)
@@ -1406,8 +1236,8 @@ u2 = u1.where(users.c.name == 'John').values(password='123456')
 
 
 
-<div id="outline-container-sec-2-7" class="outline-3">
-<h3 id="sec-2-7"><span class="section-number-3">2.7</span> select语句</h3>
+<div class="outline-3">
+<h3 id="orgheadline29">select语句</h3>
 <div class="outline-text-3" id="text-2-7">
 <p>
 select语句和前面谈论的 <code>insert</code> 等语句的构建过程类似，只是因为SQL中select语句情况较为复杂，然后select语句还需要考虑具体查询的返回值问题，所以东西很多。
@@ -1416,7 +1246,7 @@ select语句和前面谈论的 <code>insert</code> 等语句的构建过程类�
 <p>
 首先我们看下面这个函数:
 </p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">show_squery</span><span class="p">(</span><span class="n">squery</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_squery</span><span class="p">(</span><span class="n">squery</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">squery</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
@@ -1425,7 +1255,7 @@ select语句和前面谈论的 <code>insert</code> 等语句的构建过程类�
 <p>
 select语句执行之后的返回结果叫做什么 <code>ResultProxy</code> 对象，其可以直接用for语句来迭代。不带任何参数的select语句返回Table的所有行:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(users.select())
 (1, 'Mary', 30, 'secret')
 (2, 'John', 42, '123456')
@@ -1436,7 +1266,7 @@ select语句执行之后的返回结果叫做什么 <code>ResultProxy</code> 对
 <p>
 或者:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(users.select(users.c.name=='John'))
 (2, 'John', 42, '123456')
 </pre>
@@ -1444,7 +1274,7 @@ select语句执行之后的返回结果叫做什么 <code>ResultProxy</code> 对
 <p>
 这是 <code>and_</code> 或 <code>&amp;</code> 的用法:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(users.select(and_(users.c.age &lt; 40 , users.c.name != 'Mary')))
 (4, 'Carl', 33, None)
 
@@ -1459,14 +1289,14 @@ select语句执行之后的返回结果叫做什么 <code>ResultProxy</code> 对
 <p>
 此外还有 <code>startswith</code> , <code>like</code> , <code>endswith</code>
 </p>
-<pre class="example">
+<pre>
 users.select(users.c.name.startswith('M'))
 </pre>
 
 <p>
 还有 <code>between</code> , <code>in_</code> :
 </p>
-<pre class="example">
+<pre>
 users.select(users.c.age.between(30,39))
 
 users.select(users.c.name.in_('Mary', 'Susan'))
@@ -1474,35 +1304,35 @@ users.select(users.c.name.in_('Mary', 'Susan'))
 </div>
 
 
-<div id="outline-container-sec-2-7-1" class="outline-4">
-<h4 id="sec-2-7-1"><span class="section-number-4">2.7.1</span> ResultProxy对象</h4>
+<div class="outline-4">
+<h4 id="orgheadline27">ResultProxy对象</h4>
 <div class="outline-text-4" id="text-2-7-1">
 <p>
 select语句执行后返回的ResultProxy对象除了可以直接迭代外还有如下这些方法。
 </p>
 <dl class="org-dl">
-<dt> fetchone </dt><dd>取一行，具体是所谓的 <code>RowProxy</code> 对象，其可用api后面会描述之。
-</dd>
-<dt> fetchmany </dt><dd>取多行，具体返回的是一个列表，其内装着 <code>RowProxy</code> 对象。
-</dd>
-<dt> fetchall </dt><dd>取所有行，如果fetchmany不指定size则等同于取所有行，返回的是一个列表，其内装着 <code>RowProxy</code> 对象。
-</dd>
-<dt> scalar </dt><dd></dd>
-<dt> keys </dt><dd></dd>
-<dt> rowcount </dt><dd></dd>
-<dt> close </dt><dd></dd>
+<dt>fetchone</dt><dd>取一行，具体是所谓的 <code>RowProxy</code> 对象，其可用api后面会描述之。</dd>
+<dt>fetchmany</dt><dd>取多行，具体返回的是一个列表，其内装着 <code>RowProxy</code> 对象。</dd>
+<dt>fetchall</dt><dd>取所有行，如果fetchmany不指定size则等同于取所有行，返回的是一个列表，其内装着 <code>RowProxy</code> 对象。</dd>
+<dt>scalar</dt><dd></dd>
+
+<dt>keys</dt><dd></dd>
+
+<dt>rowcount</dt><dd></dd>
+
+<dt>close</dt><dd></dd>
 </dl>
 </div>
 </div>
 
-<div id="outline-container-sec-2-7-2" class="outline-4">
-<h4 id="sec-2-7-2"><span class="section-number-4">2.7.2</span> RowProxy对象</h4>
+<div class="outline-4">
+<h4 id="orgheadline28">RowProxy对象</h4>
 <div class="outline-text-4" id="text-2-7-2">
 <p>
 对ResultProxy对象进行迭代，或者fetchone，fetchmany，fetchall方法，就可以获得RowProxy对象，其对应的就是数据库的一行记录。该对象api操作很是灵活，具体你可以像操作一个字典来操作它，也可以类似操作namedtuple般的来操作它，还可以如同列表一般用这样 <code>[0]</code> 的索引方法提取某一列，如下所示:
 </p>
 
-<pre class="example">
+<pre>
 s = users.select()
 rs = s.execute()
 row = rs.fetchone()
@@ -1519,13 +1349,13 @@ row = rs.fetchone()
 </div>
 
 
-<div id="outline-container-sec-2-8" class="outline-3">
-<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 多表连接</h3>
+<div class="outline-3">
+<h3 id="orgheadline33">多表连接</h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 现在代码情况如下所示:
 </p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sqlalchemy</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">create_database</span>
 
@@ -1533,37 +1363,37 @@ row = rs.fetchone()
 <span class="k">def</span> <span class="nf">init_sqlalchemy</span><span class="p">(</span><span class="n">dburl</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">dburl</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c">###确保目标数据库是存在的。</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c1">###确保目标数据库是存在的。</span>
         <span class="n">create_database</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
     <span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">engine</span><span class="p">,</span><span class="n">metadata</span>
 
-<span class="n">engine</span><span class="p">,</span><span class="n">db</span> <span class="o">=</span> <span class="n">init_sqlalchemy</span><span class="p">(</span><span class="s">&#39;sqlite:///test.db&#39;</span><span class="p">)</span>
+<span class="n">engine</span><span class="p">,</span><span class="n">db</span> <span class="o">=</span> <span class="n">init_sqlalchemy</span><span class="p">(</span><span class="s1">&#39;sqlite:///test.db&#39;</span><span class="p">)</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;users&#39;</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">NoSuchTableError</span><span class="p">:</span>
-    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;users&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">)),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;age&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;password&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">40</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">users</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 
-<span class="n">insert_query</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span><span class="o">.</span><span class="n">prefix_with</span><span class="p">(</span><span class="s">&#39;or ignore&#39;</span><span class="p">)</span>
-<span class="n">insert_query</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Mary&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&#39;secret&#39;</span><span class="p">)</span>
-<span class="n">insert_query</span><span class="o">.</span><span class="n">execute</span><span class="p">({</span><span class="s">&#39;id&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;John&#39;</span><span class="p">,</span> <span class="s">&#39;age&#39;</span><span class="p">:</span> <span class="mi">42</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Susan&#39;</span><span class="p">,</span> <span class="s">&#39;age&#39;</span><span class="p">:</span> <span class="mi">57</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Carl&#39;</span><span class="p">,</span> <span class="s">&#39;age&#39;</span><span class="p">:</span> <span class="mi">33</span><span class="p">})</span>
+<span class="n">insert_query</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span><span class="o">.</span><span class="n">prefix_with</span><span class="p">(</span><span class="s1">&#39;or ignore&#39;</span><span class="p">)</span>
+<span class="n">insert_query</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;secret&#39;</span><span class="p">)</span>
+<span class="n">insert_query</span><span class="o">.</span><span class="n">execute</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">42</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Susan&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">57</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Carl&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">33</span><span class="p">})</span>
 
 <span class="n">delete_query</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 
 <span class="n">update_query</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-<span class="n">update_query</span> <span class="o">=</span> <span class="n">update_query</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;John&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">password</span><span class="o">=</span><span class="s">&#39;123456&#39;</span><span class="p">)</span>
+<span class="n">update_query</span> <span class="o">=</span> <span class="n">update_query</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">users</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;John&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">password</span><span class="o">=</span><span class="s1">&#39;123456&#39;</span><span class="p">)</span>
 <span class="n">update_query</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
@@ -1575,34 +1405,34 @@ row = rs.fetchone()
         <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">emails</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;emails&#39;</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">emails</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;emails&#39;</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="k">except</span> <span class="n">sqlalchemy</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">NoSuchTableError</span><span class="p">:</span>
-    <span class="n">emails</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;emails&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;address&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;user_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;users.id&#39;</span><span class="p">)),</span>
+    <span class="n">emails</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;emails&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;users.id&#39;</span><span class="p">)),</span>
 <span class="p">)</span>
 
 <span class="n">emails</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="n">insert_query</span> <span class="o">=</span> <span class="n">emails</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span><span class="o">.</span><span class="n">prefix_with</span><span class="p">(</span><span class="s">&#39;or ignore&#39;</span><span class="p">)</span>
+<span class="n">insert_query</span> <span class="o">=</span> <span class="n">emails</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span><span class="o">.</span><span class="n">prefix_with</span><span class="p">(</span><span class="s1">&#39;or ignore&#39;</span><span class="p">)</span>
 <span class="n">insert_query</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-    <span class="p">{</span><span class="s">&#39;address&#39;</span><span class="p">:</span> <span class="s">&#39;mary@example.com&#39;</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;address&#39;</span><span class="p">:</span> <span class="s">&#39;john@nowhere.net&#39;</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;address&#39;</span><span class="p">:</span> <span class="s">&#39;john@example.org&#39;</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-    <span class="p">{</span><span class="s">&#39;address&#39;</span><span class="p">:</span> <span class="s">&#39;carl@nospam.net&#39;</span><span class="p">,</span> <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;mary@example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;john@nowhere.net&#39;</span><span class="p">,</span> <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;john@example.org&#39;</span><span class="p">,</span> <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;carl@nospam.net&#39;</span><span class="p">,</span> <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 
 
-<div id="outline-container-sec-2-8-1" class="outline-4">
-<h4 id="sec-2-8-1"><span class="section-number-4">2.8.1</span> 交叉连接或笛卡尔积</h4>
+<div class="outline-4">
+<h4 id="orgheadline30">交叉连接或笛卡尔积</h4>
 <div class="outline-text-4" id="text-2-8-1">
 <p>
 下面是交叉连接的情况:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(select([users,emails]))
 2015-10-28 20:27:21,721 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
 FROM users, emails
@@ -1627,13 +1457,13 @@ FROM users, emails
 </div>
 </div>
 
-<div id="outline-container-sec-2-8-2" class="outline-4">
-<h4 id="sec-2-8-2"><span class="section-number-4">2.8.2</span> 内连接</h4>
+<div class="outline-4">
+<h4 id="orgheadline31">内连接</h4>
 <div class="outline-text-4" id="text-2-8-2">
 <p>
 下面是内连接的情况:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(select([users,emails],users.c.id == emails.c.user_id))
 2015-10-28 20:39:09,173 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
 FROM users, emails 
@@ -1648,7 +1478,7 @@ WHERE users.id = emails.user_id
 <p>
 sqlalchemy还有一种更智能的内连接用法:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(join(users, emails).select())
 2015-10-28 20:40:17,502 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
 FROM users JOIN emails ON users.id = emails.user_id
@@ -1661,13 +1491,13 @@ FROM users JOIN emails ON users.id = emails.user_id
 </div>
 </div>
 
-<div id="outline-container-sec-2-8-3" class="outline-4">
-<h4 id="sec-2-8-3"><span class="section-number-4">2.8.3</span> 外连接</h4>
+<div class="outline-4">
+<h4 id="orgheadline32">外连接</h4>
 <div class="outline-text-4" id="text-2-8-3">
 <p>
 外连接如下所示，和写入顺序有关。具体是第一个连接第二个，满足过滤条件的则data收进来，没有的则用NULL填充。
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(outerjoin(users, emails).select())
 2015-10-28 20:41:16,610 INFO sqlalchemy.engine.base.Engine SELECT users.id, users.name, users.age, users.password, emails.id, emails.address, emails.user_id 
 FROM users LEFT OUTER JOIN emails ON users.id = emails.user_id
@@ -1679,7 +1509,7 @@ FROM users LEFT OUTER JOIN emails ON users.id = emails.user_id
 (4, 'Carl', 33, None, 4, 'carl@nospam.net', 4)
 </pre>
 
-<pre class="example">
+<pre>
 &gt;&gt;&gt; show_squery(outerjoin(emails, users).select())
 2015-10-28 20:43:56,590 INFO sqlalchemy.engine.base.Engine SELECT emails.id, emails.address, emails.user_id, users.id, users.name, users.age, users.password 
 FROM emails LEFT OUTER JOIN users ON users.id = emails.user_id
@@ -1698,8 +1528,8 @@ FROM emails LEFT OUTER JOIN users ON users.id = emails.user_id
 
 
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> ORM风格</h2>
+<div class="outline-2">
+<h2 id="orgheadline48">ORM风格</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 sqlalchemy模块的面向对象封装部分改动较大，参考资料1和2里面的内容很多都过时了，没办法只好看官方文档，本来之前我是有点喜欢Table和python类分开，然后mapper之的那种风格的，但是渐渐的也开始接受那种完全写在一起的那种风格了，这种风格也是sqlalchemy目前官方文档推荐的。确实随着对面向对象ORM风格了解的越多，就会发现，渐渐的思路还有有些SQL底层细节是不需要考虑的了，当然要更好的使用SQL表格，一些必要的SQL语句底层思维肯定是要的。至于什么时候用前面谈及的那种Table单独声明，然后组合SQL语句的那种风格，什么时候用ORM呢？这个问题我还不大清楚，但还是一般推荐用官方文档推荐的那种ORM风格吧。
@@ -1709,21 +1539,21 @@ sqlalchemy模块的面向对象封装部分改动较大，参考资料1和2里�
 读者如果有兴趣的话可以了解那种mapper风格，本文决定将其舍弃了。然后前面我们学的no-orm风格的相关知识，orm风格实际上是建构于其之上的，所以对我们接下来的理解非常有帮助。比如我们看到下面这段代码:
 </p>
 
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sqlalchemy</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">create_database</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
 
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">&#39;sqlite:///:memory:&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///:memory:&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c">###确保目标数据库是存在的。</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span><span class="c1">###确保目标数据库是存在的。</span>
     <span class="n">create_database</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;users&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -1735,14 +1565,14 @@ sqlalchemy模块的面向对象封装部分改动较大，参考资料1和2里�
         <span class="bp">self</span><span class="o">.</span><span class="n">fullname</span> <span class="o">=</span> <span class="n">fullname</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 
 <p>
 我们调用 <code>User</code> 类的 <code>__table__</code> ，其实质就是前面no-orm风格提及的Table对象。
 </p>
 
-<pre class="example">
+<pre>
 &gt;&gt;&gt; User.__table__
 Table('users', MetaData(bind=Engine(sqlite:///:memory:)), Column('id', Integer(), table=&lt;users&gt;, primary_key=True, nullable=False), Column('name', String(), table=&lt;users&gt;), Column('fullname', String(), table=&lt;users&gt;), Column('password', String(), table=&lt;users&gt;), schema=None)
 &gt;&gt;&gt;
@@ -1751,7 +1581,7 @@ Table('users', MetaData(bind=Engine(sqlite:///:memory:)), Column('id', Integer()
 <p>
 ORM层是通过Session对象来和数据库进行会话的:
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
 </pre></div>
@@ -1761,16 +1591,16 @@ ORM层是通过Session对象来和数据库进行会话的:
 </p>
 </div>
 
-<div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> CRUD操作</h3>
+<div class="outline-3">
+<h3 id="orgheadline42">CRUD操作</h3>
 <div class="outline-text-3" id="text-3-1">
-</div><div id="outline-container-sec-3-1-1" class="outline-4">
-<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> 增加记录</h4>
+</div><div class="outline-4">
+<h4 id="orgheadline35">增加记录</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 如下来给某个表格增加一条记录:
 </p>
-<pre class="example">
+<pre>
 admin = User('admin','administor','admin')
 session.add(admin)
 </pre>
@@ -1787,8 +1617,8 @@ session.add(admin)
 
 
 
-<div id="outline-container-sec-3-1-2" class="outline-4">
-<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> 查询记录</h4>
+<div class="outline-4">
+<h4 id="orgheadline39">查询记录</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 同之前谈及的no-orm风格中提到的select语句查询不同，orm风格的查询语句更加的精简了，但仍然没有脱离select语句查询的本质，熟悉SQL的select语句能够帮助我们更好地学习下面的查询语句。
@@ -1797,7 +1627,7 @@ session.add(admin)
 <p>
 查询的起步是:
 </p>
-<pre class="example">
+<pre>
 session.query(User)
 </pre>
 
@@ -1808,7 +1638,7 @@ session.query(User)
 <p>
 若写成这样的形式:
 </p>
-<pre class="example">
+<pre>
 session.query(User.name, User.fullname)
 </pre>
 <p>
@@ -1818,14 +1648,14 @@ session.query(User.name, User.fullname)
 <p>
 具体如下所示:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; for i in session.query(User):
 ...  print(i)
 ... 
 &lt;User admin&gt;
 </pre>
 
-<pre class="example">
+<pre>
 &gt;&gt;&gt; guest = User('guest','guest','123456')
 &gt;&gt;&gt; session.add(guest)
 &gt;&gt;&gt; for name,fullname in session.query(User.name,User.fullname):
@@ -1840,14 +1670,13 @@ guest guest
 </p>
 </div>
 
-<div id="outline-container-sec-3-1-2-1" class="outline-5">
-<h5 id="sec-3-1-2-1"><span class="section-number-5">3.1.2.1</span> 过滤排序等操作</h5>
+<div class="outline-5">
+<h5 id="orgheadline36">过滤排序等操作</h5>
 <div class="outline-text-5" id="text-3-1-2-1">
 <dl class="org-dl">
-<dt> filter方法 </dt><dd>filter方法对应select语句的where字句。下面是官方文档的一些例子，复制到这里看看熟悉一下即可，大多是什么含义一般都是清楚的:
-</dd>
+<dt>filter方法</dt><dd>filter方法对应select语句的where字句。下面是官方文档的一些例子，复制到这里看看熟悉一下即可，大多是什么含义一般都是清楚的:</dd>
 </dl>
-<pre class="example">
+<pre>
 query.filter(User.name == 'ed')
 query.filter(User.name != 'ed')
 query.filter(User.name.like('%ed%'))
@@ -1860,13 +1689,11 @@ query.filter(or_(User.name == 'ed', User.name == 'wendy'))
 </pre>
 
 <dl class="org-dl">
-<dt> filter_by方法 </dt><dd>filter_by方法类似filter方法，除了如上面的User.name要写成name，也就是直接引用表格的列名。
-</dd>
+<dt>filter_by方法</dt><dd>filter_by方法类似filter方法，除了如上面的User.name要写成name，也就是直接引用表格的列名。</dd>
 
-<dt> order_by方法 </dt><dd>对应select语句的order by字句。
-</dd>
+<dt>order_by方法</dt><dd>对应select语句的order by字句。</dd>
 </dl>
-<pre class="example">
+<pre>
 order_by(User.id)[1:3]
 </pre>
 
@@ -1879,38 +1706,33 @@ order_by(User.id)[1:3]
 
 
 
-<div id="outline-container-sec-3-1-2-2" class="outline-5">
-<h5 id="sec-3-1-2-2"><span class="section-number-5">3.1.2.2</span> 返回结果</h5>
+<div class="outline-5">
+<h5 id="orgheadline37">返回结果</h5>
 <div class="outline-text-5" id="text-3-1-2-2">
 <p>
 Query对象还可以通过下面这些方法还获得返回结果:
 </p>
 
 <dl class="org-dl">
-<dt> all() </dt><dd>返回一个列表，包含所有的结果。 
-</dd>
+<dt>all()</dt><dd>返回一个列表，包含所有的结果。</dd>
 
-<dt> first() </dt><dd>返回第一个结果。
-</dd>
+<dt>first()</dt><dd>返回第一个结果。</dd>
 
-<dt> one() </dt><dd>严格只有一个结果，如果有多个结果，将抛出 MultipleResultsFound 异常，如果没有结果，将抛出 NoResultFound 异常。
-</dd>
+<dt>one()</dt><dd>严格只有一个结果，如果有多个结果，将抛出 MultipleResultsFound 异常，如果没有结果，将抛出 NoResultFound 异常。</dd>
 
-<dt> scalar() </dt><dd>参考了 <a href="http://alextechrants.blogspot.com/2013/11/10-common-stumbling-blocks-for.html">这个网页第五条</a> ，执行查询，如果有多条记录命中，则抛出MultipleResultsFound 异常，如果没有命中，则返回None，如果命中数为一条记录，则返回该记录的 <span class="underline">第一列</span> 的值。
-</dd>
-<dt> count() </dt><dd>返回命中记录数。
-</dd>
+<dt>scalar()</dt><dd>参考了 <a href="http://alextechrants.blogspot.com/2013/11/10-common-stumbling-blocks-for.html">这个网页第五条</a> ，执行查询，如果有多条记录命中，则抛出MultipleResultsFound 异常，如果没有命中，则返回None，如果命中数为一条记录，则返回该记录的 <span class="underline">第一列</span> 的值。</dd>
+<dt>count()</dt><dd>返回命中记录数。</dd>
 </dl>
 </div>
 </div>
 
-<div id="outline-container-sec-3-1-2-3" class="outline-5">
-<h5 id="sec-3-1-2-3"><span class="section-number-5">3.1.2.3</span> text函数</h5>
+<div class="outline-5">
+<h5 id="orgheadline38">text函数</h5>
 <div class="outline-text-5" id="text-3-1-2-3">
 <p>
 text函数用于支持 <code>filter</code> 和 <code>order_by</code> 方法支持原生的SQL语句表达。大致如下所示，了解下即可:
 </p>
-<pre class="example">
+<pre>
 from sqlalchemy import text
 session.query(User).filter(text("id&lt;224")).order_by(text("id"))
 </pre>
@@ -1918,8 +1740,8 @@ session.query(User).filter(text("id&lt;224")).order_by(text("id"))
 </div>
 </div>
 
-<div id="outline-container-sec-3-1-3" class="outline-4">
-<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> 更改记录</h4>
+<div class="outline-4">
+<h4 id="orgheadline40">更改记录</h4>
 <div class="outline-text-4" id="text-3-1-3">
 <p>
 更改记录经过ORM封装之后变得很简单了，就是查询之后获得对应的python对象，然后直接修改即可。
@@ -1927,10 +1749,10 @@ session.query(User).filter(text("id&lt;224")).order_by(text("id"))
 </div>
 </div>
 
-<div id="outline-container-sec-3-1-4" class="outline-4">
-<h4 id="sec-3-1-4"><span class="section-number-4">3.1.4</span> 删除记录</h4>
+<div class="outline-4">
+<h4 id="orgheadline41">删除记录</h4>
 <div class="outline-text-4" id="text-3-1-4">
-<pre class="example">
+<pre>
 session.delete(jack)
 </pre>
 </div>
@@ -1938,16 +1760,16 @@ session.delete(jack)
 </div>
 
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> ORM层的关系</h3>
+<div class="outline-3">
+<h3 id="orgheadline47">ORM层的关系</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 SQL表格有四种关系，one-to-one, one-to-many, many-to-one, many-to-many，它们实际上都是基于SQL的外键约束和join查询。其中one-to-many和many-to-one是最需要了解清楚的关系模型，在这之上many-to-many，三个SQL表格搭建起来的关系模型也就很好理解了。推荐读者阅读 <a href="http://code.tutsplus.com/articles/sql-for-beginners-part-3-database-relationships--net-8561">这篇文章</a> 来更好地理解SQL表格的这四种关系模型。因为one-to-one实际上是one-to-many的特殊情形，而many-to-one实际上是one-to-many模型的反向，所以我们首先需要重点了解one-to-many模型。
 </p>
 </div>
 
-<div id="outline-container-sec-3-2-1" class="outline-4">
-<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> one-to-many模型</h4>
+<div class="outline-4">
+<h4 id="orgheadline43">one-to-many模型</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需要考虑SQL的join连接语法细节，只需要声明好外键约束和关系约束（可以看作sqlalchemy新加入了关系约束），然后就可以神奇的使用SQL表格one-to-many的全部特性了。
@@ -1960,22 +1782,22 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 <p>
 这是示例代码:
 </p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sqlalchemy</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">create_database</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
 
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">&#39;sqlite:///test.db&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///test.db&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;create new database&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;create new database&#39;</span><span class="p">)</span>
     <span class="n">create_database</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;users&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -1985,38 +1807,38 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Email</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;emails&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;emails&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">email</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
-    <span class="n">user</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;users.id&#39;</span><span class="p">))</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;users.id&#39;</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">email</span><span class="p">,</span><span class="n">user</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;Email {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Email {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
 
-<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c">### create table</span>
+<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c1">### create table</span>
 
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
 
-<span class="n">admin</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s">&#39;admin&#39;</span><span class="p">,</span><span class="s">&#39;admin&#39;</span><span class="p">)</span>
+<span class="n">admin</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="s1">&#39;admin&#39;</span><span class="p">)</span>
 <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">admin</span><span class="p">)</span>
-<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">User</span><span class="p">(</span><span class="s">&#39;Mary&#39;</span><span class="p">,</span><span class="s">&#39;secret&#39;</span><span class="p">),</span>
-    <span class="n">User</span><span class="p">(</span><span class="s">&#39;John&#39;</span><span class="p">,</span><span class="s">&#39;123456&#39;</span><span class="p">),</span>
-    <span class="n">User</span><span class="p">(</span><span class="s">&#39;Susan&#39;</span><span class="p">,</span><span class="s">&#39;123456&#39;</span><span class="p">),</span>
-    <span class="n">User</span><span class="p">(</span><span class="s">&#39;Carl&#39;</span><span class="p">,</span><span class="s">&#39;123456&#39;</span><span class="p">)])</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">User</span><span class="p">(</span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span><span class="s1">&#39;secret&#39;</span><span class="p">),</span>
+    <span class="n">User</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span>
+    <span class="n">User</span><span class="p">(</span><span class="s1">&#39;Susan&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span>
+    <span class="n">User</span><span class="p">(</span><span class="s1">&#39;Carl&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">)])</span>
 
-<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">Email</span><span class="p">(</span><span class="s">&#39;mary@example.com&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">Email</span><span class="p">(</span><span class="s">&#39;john@nowhere.net&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
-    <span class="n">Email</span><span class="p">(</span><span class="s">&#39;john@example.org&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
-    <span class="n">Email</span><span class="p">(</span><span class="s">&#39;carl@nospam.net&#39;</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">Email</span><span class="p">(</span><span class="s1">&#39;mary@example.com&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">Email</span><span class="p">(</span><span class="s1">&#39;john@nowhere.net&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">Email</span><span class="p">(</span><span class="s1">&#39;john@example.org&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">Email</span><span class="p">(</span><span class="s1">&#39;carl@nospam.net&#39;</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
 
 <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 </pre></div>
@@ -2043,7 +1865,7 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 <p>
 <code>session.query(User,Email)</code> 返回的是笛卡尔积的形式:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; session.query(User,Email).all()
 [(&lt;User admin&gt;, &lt;Email mary@example.com&gt;), (&lt;User admin&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User admin&gt;, &lt;Email john@example.org&gt;), (&lt;User admin&gt;, &lt;Email carl@nospam.net&gt;), (&lt;User Mary&gt;, &lt;Email mary@example.com&gt;), (&lt;User Mary&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User Mary&gt;, &lt;Email john@example.org&gt;), (&lt;User Mary&gt;, &lt;Email carl@nospam.net&gt;), (&lt;User John&gt;, &lt;Email mary@example.com&gt;), (&lt;User John&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User John&gt;, &lt;Email john@example.org&gt;), (&lt;User John&gt;, &lt;Email carl@nospam.net&gt;), (&lt;User Susan&gt;, &lt;Email mary@example.com&gt;), (&lt;User Susan&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User Susan&gt;, &lt;Email john@example.org&gt;), (&lt;User Susan&gt;, &lt;Email carl@nospam.net&gt;), (&lt;User Carl&gt;, &lt;Email mary@example.com&gt;), (&lt;User Carl&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User Carl&gt;, &lt;Email john@example.org&gt;), (&lt;User Carl&gt;, &lt;Email carl@nospam.net&gt;)]
 </pre>
@@ -2053,7 +1875,7 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 然后调用Query对象的 <strong>join</strong> 方法执行了内连接:
 </p>
 
-<pre class="example">
+<pre>
 &gt;&gt;&gt; session.query(User,Email).join(Email).all()
 [(&lt;User Mary&gt;, &lt;Email mary@example.com&gt;), (&lt;User John&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User John&gt;, &lt;Email john@example.org&gt;), (&lt;User Susan&gt;, &lt;Email carl@nospam.net&gt;)]
 &gt;&gt;&gt;
@@ -2066,7 +1888,7 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 <p>
 然后我们稍加过滤条件:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; session.query(User,Email).join(Email).filter(User.name == 'John').all()
 [(&lt;User John&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User John&gt;, &lt;Email john@example.org&gt;)]
 </pre>
@@ -2074,7 +1896,7 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 <p>
 或者更明确的查询email:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; session.query(User,Email.email).join(Email).filter(User.name == 'John').all()
 [(&lt;User John&gt;, 'john@nowhere.net'), (&lt;User John&gt;, 'john@example.org')]
 </pre>
@@ -2082,7 +1904,7 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 <p>
 此外还有这种形式:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; session.query(Email,User).join(User).all()
 [(&lt;Email mary@example.com&gt;, &lt;User Mary&gt;), (&lt;Email john@nowhere.net&gt;, &lt;User John&gt;), (&lt;Email john@example.org&gt;, &lt;User John&gt;), (&lt;Email carl@nospam.net&gt;, &lt;User Susan&gt;)]
 
@@ -2098,74 +1920,74 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 此外Query对象当然还有 <strong>outerjoin</strong> 方法，因为这里是要描述各关系模型，就略过了。下面介绍ORM层更实用的关系定义方法:
 </p>
 
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sqlalchemy</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">create_database</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
 
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">&#39;sqlite:///test.db&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///test.db&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;create new database&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;create new database&#39;</span><span class="p">)</span>
     <span class="n">create_database</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;users&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
-    <span class="n">email</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s">&quot;Email&quot;</span><span class="p">,</span><span class="n">backref</span><span class="o">=</span><span class="n">backref</span><span class="p">(</span><span class="s">&#39;user&#39;</span><span class="p">))</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Email&quot;</span><span class="p">,</span><span class="n">backref</span><span class="o">=</span><span class="n">backref</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Email</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;emails&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;emails&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">email</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
-    <span class="n">user_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;users.id&#39;</span><span class="p">))</span>
+    <span class="n">user_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;users.id&#39;</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">email</span><span class="p">,</span><span class="n">user_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="n">user_id</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;Email {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Email {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
 
-<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c">### create table</span>
+<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c1">### create table</span>
 
 
 <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
 
-<span class="n">admin</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s">&#39;admin&#39;</span><span class="p">,</span><span class="s">&#39;admin&#39;</span><span class="p">)</span>
+<span class="n">admin</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="s1">&#39;admin&#39;</span><span class="p">)</span>
 <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">admin</span><span class="p">)</span>
-<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">User</span><span class="p">(</span><span class="s">&#39;Mary&#39;</span><span class="p">,</span><span class="s">&#39;secret&#39;</span><span class="p">),</span>
-    <span class="n">User</span><span class="p">(</span><span class="s">&#39;John&#39;</span><span class="p">,</span><span class="s">&#39;123456&#39;</span><span class="p">),</span>
-    <span class="n">User</span><span class="p">(</span><span class="s">&#39;Susan&#39;</span><span class="p">,</span><span class="s">&#39;123456&#39;</span><span class="p">),</span>
-    <span class="n">User</span><span class="p">(</span><span class="s">&#39;Carl&#39;</span><span class="p">,</span><span class="s">&#39;123456&#39;</span><span class="p">)])</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">User</span><span class="p">(</span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span><span class="s1">&#39;secret&#39;</span><span class="p">),</span>
+    <span class="n">User</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span>
+    <span class="n">User</span><span class="p">(</span><span class="s1">&#39;Susan&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">),</span>
+    <span class="n">User</span><span class="p">(</span><span class="s1">&#39;Carl&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">)])</span>
 
-<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">Email</span><span class="p">(</span><span class="s">&#39;mary@example.com&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">Email</span><span class="p">(</span><span class="s">&#39;john@nowhere.net&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
-    <span class="n">Email</span><span class="p">(</span><span class="s">&#39;john@example.org&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
-    <span class="n">Email</span><span class="p">(</span><span class="s">&#39;carl@nospam.net&#39;</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add_all</span><span class="p">([</span><span class="n">Email</span><span class="p">(</span><span class="s1">&#39;mary@example.com&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">Email</span><span class="p">(</span><span class="s1">&#39;john@nowhere.net&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">Email</span><span class="p">(</span><span class="s1">&#39;john@example.org&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">Email</span><span class="p">(</span><span class="s1">&#39;carl@nospam.net&#39;</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
 
-<span class="n">john</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&#39;John&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
-<span class="n">e1</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Email</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Email</span><span class="o">.</span><span class="n">email</span> <span class="o">==</span> <span class="s">&#39;john@example.org&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+<span class="n">john</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;John&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+<span class="n">e1</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Email</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Email</span><span class="o">.</span><span class="n">email</span> <span class="o">==</span> <span class="s1">&#39;john@example.org&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
 </pre></div>
 
 <p>
 然后我们就可以这样使用了:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; john.email
 [&lt;Email john@nowhere.net&gt;, &lt;Email john@example.org&gt;]
 &gt;&gt;&gt; e1.user
@@ -2180,17 +2002,15 @@ sqlalchemy的orm层对one-to-many关系进行了高度封装，使得你不需�
 下面重点介绍一下 <strong>relationship</strong> 这一行具体干了些什么:
 </p>
 
-<pre class="example">
+<pre>
 email = relationship("Email",backref=backref('user'))
 </pre>
 
 <ol class="org-ol">
-<li>给User email属性，如上你可以这样 <code>john.email</code> 这样调用了。
-</li>
-<li>指定Email对应（many）端（可以理解为这里针对Email执行了内连接操作，当然sqlalchemy具体如何处理的内部细节我还不清楚，但应该差不多就是这个过程。），这样的话具体User.email的值就通过某种机制大概如下所示
-</li>
+<li>给User email属性，如上你可以这样 <code>john.email</code> 这样调用了。</li>
+<li>指定Email对应（many）端（可以理解为这里针对Email执行了内连接操作，当然sqlalchemy具体如何处理的内部细节我还不清楚，但应该差不多就是这个过程。），这样的话具体User.email的值就通过某种机制大概如下所示</li>
 </ol>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; session.query(User,Email).join(Email).filter(User.name == 'John').all()
 [(&lt;User John&gt;, &lt;Email john@nowhere.net&gt;), (&lt;User John&gt;, &lt;Email john@example.org&gt;)]
 </pre>
@@ -2201,14 +2021,14 @@ email = relationship("Email",backref=backref('user'))
 </div>
 
 
-<div id="outline-container-sec-3-2-2" class="outline-4">
-<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> one-to-one模型</h4>
+<div class="outline-4">
+<h4 id="orgheadline44">one-to-one模型</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 one-to-one模型就是one-to-many模型的特例，所以这里先讲了，和上面比较起来区别很小的。
 </p>
 
-<pre class="example">
+<pre>
 class User(Base):
     __tablename__ = 'users'
 
@@ -2243,8 +2063,8 @@ class Email(Base):
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-3" class="outline-4">
-<h4 id="sec-3-2-3"><span class="section-number-4">3.2.3</span> many-to-one模型</h4>
+<div class="outline-4">
+<h4 id="orgheadline45">many-to-one模型</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 many-to-one模型实际上和one-to-many模型就是一回事，而且如果我们如同上面的把 <code>backref</code> 设置好，针对多个Email对象实际上就可以直接找到某个User对象了，所以为了简单起见，我们可以就直接用one-to-many模型来理解之。
@@ -2252,8 +2072,8 @@ many-to-one模型实际上和one-to-many模型就是一回事，而且如果我�
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-4" class="outline-4">
-<h4 id="sec-3-2-4"><span class="section-number-4">3.2.4</span> many-to-many模型</h4>
+<div class="outline-4">
+<h4 id="orgheadline46">many-to-many模型</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <p>
 many-to-many模型有点复杂和难于理解，这是因为其还要求有一个额外的Table来管理原两个表格之间的元素的映射关系，幸好sqlalchemy官方文档专门有一小节对这个做出了一些说明。其描述的一个应用场景就是一篇博文有多个标签，然后一个标签有多篇博文（我们可以简单构建出这样一个功能，单击一个标签按钮，然后弹出所有有这些标签的文章出来）。一个博文有多个标签这很简单，一个one-to-many模型就解决了，大概就是 <code>blog.tags</code> ，就弹出一个list，里面装着一些标签对象。所以关键性的问题是如何实现出 <code>tag.blogs</code> ，就弹出一个list，里面装着一些博文对象。而在 <a href="http://code.tutsplus.com/articles/sql-for-beginners-part-3-database-relationships--net-8561">这篇文章</a> 的这幅图片中:
@@ -2270,8 +2090,8 @@ many-to-many模型有点复杂和难于理解，这是因为其还要求有一�
 于是现在的情况变成这样的了，blog one-to-many，但to many的是一个中间表格，而tag one-to-many，这个many也是一个中间表格。我们知道所谓的many一方存储着外键约束值，所以这个中间表格就两列，左列外键引用blog，右列外键引用tag，具体每一个映射关系都要写一条记录上去。不管怎么说，看下面这个例子吧:
 </p>
 
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">sqlalchemy</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="o">*</span>
@@ -2279,36 +2099,36 @@ many-to-many模型有点复杂和难于理解，这是因为其还要求有一�
 <span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">database_exists</span><span class="p">,</span> <span class="n">create_database</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
 
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">&#39;sqlite:///test2.db&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///test2.db&#39;</span><span class="p">,</span><span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;create new database&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;create new database&#39;</span><span class="p">)</span>
     <span class="n">create_database</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">engine</span><span class="p">)</span>
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 
-<span class="n">blog_tags</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;blog_tags&#39;</span><span class="p">,</span><span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;blog_id&#39;</span><span class="p">,</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;blogs.id&#39;</span><span class="p">)),</span>
-    <span class="n">Column</span><span class="p">(</span><span class="s">&#39;tag_id&#39;</span><span class="p">,</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;tags.id&#39;</span><span class="p">)))</span>
+<span class="n">blog_tags</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s1">&#39;blog_tags&#39;</span><span class="p">,</span><span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;blogs.id&#39;</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;tag_id&#39;</span><span class="p">,</span><span class="n">Integer</span><span class="p">,</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;tags.id&#39;</span><span class="p">)))</span>
 
 <span class="k">class</span> <span class="nc">Blog</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;blogs&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;blogs&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">body</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
 
-    <span class="n">tags</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s">&quot;Tag&quot;</span><span class="p">,</span><span class="n">secondary</span><span class="o">=</span><span class="n">blog_tags</span><span class="p">,</span><span class="n">backref</span><span class="o">=</span><span class="n">backref</span><span class="p">(</span><span class="s">&#39;blogs&#39;</span><span class="p">))</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Tag&quot;</span><span class="p">,</span><span class="n">secondary</span><span class="o">=</span><span class="n">blog_tags</span><span class="p">,</span><span class="n">backref</span><span class="o">=</span><span class="n">backref</span><span class="p">(</span><span class="s1">&#39;blogs&#39;</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">body</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">body</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;BLog {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;BLog {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;tags&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;tags&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">tag</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -2316,19 +2136,19 @@ many-to-many模型有点复杂和难于理解，这是因为其还要求有一�
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tag</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;Tag {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Tag {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
 
-<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c">### create table</span>
+<span class="n">Base</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c1">### create table</span>
 
 <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
 
-<span class="n">blog1</span> <span class="o">=</span> <span class="n">Blog</span><span class="p">(</span><span class="s">&#39;learning mysql&#39;</span><span class="p">,</span><span class="s">&#39;how to learning mysql&#39;</span><span class="p">)</span>
-<span class="n">tag1</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s">&#39;python&#39;</span><span class="p">)</span>
-<span class="n">blog2</span> <span class="o">=</span> <span class="n">Blog</span><span class="p">(</span><span class="s">&#39;learning sqlalchemy&#39;</span><span class="p">,</span><span class="s">&#39;how to learning sqlalchemy&#39;</span><span class="p">)</span>
-<span class="n">tag2</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s">&#39;sql&#39;</span><span class="p">)</span>
-<span class="n">tag3</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s">&#39;sqlalchemy&#39;</span><span class="p">)</span>
-<span class="n">tag4</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s">&#39;mysql&#39;</span><span class="p">)</span>
+<span class="n">blog1</span> <span class="o">=</span> <span class="n">Blog</span><span class="p">(</span><span class="s1">&#39;learning mysql&#39;</span><span class="p">,</span><span class="s1">&#39;how to learning mysql&#39;</span><span class="p">)</span>
+<span class="n">tag1</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s1">&#39;python&#39;</span><span class="p">)</span>
+<span class="n">blog2</span> <span class="o">=</span> <span class="n">Blog</span><span class="p">(</span><span class="s1">&#39;learning sqlalchemy&#39;</span><span class="p">,</span><span class="s1">&#39;how to learning sqlalchemy&#39;</span><span class="p">)</span>
+<span class="n">tag2</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s1">&#39;sql&#39;</span><span class="p">)</span>
+<span class="n">tag3</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s1">&#39;sqlalchemy&#39;</span><span class="p">)</span>
+<span class="n">tag4</span> <span class="o">=</span> <span class="n">Tag</span><span class="p">(</span><span class="s1">&#39;mysql&#39;</span><span class="p">)</span>
 
 <span class="n">blog1</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag2</span><span class="p">)</span>
 <span class="n">blog1</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tag4</span><span class="p">)</span>
@@ -2370,7 +2190,7 @@ many-to-many模型有点复杂和难于理解，这是因为其还要求有一�
 <p>
 然后执行结果如下:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; blog1
 &lt;BLog learning mysql&gt;
 &gt;&gt;&gt; blog1.tags
@@ -2390,7 +2210,7 @@ many-to-many模型有点复杂和难于理解，这是因为其还要求有一�
 <p>
 这里的关键就是建立这样一个中间表格:
 </p>
-<pre class="example">
+<pre>
 blog_tags = Table('blog_tags',Base.metadata,
     Column('blog_id',Integer,ForeignKey('blogs.id')),
     Column('tag_id',Integer,ForeignKey('tags.id')))
@@ -2399,7 +2219,7 @@ blog_tags = Table('blog_tags',Base.metadata,
 <p>
 然后建立一个这样的relationship:
 </p>
-<pre class="example">
+<pre>
 tags = relationship("Tag",secondary=blog_tags,backref=backref('blogs'))
 </pre>
 
@@ -2422,17 +2242,17 @@ tags = relationship("Tag",secondary=blog_tags,backref=backref('blogs'))
 
 
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> 高级议题</h2>
+<div class="outline-2">
+<h2 id="orgheadline53">高级议题</h2>
 <div class="outline-text-2" id="text-4">
-</div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1"><span class="section-number-3">4.1</span> cascade</h3>
+</div><div class="outline-3">
+<h3 id="orgheadline49">cascade</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 定义基于关系的删除行为
 </p>
 
-<pre class="example">
+<pre>
 items = relationship("Item", cascade="all, delete-orphan")
 </pre>
 <p>
@@ -2440,16 +2260,14 @@ items = relationship("Item", cascade="all, delete-orphan")
 </p>
 
 <ul class="org-ul">
-<li>save-update
-</li>
+<li>save-update</li>
 </ul>
 <p>
 指一个对象 Session.add() 进入之后，和它有关的其他对象都应加进去。
 </p>
 
 <ul class="org-ul">
-<li>merge 
-</li>
+<li>merge</li>
 </ul>
 <p>
 和Session.merge行为有关
@@ -2464,15 +2282,13 @@ all 指 save-update  merge  refresh-expire  expunge delete
 </p>
 
 <ul class="org-ul">
-<li>delete
-</li>
+<li>delete</li>
 </ul>
 <p>
 和Session.delete行为有关，默认没加delete，则子对象只是parent_id那里只是赋空值，加了之后子对象也将删除。
 </p>
 <ul class="org-ul">
-<li>delete-orphan
-</li>
+<li>delete-orphan</li>
 </ul>
 <p>
 增加delete 的删除行为，不仅子对象将被删除，而且子对象也将执行Session delete标记，也就是后面的子子对象也将删除如何和delete一起配合使用的话。
@@ -2480,14 +2296,14 @@ all 指 save-update  merge  refresh-expire  expunge delete
 </div>
 </div>
 
-<div id="outline-container-sec-4-2" class="outline-3">
-<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 自我引用表达树状结构</h3>
+<div class="outline-3">
+<h3 id="orgheadline50">自我引用表达树状结构</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 用一个SQL表格就可以表达出这样的树状层级结构的（这在很大程度上弥补了python语言对于这样的树状结构的应付能力不足）:
 </p>
 
-<pre class="example">
+<pre>
 root --+---&gt; child1
        +---&gt; child2 --+--&gt; subchild1
        |              +--&gt; subchild2
@@ -2497,15 +2313,15 @@ root --+---&gt; child1
 <p>
 具体写法如下所示:
 </p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">Folder</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;folders&#39;</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Folder</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;folders&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span><span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="n">description</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">800</span><span class="p">))</span>
-    <span class="n">parent_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span><span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;folders.id&#39;</span><span class="p">))</span>
-    <span class="n">children</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s">&quot;Folder&quot;</span><span class="p">,</span>
-        <span class="n">backref</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">backref</span><span class="p">(</span><span class="s">&#39;parent&#39;</span><span class="p">,</span><span class="n">remote_side</span><span class="o">=</span><span class="p">[</span><span class="nb">id</span><span class="p">]))</span>
+    <span class="n">parent_id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span><span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;folders.id&#39;</span><span class="p">))</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Folder&quot;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">backref</span><span class="p">(</span><span class="s1">&#39;parent&#39;</span><span class="p">,</span><span class="n">remote_side</span><span class="o">=</span><span class="p">[</span><span class="nb">id</span><span class="p">]))</span>
 </pre></div>
 
 <p>
@@ -2515,20 +2331,20 @@ root --+---&gt; child1
 </div>
 
 
-<div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 面向ORM的内省机制</h3>
+<div class="outline-3">
+<h3 id="orgheadline51">面向ORM的内省机制</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 如果原数据库表格已经存在，在前面提及可以如下:
 </p>
-<pre class="example">
+<pre>
 users = Table('users',db,autoload=True)
 </pre>
 <p>
 来自动内省某个表格，而在面向ORM写法中，也是可以的。具体请参看 <a href="http://docs.sqlalchemy.org/en/latest/orm/extensions/automap.html">官方文档的这里</a> 。其中最核心的代码是:
 </p>
 
-<pre class="example">
+<pre>
 engine = create_engine('sqlite:///session.db')
 from sqlalchemy.ext.automap import automap_base
 AutoBase = automap_base(bind = engine)
@@ -2540,8 +2356,8 @@ class OldTable(AutoBase):
 <p>
 但是具体schema并不是可以任意改动的，一般是继续扩展SQL数据库，然后搭建各种关系，实在有改动schema的必要，推荐采用migrate机制。下面是我写的一个简单的migrate脚本:
 </p>
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 
@@ -2552,12 +2368,12 @@ class OldTable(AutoBase):
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.automap</span> <span class="kn">import</span> <span class="n">automap_base</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
 
-<span class="n">new_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">&#39;sqlite:///new_session.db&#39;</span><span class="p">)</span>
+<span class="n">new_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///new_session.db&#39;</span><span class="p">)</span>
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">new_engine</span><span class="p">)</span>
-<span class="n">old_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">&#39;sqlite:///session.db&#39;</span><span class="p">)</span>
+<span class="n">old_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///session.db&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">&#39;user&#39;</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;user&#39;</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span><span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">username</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span><span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">80</span><span class="p">))</span>
@@ -2567,14 +2383,14 @@ class OldTable(AutoBase):
         <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;User {}&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">migrate_database</span><span class="p">(</span><span class="n">NewTable</span><span class="p">,</span><span class="n">fromdb</span><span class="p">,</span><span class="n">todb</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">database_exists</span><span class="p">(</span><span class="n">fromdb</span><span class="o">.</span><span class="n">url</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">Exception</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">NewTable</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c">### create table</span>
+        <span class="n">NewTable</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">checkfirst</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="c1">### create table</span>
 
     <span class="n">AutoBase</span> <span class="o">=</span> <span class="n">automap_base</span><span class="p">(</span><span class="n">bind</span> <span class="o">=</span> <span class="n">fromdb</span><span class="p">)</span>
 
@@ -2594,17 +2410,17 @@ class OldTable(AutoBase):
         <span class="n">new_session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">add_one</span><span class="p">)</span>
         <span class="n">new_session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;done&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">migrate_database</span><span class="p">(</span><span class="n">User</span><span class="p">,</span><span class="n">old_engine</span><span class="p">,</span><span class="n">new_engine</span><span class="p">)</span>
 </pre></div>
 
 <p>
 但是如果有多个表格加上关系之后情况变得更复杂了，上面的脚本
 </p>
-<pre class="example">
+<pre>
 AutoBase.prepare(fromdb, reflect=True)
 </pre>
 <p>
@@ -2614,8 +2430,8 @@ AutoBase.prepare(fromdb, reflect=True)
 </div>
 
 
-<div id="outline-container-sec-4-4" class="outline-3">
-<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 面向ORM的数据继承机制</h3>
+<div class="outline-3">
+<h3 id="orgheadline52">面向ORM的数据继承机制</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 有时间补上。
@@ -2625,21 +2441,21 @@ AutoBase.prepare(fromdb, reflect=True)
 </div>
 
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5"><span class="section-number-2">5</span> 附录</h2>
+<div class="outline-2">
+<h2 id="orgheadline59">附录</h2>
 <div class="outline-text-2" id="text-5">
-</div><div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 其他</h3>
+</div><div class="outline-3">
+<h3 id="orgheadline55">其他</h3>
 <div class="outline-text-3" id="text-5-1">
-</div><div id="outline-container-sec-5-1-1" class="outline-4">
-<h4 id="sec-5-1-1"><span class="section-number-4">5.1.1</span> datetime数据类型</h4>
+</div><div class="outline-4">
+<h4 id="orgheadline54">datetime数据类型</h4>
 <div class="outline-text-4" id="text-5-1-1">
 <p>
 sqlalchemy中DateTime 数据类型的默认值可以跟着 datetime.datetime.utcnow
 如下所示:
 </p>
 
-<pre class="example">
+<pre>
 created_date = Column(DateTime, default=datetime.datetime.utcnow)
 </pre>
 
@@ -2651,8 +2467,8 @@ created_date = Column(DateTime, default=datetime.datetime.utcnow)
 </div>
 
 
-<div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 如何测试</h3>
+<div class="outline-3">
+<h3 id="orgheadline56">如何测试</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 <a href="http://alextechrants.blogspot.fi/2013/08/unit-testing-sqlalchemy-apps.html">http://alextechrants.blogspot.fi/2013/08/unit-testing-sqlalchemy-apps.html</a>
@@ -2662,8 +2478,8 @@ created_date = Column(DateTime, default=datetime.datetime.utcnow)
 
 
 
-<div id="outline-container-sec-5-3" class="outline-3">
-<h3 id="sec-5-3"><span class="section-number-3">5.3</span> flask-sqlalchemy模块</h3>
+<div class="outline-3">
+<h3 id="orgheadline57">flask-sqlalchemy模块</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 在真正学会sqlalchemy的orm风格之后，要做到会用flask框架的flask-sqlalchemy模块，几乎是不用花什么力气的，就如同其官方文档所描述的，看了一个tutorial例子，然后简单了解下命名空间的变动即可。
@@ -2673,29 +2489,23 @@ created_date = Column(DateTime, default=datetime.datetime.utcnow)
 参考了 <a href="http://alextechrants.blogspot.com/2013/11/10-common-stumbling-blocks-for.html">这个网页第七点</a> ，原来flask-sqlalchemy可以继续使用如下这样的语法。
 </p>
 
-<pre class="example">
+<pre>
 db.session.query(Company.address)
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-5-4" class="outline-3">
-<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 参考资料</h3>
+<div class="outline-3">
+<h3 id="orgheadline58">参考资料</h3>
 <div class="outline-text-3" id="text-5-4">
 <ol class="org-ol">
-<li>essential sqlalchemy ; author: Rick copeland ;press:O'REILLY
-</li>
-<li><a href="http://www.rmunn.com/sqlalchemy-tutorial/tutorial.html">a step by step sqlalchemy tutorial</a>  
-</li>
-<li><a href="http://www.pysnap.com/sqlalchemy-essential-tutorial-and-techniques/">http://www.pysnap.com/sqlalchemy-essential-tutorial-and-techniques/</a>
-</li>
+<li>essential sqlalchemy ; author: Rick copeland ;press:O'REILLY</li>
+<li><a href="http://www.rmunn.com/sqlalchemy-tutorial/tutorial.html">a step by step sqlalchemy tutorial</a></li>
+<li><a href="http://www.pysnap.com/sqlalchemy-essential-tutorial-and-techniques/">http://www.pysnap.com/sqlalchemy-essential-tutorial-and-techniques/</a></li>
 </ol>
 </div>
 </div>
 </div>
 </div>
-<footer class="footer">
-<div class="container">
-<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-23 14:13.</p></div>
 </body>
 </html>

@@ -1,0 +1,82 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: redis学习笔记
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+redis是一个很有意思的数据库服务东西，其可以简单看作in-memory的常规那种one-key-one-value 类似字典的数据结构实时存储支持工具。最简单的应用我们可以用redis来做缓存来加速程序，当然还有其他高级用法等着你去发现。
+
+** 安装
+你需要安装redis服务，在ubuntu下是:
+#+BEGIN_SRC sh
+sudo apt-get install redis-server
+#+END_SRC
+
+然后需要安装python对接redis服务的接口:
+#+BEGIN_SRC sh
+sudo pip3 install redis
+#+END_SRC
+其github地址在 [[https://github.com/andymccurdy/redis-py][这里]] 。
+
+** 数据库存储在那
+数据首先放在内存里面的，然后redis有一个定时save机制，其细节暂时略过，总是redis-server会定时将数据save到dump.rdb里面去。我们可以在redis的配置文件:
+#+BEGIN_EXAMPLE
+bash>>> sudo gedit /etc/redis/redis.conf 
+#+END_EXAMPLE
+
+里面找到save具体的存储地址，大概在这里:
+#+BEGIN_EXAMPLE
+bash>>> cd /var/lib/redis/
+bash>>> ls
+dump.rdb
+#+END_EXAMPLE
+
+然后我们当我们手动输入
+#+BEGIN_EXAMPLE
+save
+#+END_EXAMPLE
+命令时redis-server会执行一次save操作。然后如果我们输入 ~shutdown~ 命令关闭redis-server，redis-server也会预先执行一次save操作。因为我们在ubuntu下使用的redis-server是作为系统服务后台自动运行的，其在开机的时候就会自动加载目标数据库。然后需要注意的是如果你把系统默认的redis-server关闭了，另外开辟的是一个独立的redis-server，其save就会save在终端当前工作目录，而且数据库和系统默认的那个redis-server是分开独立不相干的。
+
+** redis-cli
+输入 ~redis-cli~ 会视图连接默认的那个port 6379的redis-server，然后可以执行一些操作，简单读者简单看一下官方网页的 [[http://try.redis.io/][互动教程]] ，做的很好。
+
+
+** python那边
+python那边最基本的操作如下所示:
+#+BEGIN_SRC python
+>>> import redis
+>>> r = redis.StrictRedis(host='localhost', port=6379, db=0)
+>>> r.set('foo', 'bar')
+True
+>>> r.get('foo')
+'bar'
+#+END_SRC
+最基本的如 ~set~ ~get~ 操作就不用多说了。
+
+* python那边
+python那边接口很简单，如上所示，你获得一个 ~StrictRedis~ 对象（新用户都推荐使用StrictRedis）之后，就是调用该对对象的一些方法罢了。官方文档在 [[https://redis-py.readthedocs.org/en/latest/][这里]] ，比较简单，大抵看源码估计也差不多的。比如说redis的 ~del~ 操作，在python这边对应的就是 ~delete~ 方法:
+#+BEGIN_SRC python
+    def delete(self, *names):
+        "Delete one or more keys specified by ``names``"
+        return self.execute_command('DEL', *names)
+#+END_SRC
+
+还有很多方法后面在慢慢介绍，这里先介绍那个 ~ConnectionPool~ 概念，redis-py所有的连接都是如下模式:
+#+BEGIN_EXAMPLE
+>>> pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+>>> r = redis.Redis(connection_pool=pool)
+#+END_EXAMPLE
+
+也就是都通过一个连接池对象来进行连接操作的。然后连接池对象还可以调配一个 ~connection_class~ ，其是一个 ~Connection~ 对象。这些都是底层的连接方法实现细节，可能某些时候需要考虑。
+
+
+
+
+* TODO
+更多细节补充

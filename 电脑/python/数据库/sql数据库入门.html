@@ -1,168 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-<title>sql数据库入门(sqlite3)</title>
-<!-- 2015-11-02 17:38 -->
+<!-- 2016-02-18 四 20:59 -->
 <meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>sql数据库入门(sqlite3)</title>
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="万泽(德山书生)">
 <meta  name="description" content="制作者邮箱：a358003542@gmail.com"
 >
-<style type="text/css"> /*
- * with_bootstrap.css
- *
- * Copyright 2015 wanze <a358003542@gmail.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- *
- *
- */
-
-@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-    margin: 0px;
-}
+<style type="text/css">
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    background-color: #f5f5f5;
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
 }
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-.container {
-  width: auto;
-  max-width: 750px;
-  padding: 0 15px;
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
 }
-.container .text-muted {
-  margin: 20px 0;
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
 }
 
-/* background-color: #f8f8f8; */
-.navbar-default{
-    background-color: #fff;
-}
-/*--------------------*/
-
-#content{
-    margin: 0 auto;
-    max-width: 750px;
-    padding: 17px;
-    line-height:160%;
-    font-size:16px;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-weight: 700;
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
-
-
-pre{line-height:180%;font-size:90%;}
-code,kbd,pre,samp {
-  font-family: monospace, serif;
-}
-
-code{  padding: 2px;}
-p{
-    text-indent:2em;/*段落缩进*/
-    line-height:180%;/*行间距*/
-    }
-
-.title{
+.title {
+    display: block;
     text-align: center;
-}
-.org-ol li , .org-ul li , org-dl dt{
-    margin-top: 0.5em; /*增大li之间的垂直space*/
-    margin-bottom: 0.5em; /*增大li之间的垂直space*/
-}
-p.verse{
-    margin-left: 3%;
-    text-indent:0em;
+    padding: 10px;
 }
 
-.right{
-    margin-left: auto;
-    margin-right: 0px;
-    text-align: right;
-}
-.left{
-    margin-left: 0px;
-    margin-right: auto;
-    text-align: left;
-}
-.center{
+.center-block {
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
 }
 
 .underline{
     text-decoration: underline;
 }
+   #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    /*word-wrap: break-word;*/
+    word-wrap: normal; /* horizontal scrolling */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
 
 video{
-    width: 750px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
 
 figure p{
-    text-indent:0em;/*段落缩进*/
+    text-indent:0em;
 }
 img{
-    max-width: 700px;
+    max-width: 95%;
 }
 
 figure{
     text-align: center;
-}
-
-table, th, td
-{
-    margin:0 auto;
-    min-width:2em;
-    text-align:center ;
-    padding: 5px;
-}
-
-table{
-    border-top: 2px solid ;
-    border-bottom: 2px solid ;
-}
-thead{
-    border-bottom: 1px solid ;
 }
 
 /*  class  */
@@ -188,257 +134,168 @@ thead{
 }
 
 /*
-http://thomasf.github.io/solarized-css/
+table
 */
-
-dfn {
-  font-style: italic;
-}
-dd{
-    margin-left:2em;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 16px 0;
+    empty-cells: show;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: table;
 }
 
-
-
-.tag {
-  background-color: #eee8d5;
-  color: #d33682;
-  padding: 0 0.2em;
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+table th,table td{
+    padding:8px;
 }
 
-
-.todo,
-.next,
-.done {
-  color: #fdf6e3;
-  background-color: #dc322f;
-  padding: 0 0.2em;
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
 }
-.tag {
-  -webkit-border-radius: 0.35em;
-  -moz-border-radius: 0.35em;
-  border-radius: 0.35em;
-}
-.TODO {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #2aa198;
-}
-.NEXT {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.ACTIVE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.DONE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-.WAITING {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #cb4b16;
-}
-.HOLD {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.NOTE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.CANCELLED {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-
-
-/*
-pygmentize -f html -S colorful -a .highlight
-*/
-
 .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #ffffff; }
-.highlight .c { color: #888888 } /* Comment */
-.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
-.highlight .k { color: #008800; font-weight: bold } /* Keyword */
-.highlight .o { color: #333333 } /* Operator */
-.highlight .cm { color: #888888 } /* Comment.Multiline */
-.highlight .cp { color: #557799 } /* Comment.Preproc */
-.highlight .c1 { color: #888888 } /* Comment.Single */
-.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #8f5902; font-style: italic } /* Comment */
+.highlight .err { color: #a40000; border: 1px solid #ef2929 } /* Error */
+.highlight .g { color: #000000 } /* Generic */
+.highlight .k { color: #204a87; font-weight: bold } /* Keyword */
+.highlight .l { color: #000000 } /* Literal */
+.highlight .n { color: #000000 } /* Name */
+.highlight .o { color: #ce5c00; font-weight: bold } /* Operator */
+.highlight .x { color: #000000 } /* Other */
+.highlight .p { color: #000000; font-weight: bold } /* Punctuation */
+.highlight .ch { color: #8f5902; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #8f5902; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #8f5902; font-style: italic } /* Comment.Preproc */
+.highlight .cpf { color: #8f5902; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #8f5902; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #8f5902; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #a40000 } /* Generic.Deleted */
+.highlight .ge { color: #000000; font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #ef2929 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .go { color: #000000; font-style: italic } /* Generic.Output */
+.highlight .gp { color: #8f5902 } /* Generic.Prompt */
+.highlight .gs { color: #000000; font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
-.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
-.highlight .s { background-color: #fff0f0 } /* Literal.String */
-.highlight .na { color: #0000CC } /* Name.Attribute */
-.highlight .nb { color: #007020 } /* Name.Builtin */
-.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
-.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
-.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
-.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
-.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
-.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #007700 } /* Name.Tag */
-.highlight .nv { color: #996633 } /* Name.Variable */
-.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
-.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
-.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
-.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
-.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
-.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
-.highlight .sc { color: #0044DD } /* Literal.String.Char */
-.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
-.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
-.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
-.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
-.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
-.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
-.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
-.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
-.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
-.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #336699 } /* Name.Variable.Class */
-.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
-.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
-.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
-
- </style>
+.highlight .gt { color: #a40000; font-weight: bold } /* Generic.Traceback */
+.highlight .kc { color: #204a87; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #204a87; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #204a87; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #204a87; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #204a87; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #204a87; font-weight: bold } /* Keyword.Type */
+.highlight .ld { color: #000000 } /* Literal.Date */
+.highlight .m { color: #0000cf; font-weight: bold } /* Literal.Number */
+.highlight .s { color: #4e9a06 } /* Literal.String */
+.highlight .na { color: #c4a000 } /* Name.Attribute */
+.highlight .nb { color: #204a87 } /* Name.Builtin */
+.highlight .nc { color: #000000 } /* Name.Class */
+.highlight .no { color: #000000 } /* Name.Constant */
+.highlight .nd { color: #5c35cc; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #ce5c00 } /* Name.Entity */
+.highlight .ne { color: #cc0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #000000 } /* Name.Function */
+.highlight .nl { color: #f57900 } /* Name.Label */
+.highlight .nn { color: #000000 } /* Name.Namespace */
+.highlight .nx { color: #000000 } /* Name.Other */
+.highlight .py { color: #000000 } /* Name.Property */
+.highlight .nt { color: #204a87; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #000000 } /* Name.Variable */
+.highlight .ow { color: #204a87; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #f8f8f8; text-decoration: underline } /* Text.Whitespace */
+.highlight .mb { color: #0000cf; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #0000cf; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #0000cf; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000cf; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #0000cf; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { color: #4e9a06 } /* Literal.String.Backtick */
+.highlight .sc { color: #4e9a06 } /* Literal.String.Char */
+.highlight .sd { color: #8f5902; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4e9a06 } /* Literal.String.Double */
+.highlight .se { color: #4e9a06 } /* Literal.String.Escape */
+.highlight .sh { color: #4e9a06 } /* Literal.String.Heredoc */
+.highlight .si { color: #4e9a06 } /* Literal.String.Interpol */
+.highlight .sx { color: #4e9a06 } /* Literal.String.Other */
+.highlight .sr { color: #4e9a06 } /* Literal.String.Regex */
+.highlight .s1 { color: #4e9a06 } /* Literal.String.Single */
+.highlight .ss { color: #4e9a06 } /* Literal.String.Symbol */
+.highlight .bp { color: #3465a4 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #000000 } /* Name.Variable.Class */
+.highlight .vg { color: #000000 } /* Name.Variable.Global */
+.highlight .vi { color: #000000 } /* Name.Variable.Instance */
+.highlight .il { color: #0000cf; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body>
-<header class="header">
-<nav class="navbar navbar-default navbar-static-top"><div class="container">
-<div class="navbar-header">
-<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
-<div id="navbar">
-<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
-</div>
-</nav></header><div id="content">
+<div id="content">
+<header>
 <h1 class="title">sql数据库入门(sqlite3)</h1>
-<nav id="table-of-contents">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. 前言</a>
+<li><a href="#orgheadline3">1. 前言</a>
 <ul>
-<li><a href="#sec-1-1">1.1. 基本术语</a></li>
-<li><a href="#sec-1-2">1.2. 安装sqlite3</a></li>
+<li><a href="#orgheadline1">1.1. 基本术语</a></li>
+<li><a href="#orgheadline2">1.2. 安装sqlite3</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2. 第一个例子</a>
+<li><a href="#orgheadline21">2. 第一个例子</a>
 <ul>
-<li><a href="#sec-2-1">2.1. 新建一个表格</a></li>
-<li><a href="#sec-2-2">2.2. 字段数据类型</a></li>
-<li><a href="#sec-2-3">2.3. 字段约束词</a>
+<li><a href="#orgheadline4">2.1. 新建一个表格</a></li>
+<li><a href="#orgheadline5">2.2. 字段数据类型</a></li>
+<li><a href="#orgheadline9">2.3. 字段约束词</a>
 <ul>
-<li><a href="#sec-2-3-1">2.3.1. PRIMARY KEY</a></li>
-<li><a href="#sec-2-3-2">2.3.2. NOT NULL</a></li>
-<li><a href="#sec-2-3-3">2.3.3. DEFAULT</a></li>
+<li><a href="#orgheadline6">2.3.1. PRIMARY KEY</a></li>
+<li><a href="#orgheadline7">2.3.2. NOT NULL</a></li>
+<li><a href="#orgheadline8">2.3.3. DEFAULT</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-4">2.4. 更改表格属性</a></li>
-<li><a href="#sec-2-5">2.5. 删除表格</a></li>
-<li><a href="#sec-2-6">2.6. 插入记录</a></li>
-<li><a href="#sec-2-7">2.7. 删除记录</a></li>
-<li><a href="#sec-2-8">2.8. 查看当前日期</a></li>
-<li><a href="#sec-2-9">2.9. 检索单个列</a></li>
-<li><a href="#sec-2-10">2.10. 检索多个列</a></li>
-<li><a href="#sec-2-11">2.11. 排序</a></li>
-<li><a href="#sec-2-12">2.12. 按多个列排序</a></li>
-<li><a href="#sec-2-13">2.13. 降序排序</a></li>
-<li><a href="#sec-2-14">2.14. 过滤数据</a></li>
+<li><a href="#orgheadline10">2.4. 更改表格属性</a></li>
+<li><a href="#orgheadline11">2.5. 删除表格</a></li>
+<li><a href="#orgheadline12">2.6. 插入记录</a></li>
+<li><a href="#orgheadline13">2.7. 删除记录</a></li>
+<li><a href="#orgheadline14">2.8. 查看当前日期</a></li>
+<li><a href="#orgheadline15">2.9. 检索单个列</a></li>
+<li><a href="#orgheadline16">2.10. 检索多个列</a></li>
+<li><a href="#orgheadline17">2.11. 排序</a></li>
+<li><a href="#orgheadline18">2.12. 按多个列排序</a></li>
+<li><a href="#orgheadline19">2.13. 降序排序</a></li>
+<li><a href="#orgheadline20">2.14. 过滤数据</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">3. 第二个例子</a>
+<li><a href="#orgheadline29">3. 第二个例子</a>
 <ul>
-<li><a href="#sec-3-1">3.1. 创建表格</a></li>
-<li><a href="#sec-3-2">3.2. 外键引用</a></li>
-<li><a href="#sec-3-3">3.3. 主键声明的另一方法</a></li>
-<li><a href="#sec-3-4">3.4. 其他sql语句类型声明有时不修改也可</a></li>
-<li><a href="#sec-3-5">3.5. check约束模拟mysql的enum类型</a></li>
-<li><a href="#sec-3-6">3.6. 插入数据</a></li>
-<li><a href="#sec-3-7">3.7. 演示例子的补充信息</a></li>
+<li><a href="#orgheadline22">3.1. 创建表格</a></li>
+<li><a href="#orgheadline23">3.2. 外键引用</a></li>
+<li><a href="#orgheadline24">3.3. 主键声明的另一方法</a></li>
+<li><a href="#orgheadline25">3.4. 其他sql语句类型声明有时不修改也可</a></li>
+<li><a href="#orgheadline26">3.5. check约束模拟mysql的enum类型</a></li>
+<li><a href="#orgheadline27">3.6. 插入数据</a></li>
+<li><a href="#orgheadline28">3.7. 演示例子的补充信息</a></li>
 </ul>
 </li>
-<li><a href="#sec-4">4. 简单的SQL查询</a></li>
-<li><a href="#sec-5">5. 联接</a>
+<li><a href="#orgheadline30">4. 简单的SQL查询</a></li>
+<li><a href="#orgheadline32">5. 联接</a>
 <ul>
-<li><a href="#sec-5-1">5.1. 内部联接</a></li>
+<li><a href="#orgheadline31">5.1. 内部联接</a></li>
 </ul>
 </li>
-<li><a href="#sec-6">6. 视图</a>
+<li><a href="#orgheadline36">6. 视图</a>
 <ul>
-<li><a href="#sec-6-1">6.1. 新建视图</a></li>
-<li><a href="#sec-6-2">6.2. 删除视图</a></li>
-<li><a href="#sec-6-3">6.3. 更新视图</a></li>
+<li><a href="#orgheadline33">6.1. 新建视图</a></li>
+<li><a href="#orgheadline34">6.2. 删除视图</a></li>
+<li><a href="#orgheadline35">6.3. 更新视图</a></li>
 </ul>
 </li>
-<li><a href="#sec-7">7. 附录</a>
+<li><a href="#orgheadline38">7. 附录</a>
 <ul>
-<li><a href="#sec-7-1">7.1. 参考资料</a></li>
+<li><a href="#orgheadline37">7.1. 参考资料</a></li>
 </ul>
 </li>
 </ul>
@@ -446,16 +303,16 @@ pygmentize -f html -S colorful -a .highlight
 </nav>
 
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-2">
+<h2 id="orgheadline3">前言</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本文主要介绍SQL数据库的最核心的基础知识，用sqlite3作为实验对象。postgresql和mysql则另外再撰文分析。
 </p>
 </div>
 
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 基本术语</h3>
+<div class="outline-3">
+<h3 id="orgheadline1">基本术语</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 数据库（database）简单的理解就是一个文件柜。然后DBMS（database management system）是数据库管理系统。而所谓的 <strong>table</strong> 表你可以将其看作文件柜里的一个结构化了的文件。在表格里面的数据都是 <span class="underline">按行存储</span> 的，这个要在头脑中牢记。然后一行数据称之为一个 <strong>记录</strong> 。SQL（Structured Query Language）的意思是结构化查询语言。
@@ -465,13 +322,13 @@ pygmentize -f html -S colorful -a .highlight
 
 
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> 安装sqlite3</h3>
+<div class="outline-3">
+<h3 id="orgheadline2">安装sqlite3</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 在ubuntu下可以简单的用apt-get命令来安装：
 </p>
-<div class="highlight"><pre>sudo apt-get install sqlite3
+<div class="highlight"><pre><span></span>sudo apt-get install sqlite3
 </pre></div>
 
 <p>
@@ -482,20 +339,20 @@ sqlite3的配置没什么好说的，如果你在终端输入 <code>sqlite3</cod
 </div>
 
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> 第一个例子</h2>
+<div class="outline-2">
+<h2 id="orgheadline21">第一个例子</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 sqlite3和postgresql不同，其没有客户端/服务器的概念，就是直接的文件管理，sqlite3的数据库就是一个文件，然后如果连接到某个不存在的文件，就会自动创建对应的数据库文件。删除数据库当然就是删除数据库文件即可，这一块sqlite3很简单，比如说你如下运行：
 </p>
 
-<div class="highlight"><pre>sqlite3 mydb
+<div class="highlight"><pre><span></span>sqlite3 mydb
 </pre></div>
 
 <p>
 现在我们往这个数据库里面加入一点东西:
 </p>
-<pre class="example">
+<pre>
 wanze@wanze-ubuntu64:~/桌面$ sqlite3 mydb
 SQLite version 3.8.2 2013-12-06 14:53:30
 Enter ".help" for instructions
@@ -527,13 +384,13 @@ id|name
 </div>
 
 
-<div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 新建一个表格</h3>
+<div class="outline-3">
+<h3 id="orgheadline4">新建一个表格</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 如下所示就是创建表格的命令格式:
 </p>
-<pre class="example">
+<pre>
 CREATE TABLE mytable(
   id     INTEGER PRIMARY KEY, 
   name   TEXT);
@@ -545,24 +402,19 @@ CREATE TABLE mytable(
 </div>
 </div>
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 字段数据类型</h3>
+<div class="outline-3">
+<h3 id="orgheadline5">字段数据类型</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 按照sqlite3官方文档的 <a href="https://www.sqlite.org/datatype3.html">介绍</a> ，其就支持五种数据类型：
 </p>
 
 <dl class="org-dl">
-<dt> NULL </dt><dd>空值
-</dd>
-<dt> INTEGER </dt><dd>整型
-</dd>
-<dt> REAL </dt><dd>浮点型
-</dd>
-<dt> TEXT </dt><dd>字符串型
-</dd>
-<dt> BLOB </dt><dd>字节流型
-</dd>
+<dt>NULL</dt><dd>空值</dd>
+<dt>INTEGER</dt><dd>整型</dd>
+<dt>REAL</dt><dd>浮点型</dd>
+<dt>TEXT</dt><dd>字符串型</dd>
+<dt>BLOB</dt><dd>字节流型</dd>
 </dl>
 
 <p>
@@ -570,18 +422,12 @@ CREATE TABLE mytable(
 </p>
 
 <ol class="org-ol">
-<li>如果没有类型声明，则视为none affinity;
-</li>
-<li>如果在声明字符串中看到"int"（不区分大小写）这个子字符串，那么就视为integer affinity；
-</li>
-<li>继续，接下来如果找到"char"或者"clob"或者"text"，则视为text affinity；所以varchar(80)会被简单视为text affinity;
-</li>
-<li>继续，接下来如果找到"blob"，则视为blob，如果没数据类型声明，则视为none affinity;
-</li>
-<li>继续，接下来如果找到"real"或者"floa"或者"doub"，则视为float affinity;
-</li>
-<li>然后其他的都视为numeric affinity。
-</li>
+<li>如果没有类型声明，则视为none affinity;</li>
+<li>如果在声明字符串中看到"int"（不区分大小写）这个子字符串，那么就视为integer affinity；</li>
+<li>继续，接下来如果找到"char"或者"clob"或者"text"，则视为text affinity；所以varchar(80)会被简单视为text affinity;</li>
+<li>继续，接下来如果找到"blob"，则视为blob，如果没数据类型声明，则视为none affinity;</li>
+<li>继续，接下来如果找到"real"或者"floa"或者"doub"，则视为float affinity;</li>
+<li>然后其他的都视为numeric affinity。</li>
 </ol>
 
 <p>
@@ -590,13 +436,13 @@ CREATE TABLE mytable(
 </div>
 </div>
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 字段约束词</h3>
+<div class="outline-3">
+<h3 id="orgheadline9">字段约束词</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 请看下面这个例子:
 </p>
-<pre class="example">
+<pre>
 sqlite&gt; CREATE TABLE products(
    ...&gt;   id  int PRIMARY KEY,
    ...&gt;   name text NOT NULL,
@@ -605,8 +451,8 @@ sqlite&gt; CREATE TABLE products(
 </pre>
 </div>
 
-<div id="outline-container-sec-2-3-1" class="outline-4">
-<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> PRIMARY KEY</h4>
+<div class="outline-4">
+<h4 id="orgheadline6">PRIMARY KEY</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 一个表格只能有一个PRIMARY KEY，被PRIMARY KEY约束的字段值必须唯一且不为空，从而使其能够成为本表格中各个记录的唯一标识。表格中可以有一个列或者几个列被选定为primary key。值得一提的是 <code>integer primary key</code> 自动有了自动分配的属性，也就是大家清楚的id那一列，即使不赋值，也会自动添加。
@@ -614,8 +460,8 @@ sqlite&gt; CREATE TABLE products(
 </div>
 </div>
 
-<div id="outline-container-sec-2-3-2" class="outline-4">
-<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> NOT NULL</h4>
+<div class="outline-4">
+<h4 id="orgheadline7">NOT NULL</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
 约束该字段不可取空值，也就是该字段必须赋值的意思。
@@ -623,8 +469,8 @@ sqlite&gt; CREATE TABLE products(
 </div>
 </div>
 
-<div id="outline-container-sec-2-3-3" class="outline-4">
-<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> DEFAULT</h4>
+<div class="outline-4">
+<h4 id="orgheadline8">DEFAULT</h4>
 <div class="outline-text-4" id="text-2-3-3">
 <p>
 指定该字段的默认值。
@@ -636,14 +482,14 @@ sqlite&gt; CREATE TABLE products(
 
 
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 更改表格属性</h3>
+<div class="outline-3">
+<h3 id="orgheadline10">更改表格属性</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 sqlite3更改表格属性的功能是很有限的，就只有两个，一个是更改表格名字，还一个是新建一个字段。所以sqlite3主要还是靠CREATE TABLE的时候就把各个字段属性设置好。具体使用就是使用 <code>ALTER TABLE</code> 语句，如下所示:
 </p>
 
-<pre class="example">
+<pre>
 ALTER TABLE tablename RENAME TO new_tablename;
 ALTER TABLE tablename ADD COLUMN column_name column_datatype;
 </pre>
@@ -651,13 +497,13 @@ ALTER TABLE tablename ADD COLUMN column_name column_datatype;
 </div>
 
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 删除表格</h3>
+<div class="outline-3">
+<h3 id="orgheadline11">删除表格</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 删除前请慎重。
 </p>
-<pre class="example">
+<pre>
 DROP TABLE tablename;
 </pre>
 </div>
@@ -665,14 +511,14 @@ DROP TABLE tablename;
 
 
 
-<div id="outline-container-sec-2-6" class="outline-3">
-<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 插入记录</h3>
+<div class="outline-3">
+<h3 id="orgheadline12">插入记录</h3>
 <div class="outline-text-3" id="text-2-6">
 <p>
 插入一条记录如前所示使用 <code>INSERT INTO</code> 语句，具体如下所示：
 </p>
 
-<pre class="example">
+<pre>
 INSERT INTO products (product_no, name, price) VALUES (1, ’Cheese’, 9.99);
 </pre>
 
@@ -683,7 +529,7 @@ INSERT INTO products (product_no, name, price) VALUES (1, ’Cheese’, 9.99);
 <p>
 如果只是需要简单插入新的一行的数据那么可以直接使用之前的insert into语句。
 </p>
-<pre class="example">
+<pre>
 sqlite&gt; insert into mytable(age) values(6);
 sqlite&gt; select * from mytable;
 id          name        age
@@ -700,7 +546,7 @@ id          name        age
 <p>
 不过这并不满足这里的要求，下面的语句用于更新某个特定的表格的数据：
 </p>
-<pre class="example">
+<pre>
 sqlite&gt; update mytable set age=18 where id =1;
 sqlite&gt; select * from mytable;
 id          name        age
@@ -719,10 +565,10 @@ id          name        age
 
 
 
-<div id="outline-container-sec-2-7" class="outline-3">
-<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 删除记录</h3>
+<div class="outline-3">
+<h3 id="orgheadline13">删除记录</h3>
 <div class="outline-text-3" id="text-2-7">
-<pre class="example">
+<pre>
 DELETE FROM products WHERE price = 10;
 DELETE FROM products;
 </pre>
@@ -735,10 +581,10 @@ DELETE FROM products;
 
 
 
-<div id="outline-container-sec-2-8" class="outline-3">
-<h3 id="sec-2-8"><span class="section-number-3">2.8</span> 查看当前日期</h3>
+<div class="outline-3">
+<h3 id="orgheadline14">查看当前日期</h3>
 <div class="outline-text-3" id="text-2-8">
-<pre class="example">
+<pre>
 sqlite&gt; SELECT current_date;
 2015-06-16
 </pre>
@@ -747,13 +593,13 @@ sqlite&gt; SELECT current_date;
 
 
 
-<div id="outline-container-sec-2-9" class="outline-3">
-<h3 id="sec-2-9"><span class="section-number-3">2.9</span> 检索单个列</h3>
+<div class="outline-3">
+<h3 id="orgheadline15">检索单个列</h3>
 <div class="outline-text-3" id="text-2-9">
 <p>
 为了后面讲解方便，这里根据前面的第一个例子简单创建一个数据库，具体代码如下：
 </p>
-<pre class="example">
+<pre>
 ~$ sqlite3 test.db
 
 sqlite&gt; CREATE TABLE mytable(id INTEGER PRIMARY KEY, name TEXT);
@@ -778,7 +624,7 @@ id          name
 检索单个列的语法如下：
 </p>
 
-<pre class="example">
+<pre>
 sqlite&gt; SELECT id FROM mytable;
 id
 ----------
@@ -791,8 +637,8 @@ id
 </div>
 </div>
 
-<div id="outline-container-sec-2-10" class="outline-3">
-<h3 id="sec-2-10"><span class="section-number-3">2.10</span> 检索多个列</h3>
+<div class="outline-3">
+<h3 id="orgheadline16">检索多个列</h3>
 <div class="outline-text-3" id="text-2-10">
 <p>
 多个列就是写上多个列名，列名之间用逗号隔开。检索所有列就是列名用通配符"*"来匹配所有列。
@@ -800,14 +646,14 @@ id
 </div>
 </div>
 
-<div id="outline-container-sec-2-11" class="outline-3">
-<h3 id="sec-2-11"><span class="section-number-3">2.11</span> 排序</h3>
+<div class="outline-3">
+<h3 id="orgheadline17">排序</h3>
 <div class="outline-text-3" id="text-2-11">
 <p>
 用SELECT语句默认情况是没有排序的，如果需要排序则需要使用ORDER BY字句。现在又插入几个新名字：
 </p>
 
-<pre class="example">
+<pre>
 sqlite&gt; INSERT INTO mytable(id,name) values(6,'Abby');
 sqlite&gt; INSERT INTO mytable(id,name) values(7,'Bella');
 </pre>
@@ -816,7 +662,7 @@ sqlite&gt; INSERT INTO mytable(id,name) values(7,'Bella');
 如果我们需要输入结果按照name来排序则：
 </p>
 
-<pre class="example">
+<pre>
 sqlite&gt; SELECT id,name FROM mytable ORDER BY name;
 id          name
 ----------  ----------
@@ -833,13 +679,13 @@ id          name
 
 
 
-<div id="outline-container-sec-2-12" class="outline-3">
-<h3 id="sec-2-12"><span class="section-number-3">2.12</span> 按多个列排序</h3>
+<div class="outline-3">
+<h3 id="orgheadline18">按多个列排序</h3>
 <div class="outline-text-3" id="text-2-12">
 <p>
 首先更新之前的表格的一些数据。
 </p>
-<pre class="example">
+<pre>
 sqlite&gt; ALTER TABLE mytable ADD COLUMN age int;
 sqlite&gt; UPDATE mytable set age=18 WHERE id=1;
 sqlite&gt; update mytable set age=20 where id =2;
@@ -865,7 +711,7 @@ id          name        age
 <p>
 现在开始按多个列排序：
 </p>
-<pre class="example">
+<pre>
 sqlite&gt; SELECT * FROM mytable ORDER BY name , age;
 id          name        age
 ----------  ----------  ----------
@@ -884,14 +730,14 @@ id          name        age
 </div>
 </div>
 
-<div id="outline-container-sec-2-13" class="outline-3">
-<h3 id="sec-2-13"><span class="section-number-3">2.13</span> 降序排序</h3>
+<div class="outline-3">
+<h3 id="orgheadline19">降序排序</h3>
 <div class="outline-text-3" id="text-2-13">
 <p>
 ORDER BY字句默认排序是升序，如果想要其为降序则使用DESC关键词，如下所示:
 </p>
 
-<pre class="example">
+<pre>
 sqlite&gt; SELECT * FROM mytable ORDER BY name , age DESC;
 id          name        age
 ----------  ----------  ----------
@@ -911,8 +757,8 @@ DESC关键词要放在想要降序排序的列的后面。如果想要多个列�
 </div>
 
 
-<div id="outline-container-sec-2-14" class="outline-3">
-<h3 id="sec-2-14"><span class="section-number-3">2.14</span> 过滤数据</h3>
+<div class="outline-3">
+<h3 id="orgheadline20">过滤数据</h3>
 <div class="outline-text-3" id="text-2-14">
 <p>
 SQL用WHERE字句来达到查询时过滤数据的功能，如果同时有WHERE字句和ORDER BY字句，则ORDER BY字句要放在后面。
@@ -921,7 +767,7 @@ SQL用WHERE字句来达到查询时过滤数据的功能，如果同时有WHERE�
 <p>
 一个简单的例子如下所示:
 </p>
-<pre class="example">
+<pre>
 sqlite&gt; SELECT * FROM mytable WHERE age &lt; 30;
 id          name        age       
 ----------  ----------  ----------
@@ -940,7 +786,7 @@ id          name        age
 <p>
 BETWEEN的使用如下:
 </p>
-<pre class="example">
+<pre>
 SELECT prod_name, prod_price
 FROM Products
 WHERE prod_price BETWEEN 5 AND 10;
@@ -949,7 +795,7 @@ WHERE prod_price BETWEEN 5 AND 10;
 <p>
 NULL 无值，它与字段包含0，空字符串等不同。 <strong>IS NULL</strong> 用法如下:
 </p>
-<pre class="example">
+<pre>
 SELECT prod_name
 FROM Products
 WHERE prod_price IS NULL;
@@ -960,21 +806,21 @@ WHERE prod_price IS NULL;
 
 
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> 第二个例子</h2>
+<div class="outline-2">
+<h2 id="orgheadline29">第二个例子</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 第二个例子将更加大型和更具现实意义。我们将通过创建一个sql文件，刷入sqlite3命令的形式来创建这个数据库。
 </p>
 
-<div class="highlight"><pre>sqlite3 sqlite3_learning_example.db &lt; sqlite3_learning_example.sql
+<div class="highlight"><pre><span></span>sqlite3 sqlite3_learning_example.db &lt; sqlite3_learning_example.sql
 </pre></div>
 </div>
 
-<div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 创建表格</h3>
+<div class="outline-3">
+<h3 id="orgheadline22">创建表格</h3>
 <div class="outline-text-3" id="text-3-1">
-<div class="highlight"><pre><span class="go">create table if not exists department</span>
+<div class="highlight"><pre><span></span><span class="go">create table if not exists department</span>
 <span class="go"> (dept_id int primary key,</span>
 <span class="go">  name varchar not null</span>
 <span class="go"> );</span>
@@ -984,7 +830,7 @@ WHERE prod_price IS NULL;
 sqlite3的 <code>int primary key</code> 一起是个约束词，这样写就不用写not null或者autoincrement了，然后sqlite3和mysql不一样，其约束词就是直接跟在列名后面的。
 </p>
 
-<div class="highlight"><pre><span class="go">create table if not exists branch</span>
+<div class="highlight"><pre><span></span><span class="go">create table if not exists branch</span>
 <span class="go"> (branch_id int  primary key,</span>
 <span class="go">  name varchar not null,</span>
 <span class="go">  address varchar,</span>
@@ -996,13 +842,13 @@ sqlite3的 <code>int primary key</code> 一起是个约束词，这样写就不�
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 外键引用</h3>
+<div class="outline-3">
+<h3 id="orgheadline23">外键引用</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 外键引用在sqlite3中必须加上这一行设置:
 </p>
-<pre class="example">
+<pre>
 PRAGMA foreign_keys = ON;
 </pre>
 
@@ -1014,7 +860,7 @@ PRAGMA foreign_keys = ON;
 关于外键引用更多信息请参看官方文档的 <a href="https://www.sqlite.org/foreignkeys.html">这里</a> 。
 </p>
 
-<div class="highlight"><pre><span class="go">PRAGMA foreign_keys = ON;</span>
+<div class="highlight"><pre><span></span><span class="go">PRAGMA foreign_keys = ON;</span>
 
 <span class="go">create table if not exists employee</span>
 <span class="go"> (emp_id int  primary key,</span>
@@ -1034,13 +880,13 @@ PRAGMA foreign_keys = ON;
 </div>
 </div>
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 主键声明的另一方法</h3>
+<div class="outline-3">
+<h3 id="orgheadline24">主键声明的另一方法</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 这里演示了主键声明的另一方法，和mysql语句很接近了。
 </p>
-<div class="highlight"><pre><span class="go">create table if not exists product_type</span>
+<div class="highlight"><pre><span></span><span class="go">create table if not exists product_type</span>
 <span class="go"> (product_type_cd varchar not null,</span>
 <span class="go">  name varchar not null,</span>
 <span class="go">  primary key (product_type_cd)</span>
@@ -1049,13 +895,13 @@ PRAGMA foreign_keys = ON;
 </div>
 </div>
 
-<div id="outline-container-sec-3-4" class="outline-3">
-<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 其他sql语句类型声明有时不修改也可</h3>
+<div class="outline-3">
+<h3 id="orgheadline25">其他sql语句类型声明有时不修改也可</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 比如在下面语句中 <code>varchar(10)</code> 这种写法是mysql里面的，我们在这里没有将其修改为 <code>varchar</code> 或 <code>text</code> ，因为前面说过sqlite3有很灵活的语法糖规则，直接输入 <code>varchar(10)</code> 和改成 <code>varchar</code> 没有本质区别，所以我们在这里可以图省心就不修改了。
 </p>
-<div class="highlight"><pre><span class="go">create table if not exists product</span>
+<div class="highlight"><pre><span></span><span class="go">create table if not exists product</span>
 <span class="go">(product_cd varchar(10) not null,</span>
 <span class="go"> name varchar(50) not null,</span>
 <span class="go"> product_type_cd varchar(10) not null,</span>
@@ -1070,13 +916,13 @@ PRAGMA foreign_keys = ON;
 </div>
 
 
-<div id="outline-container-sec-3-5" class="outline-3">
-<h3 id="sec-3-5"><span class="section-number-3">3.5</span> check约束模拟mysql的enum类型</h3>
+<div class="outline-3">
+<h3 id="orgheadline26">check约束模拟mysql的enum类型</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有如下用 <strong>check</strong> 约束。 参考了 <a href="http://stackoverflow.com/questions/5299267/how-to-create-enum-type-in-sqlite">这个网页</a> 。然后这里mysql的integer类型声明也没改了，等同于int。
 </p>
-<div class="highlight"><pre><span class="go">create table if not exists customer</span>
+<div class="highlight"><pre><span></span><span class="go">create table if not exists customer</span>
 <span class="go">(cust_id integer  not null ,</span>
 <span class="go"> fed_id varchar(12) not null,</span>
 <span class="go"> cust_type_cd  not null check(cust_type_cd in (&#39;I&#39;,&#39;B&#39;)),</span>
@@ -1091,7 +937,7 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 <p>
 然后我们继续:
 </p>
-<div class="highlight"><pre><span class="go">create table if not exists individual</span>
+<div class="highlight"><pre><span></span><span class="go">create table if not exists individual</span>
 <span class="go">(cust_id integer  not null,</span>
 <span class="go"> fname varchar(30) not null,</span>
 <span class="go"> lname varchar(30) not null,</span>
@@ -1173,13 +1019,13 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 </div>
 </div>
 
-<div id="outline-container-sec-3-6" class="outline-3">
-<h3 id="sec-3-6"><span class="section-number-3">3.6</span> 插入数据</h3>
+<div class="outline-3">
+<h3 id="orgheadline27">插入数据</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 在mysql中有如下语句:
 </p>
-<div class="highlight"><pre><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Operations&#39;</span><span class="p">);</span>
 <span class="k">insert</span> <span class="k">ignore</span> <span class="k">into</span> <span class="nf">department</span> <span class="p">(</span><span class="n">dept_id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Loans&#39;</span><span class="p">);</span>
@@ -1194,7 +1040,7 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 <p>
 在sqlite3中有类似的这样的表达:
 </p>
-<div class="highlight"><pre><span class="go">insert or ignore into department (dept_id, name)</span>
+<div class="highlight"><pre><span></span><span class="go">insert or ignore into department (dept_id, name)</span>
 <span class="go">values (1, &#39;Operations&#39;);</span>
 <span class="go">insert or ignore into department (dept_id, name)</span>
 <span class="go">values (2, &#39;Loans&#39;);</span>
@@ -1210,7 +1056,7 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 然后mysql语句一样做如此修改之后，就没有什么额外要修改的了。因为SQL系insert，select和update这几个语句他们都是非常非常的接近的。如下所示这些都不用做任何修改:
 </p>
 
-<div class="highlight"><pre><span class="go">insert or ignore  into branch (branch_id, name, address, city, state, zip)</span>
+<div class="highlight"><pre><span></span><span class="go">insert or ignore  into branch (branch_id, name, address, city, state, zip)</span>
 <span class="go">values (1, &#39;Headquarters&#39;, &#39;3882 Main St.&#39;, &#39;Waltham&#39;, &#39;MA&#39;, &#39;02451&#39;);</span>
 <span class="go">insert or ignore  into branch (branch_id, name, address, city, state, zip)</span>
 <span class="go">values (2, &#39;Woburn Branch&#39;, &#39;422 Maple St.&#39;, &#39;Woburn&#39;, &#39;MA&#39;, &#39;01801&#39;);</span>
@@ -1713,8 +1559,8 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 
 
 
-<div id="outline-container-sec-3-7" class="outline-3">
-<h3 id="sec-3-7"><span class="section-number-3">3.7</span> 演示例子的补充信息</h3>
+<div class="outline-3">
+<h3 id="orgheadline28">演示例子的补充信息</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
 该演示数据，按照《SQL学习指南》一书所说，是为了某一银行建立的数据模型，不过我们看到，其中涉及的顾客，部门，产品等概念在很多领域都是适用的。
@@ -1724,36 +1570,25 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 下面列出关于这些表格的含义说明:
 </p>
 <dl class="org-dl">
-<dt> account </dt><dd>为特定顾客开放的特定产品
-</dd>
-<dt> branch </dt><dd>开展银行交易业务的场所，就可理解为某分公司分银行。
-</dd>
-<dt> business </dt><dd>公司顾客
-</dd>
-<dt> customer </dt><dd>与银行有业务往来的个人或公司
-</dd>
-<dt> department </dt><dd>就可理解为银行内某部门
-</dd>
-<dt> employee </dt><dd>银行工作人员
-</dd>
-<dt> individual </dt><dd>个人顾客，我们看到和business对应。
-</dd>
-<dt> officer </dt><dd>允许为公司顾客发起交易的人
-</dd>
-<dt> product </dt><dd>向顾客提供的银行服务
-</dd>
-<dt> product_type </dt><dd>服务类型
-</dd>
-<dt> transaction </dt><dd>改变账户余额的操作
-</dd>
+<dt>account</dt><dd>为特定顾客开放的特定产品</dd>
+<dt>branch</dt><dd>开展银行交易业务的场所，就可理解为某分公司分银行。</dd>
+<dt>business</dt><dd>公司顾客</dd>
+<dt>customer</dt><dd>与银行有业务往来的个人或公司</dd>
+<dt>department</dt><dd>就可理解为银行内某部门</dd>
+<dt>employee</dt><dd>银行工作人员</dd>
+<dt>individual</dt><dd>个人顾客，我们看到和business对应。</dd>
+<dt>officer</dt><dd>允许为公司顾客发起交易的人</dd>
+<dt>product</dt><dd>向顾客提供的银行服务</dd>
+<dt>product_type</dt><dd>服务类型</dd>
+<dt>transaction</dt><dd>改变账户余额的操作</dd>
 </dl>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> 简单的SQL查询</h2>
+<div class="outline-2">
+<h2 id="orgheadline30">简单的SQL查询</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 基于前面的第二个例子构建的数据库，下面我们对SQL最简单的一些查询过一遍。
@@ -1763,8 +1598,8 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 
 
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5"><span class="section-number-2">5</span> 联接</h2>
+<div class="outline-2">
+<h2 id="orgheadline32">联接</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 关于联接的抽象理论讨论还是很有必要的，这里我也谈论一些，但具体还是需要读者自己沉思。我们把一个SQL表格看作一个对应外部世界的模型，你可以将其看作柏拉图所谈论的理念。然后就作为外部世界各个模型来说，彼此之间有两种关系: 第一种是继承关系，第二种是组合关系。所谓继承关系是指对于每一个苹果实体来说，它有各种各样的属性，我们不可能将其装入一个数据库中，比如说本苹果实体的供应商信息，本苹果的重量颜色信息等等。更合理的做法是我们将描述苹果（或者所有产品）供应商信息单独放入一个模型，然后将描述苹果重量颜色等信息也单独放入一个模型，除此之外还有水果店信息等等。我们在实际处理的时候，常常各个衍生模型都有一个parent_id类似这样的字段属性来描述本衍生模型的该记录所对应的实际母体parent是谁，从而将多个衍生模型在一个实体对象上统一起来，从而形成表的联接。你可以看作表的联接的最终成果就是你心目中所想的那个超大型SQL表格，对应的是苹果这个模型，里面存放着所有一切和该苹果相关的属性信息。然后你用SELECT语句查一下即可。
@@ -1778,7 +1613,7 @@ mysql提供了enum类型，在sqlite3中没有，要达到类似的效果只有�
 <p>
 具体语法如下所示:
 </p>
-<pre class="example">
+<pre>
 SELECT name,price,weight
 FROM Supplier,Info
 WHERE Supplier.parent_id = Info.parent_id
@@ -1794,14 +1629,14 @@ WHERE Supplier.parent_id = Info.parent_id
 </div>
 
 
-<div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 内部联接</h3>
+<div class="outline-3">
+<h3 id="orgheadline31">内部联接</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 按照SQL规范，已经不推荐使用这样的WHERE字句表达了，上面的内部联接语句更推荐的是写成这样的形式:
 </p>
 
-<pre class="example">
+<pre>
 SELECT name,price,weight
 FROM Supplier INNER JOIN Info
 ON Supplier.parent_id = Info.parent_id
@@ -1818,18 +1653,18 @@ SQL语法里面有一个专门的术语来形容上面的这个SELECT语句，�
 
 
 
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6"><span class="section-number-2">6</span> 视图</h2>
+<div class="outline-2">
+<h2 id="orgheadline36">视图</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 视图是虚拟的表，其自身并不包含数据，更确切来说只是一种检索手段。视图可以嵌套视图，但需要注意的是视图因为不包含数据，依赖于检索，所以过多使用视图会很降低性能。
 </p>
 </div>
 
-<div id="outline-container-sec-6-1" class="outline-3">
-<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 新建视图</h3>
+<div class="outline-3">
+<h3 id="orgheadline33">新建视图</h3>
 <div class="outline-text-3" id="text-6-1">
-<pre class="example">
+<pre>
 CREATE VIEW viewname AS 
 SELECT name id FROM Customers, Orders
 WHERE Customers.cust_id = Orders.cust_id
@@ -1837,17 +1672,17 @@ WHERE Customers.cust_id = Orders.cust_id
 </div>
 </div>
 
-<div id="outline-container-sec-6-2" class="outline-3">
-<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 删除视图</h3>
+<div class="outline-3">
+<h3 id="orgheadline34">删除视图</h3>
 <div class="outline-text-3" id="text-6-2">
-<pre class="example">
+<pre>
 DROP VIEW viewname;
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-6-3" class="outline-3">
-<h3 id="sec-6-3"><span class="section-number-3">6.3</span> 更新视图</h3>
+<div class="outline-3">
+<h3 id="orgheadline35">更新视图</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 只能通过先删除视图再新建视图的方式进行。
@@ -1860,23 +1695,19 @@ DROP VIEW viewname;
 
 
 
-<div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7"><span class="section-number-2">7</span> 附录</h2>
+<div class="outline-2">
+<h2 id="orgheadline38">附录</h2>
 <div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-sec-7-1" class="outline-3">
-<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 参考资料</h3>
+<div class="outline-3">
+<h3 id="orgheadline37">参考资料</h3>
 <div class="outline-text-3" id="text-7-1">
 <ol class="org-ol">
-<li>SQL必知必会 [英] Ben Forta 著， 钟鸣 刘晓霞等译。
-</li>
+<li>SQL必知必会 [英] Ben Forta 著， 钟鸣 刘晓霞等译。</li>
 </ol>
 </div>
 </div>
 </div>
 </div>
-<footer class="footer">
-<div class="container">
-<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-10-17 01:50.</p></div>
 </body>
 </html>

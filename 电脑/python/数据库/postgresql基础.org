@@ -2,7 +2,7 @@
 #+LATEX_CLASS_OPTIONS:[11pt,oneside]
 #+LATEX_HEADER: \usepackage{book}
 
-#+TITLE: 精通PostgreSQL
+#+TITLE: postgresql基础
 #+AUTHOR: 万泽(德山书生)
 #+CREATOR: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
 #+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
@@ -27,7 +27,7 @@ sudo  apt-get install postgresql
 postgresql处理我们通常所谓的登录用户或者其他用户概念的术语是Rules（英文的意思是一系列的规则），后面都称之为用户（rules），可以理解为为这个用户确立的一系列访问修改数据库的规则。然后rules是可以包含其他rules的，这个包含其他rules的rules我们通常称之为群组（group rules），然后群组也可以包含群组，但一般都推荐简单分为用户（rules）和群组用户（group rules）这两类。然后用户如果有登录权限的话则可以称之为登录用户（login rules），群组用户也可以赋予登录权限，但处于简单的考虑没谁这么做。所以现在rules简单的划分就分为这三类:
 
 1. 一般用户，这里主要指没有登录权限的一般用户。
-2. 登录用户，或叫做一般登录用户，其属于一般用户，但没有登录权限。
+2. 登录用户，或叫做一般登录用户，其属于一般用户，但有登录权限。
 3. 群组用户，包含一般用户的rules。
 
 此外postgresql还提供 *superuser* 超级用户这一类型，其默认不能登录（更确切的说是不可以连接，也不能通过psql来连接。），但对于数据库几乎拥有所有的权限——比如创建数据库，创建用户，对于数据库的查增删改等。实际上superuser也可以加上 ~login~ 属性，但非常不推荐这么做，最好是不使用超级用户，而是对于具体的用户具体的数据库权限进行分配。
