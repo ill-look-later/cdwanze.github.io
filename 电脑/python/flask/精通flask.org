@@ -7,7 +7,6 @@
 #+AUTHOR: 万泽(德山书生)
 #+CREATOR: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
 #+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
-#+INFOJS_OPT: view:showall 
 
 
 * 前言
@@ -407,6 +406,71 @@ app.logger.debug('A value for debugging')
 
 ** 文件上传
 具体例子请参看我写的 [[https://github.com/a358003542/flask-examples][flask-examples]] 那里，具体是 upload.py 。
+
+
+* 组织你的项目
+这里主要讨论更加成熟和稍微复杂点的那种做法。这个参看 [[http://spacewander.github.io/explore-flask-zh/4-organizing_your_project.html][这个网页]] 。
+
+#+BEGIN_EXAMPLE
+run.py
+instance/
+  /config.py
+project/
+  /__init__.py
+  /config.py
+  /views.py
+  /models.py
+  /forms.py
+  /static/
+  /templates/
+#+END_EXAMPLE
+
+~run.py~ 是作为启动开发服务器的脚本，里面内容一般很简单，大体是:
+#+BEGIN_SRC python
+from project import app
+
+if __name__ == '__main__':
+    app.run(debug=True)
+#+END_SRC
+
+然后 ~instance/config.py~ 里面一般放着密钥，不纳入git版本控制，具体就是在 ~.gitignore~ 文件里面加入 ~instance/~ 。这样的话为了保证远程服务器那边能够正常运行，你需要在那边手工添加这个文件夹和文件，然后在里面加入你的密钥。因为其没有进入版本控制，所以我们还需要加入另外一个不太重要的 ~config.py~ 文件，其放着关于flask app的不太重要的一些配置信息。然后推荐最后确认加上 ~debug=False~ ，确保生产环境debug模式没有打开。
+
+在project文件夹里面， ~static~ 文件夹和 ~templates~ 文件夹就如上这样放置，然后通过 ~run.py~ 来运行是可以正常启动的。而在生产环境下，比如通过gunicorn来启动flask的app，则执行如下命令:
+
+#+BEGIN_EXAMPLE
+gunicorn -w 4 -b localhost:8001 project:app
+#+END_EXAMPLE
+
+这样将直接调用你的project里面的app对象，并且没有打开debug。
+
+在project里面的那个config.py和instance里面的config我们如下引入进来，具体在project的 ~__init__.py~ 里面:
+#+BEGIN_EXAMPLE
+from flask import *
+app = Flask(__name__)
+app.config.from_pyfile('../instance/config.py')
+app.config.from_pyfile('config.py')
+#+END_EXAMPLE
+
+然后 ~views.py~ 和 ~models.py~ 里面的含义是很明显的，其中models.py里面一般定义一些数据库的模型，这个在project里面直接引入进来即可，而在 ~views.py~ 里面定义的一些视图函数我们也需要引入进来。这里值得一提的就是相对引入的用法:
+
+在project的 ~__init__.py~ 里面有:
+#+BEGIN_EXAMPLE
+#### more views
+from .views import *
+#+END_EXAMPLE
+
+在 ~views.py~ 里面有:
+#+BEGIN_EXAMPLE
+from flask import *
+from . import app
+
+@app.route('/')
+def index():
+    return render_template('index.html', **locals())
+#+END_EXAMPLE
+
+这种相对引入语法不支持直接运行脚本了，而需要在外面，通过 ~run.py~ 来运行，然后gunicorn那边也一切运行正常。
+
 
 
 * restful api设计

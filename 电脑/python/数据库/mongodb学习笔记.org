@@ -346,17 +346,35 @@ for doc in collection.find().sort('field', pymongo.ASCENDING):
 
 
 
-* mongodb集群服务器
+* 集群服务器
 连接集群服务器格式如下所示（参考了 [[http://stackoverflow.com/questions/13912765/how-do-you-connect-to-a-replicaset-from-a-mongodb-shell][这个网页]] ）:
 #+BEGIN_EXAMPLE
 mongo --host=inors0504/redstone:27019,ltprod01:27108,innoali02:27018
 #+END_EXAMPLE
 
-* mongodb的备份
+* 备份
 具体是利用mongodump命令来进行备份， ~--host~ 用来控制连接url， ~--db~ 用来控制具体备份那个数据库，还可以具体到某个collection。然后 ~-o~ 用来控制输出的备份文件夹名。
 #+BEGIN_EXAMPLE
 mongodump --host=atlas-04  --db=mls06085  -o mongodump_2015-07-29
 #+END_EXAMPLE
+
+* json格式问题
+请参看 [[http://stackoverflow.com/questions/16586180/typeerror-objectid-is-not-json-serializable][这个网页]] ，比如说你把mongodb里面的数据读出来了，然后可能有存入到json文件中去的需求，常规操作会出现这样的错误:
+#+BEGIN_EXAMPLE
+TypeError: ObjectId('') is not JSON serializable
+#+END_EXAMPLE
+
+上面的网页提到的自己添加json Encode的方法并不是很好，然后下面的一个答案不错，具体如下所示:
+#+BEGIN_EXAMPLE
+>>> from bson import Binary, Code
+>>> from bson.json_util import dumps
+>>> dumps([{'foo': [1, 2]},
+...        {'bar': {'hello': 'world'}},
+...        {'code': Code("function x() { return 1; }")},
+...        {'bin': Binary("")}])
+#+END_EXAMPLE
+
+更多细节请参看 [[http://api.mongodb.org/python/current/api/bson/json_util.html][这里]] ，这个bson也是pymongo模块里面的。
 
 * 参考资料
 1. mongodb and python, Author:Niall O’Higgins, year:2011 

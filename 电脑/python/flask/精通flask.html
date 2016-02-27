@@ -1,168 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-<title>精通flask框架</title>
-<!-- 2015-11-27 12:00 -->
+<!-- 2016-02-27 六 12:20 -->
 <meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>精通flask框架</title>
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="万泽(德山书生)">
 <meta  name="description" content="制作者邮箱：a358003542@gmail.com"
 >
-<style type="text/css"> /*
- * with_bootstrap.css
- *
- * Copyright 2015 wanze <a358003542@gmail.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- *
- *
- */
-
-@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-    margin: 0px;
-}
+<style type="text/css">
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    background-color: #f5f5f5;
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
 }
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-.container {
-  width: auto;
-  max-width: 750px;
-  padding: 0 15px;
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
 }
-.container .text-muted {
-  margin: 20px 0;
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
 }
 
-/* background-color: #f8f8f8; */
-.navbar-default{
-    background-color: #fff;
-}
-/*--------------------*/
-
-#content{
-    margin: 0 auto;
-    max-width: 750px;
-    padding: 17px;
-    line-height:160%;
-    font-size:16px;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-weight: 700;
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
-
-
-pre{line-height:180%;font-size:90%;}
-code,kbd,pre,samp {
-  font-family: monospace, serif;
-}
-
-code{  padding: 2px;}
-p{
-    text-indent:2em;/*段落缩进*/
-    line-height:180%;/*行间距*/
-    }
-
-.title{
+.title {
+    display: block;
     text-align: center;
-}
-.org-ol li , .org-ul li , org-dl dt{
-    margin-top: 0.5em; /*增大li之间的垂直space*/
-    margin-bottom: 0.5em; /*增大li之间的垂直space*/
-}
-p.verse{
-    margin-left: 3%;
-    text-indent:0em;
+    padding: 10px;
 }
 
-.right{
-    margin-left: auto;
-    margin-right: 0px;
-    text-align: right;
-}
-.left{
-    margin-left: 0px;
-    margin-right: auto;
-    text-align: left;
-}
-.center{
+.center-block {
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
 }
 
 .underline{
     text-decoration: underline;
 }
+   #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    /*word-wrap: break-word;*/
+    word-wrap: normal; /* horizontal scrolling */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
 
 video{
-    width: 750px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
 
 figure p{
-    text-indent:0em;/*段落缩进*/
+    text-indent:0em;
 }
 img{
-    max-width: 700px;
+    max-width: 95%;
 }
 
 figure{
     text-align: center;
-}
-
-table, th, td
-{
-    margin:0 auto;
-    min-width:2em;
-    text-align:center ;
-    padding: 5px;
-}
-
-table{
-    border-top: 2px solid ;
-    border-bottom: 2px solid ;
-}
-thead{
-    border-bottom: 1px solid ;
 }
 
 /*  class  */
@@ -188,352 +134,192 @@ thead{
 }
 
 /*
-http://thomasf.github.io/solarized-css/
+table
 */
-
-dfn {
-  font-style: italic;
-}
-dd{
-    margin-left:2em;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 16px 0;
+    empty-cells: show;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: table;
 }
 
-
-
-.tag {
-  background-color: #eee8d5;
-  color: #d33682;
-  padding: 0 0.2em;
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+table th,table td{
+    padding:8px;
 }
 
-
-.todo,
-.next,
-.done {
-  color: #fdf6e3;
-  background-color: #dc322f;
-  padding: 0 0.2em;
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
 }
-.tag {
-  -webkit-border-radius: 0.35em;
-  -moz-border-radius: 0.35em;
-  border-radius: 0.35em;
-}
-.TODO {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #2aa198;
-}
-.NEXT {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.ACTIVE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.DONE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-.WAITING {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #cb4b16;
-}
-.HOLD {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.NOTE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.CANCELLED {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-
-
-/*
-pygmentize -f html -S colorful -a .highlight
-*/
-
 .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #ffffff; }
-.highlight .c { color: #888888 } /* Comment */
-.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
-.highlight .k { color: #008800; font-weight: bold } /* Keyword */
-.highlight .o { color: #333333 } /* Operator */
-.highlight .cm { color: #888888 } /* Comment.Multiline */
-.highlight .cp { color: #557799 } /* Comment.Preproc */
-.highlight .c1 { color: #888888 } /* Comment.Single */
-.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #8f5902; font-style: italic } /* Comment */
+.highlight .err { color: #a40000; border: 1px solid #ef2929 } /* Error */
+.highlight .g { color: #000000 } /* Generic */
+.highlight .k { color: #204a87; font-weight: bold } /* Keyword */
+.highlight .l { color: #000000 } /* Literal */
+.highlight .n { color: #000000 } /* Name */
+.highlight .o { color: #ce5c00; font-weight: bold } /* Operator */
+.highlight .x { color: #000000 } /* Other */
+.highlight .p { color: #000000; font-weight: bold } /* Punctuation */
+.highlight .ch { color: #8f5902; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #8f5902; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #8f5902; font-style: italic } /* Comment.Preproc */
+.highlight .cpf { color: #8f5902; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #8f5902; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #8f5902; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #a40000 } /* Generic.Deleted */
+.highlight .ge { color: #000000; font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #ef2929 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .go { color: #000000; font-style: italic } /* Generic.Output */
+.highlight .gp { color: #8f5902 } /* Generic.Prompt */
+.highlight .gs { color: #000000; font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
-.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
-.highlight .s { background-color: #fff0f0 } /* Literal.String */
-.highlight .na { color: #0000CC } /* Name.Attribute */
-.highlight .nb { color: #007020 } /* Name.Builtin */
-.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
-.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
-.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
-.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
-.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
-.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #007700 } /* Name.Tag */
-.highlight .nv { color: #996633 } /* Name.Variable */
-.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
-.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
-.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
-.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
-.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
-.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
-.highlight .sc { color: #0044DD } /* Literal.String.Char */
-.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
-.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
-.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
-.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
-.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
-.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
-.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
-.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
-.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
-.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #336699 } /* Name.Variable.Class */
-.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
-.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
-.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
-
- </style>
-
-<script type="text/javascript" src="http://orgmode.org/org-info.js">
-/**
- *
- * @source: http://orgmode.org/org-info.js
- *
- * @licstart  The following is the entire license notice for the
- *  JavaScript code in http://orgmode.org/org-info.js.
- *
- * Copyright (C) 2012-2013 Free Software Foundation, Inc.
- *
- *
- * The JavaScript code in this tag is free software: you can
- * redistribute it and/or modify it under the terms of the GNU
- * General Public License (GNU GPL) as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option)
- * any later version.  The code is distributed WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
- *
- * As additional permission under GNU GPL version 3 section 7, you
- * may distribute non-source (e.g., minimized or compacted) forms of
- * that code without the copy of the GNU GPL normally required by
- * section 4, provided you include this license notice and a URL
- * through which recipients can access the Corresponding Source.
- *
- * @licend  The above is the entire license notice
- * for the JavaScript code in http://orgmode.org/org-info.js.
- *
- */
-</script>
-
-<script type="text/javascript">
-
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-
-<!--/*--><![CDATA[/*><!--*/
-org_html_manager.set("TOC_DEPTH", "5");
-org_html_manager.set("LINK_HOME", "");
-org_html_manager.set("LINK_UP", "");
-org_html_manager.set("LOCAL_TOC", "1");
-org_html_manager.set("VIEW_BUTTONS", "0");
-org_html_manager.set("MOUSE_HINT", "underline");
-org_html_manager.set("FIXED_TOC", "0");
-org_html_manager.set("TOC", "1");
-org_html_manager.set("VIEW", "showall");
-org_html_manager.setup();  // activate after the parameters are set
-/*]]>*///-->
-</script>
+.highlight .gt { color: #a40000; font-weight: bold } /* Generic.Traceback */
+.highlight .kc { color: #204a87; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #204a87; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #204a87; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #204a87; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #204a87; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #204a87; font-weight: bold } /* Keyword.Type */
+.highlight .ld { color: #000000 } /* Literal.Date */
+.highlight .m { color: #0000cf; font-weight: bold } /* Literal.Number */
+.highlight .s { color: #4e9a06 } /* Literal.String */
+.highlight .na { color: #c4a000 } /* Name.Attribute */
+.highlight .nb { color: #204a87 } /* Name.Builtin */
+.highlight .nc { color: #000000 } /* Name.Class */
+.highlight .no { color: #000000 } /* Name.Constant */
+.highlight .nd { color: #5c35cc; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #ce5c00 } /* Name.Entity */
+.highlight .ne { color: #cc0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #000000 } /* Name.Function */
+.highlight .nl { color: #f57900 } /* Name.Label */
+.highlight .nn { color: #000000 } /* Name.Namespace */
+.highlight .nx { color: #000000 } /* Name.Other */
+.highlight .py { color: #000000 } /* Name.Property */
+.highlight .nt { color: #204a87; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #000000 } /* Name.Variable */
+.highlight .ow { color: #204a87; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #f8f8f8; text-decoration: underline } /* Text.Whitespace */
+.highlight .mb { color: #0000cf; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #0000cf; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #0000cf; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000cf; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #0000cf; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { color: #4e9a06 } /* Literal.String.Backtick */
+.highlight .sc { color: #4e9a06 } /* Literal.String.Char */
+.highlight .sd { color: #8f5902; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4e9a06 } /* Literal.String.Double */
+.highlight .se { color: #4e9a06 } /* Literal.String.Escape */
+.highlight .sh { color: #4e9a06 } /* Literal.String.Heredoc */
+.highlight .si { color: #4e9a06 } /* Literal.String.Interpol */
+.highlight .sx { color: #4e9a06 } /* Literal.String.Other */
+.highlight .sr { color: #4e9a06 } /* Literal.String.Regex */
+.highlight .s1 { color: #4e9a06 } /* Literal.String.Single */
+.highlight .ss { color: #4e9a06 } /* Literal.String.Symbol */
+.highlight .bp { color: #3465a4 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #000000 } /* Name.Variable.Class */
+.highlight .vg { color: #000000 } /* Name.Variable.Global */
+.highlight .vi { color: #000000 } /* Name.Variable.Instance */
+.highlight .il { color: #0000cf; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body>
-<header class="header">
-<nav class="navbar navbar-default navbar-static-top"><div class="container">
-<div class="navbar-header">
-<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
-<div id="navbar">
-<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
-</div>
-</nav></header><div id="content">
+<div id="content">
+<header>
 <h1 class="title">精通flask框架</h1>
-<nav id="table-of-contents">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. 前言</a>
+<li><a href="#orgheadline2">1. 前言</a>
 <ul>
-<li><a href="#sec-1-1">1.1. 第一个例子</a></li>
+<li><a href="#orgheadline1">1.1. 第一个例子</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2. flask基础</a>
+<li><a href="#orgheadline27">2. flask基础</a>
 <ul>
-<li><a href="#sec-2-1">2.1. 路径分发和对应的视图函数</a>
+<li><a href="#orgheadline6">2.1. 路径分发和对应的视图函数</a>
 <ul>
-<li><a href="#sec-2-1-1">2.1.1. 路径分发带变量</a></li>
-<li><a href="#sec-2-1-2">2.1.2. 构建自己的刷url的参量类型</a></li>
-<li><a href="#sec-2-1-3">2.1.3. HTTP Methods</a></li>
+<li><a href="#orgheadline3">2.1.1. 路径分发带变量</a></li>
+<li><a href="#orgheadline4">2.1.2. 构建自己的刷url的参量类型</a></li>
+<li><a href="#orgheadline5">2.1.3. HTTP Methods</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-2">2.2. url_for函数</a></li>
-<li><a href="#sec-2-3">2.3. request对象</a></li>
-<li><a href="#sec-2-4">2.4. session对象和g对象和简单的登录机制</a>
+<li><a href="#orgheadline7">2.2. url_for函数</a></li>
+<li><a href="#orgheadline8">2.3. request对象</a></li>
+<li><a href="#orgheadline14">2.4. session对象和g对象和简单的登录机制</a>
 <ul>
-<li><a href="#sec-2-4-1">2.4.1. 测试用</a></li>
-<li><a href="#sec-2-4-2">2.4.2. 应用添加数据库</a></li>
-<li><a href="#sec-2-4-3">2.4.3. 应用用户登录识别</a></li>
-<li><a href="#sec-2-4-4">2.4.4. secret_key的设置</a></li>
-<li><a href="#sec-2-4-5">2.4.5. flash函数</a></li>
+<li><a href="#orgheadline9">2.4.1. 测试用</a></li>
+<li><a href="#orgheadline10">2.4.2. 应用添加数据库</a></li>
+<li><a href="#orgheadline11">2.4.3. 应用用户登录识别</a></li>
+<li><a href="#orgheadline12">2.4.4. secret_key的设置</a></li>
+<li><a href="#orgheadline13">2.4.5. flash函数</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-5">2.5. app的配置</a></li>
-<li><a href="#sec-2-6">2.6. jinja2模板</a></li>
-<li><a href="#sec-2-7">2.7. 静态文件</a></li>
-<li><a href="#sec-2-8">2.8. redirect函数</a></li>
-<li><a href="#sec-2-9">2.9. abort函数抛出某个异常</a>
+<li><a href="#orgheadline15">2.5. app的配置</a></li>
+<li><a href="#orgheadline16">2.6. jinja2模板</a></li>
+<li><a href="#orgheadline17">2.7. 静态文件</a></li>
+<li><a href="#orgheadline18">2.8. redirect函数</a></li>
+<li><a href="#orgheadline23">2.9. abort函数抛出某个异常</a>
 <ul>
-<li><a href="#sec-2-9-1">2.9.1. 404 Not Found</a></li>
-<li><a href="#sec-2-9-2">2.9.2. 403 Forbidden</a></li>
-<li><a href="#sec-2-9-3">2.9.3. 410 Gone</a></li>
-<li><a href="#sec-2-9-4">2.9.4. 500 Internal Server Error</a></li>
+<li><a href="#orgheadline19">2.9.1. 404 Not Found</a></li>
+<li><a href="#orgheadline20">2.9.2. 403 Forbidden</a></li>
+<li><a href="#orgheadline21">2.9.3. 410 Gone</a></li>
+<li><a href="#orgheadline22">2.9.4. 500 Internal Server Error</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-10">2.10. 异常捕捉</a></li>
-<li><a href="#sec-2-11">2.11. logger</a></li>
-<li><a href="#sec-2-12">2.12. 文件上传</a></li>
+<li><a href="#orgheadline24">2.10. 异常捕捉</a></li>
+<li><a href="#orgheadline25">2.11. logger</a></li>
+<li><a href="#orgheadline26">2.12. 文件上传</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">3. restful api设计</a>
+<li><a href="#orgheadline28">3. 组织你的项目</a></li>
+<li><a href="#orgheadline35">4. restful api设计</a>
 <ul>
-<li><a href="#sec-3-1">3.1. restful api简介</a>
+<li><a href="#orgheadline32">4.1. restful api简介</a>
 <ul>
-<li><a href="#sec-3-1-1">3.1.1. REST软件架构风格</a></li>
-<li><a href="#sec-3-1-2">3.1.2. REST系统设计规范</a></li>
-<li><a href="#sec-3-1-3">3.1.3. RESTful API</a></li>
+<li><a href="#orgheadline29">4.1.1. REST软件架构风格</a></li>
+<li><a href="#orgheadline30">4.1.2. REST系统设计规范</a></li>
+<li><a href="#orgheadline31">4.1.3. RESTful API</a></li>
 </ul>
 </li>
-<li><a href="#sec-3-2">3.2. 我对restful api的反思</a></li>
-<li><a href="#sec-3-3">3.3. flask-restful插件</a></li>
+<li><a href="#orgheadline33">4.2. 我对restful api的反思</a></li>
+<li><a href="#orgheadline34">4.3. flask-restful插件</a></li>
 </ul>
 </li>
-<li><a href="#sec-4">4. <span class="todo TODO">TODO</span> </a></li>
-<li><a href="#sec-5">5. 附录</a>
+<li><a href="#orgheadline36">5. <span class="todo nilTODO">TODO</span> </a></li>
+<li><a href="#orgheadline53">6. 附录</a>
 <ul>
-<li><a href="#sec-5-1">5.1. 用gunicorn和nginx配置</a></li>
-<li><a href="#sec-5-2">5.2. 在heroku上部署项目</a>
+<li><a href="#orgheadline37">6.1. 用gunicorn和nginx配置</a></li>
+<li><a href="#orgheadline46">6.2. 在heroku上部署项目</a>
 <ul>
-<li><a href="#sec-5-2-1">5.2.1. 指定python2或python3</a></li>
-<li><a href="#sec-5-2-2">5.2.2. 安装第三方模块</a></li>
-<li><a href="#sec-5-2-3">5.2.3. Procfile文件</a></li>
-<li><a href="#sec-5-2-4">5.2.4. hello.py文件</a></li>
-<li><a href="#sec-5-2-5">5.2.5. 安装heroku或者不？</a></li>
-<li><a href="#sec-5-2-6">5.2.6. 通过网页新建项目得到一个好名字</a></li>
-<li><a href="#sec-5-2-7">5.2.7. 或者更简单直接通过github来管理</a></li>
-<li><a href="#sec-5-2-8">5.2.8. 如何在heroku上加入数据库</a></li>
+<li><a href="#orgheadline38">6.2.1. 指定python2或python3</a></li>
+<li><a href="#orgheadline39">6.2.2. 安装第三方模块</a></li>
+<li><a href="#orgheadline40">6.2.3. Procfile文件</a></li>
+<li><a href="#orgheadline41">6.2.4. hello.py文件</a></li>
+<li><a href="#orgheadline42">6.2.5. 安装heroku或者不？</a></li>
+<li><a href="#orgheadline43">6.2.6. 通过网页新建项目得到一个好名字</a></li>
+<li><a href="#orgheadline44">6.2.7. 或者更简单直接通过github来管理</a></li>
+<li><a href="#orgheadline45">6.2.8. 如何在heroku上加入数据库</a></li>
 </ul>
 </li>
-<li><a href="#sec-5-3">5.3. 和apache2一起</a>
+<li><a href="#orgheadline51">6.3. 和apache2一起</a>
 <ul>
-<li><a href="#sec-5-3-1">5.3.1. 简单的apache2配置</a></li>
-<li><a href="#sec-5-3-2">5.3.2. Require做了什么</a></li>
-<li><a href="#sec-5-3-3">5.3.3. what.wsgi文件</a></li>
-<li><a href="#sec-5-3-4">5.3.4. 更复杂点的配置</a></li>
+<li><a href="#orgheadline47">6.3.1. 简单的apache2配置</a></li>
+<li><a href="#orgheadline48">6.3.2. Require做了什么</a></li>
+<li><a href="#orgheadline49">6.3.3. what.wsgi文件</a></li>
+<li><a href="#orgheadline50">6.3.4. 更复杂点的配置</a></li>
 </ul>
 </li>
-<li><a href="#sec-5-4">5.4. 参考资料</a></li>
+<li><a href="#orgheadline52">6.4. 参考资料</a></li>
 </ul>
 </li>
 </ul>
@@ -541,8 +327,8 @@ org_html_manager.setup();  // activate after the parameters are set
 </nav>
 
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> 前言</h2>
+<div class="outline-2">
+<h2 id="orgheadline2">前言</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 flask框架底层基于Werkzeug模块和jinja2模块，关于这两个模块的知识将另行讨论。当然本文一开始就假设读者至少已经算得上精通python语言了，然后对网络编程的一些基础知识已有所了解，那么我们继续吧。
@@ -550,21 +336,21 @@ flask框架底层基于Werkzeug模块和jinja2模块，关于这两个模块的�
 </div>
 
 
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 第一个例子</h3>
+<div class="outline-3">
+<h3 id="orgheadline1">第一个例子</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 安装推荐就简单用pip2或pip3安装之，然后一个简单的helloworld例子如下所示，读者可以先运行一下看看flask框架安装上去了没有。
 </p>
 
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">hello_world</span><span class="p">():</span>
-    <span class="k">return</span> <span class="s">&#39;Hello World!&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 
@@ -581,11 +367,11 @@ Flask类提供了所谓的Web Server Gateway Interface，也就是WSGI applicati
 
 
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> flask基础</h2>
+<div class="outline-2">
+<h2 id="orgheadline27">flask基础</h2>
 <div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 路径分发和对应的视图函数</h3>
+</div><div class="outline-3">
+<h3 id="orgheadline6">路径分发和对应的视图函数</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 在上面最简单的那个例子中，就已经包含了flask web框架的最核心部分。其包括如下任务: 第一，我们定义该网站的子路径（具体就是对应HTTP协议的GET方法）；第二，如果用户浏览器请求到该路径，那么我们应该给用户浏览器传回去点什么东西。
@@ -596,10 +382,10 @@ Flask类提供了所谓的Web Server Gateway Interface，也就是WSGI applicati
 </p>
 </div>
 
-<div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> 路径分发带变量</h4>
+<div class="outline-4">
+<h4 id="orgheadline3">路径分发带变量</h4>
 <div class="outline-text-4" id="text-2-1-1">
-<pre class="example">
+<pre>
 @app.route('/user/&lt;user&gt;')
 def get_user(user):
     return "user {}".format(user)
@@ -610,14 +396,10 @@ def get_user(user):
 </p>
 
 <dl class="org-dl">
-<dt> string </dt><dd>接受任意文本除了url的斜线"/"。
-</dd>
-<dt> int </dt><dd>整型
-</dd>
-<dt> float </dt><dd>浮点型
-</dd>
-<dt> path </dt><dd>类似string，不过也可以接受斜线"/"
-</dd>
+<dt>string</dt><dd>接受任意文本除了url的斜线"/"。</dd>
+<dt>int</dt><dd>整型</dd>
+<dt>float</dt><dd>浮点型</dd>
+<dt>path</dt><dd>类似string，不过也可以接受斜线"/"</dd>
 </dl>
 
 <p>
@@ -630,8 +412,8 @@ def get_user(user):
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-2" class="outline-4">
-<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> 构建自己的刷url的参量类型</h4>
+<div class="outline-4">
+<h4 id="orgheadline4">构建自己的刷url的参量类型</h4>
 <div class="outline-text-4" id="text-2-1-2">
 <p>
 path类型已经可以接受斜线了，所以只适合某个子节点下面全是路径的情况，如 <code>/dir/some/path</code> ，因为后面所有的子节点都将传入到那个path参量上去。然后就是虽然flask也允许 <code>/project/</code> 这样的url，而且具体和 <code>/project</code> 是两个不同的url，我很不喜欢这种url，实际上我们应该完全避免 <code>/</code> 结尾的url的情况，包括restful api里面也是。
@@ -640,7 +422,7 @@ path类型已经可以接受斜线了，所以只适合某个子节点下面全�
 <p>
 然后就是我们可以深度定制自己的刷url的参量类型。比如:
 </p>
-<pre class="example">
+<pre>
 from werkzeug.routing import BaseConverter
 
 class ListConverter(BaseConverter):
@@ -665,33 +447,33 @@ app.url_map.converters['list'] = ListConverter
 </div>
 
 
-<div id="outline-container-sec-2-1-3" class="outline-4">
-<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> HTTP Methods</h4>
+<div class="outline-4">
+<h4 id="orgheadline5">HTTP Methods</h4>
 <div class="outline-text-4" id="text-2-1-3">
 <p>
 如下所示:
 </p>
-<pre class="example">
+<pre>
 @app.route('/login', methods=['GET', 'POST'])
 </pre>
 <p>
 你可以在分发URL的时候，确定该URL要处理的一些HTTP方法。如果你不加上 <strong>methods</strong> 参数，那么默认是GET方法，而多个方法你需要如下来确定具体视图函数等下要处理的HTTP方法类型:
 </p>
-<pre class="example">
+<pre>
 if request.method == 'POST':
 </pre>
 
 <p>
 这个 <strong>request</strong> 参量是每个视图函数自动都会接受的一个变量。这个 <strong>request</strong> 变量是个非常重要的概念，请看下面这个小例子:
 </p>
-<div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;GET&#39;</span><span class="p">,</span><span class="s">&#39;POST&#39;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;GET&#39;</span><span class="p">:</span>
-        <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;query&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;query&#39;</span><span class="p">)</span>
 
         <span class="o">...</span>
 
-        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;index.html&#39;</span><span class="p">,</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
 </pre></div>
 
 <p>
@@ -702,13 +484,13 @@ if request.method == 'POST':
 </div>
 
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> url_for函数</h3>
+<div class="outline-3">
+<h3 id="orgheadline7">url_for函数</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 <code>url_for</code> 函数是一个很有用的函数，你在jinja2模板系统里面也是可以继续使用的。比如你定义的视图函数
 </p>
-<pre class="example">
+<pre>
 @app.route('/')
 def index():
     return 'hello'
@@ -721,7 +503,7 @@ def index():
 <p>
 再比如你定义的视图函数里面有参量:
 </p>
-<pre class="example">
+<pre>
 @app.route('/user/&lt;int:userid&gt;')
 def user(userid):
     return str(userid)
@@ -738,25 +520,25 @@ def user(userid):
 然后比如说利用 flask-restful 插件搭建你的restful api ，其中有个设置 <code>endpoint</code> 的参数，你可以用那里具体设置的endpoint的名字来对应该api的url，如:
 </p>
 
-<pre class="example">
+<pre>
 api.add_resource(FoldersAPI,'/api/v1/folders',endpoint='folders')
 </pre>
 
 <p>
 对应的就是 <code>url_for('folders')</code> ，然后值得一提的是，这生成的是相对主站的相对路径，如这样的形式 <code>/api/v1/folders</code> ，我不清楚ajax技术会如何，但如果你使用requests模块来进行请求的话，则需要加上 <code>_external</code> 选项:
 </p>
-<pre class="example">
+<pre>
 requests.get(url_for('get_subfolders',path=path,_external=True))
 </pre>
 
 <p>
 然后如果你加入的其他参数没有在url里面的话则会作为查询参数加入进构建的url中。
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; @app.route('/login')
 ... def login(): pass
 </pre>
-<pre class="example">
+<pre>
 ...  print url_for('login', next='/')
 /login?next=/
 </pre>
@@ -765,8 +547,8 @@ requests.get(url_for('get_subfolders',path=path,_external=True))
 
 
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> request对象</h3>
+<div class="outline-3">
+<h3 id="orgheadline8">request对象</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 因为request对象在flask框架中非常重要，而且里面的变量的值flask都会自动帮你处理好，下面详细介绍之（更多信息请参看<a href="https://flask.readthedocs.org/en/latest/api/#flask.Request">这里</a>）:
@@ -777,45 +559,32 @@ request对象是一个请求上下文环境下的变量，也就是每一个不�
 </p>
 
 <dl class="org-dl">
-<dt> form </dt><dd>在网页表单中通过定义 <code>value</code> 可以获得一个变量，具体填入的值可以通过 <code>request.form.get('what')</code> 来获得。 
-</dd>
-<dt> files </dt><dd>网页表单中上传文件的input <code>type=file</code> 将传到这里。具体返回对象和python的文件对象类似，除了还提供额外的 <code>save</code> 方法用于保存文件。
-</dd>
-<dt> args </dt><dd>就是URL中各个参数。
-</dd>
-<dt> values </dt><dd>相当于上面谈及的form和args这两个字典的合并字典
-</dd>
+<dt>form</dt><dd>在网页表单中通过定义 <code>value</code> 可以获得一个变量，具体填入的值可以通过 <code>request.form.get('what')</code> 来获得。</dd>
+<dt>files</dt><dd>网页表单中上传文件的input <code>type=file</code> 将传到这里。具体返回对象和python的文件对象类似，除了还提供额外的 <code>save</code> 方法用于保存文件。</dd>
+<dt>args</dt><dd>就是URL中各个参数。</dd>
+<dt>values</dt><dd>相当于上面谈及的form和args这两个字典的合并字典</dd>
 
-<dt> cookies </dt><dd>一个字典值，request传输的cookies值 
-</dd>
-<dt> headers </dt><dd>字典值，request请求的headers
-</dd>
+<dt>cookies</dt><dd>一个字典值，request传输的cookies值</dd>
+<dt>headers</dt><dd>字典值，request请求的headers</dd>
 </dl>
 
 
 <dl class="org-dl">
-<dt> get_json </dt><dd>request的data如果mimetype是json时（ <code>application/json</code> ），接受之后会自动刷成字典值。如果设置 <code>force=True</code> ，那么就算mimetype不是json也如此强制执行。
-</dd>
-<dt> is_json </dt><dd>判断请求发送的数据是否是json格式。
-</dd>
-<dt> data </dt><dd>处理request过来的data，如果请求体发送过来的mimetype是json，那么推荐用 <code>get_json</code> 方法来处理之。否则用这个 <code>request.data</code> 将不做任何处理只是返回字符串。
-</dd>
+<dt>get_json</dt><dd>request的data如果mimetype是json时（ <code>application/json</code> ），接受之后会自动刷成字典值。如果设置 <code>force=True</code> ，那么就算mimetype不是json也如此强制执行。</dd>
+<dt>is_json</dt><dd>判断请求发送的数据是否是json格式。</dd>
+<dt>data</dt><dd>处理request过来的data，如果请求体发送过来的mimetype是json，那么推荐用 <code>get_json</code> 方法来处理之。否则用这个 <code>request.data</code> 将不做任何处理只是返回字符串。</dd>
 
-<dt> max_content_length </dt><dd>HTTP协议里面的 <code>MAX_CONTENT_LENGTH</code> 字段值，也就是发送的content的size。具体文件上传情况和json处理情况后面到时再详细讨论之。
-</dd>
-<dt> method </dt><dd>POST GET等 
-</dd>
-<dt> path </dt><dd>具体分发的路径，也就是 <code>@route</code> 的第一个参数。这里值得一提的是如果用gunicorn和nginx这样的架构，具体server_name的解析会出错，如果你想要表达当前url，用 <code>request.url</code> 可能不是你希望的结果，推荐使用 <code>request.path</code> 这样的相对表达方式。
-</dd>
-<dt> url </dt><dd>完整url
-</dd>
+<dt>max_content_length</dt><dd>HTTP协议里面的 <code>MAX_CONTENT_LENGTH</code> 字段值，也就是发送的content的size。具体文件上传情况和json处理情况后面到时再详细讨论之。</dd>
+<dt>method</dt><dd>POST GET等</dd>
+<dt>path</dt><dd>具体分发的路径，也就是 <code>@route</code> 的第一个参数。这里值得一提的是如果用gunicorn和nginx这样的架构，具体server_name的解析会出错，如果你想要表达当前url，用 <code>request.url</code> 可能不是你希望的结果，推荐使用 <code>request.path</code> 这样的相对表达方式。</dd>
+<dt>url</dt><dd>完整url</dd>
 </dl>
 </div>
 </div>
 
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> session对象和g对象和简单的登录机制</h3>
+<div class="outline-3">
+<h3 id="orgheadline14">session对象和g对象和简单的登录机制</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 每一个请求都会自动新建一个request对象，这是容易理解的，此外每一个视图函数里面还可以使用 <code>flask.session</code> 和 <code>flask.g</code> 这两个变量。要深刻理解这两个变量就需要理解flask的两种环境: 应用环境和请求环境。
@@ -824,7 +593,7 @@ request对象是一个请求上下文环境下的变量，也就是每一个不�
 <p>
 我们看到flask与之相关的 <code>globals.py</code> 的源码:
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">werkzeug.local</span> <span class="kn">import</span> <span class="n">LocalStack</span><span class="p">,</span> <span class="n">LocalProxy</span>
 
 <span class="k">def</span> <span class="nf">_lookup_req_object</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -848,13 +617,13 @@ request对象是一个请求上下文环境下的变量，也就是每一个不�
     <span class="k">return</span> <span class="n">top</span><span class="o">.</span><span class="n">app</span>
 
 
-<span class="c"># context locals</span>
+<span class="c1"># context locals</span>
 <span class="n">_request_ctx_stack</span> <span class="o">=</span> <span class="n">LocalStack</span><span class="p">()</span>
 <span class="n">_app_ctx_stack</span> <span class="o">=</span> <span class="n">LocalStack</span><span class="p">()</span>
 <span class="n">current_app</span> <span class="o">=</span> <span class="n">LocalProxy</span><span class="p">(</span><span class="n">_find_app</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">LocalProxy</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_lookup_req_object</span><span class="p">,</span> <span class="s">&#39;request&#39;</span><span class="p">))</span>
-<span class="n">session</span> <span class="o">=</span> <span class="n">LocalProxy</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_lookup_req_object</span><span class="p">,</span> <span class="s">&#39;session&#39;</span><span class="p">))</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">LocalProxy</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_lookup_app_object</span><span class="p">,</span> <span class="s">&#39;g&#39;</span><span class="p">))</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">LocalProxy</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_lookup_req_object</span><span class="p">,</span> <span class="s1">&#39;request&#39;</span><span class="p">))</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">LocalProxy</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_lookup_req_object</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">))</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">LocalProxy</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_lookup_app_object</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">))</span>
 </pre></div>
 
 <p>
@@ -890,14 +659,14 @@ Werkzeug provides its own implementation of local data storage called werkzeug.l
 </div>
 
 
-<div id="outline-container-sec-2-4-1" class="outline-4">
-<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> 测试用</h4>
+<div class="outline-4">
+<h4 id="orgheadline9">测试用</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <p>
 在测试的时候你需要自己创建一个应用上下文环境，然后请求通过requests模块来做。如下所示，调用 <code>app.app_content()</code> :
 </p>
 
-<pre class="example">
+<pre>
 from flask import Flask, current_app
 
 app = Flask(__name__)
@@ -909,13 +678,13 @@ with app.app_context():
 </div>
 
 
-<div id="outline-container-sec-2-4-2" class="outline-4">
-<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> 应用添加数据库</h4>
+<div class="outline-4">
+<h4 id="orgheadline10">应用添加数据库</h4>
 <div class="outline-text-4" id="text-2-4-2">
 <p>
 这个例子来自官方文档:
 </p>
-<pre class="example">
+<pre>
 import sqlite3
 from flask import g
 
@@ -939,10 +708,10 @@ def teardown_db(exception):
 </div>
 
 
-<div id="outline-container-sec-2-4-3" class="outline-4">
-<h4 id="sec-2-4-3"><span class="section-number-4">2.4.3</span> 应用用户登录识别</h4>
+<div class="outline-4">
+<h4 id="orgheadline11">应用用户登录识别</h4>
 <div class="outline-text-4" id="text-2-4-3">
-<pre class="example">
+<pre>
 @app.before_request
 def get_current_user():
     g.user = None
@@ -957,20 +726,20 @@ def get_current_user():
 </div>
 </div>
 
-<div id="outline-container-sec-2-4-4" class="outline-4">
-<h4 id="sec-2-4-4"><span class="section-number-4">2.4.4</span> secret_key的设置</h4>
+<div class="outline-4">
+<h4 id="orgheadline12">secret_key的设置</h4>
 <div class="outline-text-4" id="text-2-4-4">
 <p>
 你需要为你的session的cookies设置一个密钥，就像这样:
 </p>
-<pre class="example">
+<pre>
 app.secret_key = 'what...'
 </pre>
 
 <p>
 可以通过这样获得:
 </p>
-<pre class="example">
+<pre>
 &gt;&gt;&gt; import os
 &gt;&gt;&gt; os.urandom(24)
 </pre>
@@ -983,8 +752,8 @@ app.secret_key = 'what...'
 
 
 
-<div id="outline-container-sec-2-4-5" class="outline-4">
-<h4 id="sec-2-4-5"><span class="section-number-4">2.4.5</span> flash函数</h4>
+<div class="outline-4">
+<h4 id="orgheadline13">flash函数</h4>
 <div class="outline-text-4" id="text-2-4-5">
 <p>
 具体登录的例子请参看  <a href="https://github.com/a358003542/flask-examples">flask-examples</a> 的 <code>session_flash.py</code> 。
@@ -1000,24 +769,19 @@ app.secret_key = 'what...'
 
 
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5"><span class="section-number-3">2.5</span> app的配置</h3>
+<div class="outline-3">
+<h3 id="orgheadline15">app的配置</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 前面也接触过一些了，比如 <code>app.config['DEBUG'] = True</code> ，这个 <code>app.config</code> 是一个类似字典对象的对象。一些重要的配置下面列出来，更多的请参看 <a href="http://docs.jinkan.org/docs/flask/config.html">这个网页</a> 。
 </p>
 
 <dl class="org-dl">
-<dt> DEBUG </dt><dd>调试模式
-</dd>
-<dt> SECRET_KEY </dt><dd>密钥
-</dd>
-<dt> SERVER_NAME </dt><dd>服务器名和端口，如果你想让flask支持子域名，则需要设置这个。
-</dd>
-<dt> SEND_FILE_MAX_AGE_DEFAULT </dt><dd>缓存控制的最大期限，默认是12小时。
-</dd>
-<dt> MAX_CONTENT_LENGTH </dt><dd>最大content长度，当你需要上传和下载文件的时候，最好把这个设置得大一点。
-</dd>
+<dt>DEBUG</dt><dd>调试模式</dd>
+<dt>SECRET_KEY</dt><dd>密钥</dd>
+<dt>SERVER_NAME</dt><dd>服务器名和端口，如果你想让flask支持子域名，则需要设置这个。</dd>
+<dt>SEND_FILE_MAX_AGE_DEFAULT</dt><dd>缓存控制的最大期限，默认是12小时。</dd>
+<dt>MAX_CONTENT_LENGTH</dt><dd>最大content长度，当你需要上传和下载文件的时候，最好把这个设置得大一点。</dd>
 </dl>
 </div>
 </div>
@@ -1025,16 +789,15 @@ app.secret_key = 'what...'
 
 
 
-<div id="outline-container-sec-2-6" class="outline-3">
-<h3 id="sec-2-6"><span class="section-number-3">2.6</span> jinja2模板</h3>
+<div class="outline-3">
+<h3 id="orgheadline16">jinja2模板</h3>
 <div class="outline-text-3" id="text-2-6">
 <p>
 具体jinja2模块的基本知识这里就不说了，这里主要说一下jinja2模板系统在flask框架中额外的东西。
 </p>
 
 <ol class="org-ol">
-<li>config
-</li>
+<li>config</li>
 </ol>
 
 <p>
@@ -1065,20 +828,20 @@ flask.get_flashed_messages() 函数
 </div>
 
 
-<div id="outline-container-sec-2-7" class="outline-3">
-<h3 id="sec-2-7"><span class="section-number-3">2.7</span> 静态文件</h3>
+<div class="outline-3">
+<h3 id="orgheadline17">静态文件</h3>
 <div class="outline-text-3" id="text-2-7">
 <p>
 静态文件有很多解决方案，比如说在你的flask项目里面新建一个 <strong>static</strong> 文件夹，然后在css文件夹里面要引用"boostrap.min.css"文件，那么可以在模板文件中如下引用之:
 </p>
-<pre class="example">
+<pre>
 &lt;link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}"&gt;
 </pre>
 
 <p>
 如果你打开网页，可以看作最终生成的实际是这样的形式:
 </p>
-<pre class="example">
+<pre>
 &lt;link rel="stylesheet" href="/static/css/bootstrap.min.css"&gt;
 </pre>
 
@@ -1089,14 +852,14 @@ flask.get_flashed_messages() 函数
 <p>
 然后就是模板文件，你需要在你的flask项目中新建一个 <strong>templates</strong> 文件，然后在里面新建一个index.html文件，那么通过 <code>render_template</code> 渲染该文件时你只需要写上"index.html"文件即可，具体如下所示:
 </p>
-<pre class="example">
+<pre>
 render_template('index.html')
 </pre>
 
 <p>
 <code>render_template</code> 函数后面接受的参数都将刷入模板系统，一个不错的做法如下所示:
 </p>
-<pre class="example">
+<pre>
 render_template('index.html', **locals())
 </pre>
 <p>
@@ -1106,13 +869,13 @@ render_template('index.html', **locals())
 </div>
 
 
-<div id="outline-container-sec-2-8" class="outline-3">
-<h3 id="sec-2-8"><span class="section-number-3">2.8</span> redirect函数</h3>
+<div class="outline-3">
+<h3 id="orgheadline18">redirect函数</h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 页面重定向函数。
 </p>
-<pre class="example">
+<pre>
 @app.route('/')
 def index():
     return redirect(url_for('login'))
@@ -1121,20 +884,20 @@ def index():
 </div>
 
 
-<div id="outline-container-sec-2-9" class="outline-3">
-<h3 id="sec-2-9"><span class="section-number-3">2.9</span> abort函数抛出某个异常</h3>
+<div class="outline-3">
+<h3 id="orgheadline23">abort函数抛出某个异常</h3>
 <div class="outline-text-3" id="text-2-9">
 <p>
 抛出某个HTTP状态异常
 </p>
-<pre class="example">
+<pre>
 abort(404)
 </pre>
 </div>
 
 
-<div id="outline-container-sec-2-9-1" class="outline-4">
-<h4 id="sec-2-9-1"><span class="section-number-4">2.9.1</span> 404 Not Found</h4>
+<div class="outline-4">
+<h4 id="orgheadline19">404 Not Found</h4>
 <div class="outline-text-4" id="text-2-9-1">
 <p>
 经典的“哎呦，您输入的 URL 当中有错误”消息。这个消息太常见了，即使是 互联网的新手也知道 404 代号的意义: 该死，我寻找的东西不在那儿。确保 404 页面上有一些有用的信息是一个好主意，至少应该提供一个返回主页的链接。
@@ -1142,8 +905,8 @@ abort(404)
 </div>
 </div>
 
-<div id="outline-container-sec-2-9-2" class="outline-4">
-<h4 id="sec-2-9-2"><span class="section-number-4">2.9.2</span> 403 Forbidden</h4>
+<div class="outline-4">
+<h4 id="orgheadline20">403 Forbidden</h4>
 <div class="outline-text-4" id="text-2-9-2">
 <p>
 如果您的网站包含一些类型的访问控制，您必须向非法的请求返回 403 错误代号。 所以请确保用户不会在试图访问了一个禁止访问的资源后不知所措。
@@ -1151,8 +914,8 @@ abort(404)
 </div>
 </div>
 
-<div id="outline-container-sec-2-9-3" class="outline-4">
-<h4 id="sec-2-9-3"><span class="section-number-4">2.9.3</span> 410 Gone</h4>
+<div class="outline-4">
+<h4 id="orgheadline21">410 Gone</h4>
 <div class="outline-text-4" id="text-2-9-3">
 <p>
 您知道 404 Not Found 代号还有一个兄弟名为 410 Gone 么? 很少有人真正实现 它，您可以考虑将其返回给对以前曾经存在、但是现在已经删除的资源的请求，而 不是直接返回 404 。 如果您还没有从数据库里永久删除这个文档，仅仅是将他们 标记为删除。那么可以为用户展示一个消息，说明他们寻找的东西已经永远删除了。
@@ -1160,8 +923,8 @@ abort(404)
 </div>
 </div>
 
-<div id="outline-container-sec-2-9-4" class="outline-4">
-<h4 id="sec-2-9-4"><span class="section-number-4">2.9.4</span> 500 Internal Server Error</h4>
+<div class="outline-4">
+<h4 id="orgheadline22">500 Internal Server Error</h4>
 <div class="outline-text-4" id="text-2-9-4">
 <p>
 通常在出现编程错误或者服务器过载的时候会返回这个错误代号。在这里放一个 漂亮的页面是一个非常好的主意。因为您的应用 总有一天 会出现错误(请参考 记录应用错误 )
@@ -1170,25 +933,25 @@ abort(404)
 </div>
 </div>
 
-<div id="outline-container-sec-2-10" class="outline-3">
-<h3 id="sec-2-10"><span class="section-number-3">2.10</span> 异常捕捉</h3>
+<div class="outline-3">
+<h3 id="orgheadline24">异常捕捉</h3>
 <div class="outline-text-3" id="text-2-10">
 <p>
 如下所示:
 </p>
-<div class="highlight"><pre><span class="nd">@app.errorhandler</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nd">@app.errorhandler</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">page_not_found</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;404.html&#39;</span><span class="p">),</span> <span class="mi">404</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;404.html&#39;</span><span class="p">),</span> <span class="mi">404</span>
 </pre></div>
 </div>
 </div>
 
 
 
-<div id="outline-container-sec-2-11" class="outline-3">
-<h3 id="sec-2-11"><span class="section-number-3">2.11</span> logger</h3>
+<div class="outline-3">
+<h3 id="orgheadline25">logger</h3>
 <div class="outline-text-3" id="text-2-11">
-<pre class="example">
+<pre>
 app.logger.debug('A value for debugging')
 </pre>
 </div>
@@ -1196,8 +959,8 @@ app.logger.debug('A value for debugging')
 
 
 
-<div id="outline-container-sec-2-12" class="outline-3">
-<h3 id="sec-2-12"><span class="section-number-3">2.12</span> 文件上传</h3>
+<div class="outline-3">
+<h3 id="orgheadline26">文件上传</h3>
 <div class="outline-text-3" id="text-2-12">
 <p>
 具体例子请参看我写的 <a href="https://github.com/a358003542/flask-examples">flask-examples</a> 那里，具体是 upload.py 。
@@ -1207,50 +970,132 @@ app.logger.debug('A value for debugging')
 </div>
 
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> restful api设计</h2>
+<div class="outline-2">
+<h2 id="orgheadline28">组织你的项目</h2>
 <div class="outline-text-2" id="text-3">
+<p>
+这里主要讨论更加成熟和稍微复杂点的那种做法。这个参看 <a href="http://spacewander.github.io/explore-flask-zh/4-organizing_your_project.html">这个网页</a> 。
+</p>
+
+<pre>
+run.py
+instance/
+  /config.py
+project/
+  /__init__.py
+  /config.py
+  /views.py
+  /models.py
+  /forms.py
+  /static/
+  /templates/
+</pre>
+
+<p>
+<code>run.py</code> 是作为启动开发服务器的脚本，里面内容一般很简单，大体是:
+</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">project</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+<p>
+然后 <code>instance/config.py</code> 里面一般放着密钥，不纳入git版本控制，具体就是在 <code>.gitignore</code> 文件里面加入 <code>instance/</code> 。这样的话为了保证远程服务器那边能够正常运行，你需要在那边手工添加这个文件夹和文件，然后在里面加入你的密钥。因为其没有进入版本控制，所以我们还需要加入另外一个不太重要的 <code>config.py</code> 文件，其放着关于flask app的不太重要的一些配置信息。然后推荐最后确认加上 <code>debug=False</code> ，确保生产环境debug模式没有打开。
+</p>
+
+<p>
+在project文件夹里面， <code>static</code> 文件夹和 <code>templates</code> 文件夹就如上这样放置，然后通过 <code>run.py</code> 来运行是可以正常启动的。而在生产环境下，比如通过gunicorn来启动flask的app，则执行如下命令:
+</p>
+
+<pre>
+gunicorn -w 4 -b localhost:8001 project:app
+</pre>
+
+<p>
+这样将直接调用你的project里面的app对象，并且没有打开debug。
+</p>
+
+<p>
+在project里面的那个config.py和instance里面的config我们如下引入进来，具体在project的 <code>__init__.py</code> 里面:
+</p>
+<pre>
+from flask import *
+app = Flask(__name__)
+app.config.from_pyfile('../instance/config.py')
+app.config.from_pyfile('config.py')
+</pre>
+
+<p>
+然后 <code>views.py</code> 和 <code>models.py</code> 里面的含义是很明显的，其中models.py里面一般定义一些数据库的模型，这个在project里面直接引入进来即可，而在 <code>views.py</code> 里面定义的一些视图函数我们也需要引入进来。这里值得一提的就是相对引入的用法:
+</p>
+
+<p>
+在project的 <code>__init__.py</code> 里面有:
+</p>
+<pre>
+#### more views
+from .views import *
+</pre>
+
+<p>
+在 <code>views.py</code> 里面有:
+</p>
+<pre>
+from flask import *
+from . import app
+
+@app.route('/')
+def index():
+    return render_template('index.html', **locals())
+</pre>
+
+<p>
+这种相对引入语法不支持直接运行脚本了，而需要在外面，通过 <code>run.py</code> 来运行，然后gunicorn那边也一切运行正常。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline35">restful api设计</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 这里主要参看了 <a href="http://www.pythondoc.com/flask-restful/index.html">这个网页</a> ，但原创者在 <a href="https://github.com/sixu05202004/Flask-RESTful-cn">这里</a> 。
 </p>
 </div>
 
-<div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> restful api简介</h3>
-<div class="outline-text-3" id="text-3-1">
-</div><div id="outline-container-sec-3-1-1" class="outline-4">
-<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> REST软件架构风格</h4>
-<div class="outline-text-4" id="text-3-1-1">
+<div class="outline-3">
+<h3 id="orgheadline32">restful api简介</h3>
+<div class="outline-text-3" id="text-4-1">
+</div><div class="outline-4">
+<h4 id="orgheadline29">REST软件架构风格</h4>
+<div class="outline-text-4" id="text-4-1-1">
 <p>
 REST(Representational State Transfer) 表征性状态传输是Roy Fielding在2000年提出的一种软件架构风格。目前在三种主流Web服务实现方案中，因为REST模式和复杂的SOAP和XML-RPC相比更加简洁，越来越多的web服务开始采用REST风格设计和实现。
 </p>
 </div>
 </div>
 
-<div id="outline-container-sec-3-1-2" class="outline-4">
-<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> REST系统设计规范</h4>
-<div class="outline-text-4" id="text-3-1-2">
+<div class="outline-4">
+<h4 id="orgheadline30">REST系统设计规范</h4>
+<div class="outline-text-4" id="text-4-1-2">
 <dl class="org-dl">
-<dt> 客户端-服务器 </dt><dd>客户端和服务器之间隔离，服务器提供服务，客户端进行消费。
-</dd>
-<dt> 无状态 </dt><dd>从客户端到服务器的每个请求都必须包含理解请求所必需的信息。换句话说，服务器不会存储客户端上一次请求的信息用来给下一次使用。
-</dd>
-<dt> 可缓存 </dt><dd>服务器必须明示客户端请求能否缓存。
-</dd>
-<dt> 分层系统 </dt><dd>客户端和服务器之间的通信应该以一种标准的方式，就是中间层代替服务器做出响应的时候，客户端不需要做任何变动。
-</dd>
-<dt> 统一的接口 </dt><dd>服务器和客户端的通信方法必须是统一的。
-</dd>
-<dt> 按需编码 </dt><dd>服务器可以提供可执行代码或脚本，为客户端在它们的环境中执行。这个约束是唯一一个是可选的。
-</dd>
+<dt>客户端-服务器</dt><dd>客户端和服务器之间隔离，服务器提供服务，客户端进行消费。</dd>
+<dt>无状态</dt><dd>从客户端到服务器的每个请求都必须包含理解请求所必需的信息。换句话说，服务器不会存储客户端上一次请求的信息用来给下一次使用。</dd>
+<dt>可缓存</dt><dd>服务器必须明示客户端请求能否缓存。</dd>
+<dt>分层系统</dt><dd>客户端和服务器之间的通信应该以一种标准的方式，就是中间层代替服务器做出响应的时候，客户端不需要做任何变动。</dd>
+<dt>统一的接口</dt><dd>服务器和客户端的通信方法必须是统一的。</dd>
+<dt>按需编码</dt><dd>服务器可以提供可执行代码或脚本，为客户端在它们的环境中执行。这个约束是唯一一个是可选的。</dd>
 </dl>
 </div>
 </div>
 
 
-<div id="outline-container-sec-3-1-3" class="outline-4">
-<h4 id="sec-3-1-3"><span class="section-number-4">3.1.3</span> RESTful API</h4>
-<div class="outline-text-4" id="text-3-1-3">
+<div class="outline-4">
+<h4 id="orgheadline31">RESTful API</h4>
+<div class="outline-text-4" id="text-4-1-3">
 <p>
 符合REST设计风格的Web API称为RESTful API。RESTful API的核心概念是 <strong>资源</strong> 。资源可用URI表示，客户端用HTTP协议所定义的方法来请求这些URIs，当然也包括被访问资源状态的改变。
 </p>
@@ -1263,48 +1108,48 @@ REST(Representational State Transfer) 表征性状态传输是Roy Fielding在200
 
 
 <colgroup>
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 
-<col  class="left">
+<col  class="org-left">
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">HTTP方法</th>
-<th scope="col" class="left">行为</th>
-<th scope="col" class="left">URI示例</th>
+<th scope="col" class="org-left">HTTP方法</th>
+<th scope="col" class="org-left">行为</th>
+<th scope="col" class="org-left">URI示例</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="left">GET</td>
-<td class="left">获取资源信息</td>
-<td class="left"><a href="http://example.com/api/orders">http://example.com/api/orders</a></td>
+<td class="org-left">GET</td>
+<td class="org-left">获取资源信息</td>
+<td class="org-left"><a href="http://example.com/api/orders">http://example.com/api/orders</a></td>
 </tr>
 
 <tr>
-<td class="left">GET</td>
-<td class="left">获取某个特定资源</td>
-<td class="left"><a href="http://example.com/api/orders/123">http://example.com/api/orders/123</a></td>
+<td class="org-left">GET</td>
+<td class="org-left">获取某个特定资源</td>
+<td class="org-left"><a href="http://example.com/api/orders/123">http://example.com/api/orders/123</a></td>
 </tr>
 
 <tr>
-<td class="left">POST</td>
-<td class="left">创建新的资源</td>
-<td class="left"><a href="http://example.com/api/orders">http://example.com/api/orders</a></td>
+<td class="org-left">POST</td>
+<td class="org-left">创建新的资源</td>
+<td class="org-left"><a href="http://example.com/api/orders">http://example.com/api/orders</a></td>
 </tr>
 
 <tr>
-<td class="left">PUT</td>
-<td class="left">更新资源</td>
-<td class="left"><a href="http://example.com/api/orders/123">http://example.com/api/orders/123</a></td>
+<td class="org-left">PUT</td>
+<td class="org-left">更新资源</td>
+<td class="org-left"><a href="http://example.com/api/orders/123">http://example.com/api/orders/123</a></td>
 </tr>
 
 <tr>
-<td class="left">DELETE</td>
-<td class="left">删除资源</td>
-<td class="left"><a href="http://example.com/api/orders/123">http://example.com/api/orders/123</a></td>
+<td class="org-left">DELETE</td>
+<td class="org-left">删除资源</td>
+<td class="org-left"><a href="http://example.com/api/orders/123">http://example.com/api/orders/123</a></td>
 </tr>
 </tbody>
 </table>
@@ -1317,9 +1162,9 @@ REST设计不需要特定的数据格式。在请求中数据可以以JSON形式
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 我对restful api的反思</h3>
-<div class="outline-text-3" id="text-3-2">
+<div class="outline-3">
+<h3 id="orgheadline33">我对restful api的反思</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 我觉得目前的restful api 设计有问题，不够实用。我同意api的描述应该偏资源，但应该再增加一类纯动作型api。实际上动作也是一种资源有的时候，但是动作作为资源的时候资源名一定要清晰的显示出来。然后资源的描述应该是URI风格的，弄个id挂在上面没什么用处还没有达到描述资源特征的目的。我们应该用统一的资源URL描述，下面简称为&lt;path:path&gt;
 </p>
@@ -1329,33 +1174,25 @@ REST设计不需要特定的数据格式。在请求中数据可以以JSON形式
 </p>
 
 <ol class="org-ol">
-<li>资源的描述URI应该侧重位置，然后跟上一个特征词，如下所示:
-</li>
+<li>资源的描述URI应该侧重位置，然后跟上一个特征词，如下所示:</li>
 </ol>
-<pre class="example">
+<pre>
 /resource_name/&lt;path:res_uri&gt;
 </pre>
 
 <ol class="org-ol">
-<li>我们应该彻底杜绝 <code>/</code> 尾的URL。
-</li>
+<li>我们应该彻底杜绝 <code>/</code> 尾的URL。</li>
 
-<li>不用使用 <code>/resource_name</code> 这种形式来返回全部uri，推荐使用 <code>/resource_name/main</code> 来表达全部资源。其他名字如 <code>all</code> 等也是欢迎的，自己内部约定好即可。
-</li>
+<li>不用使用 <code>/resource_name</code> 这种形式来返回全部uri，推荐使用 <code>/resource_name/main</code> 来表达全部资源。其他名字如 <code>all</code> 等也是欢迎的，自己内部约定好即可。</li>
 
 <li>方法可以使用如下四种: get post put delete ，其中:
 
 <ul class="org-ul">
-<li>get 用于查询某个资源 （可以接受更多的查询参数 包括uri） 
-</li>
-<li>post 用于insert某个资源 
-</li>
-<li>put 用于更新某个资源
-</li>
-<li>delete 用于删除某个资源 
-</li>
-</ul>
-</li>
+<li>get 用于查询某个资源 （可以接受更多的查询参数 包括uri）</li>
+<li>post 用于insert某个资源</li>
+<li>put 用于更新某个资源</li>
+<li>delete 用于删除某个资源</li>
+</ul></li>
 </ol>
 
 <p>
@@ -1375,10 +1212,9 @@ restfulapi则可以上面四个方法都编写出来，调用者清晰的知道�
 </p>
 
 <ol class="org-ol">
-<li>返回json统一用如下格式:
-</li>
+<li>返回json统一用如下格式:</li>
 </ol>
-<pre class="example">
+<pre>
 {
     "resource_name" : [
                 {
@@ -1395,9 +1231,9 @@ restfulapi则可以上面四个方法都编写出来，调用者清晰的知道�
 
 
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3"><span class="section-number-3">3.3</span> flask-restful插件</h3>
-<div class="outline-text-3" id="text-3-3">
+<div class="outline-3">
+<h3 id="orgheadline34">flask-restful插件</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
 具体原生态的flask restful api代码编写就不在这里做了，有兴趣的可以看下本节开头提及参考资料的地一小节部分。
 </p>
@@ -1406,7 +1242,7 @@ restfulapi则可以上面四个方法都编写出来，调用者清晰的知道�
 然后flask0.7版本之后新加入了 <code>MethodView</code> 类，如下所示:
 </p>
 
-<pre class="example">
+<pre>
 class UserAPI(MethodView):
 
     def get(self, user_id):
@@ -1433,7 +1269,7 @@ class UserAPI(MethodView):
 <p>
 这已经很方便就能编写出restful api接口了，但实际编写restfulapi推荐使用 flask-restful 这个插件。具体使用参看官方文档的这个例子:
 </p>
-<pre class="example">
+<pre>
 from flask import Flask
 from flask_restful import Resource, Api
 
@@ -1454,16 +1290,12 @@ if __name__ == '__main__':
 注意一下几点:
 </p>
 <ol class="org-ol">
-<li>返回的是字典类型，该插件会自动jsonify处理的。
-</li>
-<li><code>api.add_resource(ClassName,'/resname/&lt;path:path&gt;',endpoint='resname')</code> ，endpoint定义了这个restfulapi的视图函数的endpoint值，然后你可以用 <code>url_for</code> 来快速生成对应的URL。
-</li>
-<li>该类中的方法其实等同于之前谈及的flask的视图函数，所以request session等这些变量也是可以使用的（存疑？）。
-</li>
-<li>你可以这样:
-</li>
+<li>返回的是字典类型，该插件会自动jsonify处理的。</li>
+<li><code>api.add_resource(ClassName,'/resname/&lt;path:path&gt;',endpoint='resname')</code> ，endpoint定义了这个restfulapi的视图函数的endpoint值，然后你可以用 <code>url_for</code> 来快速生成对应的URL。</li>
+<li>该类中的方法其实等同于之前谈及的flask的视图函数，所以request session等这些变量也是可以使用的（存疑？）。</li>
+<li>你可以这样:</li>
 </ol>
-<pre class="example">
+<pre>
 class FoldersAPI(Resource):
     def __init__(self):
         parser = reqparse.RequestParser()
@@ -1477,7 +1309,7 @@ class FoldersAPI(Resource):
 <p>
 来给你的restfulapi endpoint 刷入一些参数，如果没设置参数，则该 <code>self.args['name']</code> 就是默认值 None。这些参数在后面的视图函数 get post之类中都是可以使用的。这个 <code>reqparse</code> 来自:
 </p>
-<pre class="example">
+<pre>
 from flask_restful import reqparse
 </pre>
 
@@ -1488,14 +1320,14 @@ from flask_restful import reqparse
 <p>
 如果你要刷入一个列表，则需要如下设置:
 </p>
-<pre class="example">
+<pre>
 parser.add_argument('name', action='append')
 </pre>
 
 <p>
 你还可以利用其从flask的request对象上刷值:
 </p>
-<pre class="example">
+<pre>
 parser.add_argument('name', type=int, location='form')
 </pre>
 <p>
@@ -1516,9 +1348,9 @@ parser.add_argument('name', type=int, location='form')
 
 
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> <span class="todo TODO">TODO</span> </h2>
-<div class="outline-text-2" id="text-4">
+<div class="outline-2">
+<h2 id="orgheadline36"><span class="todo TODO">TODO</span> </h2>
+<div class="outline-text-2" id="text-5">
 <p>
 配置文件统一管理
 <a href="http://spacewander.github.io/explore-flask-zh/5-configuration.html">http://spacewander.github.io/explore-flask-zh/5-configuration.html</a>
@@ -1539,12 +1371,12 @@ parser.add_argument('name', type=int, location='form')
 
 
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5"><span class="section-number-2">5</span> 附录</h2>
-<div class="outline-text-2" id="text-5">
-</div><div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 用gunicorn和nginx配置</h3>
-<div class="outline-text-3" id="text-5-1">
+<div class="outline-2">
+<h2 id="orgheadline53">附录</h2>
+<div class="outline-text-2" id="text-6">
+</div><div class="outline-3">
+<h3 id="orgheadline37">用gunicorn和nginx配置</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 gunicorn没啥好说的，就是命令行开个本地端口运行即可，主要是nginx那边的配置需要说一下。
 </p>
@@ -1556,7 +1388,7 @@ gunicorn没啥好说的，就是命令行开个本地端口运行即可，主要
 <p>
 然后你需要激活这个网站，则如下在 <code>sites-enabled</code> 那里创建一个符号链接即可:
 </p>
-<pre class="example">
+<pre>
 sudo ln -s /etc/nginx/sites-available/books /etc/nginx/sites-enabled/books
 </pre>
 
@@ -1564,7 +1396,7 @@ sudo ln -s /etc/nginx/sites-available/books /etc/nginx/sites-enabled/books
 然后nginx配置有很多内容，这里就最简单的说一下:
 </p>
 
-<pre class="example">
+<pre>
 server{
 	listen 80;
 	server_name books.cdwanze.org;
@@ -1584,28 +1416,28 @@ server{
 </div>
 </div>
 
-<div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 在heroku上部署项目</h3>
-<div class="outline-text-3" id="text-5-2">
+<div class="outline-3">
+<h3 id="orgheadline46">在heroku上部署项目</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 在heroku上部署项目其实很简单，只是感觉就是官方教程也谈论得干扰因素有点多了，比如说virtualenv，我会用，但总不喜欢用，不知道怎么回事。官方上手教程把virtualenv引进来一开始给我的感觉就是heroku而运作机制是依赖于virtualenv或者说本地的模块的，这其实是错误的。heroku在远程安装各个python的第三方模块都是通过pip命令来完成的，和你本地virtualenv具体的安装毫无关系，当然了有人会说通过pip freeze命令会很方便，但我真没看出这有多方便，如果这个项目是你自己写的，具体用了那几个模块你自己还不清楚吗。好了，闲话少说，首先谈谈python2和python3的问题。。
 </p>
 </div>
 
-<div id="outline-container-sec-5-2-1" class="outline-4">
-<h4 id="sec-5-2-1"><span class="section-number-4">5.2.1</span> 指定python2或python3</h4>
-<div class="outline-text-4" id="text-5-2-1">
+<div class="outline-4">
+<h4 id="orgheadline38">指定python2或python3</h4>
+<div class="outline-text-4" id="text-6-2-1">
 <p>
 在主文件夹目录下你新建一个 <code>runtime.txt</code> 文件，里面简单写上：
 </p>
-<pre class="example">
+<pre>
 python-3.4.3
 </pre>
 
 <p>
 这样，远程heroku会帮你确定python运行环境为python-3.4.3。
 </p>
-<pre class="example">
+<pre>
 remote: -----&gt; Installing runtime (python-3.4.3)
 </pre>
 
@@ -1616,13 +1448,13 @@ remote: -----&gt; Installing runtime (python-3.4.3)
 </div>
 
 
-<div id="outline-container-sec-5-2-2" class="outline-4">
-<h4 id="sec-5-2-2"><span class="section-number-4">5.2.2</span> 安装第三方模块</h4>
-<div class="outline-text-4" id="text-5-2-2">
+<div class="outline-4">
+<h4 id="orgheadline39">安装第三方模块</h4>
+<div class="outline-text-4" id="text-6-2-2">
 <p>
 这个也很简单，就在 <code>requirements.txt</code> 文件里面上写上模块名字即可。 比如：
 </p>
-<pre class="example">
+<pre>
 flask
 gunicorn
 </pre>
@@ -1630,7 +1462,7 @@ gunicorn
 <p>
 这样heroku远程会自动利用pip来安装对应的第三方模块，如下所示：
 </p>
-<pre class="example">
+<pre>
 remote:        Installing collected packages: Werkzeug, markupsafe, Jinja2, itsdangerous, flask, gunicorn
 </pre>
 
@@ -1641,13 +1473,13 @@ remote:        Installing collected packages: Werkzeug, markupsafe, Jinja2, itsd
 </div>
 
 
-<div id="outline-container-sec-5-2-3" class="outline-4">
-<h4 id="sec-5-2-3"><span class="section-number-4">5.2.3</span> Procfile文件</h4>
-<div class="outline-text-4" id="text-5-2-3">
+<div class="outline-4">
+<h4 id="orgheadline40">Procfile文件</h4>
+<div class="outline-text-4" id="text-6-2-3">
 <p>
 这是主文件夹和heroku配置相关的第三个文件，官方教程的是这样一行：
 </p>
-<pre class="example">
+<pre>
 web: gunicorn hello:app --log-file=-
 </pre>
 
@@ -1658,9 +1490,9 @@ web: gunicorn hello:app --log-file=-
 </div>
 
 
-<div id="outline-container-sec-5-2-4" class="outline-4">
-<h4 id="sec-5-2-4"><span class="section-number-4">5.2.4</span> hello.py文件</h4>
-<div class="outline-text-4" id="text-5-2-4">
+<div class="outline-4">
+<h4 id="orgheadline41">hello.py文件</h4>
+<div class="outline-text-4" id="text-6-2-4">
 <p>
 这个hello.py对应的就是上面的 <code>hello:app</code> 这句，告诉heroku了本app的主入口在哪里。
 </p>
@@ -1668,7 +1500,7 @@ web: gunicorn hello:app --log-file=-
 <p>
 其内容就是最简单的flask演示hello world例子：
 </p>
-<pre class="example">
+<pre>
 import os
 from flask import Flask
 
@@ -1686,13 +1518,13 @@ heroku远程是如何编译源文件的我们不管，然后接下来就是利�
 </div>
 
 
-<div id="outline-container-sec-5-2-5" class="outline-4">
-<h4 id="sec-5-2-5"><span class="section-number-4">5.2.5</span> 安装heroku或者不？</h4>
-<div class="outline-text-4" id="text-5-2-5">
+<div class="outline-4">
+<h4 id="orgheadline42">安装heroku或者不？</h4>
+<div class="outline-text-4" id="text-6-2-5">
 <p>
 按照官方文档的说明来，不赘述了。在ubuntu下的是：
 </p>
-<pre class="example">
+<pre>
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 </pre>
 
@@ -1700,7 +1532,7 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 <p>
 本终端要登录一次，就是运行命令：
 </p>
-<pre class="example">
+<pre>
 heroku login
 </pre>
 
@@ -1711,9 +1543,9 @@ heroku login
 </div>
 
 
-<div id="outline-container-sec-5-2-6" class="outline-4">
-<h4 id="sec-5-2-6"><span class="section-number-4">5.2.6</span> 通过网页新建项目得到一个好名字</h4>
-<div class="outline-text-4" id="text-5-2-6">
+<div class="outline-4">
+<h4 id="orgheadline43">通过网页新建项目得到一个好名字</h4>
+<div class="outline-text-4" id="text-6-2-6">
 <p>
 通过网页我们新建的项目名字可以稍微取得好看点，然后新建完之后我们如何利用git将你的目标源码推送到那里去呢？首先git init ，然后git commit 这些我就不废话了，那么最关键的问题是heroku这个远程目的地地址在那里呢？
 </p>
@@ -1721,14 +1553,14 @@ heroku login
 <p>
 十分有趣的是我在网页上找了一下竟然找不到，但这又不是什么秘密。在.git的config里面，一个项目名 <code>secret-shore-9329</code> 的url是：
 </p>
-<pre class="example">
+<pre>
 url = https://git.heroku.com/secret-shore-9329.git
 </pre>
 
 <p>
 再比如 <code>myheroku-1</code> 对应的是：
 </p>
-<pre class="example">
+<pre>
 git remote add heroku  https://git.heroku.com/myheroku-1.git
 </pre>
 
@@ -1740,24 +1572,24 @@ git remote add heroku  https://git.heroku.com/myheroku-1.git
 
 
 
-<div id="outline-container-sec-5-2-7" class="outline-4">
-<h4 id="sec-5-2-7"><span class="section-number-4">5.2.7</span> 或者更简单直接通过github来管理</h4>
-<div class="outline-text-4" id="text-5-2-7">
+<div class="outline-4">
+<h4 id="orgheadline44">或者更简单直接通过github来管理</h4>
+<div class="outline-text-4" id="text-6-2-7">
 <p>
 heroku还提供了一种更简单的项目管理方式，你可以在github上创建一个项目，然后在heroku上连接好这个github项目，然后推荐把下面那个 <strong>自动部署</strong> 也点上。然后你就可以如同往常一样 <code>git push origin master</code> ，将源码推送到github上即可。这样真是方便极了！
 </p>
 </div>
 </div>
 
-<div id="outline-container-sec-5-2-8" class="outline-4">
-<h4 id="sec-5-2-8"><span class="section-number-4">5.2.8</span> 如何在heroku上加入数据库</h4>
-<div class="outline-text-4" id="text-5-2-8">
-<pre class="example">
+<div class="outline-4">
+<h4 id="orgheadline45">如何在heroku上加入数据库</h4>
+<div class="outline-text-4" id="text-6-2-8">
+<pre>
 heroku  pg:psql --app cheminfo
 </pre>
 
 
-<pre class="example">
+<pre>
 heroku addons:add heroku-postgresql:dev --app cheminfo
 </pre>
 </div>
@@ -1766,20 +1598,20 @@ heroku addons:add heroku-postgresql:dev --app cheminfo
 
 
 
-<div id="outline-container-sec-5-3" class="outline-3">
-<h3 id="sec-5-3"><span class="section-number-3">5.3</span> 和apache2一起</h3>
-<div class="outline-text-3" id="text-5-3">
+<div class="outline-3">
+<h3 id="orgheadline51">和apache2一起</h3>
+<div class="outline-text-3" id="text-6-3">
 <p>
 apache2是支持flask框架编写网络服务器的，更确切的表达是，apache2有一个模块，安装上它apache2就支持wsgi接口了。对于python2，在ubuntu下要安装的是:
 </p>
-<div class="highlight"><pre>sudo apt-get install  libapache2-mod-wsgi
+<div class="highlight"><pre><span></span>sudo apt-get install  libapache2-mod-wsgi
 </pre></div>
 
 <p>
 对于python3，要安装的是:
 </p>
 
-<div class="highlight"><pre>sudo apt-get install  libapache2-mod-wsgi-py3
+<div class="highlight"><pre><span></span>sudo apt-get install  libapache2-mod-wsgi-py3
 </pre></div>
 
 <p>
@@ -1791,14 +1623,14 @@ apache2是支持flask框架编写网络服务器的，更确切的表达是，ap
 </p>
 </div>
 
-<div id="outline-container-sec-5-3-1" class="outline-4">
-<h4 id="sec-5-3-1"><span class="section-number-4">5.3.1</span> 简单的apache2配置</h4>
-<div class="outline-text-4" id="text-5-3-1">
+<div class="outline-4">
+<h4 id="orgheadline47">简单的apache2配置</h4>
+<div class="outline-text-4" id="text-6-3-1">
 <p>
 最简单的配置就是如下所示:
 </p>
 
-<pre class="example">
+<pre>
 WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 
     &lt;Directory /home/wanze/workspace/cdwanze &gt;
@@ -1808,21 +1640,21 @@ WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-2" class="outline-4">
-<h4 id="sec-5-3-2"><span class="section-number-4">5.3.2</span> Require做了什么</h4>
-<div class="outline-text-4" id="text-5-3-2">
+<div class="outline-4">
+<h4 id="orgheadline48">Require做了什么</h4>
+<div class="outline-text-4" id="text-6-3-2">
 <p>
 其中 <code>Require all granted</code> 前面我们已谈到，是对访问权限的控制。参看apache2.2到apache2.4的 <a href="http://httpd.apache.org/docs/current/upgrading.html">升级文档</a> ，
 原2.2配置:
 </p>
-<pre class="example">
+<pre>
 Order deny,allow
 Deny from all
 </pre>
 <p>
 等同于2.4配置:
 </p>
-<pre class="example">
+<pre>
 Require all denied
 </pre>
 
@@ -1830,14 +1662,14 @@ Require all denied
 <p>
 原2.2配置:
 </p>
-<pre class="example">
+<pre>
 Order allow,deny
 Allow from all
 </pre>
 <p>
 等同于2.4配置:
 </p>
-<pre class="example">
+<pre>
 Require all granted
 </pre>
 
@@ -1845,7 +1677,7 @@ Require all granted
 <p>
 原2.2配置:
 </p>
-<pre class="example">
+<pre>
 Order Deny,Allow
 Deny from all
 Allow from example.org
@@ -1853,7 +1685,7 @@ Allow from example.org
 <p>
 等同于2.4配置:
 </p>
-<pre class="example">
+<pre>
 Require host example.org
 </pre>
 
@@ -1861,13 +1693,12 @@ Require host example.org
 关于这里Order什么的配置更详细的说明参看 <a href="http://www.fwolf.com/blog/post/191">这个网页</a> 。其第一行就两种写法，逗号之间不能有空格。
 </p>
 <ol class="org-ol">
-<li><code>Order Deny,Allow</code>
-</li>
+<li><code>Order Deny,Allow</code></li>
 </ol>
 <p>
 在这个写法后面，后面先写允许谁谁谁访问，然后写禁止谁谁谁访问。如下所示:
 </p>
-<pre class="example">
+<pre>
 Order Deny,Allow
 Deny from all
 Allow from example.org
@@ -1878,8 +1709,7 @@ Allow from example.org
 
 
 <ol class="org-ol">
-<li><code>Order Allow,Deny</code>
-</li>
+<li><code>Order Allow,Deny</code></li>
 </ol>
 <p>
 和上面描述类似，除了先写允许再写禁止。
@@ -1892,7 +1722,7 @@ Allow from example.org
 <p>
 允许某个具体的ip地址:
 </p>
-<pre class="example">
+<pre>
 Require ip ip.address
 </pre>
 
@@ -1900,20 +1730,20 @@ Require ip ip.address
 在前面有了，全部都允许、全部都禁止、全部都禁止只允许谁。还有如下，全部都允许只禁止谁:
 不允许某个ip地址。
 </p>
-<pre class="example">
+<pre>
 Require all granted
 Require not ip 10.252.46.165
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-5-3-3" class="outline-4">
-<h4 id="sec-5-3-3"><span class="section-number-4">5.3.3</span> what.wsgi文件</h4>
-<div class="outline-text-4" id="text-5-3-3">
+<div class="outline-4">
+<h4 id="orgheadline49">what.wsgi文件</h4>
+<div class="outline-text-4" id="text-6-3-3">
 <p>
 这一行具体设置那个what.wsgi文件在那里，一般就放在flask框架源码第一目录下吧。
 </p>
-<pre class="example">
+<pre>
 WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 </pre>
 
@@ -1924,7 +1754,7 @@ WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 <p>
 这里首先把python的搜索路径加上，然后从你的flask主app对象所谓的文件中引入app，然后 <code>as application</code> 。
 </p>
-<pre class="example">
+<pre>
 import sys
 sys.path.insert(0, '/home/wanze/workspace/cdwanze')
 
@@ -1934,13 +1764,13 @@ from cdwanze import app as application
 </div>
 
 
-<div id="outline-container-sec-5-3-4" class="outline-4">
-<h4 id="sec-5-3-4"><span class="section-number-4">5.3.4</span> 更复杂点的配置</h4>
-<div class="outline-text-4" id="text-5-3-4">
+<div class="outline-4">
+<h4 id="orgheadline50">更复杂点的配置</h4>
+<div class="outline-text-4" id="text-6-3-4">
 <p>
 flask官方文档给出了更复杂点的配置如下所示:
 </p>
-<pre class="example">
+<pre>
 WSGIDaemonProcess cdwanze user=wanze group=wanze threads=5
 WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 
@@ -1965,23 +1795,17 @@ WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 
 
 
-<div id="outline-container-sec-5-4" class="outline-3">
-<h3 id="sec-5-4"><span class="section-number-3">5.4</span> 参考资料</h3>
-<div class="outline-text-3" id="text-5-4">
+<div class="outline-3">
+<h3 id="orgheadline52">参考资料</h3>
+<div class="outline-text-3" id="text-6-4">
 <ol class="org-ol">
-<li>当然是flask的官方文档。 这里有一个 <a href="http://docs.jinkan.org/docs/flask/">中文翻译网页</a> ，这个网页左侧写着译者，应该是原创吧。
-</li>
-<li><a href="https://exploreflask.com/">https://exploreflask.com/</a> 这里有一个 <a href="http://spacewander.github.io/explore-flask-zh/index.html">中文翻译网页</a> ，是原创者。
-</li>
-<li>Flask Web Development; Author:Miguel Grinberg; Version:2014（我并不太喜欢这本书的喜欢用各种flask第三方插件的编码风格，大体翻看了一下，主要是看flask官方文档和官方example。）
-</li>
+<li>当然是flask的官方文档。 这里有一个 <a href="http://docs.jinkan.org/docs/flask/">中文翻译网页</a> ，这个网页左侧写着译者，应该是原创吧。</li>
+<li><a href="https://exploreflask.com/">https://exploreflask.com/</a> 这里有一个 <a href="http://spacewander.github.io/explore-flask-zh/index.html">中文翻译网页</a> ，是原创者。</li>
+<li>Flask Web Development; Author:Miguel Grinberg; Version:2014（我并不太喜欢这本书的喜欢用各种flask第三方插件的编码风格，大体翻看了一下，主要是看flask官方文档和官方example。）</li>
 </ol>
 </div>
 </div>
 </div>
 </div>
-<footer class="footer">
-<div class="container">
-<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-27 12:00.</p></div>
 </body>
 </html>
