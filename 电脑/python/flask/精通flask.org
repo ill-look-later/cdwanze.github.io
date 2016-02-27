@@ -413,11 +413,11 @@ app.logger.debug('A value for debugging')
 
 #+BEGIN_EXAMPLE
 run.py
+config.py
 instance/
   /config.py
 project/
   /__init__.py
-  /config.py
   /views.py
   /models.py
   /forms.py
@@ -430,8 +430,17 @@ project/
 from project import app
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 #+END_SRC
+
+这样运行根据后面讲到的两个 ~config.py~ 的不同的设置来获得开发和工作不同的配置环境。比如这里具体是先加载顶层目录的config.py，然后再加载instance里面的config.py
+#+BEGIN_EXAMPLE
+config loaded
+instance config loaded
+ * Debugger is active!
+ * Debugger pin code: 916-109-430
+#+END_EXAMPLE
+
 
 然后 ~instance/config.py~ 里面一般放着密钥，不纳入git版本控制，具体就是在 ~.gitignore~ 文件里面加入 ~instance/~ 。这样的话为了保证远程服务器那边能够正常运行，你需要在那边手工添加这个文件夹和文件，然后在里面加入你的密钥。因为其没有进入版本控制，所以我们还需要加入另外一个不太重要的 ~config.py~ 文件，其放着关于flask app的不太重要的一些配置信息。然后推荐最后确认加上 ~debug=False~ ，确保生产环境debug模式没有打开。
 
@@ -443,13 +452,14 @@ gunicorn -w 4 -b localhost:8001 project:app
 
 这样将直接调用你的project里面的app对象，并且没有打开debug。
 
-在project里面的那个config.py和instance里面的config我们如下引入进来，具体在project的 ~__init__.py~ 里面:
+~config.py~ 和instance里面的config我们如下引入进来，具体在project的 ~__init__.py~ 里面:
 #+BEGIN_EXAMPLE
 from flask import *
-app = Flask(__name__)
-app.config.from_pyfile('../instance/config.py')
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('config')
 app.config.from_pyfile('config.py')
 #+END_EXAMPLE
+其中 ~instance_relative_config=True~ 和 ~app.config.from_pyfile('config.py')~ 来引入instance文件夹里面的 ~config.py~ ，然后 ~app.config.from_object('config')~ 引入顶层目录下的 ~config.py~ 。
 
 然后 ~views.py~ 和 ~models.py~ 里面的含义是很明显的，其中models.py里面一般定义一些数据库的模型，这个在project里面直接引入进来即可，而在 ~views.py~ 里面定义的一些视图函数我们也需要引入进来。这里值得一提的就是相对引入的用法:
 
@@ -471,6 +481,70 @@ def index():
 
 这种相对引入语法不支持直接运行脚本了，而需要在外面，通过 ~run.py~ 来运行，然后gunicorn那边也一切运行正常。
 
+** 配置文件的补充说明
+上面提及的 ~config.py~ 里面大体放着这种形式的配置信息:
+#+BEGIN_EXAMPLE
+DEBUG = True
+#+END_EXAMPLE
+
+然后我们知道关于这些配置变量我们都可以通过 ~app.config['WHAT']~ 来加载。
+
+上面提及的:
+#+BEGIN_EXAMPLE
+app.config.from_object('config')
+app.config.from_pyfile('config.py')
+#+END_EXAMPLE
+
+先加载顶层目录的 ~config.py~ 然后再加载instance下的 ~config.py~ 。这样将形成一种覆盖机制，按照 [[http://spacewander.github.io/explore-flask-zh/5-configuration.html][这个网页]] 的描述，我们可以在顶层设置:
+#+BEGIN_EXAMPLE
+DEBUG = False
+SQLALCHEMY_ECHO = False
+#+END_EXAMPLE
+
+然后instance那边设置:
+#+BEGIN_EXAMPLE
+DEBUG = True
+SQLALCHEMY_ECHO = True
+#+END_EXAMPLE
+
+生产环境那边将这两行不加上即可。
+
+** 使用蓝图来管理你的视图
+随着你的项目变大，你可能需要使用蓝图来重构你的项目代码。蓝图有两种风格，一种是功能式架构，只是简单的新建一个视图views文件夹，然后在里面放着你的蓝图或说视图定义；另一种是各自独立的分区式，视图，模板，静态文件都在某个文件夹下面。这里只讨论稍显简单的功能式架构。
+
+最简单的一个蓝图定义文件如下所示:
+#+BEGIN_SRC python
+from flask import *
+from .. import app
+
+index = Blueprint('index', __name__)
+
+@index.route('/')
+def view_index():
+    return render_template('index.html', **locals())
+#+END_SRC
+
+大体和之前接触的flask的视图函数定义类似，只是额外新建了一个Blueprint对象，然后使用 ~@index.route()~ 这样的装饰器来装饰该蓝图的视图函数。
+
+然后在project也就是 ~__init__.py~ 文件那里，把这个蓝图注册进来。
+
+#+BEGIN_SRC python
+from .views.index import index
+app.register_blueprint(index)
+#+END_SRC
+
+最基本的情况就是这样，其他一切照旧。
+
+*** url_prefix
+~url_prefix~ 是你定义一个Blueprint对象是很有用的一个可选参数，意义很明显，就是该蓝图下所有的url都加上了这个前缀。
+
+
+* 表单
+
+
+
+* 用户管理规范
+本小节主要参考了 [[http://spacewander.github.io/explore-flask-zh/12-handling_users.html][这个网页]] 。
 
 
 * restful api设计
@@ -636,16 +710,11 @@ parser.add_argument('name', type=int, location='form')
 
 
 
-* TODO
-配置文件统一管理
-http://spacewander.github.io/explore-flask-zh/5-configuration.html
 
-缓存
+* 缓存
 http://spacewander.github.io/explore-flask-zh/6-advanced_patterns_for_views_and_routing.html
 
 
-用户管理的高级内容
-http://spacewander.github.io/explore-flask-zh/12-handling_users.html
 
 
 

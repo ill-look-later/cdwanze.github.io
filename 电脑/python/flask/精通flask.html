@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-02-27 六 12:20 -->
+<!-- 2016-02-27 六 16:41 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>精通flask框架</title>
@@ -281,45 +281,56 @@ table tr:nth-child(even) {
 <li><a href="#orgheadline26">2.12. 文件上传</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline28">3. 组织你的项目</a></li>
-<li><a href="#orgheadline35">4. restful api设计</a>
+<li><a href="#orgheadline31">3. 组织你的项目</a>
 <ul>
-<li><a href="#orgheadline32">4.1. restful api简介</a>
+<li><a href="#orgheadline28">3.1. 配置文件的补充说明</a></li>
+<li><a href="#orgheadline30">3.2. 使用蓝图来管理你的视图</a>
 <ul>
-<li><a href="#orgheadline29">4.1.1. REST软件架构风格</a></li>
-<li><a href="#orgheadline30">4.1.2. REST系统设计规范</a></li>
-<li><a href="#orgheadline31">4.1.3. RESTful API</a></li>
+<li><a href="#orgheadline29">3.2.1. url_prefix</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline33">4.2. 我对restful api的反思</a></li>
-<li><a href="#orgheadline34">4.3. flask-restful插件</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline36">5. <span class="todo nilTODO">TODO</span> </a></li>
-<li><a href="#orgheadline53">6. 附录</a>
+<li><a href="#orgheadline32">4. 表单</a></li>
+<li><a href="#orgheadline33">5. 用户管理规范</a></li>
+<li><a href="#orgheadline40">6. restful api设计</a>
 <ul>
-<li><a href="#orgheadline37">6.1. 用gunicorn和nginx配置</a></li>
-<li><a href="#orgheadline46">6.2. 在heroku上部署项目</a>
+<li><a href="#orgheadline37">6.1. restful api简介</a>
 <ul>
-<li><a href="#orgheadline38">6.2.1. 指定python2或python3</a></li>
-<li><a href="#orgheadline39">6.2.2. 安装第三方模块</a></li>
-<li><a href="#orgheadline40">6.2.3. Procfile文件</a></li>
-<li><a href="#orgheadline41">6.2.4. hello.py文件</a></li>
-<li><a href="#orgheadline42">6.2.5. 安装heroku或者不？</a></li>
-<li><a href="#orgheadline43">6.2.6. 通过网页新建项目得到一个好名字</a></li>
-<li><a href="#orgheadline44">6.2.7. 或者更简单直接通过github来管理</a></li>
-<li><a href="#orgheadline45">6.2.8. 如何在heroku上加入数据库</a></li>
+<li><a href="#orgheadline34">6.1.1. REST软件架构风格</a></li>
+<li><a href="#orgheadline35">6.1.2. REST系统设计规范</a></li>
+<li><a href="#orgheadline36">6.1.3. RESTful API</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline51">6.3. 和apache2一起</a>
-<ul>
-<li><a href="#orgheadline47">6.3.1. 简单的apache2配置</a></li>
-<li><a href="#orgheadline48">6.3.2. Require做了什么</a></li>
-<li><a href="#orgheadline49">6.3.3. what.wsgi文件</a></li>
-<li><a href="#orgheadline50">6.3.4. 更复杂点的配置</a></li>
+<li><a href="#orgheadline38">6.2. 我对restful api的反思</a></li>
+<li><a href="#orgheadline39">6.3. flask-restful插件</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline52">6.4. 参考资料</a></li>
+<li><a href="#orgheadline41">7. 缓存</a></li>
+<li><a href="#orgheadline58">8. 附录</a>
+<ul>
+<li><a href="#orgheadline42">8.1. 用gunicorn和nginx配置</a></li>
+<li><a href="#orgheadline51">8.2. 在heroku上部署项目</a>
+<ul>
+<li><a href="#orgheadline43">8.2.1. 指定python2或python3</a></li>
+<li><a href="#orgheadline44">8.2.2. 安装第三方模块</a></li>
+<li><a href="#orgheadline45">8.2.3. Procfile文件</a></li>
+<li><a href="#orgheadline46">8.2.4. hello.py文件</a></li>
+<li><a href="#orgheadline47">8.2.5. 安装heroku或者不？</a></li>
+<li><a href="#orgheadline48">8.2.6. 通过网页新建项目得到一个好名字</a></li>
+<li><a href="#orgheadline49">8.2.7. 或者更简单直接通过github来管理</a></li>
+<li><a href="#orgheadline50">8.2.8. 如何在heroku上加入数据库</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline56">8.3. 和apache2一起</a>
+<ul>
+<li><a href="#orgheadline52">8.3.1. 简单的apache2配置</a></li>
+<li><a href="#orgheadline53">8.3.2. Require做了什么</a></li>
+<li><a href="#orgheadline54">8.3.3. what.wsgi文件</a></li>
+<li><a href="#orgheadline55">8.3.4. 更复杂点的配置</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline57">8.4. 参考资料</a></li>
 </ul>
 </li>
 </ul>
@@ -971,7 +982,7 @@ app.logger.debug('A value for debugging')
 
 
 <div class="outline-2">
-<h2 id="orgheadline28">组织你的项目</h2>
+<h2 id="orgheadline31">组织你的项目</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 这里主要讨论更加成熟和稍微复杂点的那种做法。这个参看 <a href="http://spacewander.github.io/explore-flask-zh/4-organizing_your_project.html">这个网页</a> 。
@@ -979,11 +990,11 @@ app.logger.debug('A value for debugging')
 
 <pre>
 run.py
+config.py
 instance/
   /config.py
 project/
   /__init__.py
-  /config.py
   /views.py
   /models.py
   /forms.py
@@ -997,8 +1008,19 @@ project/
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">project</span> <span class="kn">import</span> <span class="n">app</span>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
+
+<p>
+这样运行根据后面讲到的两个 <code>config.py</code> 的不同的设置来获得开发和工作不同的配置环境。比如这里具体是先加载顶层目录的config.py，然后再加载instance里面的config.py
+</p>
+<pre>
+config loaded
+instance config loaded
+ * Debugger is active!
+ * Debugger pin code: 916-109-430
+</pre>
+
 
 <p>
 然后 <code>instance/config.py</code> 里面一般放着密钥，不纳入git版本控制，具体就是在 <code>.gitignore</code> 文件里面加入 <code>instance/</code> 。这样的话为了保证远程服务器那边能够正常运行，你需要在那边手工添加这个文件夹和文件，然后在里面加入你的密钥。因为其没有进入版本控制，所以我们还需要加入另外一个不太重要的 <code>config.py</code> 文件，其放着关于flask app的不太重要的一些配置信息。然后推荐最后确认加上 <code>debug=False</code> ，确保生产环境debug模式没有打开。
@@ -1017,14 +1039,17 @@ gunicorn -w 4 -b localhost:8001 project:app
 </p>
 
 <p>
-在project里面的那个config.py和instance里面的config我们如下引入进来，具体在project的 <code>__init__.py</code> 里面:
+<code>config.py</code> 和instance里面的config我们如下引入进来，具体在project的 <code>__init__.py</code> 里面:
 </p>
 <pre>
 from flask import *
-app = Flask(__name__)
-app.config.from_pyfile('../instance/config.py')
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('config')
 app.config.from_pyfile('config.py')
 </pre>
+<p>
+其中 <code>instance_relative_config=True</code> 和 <code>app.config.from_pyfile('config.py')</code> 来引入instance文件夹里面的 <code>config.py</code> ，然后 <code>app.config.from_object('config')</code> 引入顶层目录下的 <code>config.py</code> 。
+</p>
 
 <p>
 然后 <code>views.py</code> 和 <code>models.py</code> 里面的含义是很明显的，其中models.py里面一般定义一些数据库的模型，这个在project里面直接引入进来即可，而在 <code>views.py</code> 里面定义的一些视图函数我们也需要引入进来。这里值得一提的就是相对引入的用法:
@@ -1054,24 +1079,130 @@ def index():
 这种相对引入语法不支持直接运行脚本了，而需要在外面，通过 <code>run.py</code> 来运行，然后gunicorn那边也一切运行正常。
 </p>
 </div>
+
+<div class="outline-3">
+<h3 id="orgheadline28">配置文件的补充说明</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+上面提及的 <code>config.py</code> 里面大体放着这种形式的配置信息:
+</p>
+<pre>
+DEBUG = True
+</pre>
+
+<p>
+然后我们知道关于这些配置变量我们都可以通过 <code>app.config['WHAT']</code> 来加载。
+</p>
+
+<p>
+上面提及的:
+</p>
+<pre>
+app.config.from_object('config')
+app.config.from_pyfile('config.py')
+</pre>
+
+<p>
+先加载顶层目录的 <code>config.py</code> 然后再加载instance下的 <code>config.py</code> 。这样将形成一种覆盖机制，按照 <a href="http://spacewander.github.io/explore-flask-zh/5-configuration.html">这个网页</a> 的描述，我们可以在顶层设置:
+</p>
+<pre>
+DEBUG = False
+SQLALCHEMY_ECHO = False
+</pre>
+
+<p>
+然后instance那边设置:
+</p>
+<pre>
+DEBUG = True
+SQLALCHEMY_ECHO = True
+</pre>
+
+<p>
+生产环境那边将这两行不加上即可。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline30">使用蓝图来管理你的视图</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+随着你的项目变大，你可能需要使用蓝图来重构你的项目代码。蓝图有两种风格，一种是功能式架构，只是简单的新建一个视图views文件夹，然后在里面放着你的蓝图或说视图定义；另一种是各自独立的分区式，视图，模板，静态文件都在某个文件夹下面。这里只讨论稍显简单的功能式架构。
+</p>
+
+<p>
+最简单的一个蓝图定义文件如下所示:
+</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">__name__</span><span class="p">)</span>
+
+<span class="nd">@index.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">view_index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+</pre></div>
+
+<p>
+大体和之前接触的flask的视图函数定义类似，只是额外新建了一个Blueprint对象，然后使用 <code>@index.route()</code> 这样的装饰器来装饰该蓝图的视图函数。
+</p>
+
+<p>
+然后在project也就是 <code>__init__.py</code> 文件那里，把这个蓝图注册进来。
+</p>
+
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.views.index</span> <span class="kn">import</span> <span class="n">index</span>
+<span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+
+<p>
+最基本的情况就是这样，其他一切照旧。
+</p>
+</div>
+
+<div class="outline-4">
+<h4 id="orgheadline29">url_prefix</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+<code>url_prefix</code> 是你定义一个Blueprint对象是很有用的一个可选参数，意义很明显，就是该蓝图下所有的url都加上了这个前缀。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline32">表单</h2>
 </div>
 
 
 
 <div class="outline-2">
-<h2 id="orgheadline35">restful api设计</h2>
-<div class="outline-text-2" id="text-4">
+<h2 id="orgheadline33">用户管理规范</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+本小节主要参考了 <a href="http://spacewander.github.io/explore-flask-zh/12-handling_users.html">这个网页</a> 。
+</p>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline40">restful api设计</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 这里主要参看了 <a href="http://www.pythondoc.com/flask-restful/index.html">这个网页</a> ，但原创者在 <a href="https://github.com/sixu05202004/Flask-RESTful-cn">这里</a> 。
 </p>
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline32">restful api简介</h3>
-<div class="outline-text-3" id="text-4-1">
+<h3 id="orgheadline37">restful api简介</h3>
+<div class="outline-text-3" id="text-6-1">
 </div><div class="outline-4">
-<h4 id="orgheadline29">REST软件架构风格</h4>
-<div class="outline-text-4" id="text-4-1-1">
+<h4 id="orgheadline34">REST软件架构风格</h4>
+<div class="outline-text-4" id="text-6-1-1">
 <p>
 REST(Representational State Transfer) 表征性状态传输是Roy Fielding在2000年提出的一种软件架构风格。目前在三种主流Web服务实现方案中，因为REST模式和复杂的SOAP和XML-RPC相比更加简洁，越来越多的web服务开始采用REST风格设计和实现。
 </p>
@@ -1079,8 +1210,8 @@ REST(Representational State Transfer) 表征性状态传输是Roy Fielding在200
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline30">REST系统设计规范</h4>
-<div class="outline-text-4" id="text-4-1-2">
+<h4 id="orgheadline35">REST系统设计规范</h4>
+<div class="outline-text-4" id="text-6-1-2">
 <dl class="org-dl">
 <dt>客户端-服务器</dt><dd>客户端和服务器之间隔离，服务器提供服务，客户端进行消费。</dd>
 <dt>无状态</dt><dd>从客户端到服务器的每个请求都必须包含理解请求所必需的信息。换句话说，服务器不会存储客户端上一次请求的信息用来给下一次使用。</dd>
@@ -1094,8 +1225,8 @@ REST(Representational State Transfer) 表征性状态传输是Roy Fielding在200
 
 
 <div class="outline-4">
-<h4 id="orgheadline31">RESTful API</h4>
-<div class="outline-text-4" id="text-4-1-3">
+<h4 id="orgheadline36">RESTful API</h4>
+<div class="outline-text-4" id="text-6-1-3">
 <p>
 符合REST设计风格的Web API称为RESTful API。RESTful API的核心概念是 <strong>资源</strong> 。资源可用URI表示，客户端用HTTP协议所定义的方法来请求这些URIs，当然也包括被访问资源状态的改变。
 </p>
@@ -1163,8 +1294,8 @@ REST设计不需要特定的数据格式。在请求中数据可以以JSON形式
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline33">我对restful api的反思</h3>
-<div class="outline-text-3" id="text-4-2">
+<h3 id="orgheadline38">我对restful api的反思</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 我觉得目前的restful api 设计有问题，不够实用。我同意api的描述应该偏资源，但应该再增加一类纯动作型api。实际上动作也是一种资源有的时候，但是动作作为资源的时候资源名一定要清晰的显示出来。然后资源的描述应该是URI风格的，弄个id挂在上面没什么用处还没有达到描述资源特征的目的。我们应该用统一的资源URL描述，下面简称为&lt;path:path&gt;
 </p>
@@ -1232,8 +1363,8 @@ restfulapi则可以上面四个方法都编写出来，调用者清晰的知道�
 
 
 <div class="outline-3">
-<h3 id="orgheadline34">flask-restful插件</h3>
-<div class="outline-text-3" id="text-4-3">
+<h3 id="orgheadline39">flask-restful插件</h3>
+<div class="outline-text-3" id="text-6-3">
 <p>
 具体原生态的flask restful api代码编写就不在这里做了，有兴趣的可以看下本节开头提及参考资料的地一小节部分。
 </p>
@@ -1348,35 +1479,26 @@ parser.add_argument('name', type=int, location='form')
 
 
 
-<div class="outline-2">
-<h2 id="orgheadline36"><span class="todo TODO">TODO</span> </h2>
-<div class="outline-text-2" id="text-5">
-<p>
-配置文件统一管理
-<a href="http://spacewander.github.io/explore-flask-zh/5-configuration.html">http://spacewander.github.io/explore-flask-zh/5-configuration.html</a>
-</p>
 
+<div class="outline-2">
+<h2 id="orgheadline41">缓存</h2>
+<div class="outline-text-2" id="text-7">
 <p>
-缓存
 <a href="http://spacewander.github.io/explore-flask-zh/6-advanced_patterns_for_views_and_routing.html">http://spacewander.github.io/explore-flask-zh/6-advanced_patterns_for_views_and_routing.html</a>
 </p>
-
-
-<p>
-用户管理的高级内容
-<a href="http://spacewander.github.io/explore-flask-zh/12-handling_users.html">http://spacewander.github.io/explore-flask-zh/12-handling_users.html</a>
-</p>
 </div>
 </div>
+
+
 
 
 
 <div class="outline-2">
-<h2 id="orgheadline53">附录</h2>
-<div class="outline-text-2" id="text-6">
+<h2 id="orgheadline58">附录</h2>
+<div class="outline-text-2" id="text-8">
 </div><div class="outline-3">
-<h3 id="orgheadline37">用gunicorn和nginx配置</h3>
-<div class="outline-text-3" id="text-6-1">
+<h3 id="orgheadline42">用gunicorn和nginx配置</h3>
+<div class="outline-text-3" id="text-8-1">
 <p>
 gunicorn没啥好说的，就是命令行开个本地端口运行即可，主要是nginx那边的配置需要说一下。
 </p>
@@ -1417,16 +1539,16 @@ server{
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline46">在heroku上部署项目</h3>
-<div class="outline-text-3" id="text-6-2">
+<h3 id="orgheadline51">在heroku上部署项目</h3>
+<div class="outline-text-3" id="text-8-2">
 <p>
 在heroku上部署项目其实很简单，只是感觉就是官方教程也谈论得干扰因素有点多了，比如说virtualenv，我会用，但总不喜欢用，不知道怎么回事。官方上手教程把virtualenv引进来一开始给我的感觉就是heroku而运作机制是依赖于virtualenv或者说本地的模块的，这其实是错误的。heroku在远程安装各个python的第三方模块都是通过pip命令来完成的，和你本地virtualenv具体的安装毫无关系，当然了有人会说通过pip freeze命令会很方便，但我真没看出这有多方便，如果这个项目是你自己写的，具体用了那几个模块你自己还不清楚吗。好了，闲话少说，首先谈谈python2和python3的问题。。
 </p>
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline38">指定python2或python3</h4>
-<div class="outline-text-4" id="text-6-2-1">
+<h4 id="orgheadline43">指定python2或python3</h4>
+<div class="outline-text-4" id="text-8-2-1">
 <p>
 在主文件夹目录下你新建一个 <code>runtime.txt</code> 文件，里面简单写上：
 </p>
@@ -1449,8 +1571,8 @@ remote: -----&gt; Installing runtime (python-3.4.3)
 
 
 <div class="outline-4">
-<h4 id="orgheadline39">安装第三方模块</h4>
-<div class="outline-text-4" id="text-6-2-2">
+<h4 id="orgheadline44">安装第三方模块</h4>
+<div class="outline-text-4" id="text-8-2-2">
 <p>
 这个也很简单，就在 <code>requirements.txt</code> 文件里面上写上模块名字即可。 比如：
 </p>
@@ -1474,8 +1596,8 @@ remote:        Installing collected packages: Werkzeug, markupsafe, Jinja2, itsd
 
 
 <div class="outline-4">
-<h4 id="orgheadline40">Procfile文件</h4>
-<div class="outline-text-4" id="text-6-2-3">
+<h4 id="orgheadline45">Procfile文件</h4>
+<div class="outline-text-4" id="text-8-2-3">
 <p>
 这是主文件夹和heroku配置相关的第三个文件，官方教程的是这样一行：
 </p>
@@ -1491,8 +1613,8 @@ web: gunicorn hello:app --log-file=-
 
 
 <div class="outline-4">
-<h4 id="orgheadline41">hello.py文件</h4>
-<div class="outline-text-4" id="text-6-2-4">
+<h4 id="orgheadline46">hello.py文件</h4>
+<div class="outline-text-4" id="text-8-2-4">
 <p>
 这个hello.py对应的就是上面的 <code>hello:app</code> 这句，告诉heroku了本app的主入口在哪里。
 </p>
@@ -1519,8 +1641,8 @@ heroku远程是如何编译源文件的我们不管，然后接下来就是利�
 
 
 <div class="outline-4">
-<h4 id="orgheadline42">安装heroku或者不？</h4>
-<div class="outline-text-4" id="text-6-2-5">
+<h4 id="orgheadline47">安装heroku或者不？</h4>
+<div class="outline-text-4" id="text-8-2-5">
 <p>
 按照官方文档的说明来，不赘述了。在ubuntu下的是：
 </p>
@@ -1544,8 +1666,8 @@ heroku login
 
 
 <div class="outline-4">
-<h4 id="orgheadline43">通过网页新建项目得到一个好名字</h4>
-<div class="outline-text-4" id="text-6-2-6">
+<h4 id="orgheadline48">通过网页新建项目得到一个好名字</h4>
+<div class="outline-text-4" id="text-8-2-6">
 <p>
 通过网页我们新建的项目名字可以稍微取得好看点，然后新建完之后我们如何利用git将你的目标源码推送到那里去呢？首先git init ，然后git commit 这些我就不废话了，那么最关键的问题是heroku这个远程目的地地址在那里呢？
 </p>
@@ -1573,8 +1695,8 @@ git remote add heroku  https://git.heroku.com/myheroku-1.git
 
 
 <div class="outline-4">
-<h4 id="orgheadline44">或者更简单直接通过github来管理</h4>
-<div class="outline-text-4" id="text-6-2-7">
+<h4 id="orgheadline49">或者更简单直接通过github来管理</h4>
+<div class="outline-text-4" id="text-8-2-7">
 <p>
 heroku还提供了一种更简单的项目管理方式，你可以在github上创建一个项目，然后在heroku上连接好这个github项目，然后推荐把下面那个 <strong>自动部署</strong> 也点上。然后你就可以如同往常一样 <code>git push origin master</code> ，将源码推送到github上即可。这样真是方便极了！
 </p>
@@ -1582,8 +1704,8 @@ heroku还提供了一种更简单的项目管理方式，你可以在github上�
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline45">如何在heroku上加入数据库</h4>
-<div class="outline-text-4" id="text-6-2-8">
+<h4 id="orgheadline50">如何在heroku上加入数据库</h4>
+<div class="outline-text-4" id="text-8-2-8">
 <pre>
 heroku  pg:psql --app cheminfo
 </pre>
@@ -1599,8 +1721,8 @@ heroku addons:add heroku-postgresql:dev --app cheminfo
 
 
 <div class="outline-3">
-<h3 id="orgheadline51">和apache2一起</h3>
-<div class="outline-text-3" id="text-6-3">
+<h3 id="orgheadline56">和apache2一起</h3>
+<div class="outline-text-3" id="text-8-3">
 <p>
 apache2是支持flask框架编写网络服务器的，更确切的表达是，apache2有一个模块，安装上它apache2就支持wsgi接口了。对于python2，在ubuntu下要安装的是:
 </p>
@@ -1624,8 +1746,8 @@ apache2是支持flask框架编写网络服务器的，更确切的表达是，ap
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline47">简单的apache2配置</h4>
-<div class="outline-text-4" id="text-6-3-1">
+<h4 id="orgheadline52">简单的apache2配置</h4>
+<div class="outline-text-4" id="text-8-3-1">
 <p>
 最简单的配置就是如下所示:
 </p>
@@ -1641,8 +1763,8 @@ WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline48">Require做了什么</h4>
-<div class="outline-text-4" id="text-6-3-2">
+<h4 id="orgheadline53">Require做了什么</h4>
+<div class="outline-text-4" id="text-8-3-2">
 <p>
 其中 <code>Require all granted</code> 前面我们已谈到，是对访问权限的控制。参看apache2.2到apache2.4的 <a href="http://httpd.apache.org/docs/current/upgrading.html">升级文档</a> ，
 原2.2配置:
@@ -1738,8 +1860,8 @@ Require not ip 10.252.46.165
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline49">what.wsgi文件</h4>
-<div class="outline-text-4" id="text-6-3-3">
+<h4 id="orgheadline54">what.wsgi文件</h4>
+<div class="outline-text-4" id="text-8-3-3">
 <p>
 这一行具体设置那个what.wsgi文件在那里，一般就放在flask框架源码第一目录下吧。
 </p>
@@ -1765,8 +1887,8 @@ from cdwanze import app as application
 
 
 <div class="outline-4">
-<h4 id="orgheadline50">更复杂点的配置</h4>
-<div class="outline-text-4" id="text-6-3-4">
+<h4 id="orgheadline55">更复杂点的配置</h4>
+<div class="outline-text-4" id="text-8-3-4">
 <p>
 flask官方文档给出了更复杂点的配置如下所示:
 </p>
@@ -1796,8 +1918,8 @@ WSGIScriptAlias / /home/wanze/workspace/cdwanze/cdwanze.wsgi
 
 
 <div class="outline-3">
-<h3 id="orgheadline52">参考资料</h3>
-<div class="outline-text-3" id="text-6-4">
+<h3 id="orgheadline57">参考资料</h3>
+<div class="outline-text-3" id="text-8-4">
 <ol class="org-ol">
 <li>当然是flask的官方文档。 这里有一个 <a href="http://docs.jinkan.org/docs/flask/">中文翻译网页</a> ，这个网页左侧写着译者，应该是原创吧。</li>
 <li><a href="https://exploreflask.com/">https://exploreflask.com/</a> 这里有一个 <a href="http://spacewander.github.io/explore-flask-zh/index.html">中文翻译网页</a> ，是原创者。</li>

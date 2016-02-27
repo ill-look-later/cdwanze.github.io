@@ -1,168 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
-<title>javascript学习基础篇</title>
-<!-- 2015-11-15 17:35 -->
+<!-- 2016-02-27 六 14:14 -->
 <meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>javascript学习基础篇</title>
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="万泽(德山书生)">
 <meta  name="description" content="制作者邮箱：a358003542@gmail.com"
 >
-<style type="text/css"> /*
- * with_bootstrap.css
- *
- * Copyright 2015 wanze <a358003542@gmail.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- *
- *
- */
-
-@import url("http://getbootstrap.com/dist/css/bootstrap.min.css");
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-    margin: 0px;
-}
+<style type="text/css">
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    background-color: #f5f5f5;
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
 }
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-
-.container {
-  width: auto;
-  max-width: 750px;
-  padding: 0 15px;
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
 }
-.container .text-muted {
-  margin: 20px 0;
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
 }
 
-/* background-color: #f8f8f8; */
-.navbar-default{
-    background-color: #fff;
-}
-/*--------------------*/
-
-#content{
-    margin: 0 auto;
-    max-width: 750px;
-    padding: 17px;
-    line-height:160%;
-    font-size:16px;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-weight: 700;
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
-
-
-pre{line-height:180%;font-size:90%;}
-code,kbd,pre,samp {
-  font-family: monospace, serif;
-}
-
-code{  padding: 2px;}
-p{
-    text-indent:2em;/*段落缩进*/
-    line-height:180%;/*行间距*/
-    }
-
-.title{
+.title {
+    display: block;
     text-align: center;
-}
-.org-ol li , .org-ul li , org-dl dt{
-    margin-top: 0.5em; /*增大li之间的垂直space*/
-    margin-bottom: 0.5em; /*增大li之间的垂直space*/
-}
-p.verse{
-    margin-left: 3%;
-    text-indent:0em;
+    padding: 10px;
 }
 
-.right{
-    margin-left: auto;
-    margin-right: 0px;
-    text-align: right;
-}
-.left{
-    margin-left: 0px;
-    margin-right: auto;
-    text-align: left;
-}
-.center{
+.center-block {
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
 }
 
 .underline{
     text-decoration: underline;
 }
+   #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    /*word-wrap: break-word;*/
+    word-wrap: normal; /* horizontal scrolling */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
 
 video{
-    width: 750px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
 
 figure p{
-    text-indent:0em;/*段落缩进*/
+    text-indent:0em;
 }
 img{
-    max-width: 700px;
+    max-width: 95%;
 }
 
 figure{
     text-align: center;
-}
-
-table, th, td
-{
-    margin:0 auto;
-    min-width:2em;
-    text-align:center ;
-    padding: 5px;
-}
-
-table{
-    border-top: 2px solid ;
-    border-bottom: 2px solid ;
-}
-thead{
-    border-bottom: 1px solid ;
 }
 
 /*  class  */
@@ -188,348 +134,295 @@ thead{
 }
 
 /*
-http://thomasf.github.io/solarized-css/
+table
 */
-
-dfn {
-  font-style: italic;
-}
-dd{
-    margin-left:2em;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 16px 0;
+    empty-cells: show;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: table;
 }
 
-
-
-.tag {
-  background-color: #eee8d5;
-  color: #d33682;
-  padding: 0 0.2em;
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+table th,table td{
+    padding:8px;
 }
 
-
-.todo,
-.next,
-.done {
-  color: #fdf6e3;
-  background-color: #dc322f;
-  padding: 0 0.2em;
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
 }
-.tag {
-  -webkit-border-radius: 0.35em;
-  -moz-border-radius: 0.35em;
-  border-radius: 0.35em;
-}
-.TODO {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #2aa198;
-}
-.NEXT {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.ACTIVE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #268bd2;
-}
-.DONE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-.WAITING {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #cb4b16;
-}
-.HOLD {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.NOTE {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #d33682;
-}
-.CANCELLED {
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background-color: #859900;
-}
-
-
-/*
-pygmentize -f html -S colorful -a .highlight
-*/
-
 .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #ffffff; }
-.highlight .c { color: #888888 } /* Comment */
-.highlight .err { color: #FF0000; background-color: #FFAAAA } /* Error */
-.highlight .k { color: #008800; font-weight: bold } /* Keyword */
-.highlight .o { color: #333333 } /* Operator */
-.highlight .cm { color: #888888 } /* Comment.Multiline */
-.highlight .cp { color: #557799 } /* Comment.Preproc */
-.highlight .c1 { color: #888888 } /* Comment.Single */
-.highlight .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #8f5902; font-style: italic } /* Comment */
+.highlight .err { color: #a40000; border: 1px solid #ef2929 } /* Error */
+.highlight .g { color: #000000 } /* Generic */
+.highlight .k { color: #204a87; font-weight: bold } /* Keyword */
+.highlight .l { color: #000000 } /* Literal */
+.highlight .n { color: #000000 } /* Name */
+.highlight .o { color: #ce5c00; font-weight: bold } /* Operator */
+.highlight .x { color: #000000 } /* Other */
+.highlight .p { color: #000000; font-weight: bold } /* Punctuation */
+.highlight .ch { color: #8f5902; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #8f5902; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #8f5902; font-style: italic } /* Comment.Preproc */
+.highlight .cpf { color: #8f5902; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #8f5902; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #8f5902; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #a40000 } /* Generic.Deleted */
+.highlight .ge { color: #000000; font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #ef2929 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .go { color: #000000; font-style: italic } /* Generic.Output */
+.highlight .gp { color: #8f5902 } /* Generic.Prompt */
+.highlight .gs { color: #000000; font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008800; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008800; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008800; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #003388; font-weight: bold } /* Keyword.Pseudo */
-.highlight .kr { color: #008800; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #333399; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #6600EE; font-weight: bold } /* Literal.Number */
-.highlight .s { background-color: #fff0f0 } /* Literal.String */
-.highlight .na { color: #0000CC } /* Name.Attribute */
-.highlight .nb { color: #007020 } /* Name.Builtin */
-.highlight .nc { color: #BB0066; font-weight: bold } /* Name.Class */
-.highlight .no { color: #003366; font-weight: bold } /* Name.Constant */
-.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
-.highlight .ni { color: #880000; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #FF0000; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0066BB; font-weight: bold } /* Name.Function */
-.highlight .nl { color: #997700; font-weight: bold } /* Name.Label */
-.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #007700 } /* Name.Tag */
-.highlight .nv { color: #996633 } /* Name.Variable */
-.highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #6600EE; font-weight: bold } /* Literal.Number.Bin */
-.highlight .mf { color: #6600EE; font-weight: bold } /* Literal.Number.Float */
-.highlight .mh { color: #005588; font-weight: bold } /* Literal.Number.Hex */
-.highlight .mi { color: #0000DD; font-weight: bold } /* Literal.Number.Integer */
-.highlight .mo { color: #4400EE; font-weight: bold } /* Literal.Number.Oct */
-.highlight .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
-.highlight .sc { color: #0044DD } /* Literal.String.Char */
-.highlight .sd { color: #DD4422 } /* Literal.String.Doc */
-.highlight .s2 { background-color: #fff0f0 } /* Literal.String.Double */
-.highlight .se { color: #666666; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
-.highlight .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
-.highlight .si { background-color: #eeeeee } /* Literal.String.Interpol */
-.highlight .sx { color: #DD2200; background-color: #fff0f0 } /* Literal.String.Other */
-.highlight .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
-.highlight .s1 { background-color: #fff0f0 } /* Literal.String.Single */
-.highlight .ss { color: #AA6600 } /* Literal.String.Symbol */
-.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #336699 } /* Name.Variable.Class */
-.highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
-.highlight .vi { color: #3333BB } /* Name.Variable.Instance */
-.highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+.highlight .gt { color: #a40000; font-weight: bold } /* Generic.Traceback */
+.highlight .kc { color: #204a87; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #204a87; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #204a87; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #204a87; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #204a87; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #204a87; font-weight: bold } /* Keyword.Type */
+.highlight .ld { color: #000000 } /* Literal.Date */
+.highlight .m { color: #0000cf; font-weight: bold } /* Literal.Number */
+.highlight .s { color: #4e9a06 } /* Literal.String */
+.highlight .na { color: #c4a000 } /* Name.Attribute */
+.highlight .nb { color: #204a87 } /* Name.Builtin */
+.highlight .nc { color: #000000 } /* Name.Class */
+.highlight .no { color: #000000 } /* Name.Constant */
+.highlight .nd { color: #5c35cc; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #ce5c00 } /* Name.Entity */
+.highlight .ne { color: #cc0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #000000 } /* Name.Function */
+.highlight .nl { color: #f57900 } /* Name.Label */
+.highlight .nn { color: #000000 } /* Name.Namespace */
+.highlight .nx { color: #000000 } /* Name.Other */
+.highlight .py { color: #000000 } /* Name.Property */
+.highlight .nt { color: #204a87; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #000000 } /* Name.Variable */
+.highlight .ow { color: #204a87; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #f8f8f8; text-decoration: underline } /* Text.Whitespace */
+.highlight .mb { color: #0000cf; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #0000cf; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #0000cf; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000cf; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #0000cf; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { color: #4e9a06 } /* Literal.String.Backtick */
+.highlight .sc { color: #4e9a06 } /* Literal.String.Char */
+.highlight .sd { color: #8f5902; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4e9a06 } /* Literal.String.Double */
+.highlight .se { color: #4e9a06 } /* Literal.String.Escape */
+.highlight .sh { color: #4e9a06 } /* Literal.String.Heredoc */
+.highlight .si { color: #4e9a06 } /* Literal.String.Interpol */
+.highlight .sx { color: #4e9a06 } /* Literal.String.Other */
+.highlight .sr { color: #4e9a06 } /* Literal.String.Regex */
+.highlight .s1 { color: #4e9a06 } /* Literal.String.Single */
+.highlight .ss { color: #4e9a06 } /* Literal.String.Symbol */
+.highlight .bp { color: #3465a4 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #000000 } /* Name.Variable.Class */
+.highlight .vg { color: #000000 } /* Name.Variable.Global */
+.highlight .vi { color: #000000 } /* Name.Variable.Instance */
+.highlight .il { color: #0000cf; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
 
- </style>
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
-<header class="header">
-<nav class="navbar navbar-default navbar-static-top"><div class="container">
-<div class="navbar-header">
-<a class="navbar-brand" href="http://www.cdwanze.org"><img style="max-width:50px; margin-top: -15px;" src="/templates/images/logo.svg" /></a></div>
-<div id="navbar">
-<ul class="nav navbar-nav"><li class="active"><a href="http://blog.cdwanze.org">博客</a><li><a href="http://blog.cdwanze.org/about.html">关于</a><li><a href="http://blog.cdwanze.org/donate.html">支持</a></div>
-</div>
-</nav></header><div id="content">
+<div id="content">
+<header>
 <h1 class="title">javascript学习基础篇</h1>
-<nav id="table-of-contents">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. beginning</a>
+<li><a href="#orgheadline6">1. beginning</a>
 <ul>
-<li><a href="#sec-1-1">1.1. 注释</a></li>
-<li><a href="#sec-1-2">1.2. alert函数</a></li>
-<li><a href="#sec-1-3">1.3. console.log函数</a></li>
-<li><a href="#sec-1-4">1.4. confirm函数</a></li>
-<li><a href="#sec-1-5">1.5. prompt函数</a></li>
+<li><a href="#orgheadline1">1.1. 注释</a></li>
+<li><a href="#orgheadline2">1.2. alert函数</a></li>
+<li><a href="#orgheadline3">1.3. console.log函数</a></li>
+<li><a href="#orgheadline4">1.4. confirm函数</a></li>
+<li><a href="#orgheadline5">1.5. prompt函数</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">2. 程序中的操作对象</a>
+<li><a href="#orgheadline24">2. 程序中的操作对象</a>
 <ul>
-<li><a href="#sec-2-1">2.1. 变量</a>
+<li><a href="#orgheadline8">2.1. 变量</a>
 <ul>
-<li><a href="#sec-2-1-1">2.1.1. strict模式</a></li>
+<li><a href="#orgheadline7">2.1.1. strict模式</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-2">2.2. 数值</a></li>
-<li><a href="#sec-2-3">2.3. 字符串</a>
+<li><a href="#orgheadline9">2.2. 数值</a></li>
+<li><a href="#orgheadline12">2.3. 字符串</a>
 <ul>
-<li><a href="#sec-2-3-1">2.3.1. 多行字符串</a></li>
-<li><a href="#sec-2-3-2">2.3.2. 字符串的一些方法清单</a></li>
+<li><a href="#orgheadline10">2.3.1. 多行字符串</a></li>
+<li><a href="#orgheadline11">2.3.2. 字符串的一些方法清单</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-4">2.4. 数组</a>
+<li><a href="#orgheadline14">2.4. 数组</a>
 <ul>
-<li><a href="#sec-2-4-1">2.4.1. 数组的一些方法清单</a></li>
+<li><a href="#orgheadline13">2.4.1. 数组的一些方法清单</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-5">2.5. 对象</a>
+<li><a href="#orgheadline21">2.5. 对象</a>
 <ul>
-<li><a href="#sec-2-5-1">2.5.1. in语句</a></li>
-<li><a href="#sec-2-5-2">2.5.2. delete语句</a></li>
-<li><a href="#sec-2-5-3">2.5.3. hasOwnProperty方法</a></li>
-<li><a href="#sec-2-5-4">2.5.4. this关键词</a></li>
-<li><a href="#sec-2-5-5">2.5.5. hello方法</a></li>
-<li><a href="#sec-2-5-6">2.5.6. name属性</a></li>
+<li><a href="#orgheadline15">2.5.1. in语句</a></li>
+<li><a href="#orgheadline16">2.5.2. delete语句</a></li>
+<li><a href="#orgheadline17">2.5.3. hasOwnProperty方法</a></li>
+<li><a href="#orgheadline18">2.5.4. this关键词</a></li>
+<li><a href="#orgheadline19">2.5.5. hello方法</a></li>
+<li><a href="#orgheadline20">2.5.6. name属性</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-6">2.6. 集合</a></li>
-<li><a href="#sec-2-7">2.7. Date对象</a></li>
+<li><a href="#orgheadline22">2.6. 集合</a></li>
+<li><a href="#orgheadline23">2.7. Date对象</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">3. 程序中的逻辑</a>
+<li><a href="#orgheadline31">3. 程序中的逻辑</a>
 <ul>
-<li><a href="#sec-3-1">3.1. 布尔值</a></li>
-<li><a href="#sec-3-2">3.2. null</a></li>
-<li><a href="#sec-3-3">3.3. undefined</a></li>
-<li><a href="#sec-3-4">3.4. 条件判断结构</a></li>
-<li><a href="#sec-3-5">3.5. 循环结构</a>
+<li><a href="#orgheadline25">3.1. 布尔值</a></li>
+<li><a href="#orgheadline26">3.2. null</a></li>
+<li><a href="#orgheadline27">3.3. undefined</a></li>
+<li><a href="#orgheadline28">3.4. 条件判断结构</a></li>
+<li><a href="#orgheadline30">3.5. 循环结构</a>
 <ul>
-<li><a href="#sec-3-5-1">3.5.1. while语句</a></li>
+<li><a href="#orgheadline29">3.5.1. while语句</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-4">4. 函数</a>
+<li><a href="#orgheadline35">4. 函数</a>
 <ul>
-<li><a href="#sec-4-1">4.1. 定义函数</a></li>
-<li><a href="#sec-4-2">4.2. arguments用法</a></li>
-<li><a href="#sec-4-3">4.3. 箭头函数</a></li>
+<li><a href="#orgheadline32">4.1. 定义函数</a></li>
+<li><a href="#orgheadline33">4.2. arguments用法</a></li>
+<li><a href="#orgheadline34">4.3. 箭头函数</a></li>
 </ul>
 </li>
-<li><a href="#sec-5">5. 面向DOM的操作</a>
+<li><a href="#orgheadline41">5. 面向DOM的操作</a>
 <ul>
-<li><a href="#sec-5-1">5.1. window</a></li>
-<li><a href="#sec-5-2">5.2. navigator</a></li>
-<li><a href="#sec-5-3">5.3. screen</a></li>
-<li><a href="#sec-5-4">5.4. location</a></li>
-<li><a href="#sec-5-5">5.5. document</a></li>
+<li><a href="#orgheadline36">5.1. window</a></li>
+<li><a href="#orgheadline37">5.2. navigator</a></li>
+<li><a href="#orgheadline38">5.3. screen</a></li>
+<li><a href="#orgheadline39">5.4. location</a></li>
+<li><a href="#orgheadline40">5.5. document</a></li>
 </ul>
 </li>
-<li><a href="#sec-6">6. jquery</a></li>
-<li><a href="#sec-7">7. json</a>
+<li><a href="#orgheadline49">6. jquery</a>
 <ul>
-<li><a href="#sec-7-1">7.1. stringify函数</a></li>
-<li><a href="#sec-7-2">7.2. parse函数</a></li>
+<li><a href="#orgheadline42">6.1. 显示或隐藏</a></li>
+<li><a href="#orgheadline47">6.2. 事件</a>
+<ul>
+<li><a href="#orgheadline43">6.2.1. 鼠标事件</a></li>
+<li><a href="#orgheadline44">6.2.2. 键盘事件</a></li>
+<li><a href="#orgheadline45">6.2.3. 其他事件</a></li>
+<li><a href="#orgheadline46">6.2.4. 取消某个事件绑定</a></li>
 </ul>
 </li>
-<li><a href="#sec-8">8. 参考资料</a></li>
+<li><a href="#orgheadline48">6.3. ajax函数</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline50">7. ajax</a></li>
+<li><a href="#orgheadline53">8. json</a>
+<ul>
+<li><a href="#orgheadline51">8.1. stringify函数</a></li>
+<li><a href="#orgheadline52">8.2. parse函数</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline54">9. 参考资料</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> beginning</h2>
+<div class="outline-2">
+<h2 id="orgheadline6">beginning</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 之前我已经学习过python语言和lisp语言了，所以对于程序语言大部分东西我都无意罗嗦了，而且javascript语言和python语言又有很多很多相近之处，使得本文将异常的简单。并不适合做初学者的指南。
 </p>
 </div>
 
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> 注释</h3>
+<div class="outline-3">
+<h3 id="orgheadline1">注释</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 用 <code>//</code> 来标记一行注释。
 </p>
-<div class="highlight"><pre><span class="c1">// This is a comment that the computer will ignore. </span>
+<div class="highlight"><pre><span></span><span class="c1">// This is a comment that the computer will ignore. </span>
 <span class="c1">// It is for your eyes only!</span>
 </pre></div>
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> alert函数</h3>
+<div class="outline-3">
+<h3 id="orgheadline2">alert函数</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 弹出一段警告信息
 </p>
-<pre class="example">
+<pre>
 alert("hello")
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> console.log函数</h3>
+<div class="outline-3">
+<h3 id="orgheadline3">console.log函数</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 在浏览器开发者工具那里是控制台的打印命令，在网页中是弹出一个信息框。
 </p>
-<pre class="example">
+<pre>
 console.log("hello")
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4"><span class="section-number-3">1.4</span> confirm函数</h3>
+<div class="outline-3">
+<h3 id="orgheadline4">confirm函数</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 弹出一个对话框，可以和用户互动点击确定或取消。根据用户的点击返回true或false。
 </p>
-<pre class="example">
+<pre>
 confirm('This is an example of using JS to create some interaction on a website. Click OK to continue!');
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5"><span class="section-number-3">1.5</span> prompt函数</h3>
+<div class="outline-3">
+<h3 id="orgheadline5">prompt函数</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 弹出一个对话框，具体是一个输入框，输入的值就是该函数的返回值。
 </p>
-<pre class="example">
+<pre>
 var age = prompt("what's your age");
 </pre>
 </div>
@@ -539,8 +432,8 @@ var age = prompt("what's your age");
 
 
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> 程序中的操作对象</h2>
+<div class="outline-2">
+<h2 id="orgheadline24">程序中的操作对象</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 各个编程语言的数据类型底层大致都差不多的吧: 数值型，字符串型（javascript同python一样单引号双引号都可以），布尔型（javascript是true和false），然后其他常规数值运算和逻辑运算（如 <code>&amp;&amp;</code> <code>||</code> <code>!</code> 之类）和比较运算（这里值得一提的是和python的 <code>==</code> 对应的javascript的比较运算符应该是 <code>===</code> ，三个等号，这算是javascript的一个历史遗留语法瑕疵问题。）等都大体相同。python中的None对应的是javascript的 <strong>null</strong> 。
@@ -549,7 +442,7 @@ var age = prompt("what's your age");
 <p>
 然后高级数据类型各个编程语言差异就很大了，不过javascript似乎和python在基本高级数据类型上也很接近，比如说javascript的数组就类似于python的列表:
 </p>
-<pre class="example">
+<pre>
 [1, 2, 3.14, 'Hello', null, true];
 </pre>
 
@@ -560,7 +453,7 @@ var age = prompt("what's your age");
 <p>
 然后javascript还有一个什么对象的概念，其大体可以看作python中的字典类型。
 </p>
-<pre class="example">
+<pre>
 var person = {
     name: 'Bob',
     age: 20,
@@ -573,7 +466,7 @@ var person = {
 <p>
 如下所示具体调用各个数值也是类似的:
 </p>
-<pre class="example">
+<pre>
 person['name']
 "Bob"
 person.name
@@ -582,21 +475,21 @@ person.name
 </div>
 
 
-<div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 变量</h3>
+<div class="outline-3">
+<h3 id="orgheadline8">变量</h3>
 <div class="outline-text-3" id="text-2-1">
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </pre></div>
 </div>
 
-<div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> strict模式</h4>
+<div class="outline-4">
+<h4 id="orgheadline7">strict模式</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <p>
 根本 <a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434499190108eec0bdf14e704a09935cd112e501e31a000">参考资料3这里</a> 的介绍，写javascript代码声明变量都推荐加上 <code>var</code> ，可以在js代码前面加上:
 </p>
-<pre class="example">
+<pre>
 'use strict';
 </pre>
 <p>
@@ -607,8 +500,8 @@ person.name
 </div>
 
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 数值</h3>
+<div class="outline-3">
+<h3 id="orgheadline9">数值</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 javascript整数和浮点数都不分了，都统一表示为Number，然后数值其他的一些内容如果你学习过其他一门编程语言那么基本上没啥新鲜玩意儿了。
@@ -616,19 +509,19 @@ javascript整数和浮点数都不分了，都统一表示为Number，然后数�
 </div>
 </div>
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><span class="section-number-3">2.3</span> 字符串</h3>
+<div class="outline-3">
+<h3 id="orgheadline12">字符串</h3>
 <div class="outline-text-3" id="text-2-3">
-</div><div id="outline-container-sec-2-3-1" class="outline-4">
-<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> 多行字符串</h4>
+</div><div class="outline-4">
+<h4 id="orgheadline10">多行字符串</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 这个对应的是python的 ''' 三引号情况。javascript是这样表示的:
 </p>
 
-<div class="highlight"><pre><span class="err">`</span><span class="nx">多行</span>
-<span class="nx">字符串</span>
-<span class="err">`</span>
+<div class="highlight"><pre><span></span><span class="sb">`多行</span>
+<span class="sb">字符串</span>
+<span class="sb">`</span>
 </pre></div>
 <p>
 也即使用那个反斜点符号包围之。
@@ -636,34 +529,29 @@ javascript整数和浮点数都不分了，都统一表示为Number，然后数�
 </div>
 </div>
 
-<div id="outline-container-sec-2-3-2" class="outline-4">
-<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> 字符串的一些方法清单</h4>
+<div class="outline-4">
+<h4 id="orgheadline11">字符串的一些方法清单</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <dl class="org-dl">
-<dt> length </dt><dd>字符串长度
-</dd>
+<dt>length</dt><dd>字符串长度</dd>
 </dl>
-<pre class="example">
+<pre>
 &gt; "string".length
 6
 </pre>
 <dl class="org-dl">
-<dt> toUpperCase </dt><dd>变成大写
-</dd>
-<dt> toLowerCase </dt><dd>变成小写
-</dd>
-<dt> indexOf </dt><dd>返回子字符串出现的索引位置
-</dd>
+<dt>toUpperCase</dt><dd>变成大写</dd>
+<dt>toLowerCase</dt><dd>变成小写</dd>
+<dt>indexOf</dt><dd>返回子字符串出现的索引位置</dd>
 </dl>
 <p>
 index索引编号规则和python相同，这里就不多说了。
 </p>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="s2">&quot;string&quot;</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="s2">&quot;string&quot;</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="s1">&#39;str&#39;</span>
 </pre></div>
 <dl class="org-dl">
-<dt> substring </dt><dd>返回子字符串
-</dd>
+<dt>substring</dt><dd>返回子字符串</dd>
 </dl>
 </div>
 </div>
@@ -671,13 +559,13 @@ index索引编号规则和python相同，这里就不多说了。
 
 
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4"><span class="section-number-3">2.4</span> 数组</h3>
+<div class="outline-3">
+<h3 id="orgheadline14">数组</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 对应于python中的列表，javascript这里称为数组。如下所示我们看到其也是可变的。
 </p>
-<pre class="example">
+<pre>
 lst
 [1, 2, 3, 4, 5]
 lst[0] = 2
@@ -687,29 +575,21 @@ lst
 </pre>
 </div>
 
-<div id="outline-container-sec-2-4-1" class="outline-4">
-<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> 数组的一些方法清单</h4>
+<div class="outline-4">
+<h4 id="orgheadline13">数组的一些方法清单</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <dl class="org-dl">
-<dt> length </dt><dd>数组长度
-</dd>
-<dt> indexOf </dt><dd>返回数组某个子元素的索引位置
-</dd>
-<dt> slice </dt><dd>切片操作，类似字符串的substring方法
-</dd>
-<dt> push </dt><dd>末尾添加一个元素 
-</dd>
-<dt> pop </dt><dd>最后一个元素删除
-</dd>
-<dt> unshift </dt><dd>数组头部添加一个或多个元素，返回新数组的长度
-</dd>
-<dt> shift </dt><dd>数组头部删除一个元素
-</dd>
-<dt> sort </dt><dd>排序，破坏型。值得一提的是对于数字排序并不是按照从大到小的顺序来的，不太清楚为何:
-</dd>
+<dt>length</dt><dd>数组长度</dd>
+<dt>indexOf</dt><dd>返回数组某个子元素的索引位置</dd>
+<dt>slice</dt><dd>切片操作，类似字符串的substring方法</dd>
+<dt>push</dt><dd>末尾添加一个元素</dd>
+<dt>pop</dt><dd>最后一个元素删除</dd>
+<dt>unshift</dt><dd>数组头部添加一个或多个元素，返回新数组的长度</dd>
+<dt>shift</dt><dd>数组头部删除一个元素</dd>
+<dt>sort</dt><dd>排序，破坏型。值得一提的是对于数字排序并不是按照从大到小的顺序来的，不太清楚为何:</dd>
 </dl>
 
-<pre class="example">
+<pre>
 &gt; var lst = [1,5,2,3,51,4,45,545,541,48,77]
 undefined
 &gt; lst.sort()
@@ -727,12 +607,10 @@ undefined
 </pre>
 
 <dl class="org-dl">
-<dt> reverse </dt><dd>反转，破坏型。
-</dd>
-<dt> splice </dt><dd>从指定的索引删除某些元素，然后在此处添加某些元素，相当于update更新了。
-</dd>
+<dt>reverse</dt><dd>反转，破坏型。</dd>
+<dt>splice</dt><dd>从指定的索引删除某些元素，然后在此处添加某些元素，相当于update更新了。</dd>
 </dl>
-<pre class="example">
+<pre>
 &gt; var arr = ['Microsoft', 'Apple', 'Yahoo', 'AOL', 'Excite', 'Oracle'];
 undefined
 &gt; arr.splice(2, 3, 'Google', 'Facebook'); 
@@ -748,7 +626,7 @@ undefined
 splice方法也可以用于只删除不添加也就是纯删除操作，或只添加不删除的纯添加操作。
 </p>
 
-<pre class="example">
+<pre>
 // 只删除,不添加:
 arr.splice(2, 2);
 // 只添加,不删除:
@@ -756,10 +634,9 @@ arr.splice(2, 0, 'Google', 'Facebook');
 </pre>
 
 <dl class="org-dl">
-<dt> concat </dt><dd>连接两个数组，非破坏型。
-</dd>
+<dt>concat</dt><dd>连接两个数组，非破坏型。</dd>
 </dl>
-<pre class="example">
+<pre>
 &gt; var lst1 = [1,2,3]
 undefined
 &gt; var lst2 = ['a','b','c']
@@ -769,10 +646,9 @@ undefined
 </pre>
 
 <dl class="org-dl">
-<dt> join </dt><dd>类似于python字符串的join方法，如下所示:
-</dd>
+<dt>join</dt><dd>类似于python字符串的join方法，如下所示:</dd>
 </dl>
-<pre class="example">
+<pre>
 var arr = ['A', 'B', 'C', 1, 2, 3];
 arr.join('-'); // 'A-B-C-1-2-3'
 </pre>
@@ -781,13 +657,13 @@ arr.join('-'); // 'A-B-C-1-2-3'
 </div>
 
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5"><span class="section-number-3">2.5</span> 对象</h3>
+<div class="outline-3">
+<h3 id="orgheadline21">对象</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 其大致可以对应到python中的字典的概念。
 </p>
-<pre class="example">
+<pre>
 var person = {
     name: 'Bob',
     age: 20,
@@ -804,13 +680,13 @@ javascript的对象的value还可以是某个函数，这样的话其实际上�
 
 
 
-<div id="outline-container-sec-2-5-1" class="outline-4">
-<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> in语句</h4>
+<div class="outline-4">
+<h4 id="orgheadline15">in语句</h4>
 <div class="outline-text-4" id="text-2-5-1">
-<pre class="example">
+<pre>
 'name' in xiaoming;
 </pre>
-<pre class="example">
+<pre>
 &gt; var d = {}
 undefined
 &gt; d['a'] = 1
@@ -825,13 +701,13 @@ true
 </div>
 </div>
 
-<div id="outline-container-sec-2-5-2" class="outline-4">
-<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> delete语句</h4>
+<div class="outline-4">
+<h4 id="orgheadline16">delete语句</h4>
 <div class="outline-text-4" id="text-2-5-2">
 <p>
 其对应的就是python的del语句。然后我们看到javascript的 <code>delete</code> 语句删除不存在键也不会报错。
 </p>
-<pre class="example">
+<pre>
 &gt; d
 Object {a: 1}
 &gt; delete d.b
@@ -847,13 +723,13 @@ Object {}
 </div>
 
 
-<div id="outline-container-sec-2-5-3" class="outline-4">
-<h4 id="sec-2-5-3"><span class="section-number-4">2.5.3</span> hasOwnProperty方法</h4>
+<div class="outline-4">
+<h4 id="orgheadline17">hasOwnProperty方法</h4>
 <div class="outline-text-4" id="text-2-5-3">
 <p>
 对应于python2的has_key方法，不过python2已经移除了，推荐用in语句。
 </p>
-<pre class="example">
+<pre>
 d = {'a':1}
 Object {a: 1}
 d.hasOwnProperty('a')
@@ -863,17 +739,15 @@ true
 </div>
 
 
-<div id="outline-container-sec-2-5-4" class="outline-4">
-<h4 id="sec-2-5-4"><span class="section-number-4">2.5.4</span> this关键词</h4>
+<div class="outline-4">
+<h4 id="orgheadline18">this关键词</h4>
 <div class="outline-text-4" id="text-2-5-4">
 <p>
-this关键词的使用较为困难，参考 <a href="#cite4">参考资料4</a> 的描述大体有:
+this关键词的使用较为困难，参考 <a href="#orgtarget1">参考资料4</a> 的描述大体有:
 </p>
 <ol class="org-ol">
-<li>this在函数内部表示本函数自身
-</li>
-<li>如果在方法里面（这里强调方法是指对象的某个数值的值是函数对象），则this是本对象。
-</li>
+<li>this在函数内部表示本函数自身</li>
+<li>如果在方法里面（这里强调方法是指对象的某个数值的值是函数对象），则this是本对象。</li>
 </ol>
 <p>
 &#x2026;..还有一些混淆的情况&#x2026;
@@ -882,20 +756,20 @@ this关键词的使用较为困难，参考 <a href="#cite4">参考资料4</a> �
 </div>
 
 
-<div id="outline-container-sec-2-5-5" class="outline-4">
-<h4 id="sec-2-5-5"><span class="section-number-4">2.5.5</span> hello方法</h4>
+<div class="outline-4">
+<h4 id="orgheadline19">hello方法</h4>
 <div class="outline-text-4" id="text-2-5-5">
 <p>
 重定义hello方法相当于python的重定义 <code>__init__</code> 方法，其为该对象的重构函数，这样你就可以使用 <code>new</code> 来新建一个实例了。
 </p>
-<pre class="example">
+<pre>
 s = new Student('John')
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-2-5-6" class="outline-4">
-<h4 id="sec-2-5-6"><span class="section-number-4">2.5.6</span> name属性</h4>
+<div class="outline-4">
+<h4 id="orgheadline20">name属性</h4>
 <div class="outline-text-4" id="text-2-5-6">
 <p>
 name属性是一个特殊的属性，常用来表示该对象的名字。
@@ -907,13 +781,13 @@ name属性是一个特殊的属性，常用来表示该对象的名字。
 
 
 
-<div id="outline-container-sec-2-6" class="outline-3">
-<h3 id="sec-2-6"><span class="section-number-3">2.6</span> 集合</h3>
+<div class="outline-3">
+<h3 id="orgheadline22">集合</h3>
 <div class="outline-text-3" id="text-2-6">
 <p>
 javascript中的集合Set大体也和python中的集合概念相近。
 </p>
-<pre class="example">
+<pre>
 var s1 = new Set(); // 空Set
 var s2 = new Set([1, 2, 3]); // 含1, 2, 3
 </pre>
@@ -925,10 +799,10 @@ var s2 = new Set([1, 2, 3]); // 含1, 2, 3
 </div>
 
 
-<div id="outline-container-sec-2-7" class="outline-3">
-<h3 id="sec-2-7"><span class="section-number-3">2.7</span> Date对象</h3>
+<div class="outline-3">
+<h3 id="orgheadline23">Date对象</h3>
 <div class="outline-text-3" id="text-2-7">
-<pre class="example">
+<pre>
 var now = new Date();
 now; // Wed Jun 24 2015 19:49:22 GMT+0800 (CST)
 now.getFullYear(); // 2015, 年份
@@ -946,24 +820,24 @@ now.getTime(); // 1435146562875, 以number形式表示的时间戳
 </div>
 
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> 程序中的逻辑</h2>
+<div class="outline-2">
+<h2 id="orgheadline31">程序中的逻辑</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 布尔值</h3>
+</div><div class="outline-3">
+<h3 id="orgheadline25">布尔值</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 javascript的布尔值是 <code>true</code> 和 <code>false</code> 。然后需要额外强调的是，类似python的比较判断（==）符号在javascript中是 <code>===</code> ，三个等号，这不是什么别出心裁，也没有任何实际的好处，就是javascript的历史遗留问题罢了。
 </p>
-<pre class="example">
+<pre>
 === Equal to
 !== Not equal to
 </pre>
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> null</h3>
+<div class="outline-3">
+<h3 id="orgheadline26">null</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 javascript的是 <code>null</code> 。其也是一个单独的对象。
@@ -971,23 +845,23 @@ javascript的是 <code>null</code> 。其也是一个单独的对象。
 </div>
 </div>
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3"><span class="section-number-3">3.3</span> undefined</h3>
+<div class="outline-3">
+<h3 id="orgheadline27">undefined</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
-undefined也是一个额外的对象。大部分时候你都会获得undefined，但是有时，比如你明确要求返回null，或者document.getElementById如果找不到element则会返回null（参考了 <a href="#cite4">参考资料4</a> ）。所以undefined更接近python的None的概念。
+undefined也是一个额外的对象。大部分时候你都会获得undefined，但是有时，比如你明确要求返回null，或者document.getElementById如果找不到element则会返回null（参考了 <a href="#orgtarget1">参考资料4</a> ）。所以undefined更接近python的None的概念。
 </p>
 </div>
 </div>
 
 
-<div id="outline-container-sec-3-4" class="outline-3">
-<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 条件判断结构</h3>
+<div class="outline-3">
+<h3 id="orgheadline28">条件判断结构</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 条件判断结构，和python大同小异，除了那些圆括号（记住这个圆括号必须加上）和花括号。
 </p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">feedback</span> <span class="o">=</span> <span class="mi">10</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">feedback</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">if</span><span class="p">(</span><span class="nx">feedback</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Thank you! We should race at the next concert!&quot;</span><span class="p">)}</span>
 <span class="k">else</span><span class="p">{</span>
@@ -997,7 +871,7 @@ undefined也是一个额外的对象。大部分时候你都会获得undefined�
 <p>
 虽然javascript不想python那样强制缩进风格，但还是推荐用缩进来增强你的代码可读性和逻辑清晰性，如:
 </p>
-<div class="highlight"><pre><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="highlight"><pre><span></span><span class="nx">age</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="k">if</span><span class="p">(</span><span class="nx">age</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;kid&#39;</span><span class="p">)}</span>
 <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">){</span>
@@ -1013,25 +887,25 @@ undefined也是一个额外的对象。大部分时候你都会获得undefined�
 <p>
 所以我们下面写一个更加复杂点的例子（具体这些小脚本的试验推荐在ubuntu下安装nodejs，然后执行 <code>nodejs test.js</code> 即可。）。原python脚本如下:
 </p>
-<div class="highlight"><pre><span class="n">x</span><span class="o">=-</span><span class="mi">2</span>
+<div class="highlight"><pre><span></span><span class="n">x</span><span class="o">=-</span><span class="mi">2</span>
 <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x大于0&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x大于0&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;x&gt;2&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x&gt;2&#39;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;0&lt;x&lt;2&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;0&lt;x&lt;2&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;x=2&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x=2&#39;</span><span class="p">)</span>
 <span class="k">elif</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x小于0&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x小于0&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;x等于0&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;x等于0&#39;</span><span class="p">)</span>
 </pre></div>
 
 <p>
 改写成为:
 </p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="k">if</span><span class="p">(</span><span class="nx">x</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;x大于0&#39;</span><span class="p">)</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">x</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">){</span>
@@ -1049,7 +923,7 @@ undefined也是一个额外的对象。大部分时候你都会获得undefined�
 <p>
 读者可以用不同的x值来测试一下，这里的关键性问题不是区块开始那里，而是区块什么时候结束。然后就是程序结构最好清清晰晰的用 if else 或者 if else if else if else 等这类语句表达出来。关于多个else if语句的组合平行表达，读者可以自己试验一下，我简单写了下面这个例子:
 </p>
-<div class="highlight"><pre><span class="nx">age</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="highlight"><pre><span></span><span class="nx">age</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="k">if</span><span class="p">(</span><span class="nx">age</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;age 小于 6&#39;</span><span class="p">)}</span>
 <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">age</span> <span class="o">&gt;=</span> <span class="mi">25</span><span class="p">){</span>
@@ -1066,14 +940,14 @@ javascript有switch语句，作为我们pythoner你懂的，能用多个else if�
 </div>
 </div>
 
-<div id="outline-container-sec-3-5" class="outline-3">
-<h3 id="sec-3-5"><span class="section-number-3">3.5</span> 循环结构</h3>
+<div class="outline-3">
+<h3 id="orgheadline30">循环结构</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 javascript和python都有while语句，但while语句用的较少，更多的是使用for语句。javascript的for语句老式风格和c语句接近，而现在有新式的for语句风格了，更接近python的风格。如下所示:
 </p>
 
-<div class="highlight"><pre><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]){</span>
+<div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">)}</span>
 </pre></div>
 
@@ -1084,19 +958,19 @@ javascript和python都有while语句，但while语句用的较少，更多的是
 <p>
 然后递归遍历字典的key也是可以的:
 </p>
-<div class="highlight"><pre><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="o">:</span><span class="mi">2</span><span class="p">}){</span>
+<div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="o">:</span><span class="mi">2</span><span class="p">}){</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">)}</span>
 </pre></div>
 </div>
 
-<div id="outline-container-sec-3-5-1" class="outline-4">
-<h4 id="sec-3-5-1"><span class="section-number-4">3.5.1</span> while语句</h4>
+<div class="outline-4">
+<h4 id="orgheadline29">while语句</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <p>
 while语句简单了解下吧，熟悉c语言的简单看一下就清楚了。
 </p>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">99</span><span class="p">;</span>
 <span class="k">while</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">n</span><span class="p">;</span>
@@ -1108,7 +982,7 @@ while语句简单了解下吧，熟悉c语言的简单看一下就清楚了。
 还有do while 语句
 </p>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="k">do</span> <span class="p">{</span>
     <span class="nx">n</span> <span class="o">=</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span><span class="k">while</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">);</span>
@@ -1120,16 +994,16 @@ while语句简单了解下吧，熟悉c语言的简单看一下就清楚了。
 
 
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> 函数</h2>
+<div class="outline-2">
+<h2 id="orgheadline35">函数</h2>
 <div class="outline-text-2" id="text-4">
-</div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 定义函数</h3>
+</div><div class="outline-3">
+<h3 id="orgheadline32">定义函数</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 一个简单的函数定义和使用如下所示:
 </p>
-<pre class="example">
+<pre>
 var greeting = function(name){
     console.log(name);
 }
@@ -1138,7 +1012,7 @@ greeting('hello')
 <p>
 我们看到javascript明确将函数名作为一个变量，这是唯一要值得注意的，不过你也可以采用这种写法，这样更加为我们所熟悉了:
 </p>
-<div class="highlight"><pre><span class="kd">function</span> <span class="nx">abs</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">abs</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">){</span>
         <span class="k">return</span> <span class="nx">x</span><span class="p">;}</span> 
     <span class="k">else</span><span class="p">{</span>
@@ -1156,13 +1030,13 @@ greeting('hello')
 </div>
 </div>
 
-<div id="outline-container-sec-4-2" class="outline-3">
-<h3 id="sec-4-2"><span class="section-number-3">4.2</span> arguments用法</h3>
+<div class="outline-3">
+<h3 id="orgheadline33">arguments用法</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 javascript的函数内部可以直接使用arguments这个变量，其不是一个Array，但可以如下使用:
 </p>
-<pre class="example">
+<pre>
 arguments[0]
 arguments.length
 </pre>
@@ -1170,8 +1044,8 @@ arguments.length
 </div>
 
 
-<div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 箭头函数</h3>
+<div class="outline-3">
+<h3 id="orgheadline34">箭头函数</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 就是匿名函数lambda的一种写法。暂时不太关心、
@@ -1181,129 +1055,103 @@ arguments.length
 </div>
 
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5"><span class="section-number-2">5</span> 面向DOM的操作</h2>
+<div class="outline-2">
+<h2 id="orgheadline41">面向DOM的操作</h2>
 <div class="outline-text-2" id="text-5">
-</div><div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1"><span class="section-number-3">5.1</span> window</h3>
+</div><div class="outline-3">
+<h3 id="orgheadline36">window</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 window是一个全局变量，表示本浏览器的窗口。
 </p>
 
 <dl class="org-dl">
-<dt> innerWidth </dt><dd>本窗口的内部宽度
-</dd>
+<dt>innerWidth</dt><dd>本窗口的内部宽度</dd>
 </dl>
 <p>
 所谓的内部宽度是指除去菜单栏工具栏等具体显示网页的净宽度。
 </p>
 <dl class="org-dl">
-<dt> innerHeight </dt><dd>本窗口的内部高度，内部高度含义类似上面谈及的内部宽度。
-</dd>
-<dt> outerWidth </dt><dd>本窗口的外部宽度
-</dd>
-<dt> outerHeight </dt><dd>本窗口的外部高度
-</dd>
+<dt>innerHeight</dt><dd>本窗口的内部高度，内部高度含义类似上面谈及的内部宽度。</dd>
+<dt>outerWidth</dt><dd>本窗口的外部宽度</dd>
+<dt>outerHeight</dt><dd>本窗口的外部高度</dd>
 </dl>
 </div>
 </div>
 
-<div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2"><span class="section-number-3">5.2</span> navigator</h3>
+<div class="outline-3">
+<h3 id="orgheadline37">navigator</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 其有属性如下所示:
 </p>
 <dl class="org-dl">
-<dt> appName </dt><dd>浏览器名称；
-</dd>
-<dt> appVersion </dt><dd>浏览器版本；
-</dd>
-<dt> language </dt><dd>浏览器设置的语言；
-</dd>
-<dt> platform </dt><dd>操作系统类型；
-</dd>
-<dt> userAgent </dt><dd>浏览器设定的User-Agent字符串。
-</dd>
+<dt>appName</dt><dd>浏览器名称；</dd>
+<dt>appVersion</dt><dd>浏览器版本；</dd>
+<dt>language</dt><dd>浏览器设置的语言；</dd>
+<dt>platform</dt><dd>操作系统类型；</dd>
+<dt>userAgent</dt><dd>浏览器设定的User-Agent字符串。</dd>
 </dl>
 </div>
 </div>
 
-<div id="outline-container-sec-5-3" class="outline-3">
-<h3 id="sec-5-3"><span class="section-number-3">5.3</span> screen</h3>
+<div class="outline-3">
+<h3 id="orgheadline38">screen</h3>
 <div class="outline-text-3" id="text-5-3">
 <dl class="org-dl">
-<dt> width </dt><dd>屏幕宽度
-</dd>
-<dt> height </dt><dd>屏幕高度
-</dd>
-<dt> colorDepth </dt><dd>颜色位数
-</dd>
+<dt>width</dt><dd>屏幕宽度</dd>
+<dt>height</dt><dd>屏幕高度</dd>
+<dt>colorDepth</dt><dd>颜色位数</dd>
 </dl>
 </div>
 </div>
 
-<div id="outline-container-sec-5-4" class="outline-3">
-<h3 id="sec-5-4"><span class="section-number-3">5.4</span> location</h3>
+<div class="outline-3">
+<h3 id="orgheadline39">location</h3>
 <div class="outline-text-3" id="text-5-4">
 <dl class="org-dl">
-<dt> href </dt><dd>完整路径
-</dd>
-<dt> protocol </dt><dd>如下所示:
-</dd>
+<dt>href</dt><dd>完整路径</dd>
+<dt>protocol</dt><dd>如下所示:</dd>
 </dl>
-<pre class="example">
+<pre>
 &gt; location.protocol
 "http:"
 </pre>
 
 <dl class="org-dl">
-<dt> host </dt><dd>对应python urlsplit之后的netloc
-</dd>
-<dt> port </dt><dd>端口号
-</dd>
-<dt> pathname </dt><dd>对应python urlsplit之后的path
-</dd>
-<dt> search </dt><dd>参数字段
-</dd>
-<dt> hash </dt><dd>也就是segement
-</dd>
+<dt>host</dt><dd>对应python urlsplit之后的netloc</dd>
+<dt>port</dt><dd>端口号</dd>
+<dt>pathname</dt><dd>对应python urlsplit之后的path</dd>
+<dt>search</dt><dd>参数字段</dd>
+<dt>hash</dt><dd>也就是segement</dd>
 </dl>
 
 <hr >
 
 <dl class="org-dl">
-<dt> assign() </dt><dd>刷新当前页面
-</dd>
-<dt> reload() </dt><dd>重载当前页面
-</dd>
+<dt>assign()</dt><dd>刷新当前页面</dd>
+<dt>reload()</dt><dd>重载当前页面</dd>
 </dl>
 </div>
 </div>
 
-<div id="outline-container-sec-5-5" class="outline-3">
-<h3 id="sec-5-5"><span class="section-number-3">5.5</span> document</h3>
+<div class="outline-3">
+<h3 id="orgheadline40">document</h3>
 <div class="outline-text-3" id="text-5-5">
 <p>
 你可以认为这是beautifulsoup刷过之后的网页文档树。
 </p>
 <dl class="org-dl">
-<dt> title </dt><dd>title标签内所含的内容
-</dd>
-<dt> cookie </dt><dd>获取cookie的内容
-</dd>
+<dt>title</dt><dd>title标签内所含的内容</dd>
+<dt>cookie</dt><dd>获取cookie的内容</dd>
 </dl>
 
 <hr >
 
 <dl class="org-dl">
-<dt> getElementById() </dt><dd>该方法用于根据Id来提取网页内容的某个DOM子节点
-</dd>
-<dt> getElementsByTagName() </dt><dd>该方法用于根据Tag标签名字来提取某个DOM子节点（看到那个Elements的s，其将返回多个命中目标。记住带s的这些将返回的是一个数组对象）
-</dd>
-<dt> getElementsByClassName() </dt><dd>该方法用于根据css来进行选择某些DOM子节点。
-</dd>
+<dt>getElementById()</dt><dd>该方法用于根据Id来提取网页内容的某个DOM子节点</dd>
+<dt>getElementsByTagName()</dt><dd>该方法用于根据Tag标签名字来提取某个DOM子节点（看到那个Elements的s，其将返回多个命中目标。记住带s的这些将返回的是一个数组对象）</dd>
+<dt>getElementsByClassName()</dt><dd>该方法用于根据css来进行选择某些DOM子节点。</dd>
 </dl>
 
 <p>
@@ -1313,57 +1161,48 @@ window是一个全局变量，表示本浏览器的窗口。
 <hr >
 
 <dl class="org-dl">
-<dt> querySelector() </dt><dd>类似beautifulsoup的selector选择语法:
-</dd>
+<dt>querySelector()</dt><dd>类似beautifulsoup的selector选择语法:</dd>
 </dl>
-<pre class="example">
+<pre>
 var ps = q1.querySelectorAll('div.highlighted &gt; p');
 </pre>
 <dl class="org-dl">
-<dt> querySelectorAll() </dt><dd>类似上面，但返回所有结果。
-</dd>
+<dt>querySelectorAll()</dt><dd>类似上面，但返回所有结果。</dd>
 </dl>
 
 <hr >
 <p>
 找到目标标签元素之后，各个样式属性可以如下直接引用:
 </p>
-<pre class="example">
+<pre>
 document.querySelector('a').href
 </pre>
 
 <dl class="org-dl">
-<dt> innerHTML </dt><dd>对应该DOM节点标签内的文本内容
-</dd>
-<dt> innerText </dt><dd>类似上面的innerHTML，但不可设置任何HTML标签
-</dd>
+<dt>innerHTML</dt><dd>对应该DOM节点标签内的文本内容</dd>
+<dt>innerText</dt><dd>类似上面的innerHTML，但不可设置任何HTML标签</dd>
 </dl>
 
 <hr >
 <dl class="org-dl">
-<dt> createElement() </dt><dd>创建一个标签元素对象:
-</dd>
+<dt>createElement()</dt><dd>创建一个标签元素对象:</dd>
 </dl>
-<pre class="example">
+<pre>
 haskell = document.createElement('p');
 haskell.id = 'haskell';
 haskell.innerText = 'Haskell';
 </pre>
 <dl class="org-dl">
-<dt> appendChild() </dt><dd>本标签元素为所谓的父节点，给自己添加一个子节点标签元素
-</dd>
-<dt> insertBefore() </dt><dd>本标签元素为所谓的父节点，然后在其内的某个标签元素之前插入某个子节点标签元素:
-</dd>
+<dt>appendChild()</dt><dd>本标签元素为所谓的父节点，给自己添加一个子节点标签元素</dd>
+<dt>insertBefore()</dt><dd>本标签元素为所谓的父节点，然后在其内的某个标签元素之前插入某个子节点标签元素:</dd>
 </dl>
-<pre class="example">
+<pre>
 parentElement.insertBefore(newElement, referenceElement);
 </pre>
 
 <dl class="org-dl">
-<dt> parentElement </dt><dd>返回本标签元素对象的父标签元素对象
-</dd>
-<dt> removeChild() </dt><dd>本标签元素为父节点，删除本父节点的某个子节点
-</dd>
+<dt>parentElement</dt><dd>返回本标签元素对象的父标签元素对象</dd>
+<dt>removeChild()</dt><dd>本标签元素为父节点，删除本父节点的某个子节点</dd>
 </dl>
 
 <p>
@@ -1374,21 +1213,268 @@ parentElement.insertBefore(newElement, referenceElement);
 </div>
 
 
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6"><span class="section-number-2">6</span> jquery</h2>
+<div class="outline-2">
+<h2 id="orgheadline49">jquery</h2>
+<div class="outline-text-2" id="text-6">
+<pre>
+$('#abc')
+</pre>
+<p>
+就可以获得类似
+</p>
+<pre>
+document.getElementById('abc')
+</pre>
+<p>
+的效果，注意只是类似。
+</p>
+
+<p>
+\(实际上是一个函数，其将返回一个数组，里面装着jquery对象（如果没有命中则返回空数组）。你可以用 ~\)(DOMobject)~ 来讲某个javascript原DOM对象转变成为jquery对象。
+</p>
+
+<p>
+按照多个class查找:
+</p>
+<pre>
+var a = $('.red.green'); // 注意没有空格！
+// 符合条件的节点：
+// &lt;div class="red green"&gt;...&lt;/div&gt;
+// &lt;div class="blue green red"&gt;...&lt;/div&gt;
+</pre>
+
+<p>
+按照属性查找:
+</p>
+<pre>
+var icons = $('[name^=icon]'); // 找出所有name属性值以icon开头的DOM
+// 例如: name="icon-1", name="icon-2"
+var names = $('[name$=with]'); // 找出所有name属性值以with结尾的DOM
+// 例如: name="startswith", name="endswith"
+</pre>
+
+<p>
+组合查找
+</p>
+<pre>
+$('p,div'); // 把&lt;p&gt;和&lt;div&gt;都选出来
+$('p.red,p.green'); // 把&lt;p class="red"&gt;和&lt;p class="green"&gt;都选出来
+</pre>
+
+<p>
+层级查找
+</p>
+<pre>
+$('ul.lang li.lang-javascript'); // [&lt;li class="lang-javascript"&gt;JavaScript&lt;/li&gt;]
+$('div.testing li.lang-javascript'); // [&lt;li class="lang-javascript"&gt;JavaScript&lt;/li&gt;]
+</pre>
+
+<p>
+子选择器
+</p>
+<pre>
+$('ul.lang&gt;li.lang-javascript'); // 可以选出[&lt;li class="lang-javascript"&gt;JavaScript&lt;/li&gt;]
+$('div.testing&gt;li.lang-javascript'); // [], 无法选出，因为&lt;div&gt;和&lt;li&gt;不构成父子关系
+</pre>
+
+<p>
+这些语法都是css选择中的高级语法，这里都略过了。
+</p>
+
+<p>
+jquery对象有下面这些属性:
+</p>
+
+<dl class="org-dl">
+<dt>find()</dt><dd>进一步查找</dd>
+<dt>parent()</dt><dd>获得父节点</dd>
+<dt>next()</dt><dd>同一层级下一个节点</dd>
+<dt>prev()</dt><dd>同一层级前一个节点</dd>
+<dt>filter()</dt><dd>过滤掉某些节点</dd>
+</dl>
+<p>
+上面这几个方法都可以接受和之前描述一样的css选择语法。
+</p>
+
+<hr >
+
+<dl class="org-dl">
+<dt>text()</dt><dd>本jquery对象标签元素所含文本</dd>
+<dt>html()</dt><dd>该jquery对象标签元素所含html</dd>
+</dl>
+
+<hr >
+<dl class="org-dl">
+<dt>css()</dt><dd>修改css属性</dd>
+</dl>
+<pre>
+$('#test-css li.dy&gt;span').css('background-color', '#ffd351').css('color', 'red');
+</pre>
+
+<pre>
+var div = $('#test-div');
+div.hasClass('highlight'); // false， class是否包含highlight
+div.addClass('highlight'); // 添加highlight这个class
+div.removeClass('highlight'); // 删除highlight这个class
+</pre>
+
+<dl class="org-dl">
+<dt>attr()</dt><dd>修改属性</dd>
+<dt>removeAttr()</dt><dd>删除属性</dd>
+</dl>
+<pre>
+// &lt;div id="test-div" name="Test" start="1"&gt;...&lt;/div&gt;
+var div = $('#test-div');
+div.hasAttr('name'); // true
+div.attr('name'); // 'Test'
+div.attr('name', 'Hello'); // div的name属性变为'Hello'
+div.removeAttr('name'); // 删除name属性
+div.attr('name'); // undefined
+</pre>
+
+<dl class="org-dl">
+<dt>val()</dt><dd>获取某个表单元素input的value值</dd>
+</dl>
+
+
+<hr >
+
+<dl class="org-dl">
+<dt>append()</dt><dd>添加一个子节点</dd>
+<dt>prepend()</dt><dd>添加一个子节点，到最前。</dd>
+<dt>before()</dt><dd>某个节点之前插入</dd>
+<dt>after()</dt><dd>某个节点之后插入</dd>
+<dt>remove()</dt><dd>删除某个节点</dd>
+</dl>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline42">显示或隐藏</h3>
+<div class="outline-text-3" id="text-6-1">
+<pre>
+var a = $('a[target=_blank]');
+a.hide(); // 隐藏
+a.show(); // 显示
+</pre>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline47">事件</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+超链接被点击就触发了click事件，某个标签元素可以如下定义:
+</p>
+<pre>
+a.on('click', function () {
+    alert('Hello!');
+});
+</pre>
+
+<p>
+<code>on</code> 某个事件，则执行某个动作。
+或者:
+</p>
+<pre>
+a.click(function () {
+    alert('Hello!');
+});
+</pre>
+</div>
+
+
+<div class="outline-4">
+<h4 id="orgheadline43">鼠标事件</h4>
+<div class="outline-text-4" id="text-6-2-1">
+<dl class="org-dl">
+<dt>click</dt><dd>鼠标单击时触发；</dd>
+<dt>dblclick</dt><dd>鼠标双击时触发；</dd>
+<dt>mouseenter</dt><dd>鼠标进入时触发；</dd>
+<dt>mouseleave</dt><dd>鼠标移出时触发；</dd>
+<dt>mousemove</dt><dd>鼠标在DOM内部移动时触发 （接受e ，e.pageX是鼠标x值，e.pageY是鼠标Y值）</dd>
+<dt>hover</dt><dd>鼠标进入和退出时触发两个函数，相当于mouseenter加上mouseleave。</dd>
+</dl>
+</div>
+</div>
+
+<div class="outline-4">
+<h4 id="orgheadline44">键盘事件</h4>
+<div class="outline-text-4" id="text-6-2-2">
+<p>
+键盘事件仅作用在当前焦点的DOM上，通常是&lt;input&gt;和&lt;textarea&gt;。
+</p>
+
+<dl class="org-dl">
+<dt>keydown</dt><dd>键盘按下时触发；</dd>
+<dt>keyup</dt><dd>键盘松开时触发；</dd>
+<dt>keypress</dt><dd>按一次键后触发。</dd>
+</dl>
+</div>
+</div>
+
+
+<div class="outline-4">
+<h4 id="orgheadline45">其他事件</h4>
+<div class="outline-text-4" id="text-6-2-3">
+<p>
+focus：当DOM获得焦点时触发；
+blur：当DOM失去焦点时触发；
+change：当&lt;input&gt;、&lt;select&gt;或&lt;textarea&gt;的内容改变时触发；
+submit：当&lt;form&gt;提交时触发；
+ready：当页面被载入并且DOM树完成初始化后触发。
+</p>
+
+<p>
+文档初始化事件: 
+</p>
+<pre>
+$(function () {
+    // init...
+});
+</pre>
+<p>
+这种写法就是处理document的ready事件的。
+</p>
+</div>
+</div>
+
+<div class="outline-4">
+<h4 id="orgheadline46">取消某个事件绑定</h4>
+<div class="outline-text-4" id="text-6-2-4">
+<pre>
+a.off('click', hello);
+</pre>
+</div>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline48">ajax函数</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+<code>$.ajax()</code> 提供ajax支持。
+</p>
+</div>
+</div>
 </div>
 
 
 
 
+<div class="outline-2">
+<h2 id="orgheadline50">ajax</h2>
+</div>
 
-<div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7"><span class="section-number-2">7</span> json</h2>
-<div class="outline-text-2" id="text-7">
+
+<div class="outline-2">
+<h2 id="orgheadline53">json</h2>
+<div class="outline-text-2" id="text-8">
 <p>
 json之前了解过一些了:
 </p>
-<pre class="example">
+<pre>
 number：和JavaScript的number完全一致；
 boolean：就是JavaScript的true或false；
 string：就是JavaScript的string；
@@ -1398,50 +1484,46 @@ object：就是JavaScript的{ ... }表示方式。
 </pre>
 </div>
 
-<div id="outline-container-sec-7-1" class="outline-3">
-<h3 id="sec-7-1"><span class="section-number-3">7.1</span> stringify函数</h3>
-<div class="outline-text-3" id="text-7-1">
+<div class="outline-3">
+<h3 id="orgheadline51">stringify函数</h3>
+<div class="outline-text-3" id="text-8-1">
 <p>
 某个javascript对象字符串化。
 </p>
-<pre class="example">
+<pre>
 JSON.stringify(xiaoming, null, '  ');
 </pre>
 </div>
 </div>
 
 
-<div id="outline-container-sec-7-2" class="outline-3">
-<h3 id="sec-7-2"><span class="section-number-3">7.2</span> parse函数</h3>
-<div class="outline-text-3" id="text-7-2">
+<div class="outline-3">
+<h3 id="orgheadline52">parse函数</h3>
+<div class="outline-text-3" id="text-8-2">
 <p>
 将某个javascript对象刷成json对象。
 </p>
-<pre class="example">
+<pre>
 JSON.parse('[1,2,3,true]');
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-8" class="outline-2">
-<h2 id="sec-8"><span class="section-number-2">8</span> 参考资料</h2>
-<div class="outline-text-2" id="text-8">
+
+
+<div class="outline-2">
+<h2 id="orgheadline54">参考资料</h2>
+<div class="outline-text-2" id="text-9">
 <ol class="org-ol">
-<li>JavaScript: The Definitive Guide; Author: David Flanagan; version: Sixth Edition.
-</li>
-<li><a href="https://www.codecademy.com">https://www.codecademy.com</a>
-</li>
-<li><a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000">廖雪峰的javascript教程</a> 
-</li>
-<li>Javascript in Ten Minutes; Author: Spencer Tipping; version: 2013 March <a id="cite4" name="cite4"></a>
-</li>
+<li>JavaScript: The Definitive Guide; Author: David Flanagan; version: Sixth Edition.</li>
+<li><a href="https://www.codecademy.com/">https://www.codecademy.com/</a></li>
+<li><a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000">廖雪峰的javascript教程</a></li>
+<li>Javascript in Ten Minutes; Author: Spencer Tipping; version: 2013 March <a id="orgtarget1"></a></li>
+<li><a href="http://eloquentjavascript.net/">eloquent javascript</a></li>
 </ol>
 </div>
 </div>
 </div>
-<footer class="footer">
-<div class="container">
-<p class="text-muted">作者: 万泽(德山书生); 编者: wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>); 最后修改时间: 2015-11-15 17:33.</p></div>
 </body>
 </html>
