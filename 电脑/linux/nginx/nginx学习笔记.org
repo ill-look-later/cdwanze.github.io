@@ -1,0 +1,103 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: nginx学习笔记
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+* 前言
+nginx的配置就是在 ~/etc/nginx/sites-available~ 那里新建一个配置文件，然后这样创建一个符号链接到 ~sites-enabled~ 那里。
+
+#+BEGIN_EXAMPLE
+sudo ln -s /etc/nginx/sites-available/cdwanze.work /etc/nginx/sites-enabled/cdwanze.work
+#+END_EXAMPLE
+
+然后重启nginx即可。 
+#+BEGIN_EXAMPLE
+sudo service nginx restart
+#+END_EXAMPLE
+
+nginx配置文件的基本格式是:
+#+BEGIN_EXAMPLE
+<section> {
+    <directive>  <parameters>;
+}
+#+END_EXAMPLE
+
+
+* server
+
+** linsten
+监听端口号
+
+** server_name
+#+BEGIN_EXAMPLE
+server {
+    listen 80;
+    return 444;
+}
+#+END_EXAMPLE
+
+这个虚拟服务器没有设置 ~server_name~ ，意思是如果进来的HTTP请求请求头没有 ~HOST~ 这一行，则将由该虚拟服务器处理。这里就是简单的返回444状态码。
+
+** location 
+比如:
+#+BEGIN_EXAMPLE
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+    }
+#+END_EXAMPLE
+
+就是描述了在遇到 ~/~ 的时候如何处理。
+
+*** proxy_pass
+代理传递，也就是比如说python的flask框架在后台端口5000运行， ~/~ 这样的请求将传递给flask的app来处理。这里值得提醒的是location的uri分发规则较为复杂，目前我们需要知道的是， ~/~ 是一个通用匹配，就是如果是精确匹配，当然就选这个规则，如果有其他规则匹配，则用其他规则，否则最后就考虑使用这个通用规则。更多信息请参看 [[http://seanlook.com/2015/05/17/nginx-location-rewrite/][这个网页]] 。
+
+这种反向代理，一个很重要的知识点就是uri的改写规则。这里面东西也很多，比如下面的这个:
+#+BEGIN_EXAMPLE
+    location /socket.io {
+        proxy_pass http://127.0.0.1:5000/socket.io;
+    }
+#+END_EXAMPLE
+
+匹配到的部分会被改写为 ~http://127.0.0.1:5000/socket.io~ 但是也有些例外的情况，以后再详细讨论之。
+
+*** proxy_set_header
+比如websocket协议部分的转发，需要对header做如下一些修改:
+#+BEGIN_EXAMPLE
+    proxy_http_version 1.1;    
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+#+END_EXAMPLE
+
+具体就是送入upstream 服务器的header加上这两行:
+#+BEGIN_EXAMPLE
+Upgrade: websocket
+Connection: Upgrade
+#+END_EXAMPLE
+这里所谓的upstream服务器，在nginx实际上就可以简单看作一个汇总性质的服务器，因为我们前面看到了nginx下面有很多虚拟的server，那么这个upstream可以看作最终面向客户端的那个服务器。初步的理解就是这么个意思。
+
+
+
+* client_max_body_size
+nginx请求实体过大错误信息:
+#+BEGIN_EXAMPLE
+Nginx 413 Request Entity Too Large
+#+END_EXAMPLE
+
+参考了 [[http://www.cyberciti.biz/faq/linux-unix-bsd-nginx-413-request-entity-too-large/][这个网页]] ，你需要在 ~/usr/local/nginx/conf/nginx.conf~ 里添加或修改这一行:
+
+#+BEGIN_EXAMPLE
+# set client body size to 2M #
+client_max_body_size 2M;
+#+END_EXAMPLE
+
+然后重启nginx或者reload nginx即可。
+
+
+
+* 参考资料
+1. mastering nginx 
