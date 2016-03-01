@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-02-27 六 14:14 -->
+<!-- 2016-02-28 日 17:25 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>javascript学习基础篇</title>
@@ -323,37 +323,43 @@ table tr:nth-child(even) {
 <li><a href="#orgheadline34">4.3. 箭头函数</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline41">5. 面向DOM的操作</a>
+<li><a href="#orgheadline44">5. 面向DOM的操作</a>
 <ul>
 <li><a href="#orgheadline36">5.1. window</a></li>
 <li><a href="#orgheadline37">5.2. navigator</a></li>
 <li><a href="#orgheadline38">5.3. screen</a></li>
 <li><a href="#orgheadline39">5.4. location</a></li>
-<li><a href="#orgheadline40">5.5. document</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline49">6. jquery</a>
+<li><a href="#orgheadline43">5.5. document</a>
 <ul>
-<li><a href="#orgheadline42">6.1. 显示或隐藏</a></li>
-<li><a href="#orgheadline47">6.2. 事件</a>
+<li><a href="#orgheadline40">5.5.1. 修改节点的文本内容</a></li>
+<li><a href="#orgheadline41">5.5.2. 改变图片颜色</a></li>
+<li><a href="#orgheadline42">5.5.3. 改变元素的样式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline52">6. jquery</a>
 <ul>
-<li><a href="#orgheadline43">6.2.1. 鼠标事件</a></li>
-<li><a href="#orgheadline44">6.2.2. 键盘事件</a></li>
-<li><a href="#orgheadline45">6.2.3. 其他事件</a></li>
-<li><a href="#orgheadline46">6.2.4. 取消某个事件绑定</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline48">6.3. ajax函数</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline50">7. ajax</a></li>
-<li><a href="#orgheadline53">8. json</a>
+<li><a href="#orgheadline45">6.1. 显示或隐藏</a></li>
+<li><a href="#orgheadline50">6.2. 事件</a>
 <ul>
-<li><a href="#orgheadline51">8.1. stringify函数</a></li>
-<li><a href="#orgheadline52">8.2. parse函数</a></li>
+<li><a href="#orgheadline46">6.2.1. 鼠标事件</a></li>
+<li><a href="#orgheadline47">6.2.2. 键盘事件</a></li>
+<li><a href="#orgheadline48">6.2.3. 其他事件</a></li>
+<li><a href="#orgheadline49">6.2.4. 取消某个事件绑定</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline54">9. 参考资料</a></li>
+<li><a href="#orgheadline51">6.3. ajax函数</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline53">7. ajax</a></li>
+<li><a href="#orgheadline56">8. json</a>
+<ul>
+<li><a href="#orgheadline54">8.1. stringify函数</a></li>
+<li><a href="#orgheadline55">8.2. parse函数</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline57">9. 参考资料</a></li>
 </ul>
 </div>
 </nav>
@@ -436,7 +442,7 @@ var age = prompt("what's your age");
 <h2 id="orgheadline24">程序中的操作对象</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-各个编程语言的数据类型底层大致都差不多的吧: 数值型，字符串型（javascript同python一样单引号双引号都可以），布尔型（javascript是true和false），然后其他常规数值运算和逻辑运算（如 <code>&amp;&amp;</code> <code>||</code> <code>!</code> 之类）和比较运算（这里值得一提的是和python的 <code>==</code> 对应的javascript的比较运算符应该是 <code>===</code> ，三个等号，这算是javascript的一个历史遗留语法瑕疵问题。）等都大体相同。python中的None对应的是javascript的 <strong>null</strong> 。
+各个编程语言的数据类型底层大致都差不多的吧: 数值型，字符串型（javascript同python一样单引号双引号都可以），布尔型（javascript是true和false），然后其他常规数值运算和逻辑运算（如 <code>&amp;&amp;</code> <code>||</code> <code>!</code> 之类）和比较运算（这里值得一提的是和python的 <code>==</code> 对应的javascript的比较运算符应该是 <code>===</code> ，三个等号，这算是javascript的一个历史遗留语法瑕疵问题。）等都大体相同。python中的None对应的是javascript的 <code>null</code> 。
 </p>
 
 <p>
@@ -506,6 +512,11 @@ person.name
 <p>
 javascript整数和浮点数都不分了，都统一表示为Number，然后数值其他的一些内容如果你学习过其他一门编程语言那么基本上没啥新鲜玩意儿了。
 </p>
+
+<pre>
+console.log(typeof 2)
+number
+</pre>
 </div>
 </div>
 
@@ -1056,7 +1067,7 @@ arguments.length
 
 
 <div class="outline-2">
-<h2 id="orgheadline41">面向DOM的操作</h2>
+<h2 id="orgheadline44">面向DOM的操作</h2>
 <div class="outline-text-2" id="text-5">
 </div><div class="outline-3">
 <h3 id="orgheadline36">window</h3>
@@ -1136,19 +1147,41 @@ window是一个全局变量，表示本浏览器的窗口。
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline40">document</h3>
+<h3 id="orgheadline43">document</h3>
 <div class="outline-text-3" id="text-5-5">
 <p>
-你可以认为这是beautifulsoup刷过之后的网页文档树。
+你可以认为这是beautifulsoup刷过之后的网页文档树。简单的写入html代码:
 </p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;This is a heading&lt;/h1&gt;&quot;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;This is a paragraph.&lt;/p&gt;&quot;</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+
+<p>
+按钮点击一下则执行什么javascript代码。
+</p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="nx">onclick</span><span class="o">=</span><span class="s2">&quot;alert(&#39;Welcome!&#39;)&quot;</span><span class="o">&gt;</span><span class="nx">点击这里</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+</pre></div>
+
+<p>
+javascript改变HTML内容
+</p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="kd">function</span> <span class="nx">myFunction</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">);</span>  <span class="c1">// 找到元素</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">&quot;Hello JavaScript!&quot;</span><span class="p">;</span>    <span class="c1">// 改变内容</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="nx">onclick</span><span class="o">=</span><span class="s2">&quot;myFunction()&quot;</span><span class="o">&gt;</span><span class="nx">点击这里</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+</pre></div>
+
+
 <dl class="org-dl">
 <dt>title</dt><dd>title标签内所含的内容</dd>
 <dt>cookie</dt><dd>获取cookie的内容</dd>
-</dl>
-
-<hr >
-
-<dl class="org-dl">
 <dt>getElementById()</dt><dd>该方法用于根据Id来提取网页内容的某个DOM子节点</dd>
 <dt>getElementsByTagName()</dt><dd>该方法用于根据Tag标签名字来提取某个DOM子节点（看到那个Elements的s，其将返回多个命中目标。记住带s的这些将返回的是一个数组对象）</dd>
 <dt>getElementsByClassName()</dt><dd>该方法用于根据css来进行选择某些DOM子节点。</dd>
@@ -1157,8 +1190,6 @@ window是一个全局变量，表示本浏览器的窗口。
 <p>
 返回的所谓DOM子节点对象，可以如同document对象一样使用这三个方法，相当于在第一次查找结果之上进一步查找。
 </p>
-
-<hr >
 
 <dl class="org-dl">
 <dt>querySelector()</dt><dd>类似beautifulsoup的selector选择语法:</dd>
@@ -1170,20 +1201,25 @@ var ps = q1.querySelectorAll('div.highlighted &gt; p');
 <dt>querySelectorAll()</dt><dd>类似上面，但返回所有结果。</dd>
 </dl>
 
-<hr >
+
 <p>
 找到目标标签元素之后，各个样式属性可以如下直接引用:
 </p>
 <pre>
 document.querySelector('a').href
 </pre>
+</div>
 
+
+<div class="outline-4">
+<h4 id="orgheadline40">修改节点的文本内容</h4>
+<div class="outline-text-4" id="text-5-5-1">
 <dl class="org-dl">
 <dt>innerHTML</dt><dd>对应该DOM节点标签内的文本内容</dd>
 <dt>innerText</dt><dd>类似上面的innerHTML，但不可设置任何HTML标签</dd>
 </dl>
 
-<hr >
+
 <dl class="org-dl">
 <dt>createElement()</dt><dd>创建一个标签元素对象:</dd>
 </dl>
@@ -1210,11 +1246,51 @@ parentElement.insertBefore(newElement, referenceElement);
 </p>
 </div>
 </div>
+
+<div class="outline-4">
+<h4 id="orgheadline41">改变图片颜色</h4>
+<div class="outline-text-4" id="text-5-5-2">
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="kd">function</span> <span class="nx">changeImage</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="nx">element</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myimage&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">src</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="s2">&quot;bulbon&quot;</span><span class="p">))</span>
+  <span class="p">{</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">&quot;/i/eg_bulboff.gif&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="k">else</span>
+  <span class="p">{</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">&quot;/i/eg_bulbon.gif&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">img</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;myimage&quot;</span> <span class="nx">onclick</span><span class="o">=</span><span class="s2">&quot;changeImage()&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;/i/eg_bulboff.gif&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 </div>
 
 
+<div class="outline-4">
+<h4 id="orgheadline42">改变元素的样式</h4>
+<div class="outline-text-4" id="text-5-5-3">
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="kd">function</span> <span class="nx">myFunction</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">)</span> <span class="c1">// 找到元素</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span><span class="o">=</span><span class="s2">&quot;#ff0000&quot;</span><span class="p">;</span>          <span class="c1">// 改变样式</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+
+<span class="o">&lt;</span><span class="nx">button</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="nx">onclick</span><span class="o">=</span><span class="s2">&quot;myFunction()&quot;</span><span class="o">&gt;</span><span class="nx">点击这里</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
 <div class="outline-2">
-<h2 id="orgheadline49">jquery</h2>
+<h2 id="orgheadline52">jquery</h2>
 <div class="outline-text-2" id="text-6">
 <pre>
 $('#abc')
@@ -1350,7 +1426,7 @@ div.attr('name'); // undefined
 
 
 <div class="outline-3">
-<h3 id="orgheadline42">显示或隐藏</h3>
+<h3 id="orgheadline45">显示或隐藏</h3>
 <div class="outline-text-3" id="text-6-1">
 <pre>
 var a = $('a[target=_blank]');
@@ -1362,7 +1438,7 @@ a.show(); // 显示
 
 
 <div class="outline-3">
-<h3 id="orgheadline47">事件</h3>
+<h3 id="orgheadline50">事件</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 超链接被点击就触发了click事件，某个标签元素可以如下定义:
@@ -1386,7 +1462,7 @@ a.click(function () {
 
 
 <div class="outline-4">
-<h4 id="orgheadline43">鼠标事件</h4>
+<h4 id="orgheadline46">鼠标事件</h4>
 <div class="outline-text-4" id="text-6-2-1">
 <dl class="org-dl">
 <dt>click</dt><dd>鼠标单击时触发；</dd>
@@ -1400,7 +1476,7 @@ a.click(function () {
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline44">键盘事件</h4>
+<h4 id="orgheadline47">键盘事件</h4>
 <div class="outline-text-4" id="text-6-2-2">
 <p>
 键盘事件仅作用在当前焦点的DOM上，通常是&lt;input&gt;和&lt;textarea&gt;。
@@ -1416,7 +1492,7 @@ a.click(function () {
 
 
 <div class="outline-4">
-<h4 id="orgheadline45">其他事件</h4>
+<h4 id="orgheadline48">其他事件</h4>
 <div class="outline-text-4" id="text-6-2-3">
 <p>
 focus：当DOM获得焦点时触发；
@@ -1441,7 +1517,7 @@ $(function () {
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline46">取消某个事件绑定</h4>
+<h4 id="orgheadline49">取消某个事件绑定</h4>
 <div class="outline-text-4" id="text-6-2-4">
 <pre>
 a.off('click', hello);
@@ -1451,7 +1527,7 @@ a.off('click', hello);
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline48">ajax函数</h3>
+<h3 id="orgheadline51">ajax函数</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 <code>$.ajax()</code> 提供ajax支持。
@@ -1464,12 +1540,12 @@ a.off('click', hello);
 
 
 <div class="outline-2">
-<h2 id="orgheadline50">ajax</h2>
+<h2 id="orgheadline53">ajax</h2>
 </div>
 
 
 <div class="outline-2">
-<h2 id="orgheadline53">json</h2>
+<h2 id="orgheadline56">json</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 json之前了解过一些了:
@@ -1485,7 +1561,7 @@ object：就是JavaScript的{ ... }表示方式。
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline51">stringify函数</h3>
+<h3 id="orgheadline54">stringify函数</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 某个javascript对象字符串化。
@@ -1498,7 +1574,7 @@ JSON.stringify(xiaoming, null, '  ');
 
 
 <div class="outline-3">
-<h3 id="orgheadline52">parse函数</h3>
+<h3 id="orgheadline55">parse函数</h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 将某个javascript对象刷成json对象。
@@ -1513,7 +1589,7 @@ JSON.parse('[1,2,3,true]');
 
 
 <div class="outline-2">
-<h2 id="orgheadline54">参考资料</h2>
+<h2 id="orgheadline57">参考资料</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li>JavaScript: The Definitive Guide; Author: David Flanagan; version: Sixth Edition.</li>

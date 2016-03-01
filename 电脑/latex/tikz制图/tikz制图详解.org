@@ -205,6 +205,9 @@ draw命令可以跟上可选项 *->* ，这样直线的右端就有一个箭头�
 tikz中有一个重要的概念，当前点，然后点可以通过当前点根据相对偏移来确定一个新的点。上面代码第9行的 /++/ 符号和第10行的 /+/ 符号都根据当前点然后进行了$\Delta x$和$\Delta y$的相对偏移从而确定了一个新的点。这两个符号的区别在于是不是更新当前点数据。++符号更新当前点，而+符号不更新。
 
 
+++适合描述一连串逐渐变化的点，+适合描述多个点围绕着一个点变化的情况。
+** 极座标
+tikz中的点也支持极座标表示，(30:1cm)，第一个参数是极座标里面的角度，第二个参数是半径。
 
 
 
@@ -213,111 +216,10 @@ tikz中有一个重要的概念，当前点，然后点可以通过当前点根�
 * 路径上的动作
 
 * 确定样式
+style，特定图形的样式。定义一个样式比如style001如下：
+~style001/.style={color=red,fill=red!20}~
 
-* node语法详解
-
-* tree语法详解
-
-* 确定绘图单元
-
-* 绘图单元的演变
-
-
-
-\subsection{help lines}
-\begin{Verbatim}
-\tikzset{help lines/.style= {step=0.5cm,color=gray!40,very thin}}
-\begin{tikzpicture}
-\draw[help lines] (0,0) grid (5,5);
-\end{tikzpicture}
-\end{Verbatim}
-
-\tikzset{help lines/.style= {step=0.5cm,color=gray!40,very thin}}
-\begin{tikzpicture}
-\draw[help lines] (0,0) grid (5,5);
-\end{tikzpicture}
-
-\subsection{information text}
-\tikzset{information text/.style={rounded corners,fill=red!10,inner sep=1ex}}
-
-\begin{tikzpicture}
-\node[right, text width = 6cm,information text] {这是一段测试文字。};
-\end{tikzpicture}
-
-
-
-\section{变量声明}
-\href{http://tex.stackexchange.com/questions/47178/what-is-the-preferred-way-of-defining-a-tikz-constant}{参考网站}
-
-def命令可用，在里面声明一个变量。
-
-pgfmathsetmacro命令和def一样可用来声明变量，不同是里面可以放着一些数学运算公式，tikz会将其先运算再赋值。
-
-
-
-\section{scope环境}
-scope环境就是作用域控制，一个局域环境，参数只影响内部，外部的参数也影响不进来，不过值得一提的是，定义的点外面也可以用。
-
-scope环境一个有用的特性的里面的clip命令不会影响到外面。
-
-
-\section{迭代语句}
-\begin{Verbatim}
-\begin{tikzpicture}
-\draw[help lines] (0,0) grid (3,2);
-\foreach \x in {0,1,...,4}
-\draw[xshift=\x cm] (0,-1) -- (0,1);
-\end{tikzpicture}
-\end{Verbatim}
-
-\begin{tikzpicture}
-\draw[help lines] (0,0) grid (3,2);
-\foreach \x in {0,1,...,4}
-\draw[xshift=\x cm] (0,-1) -- (0,1);
-\end{tikzpicture}
-
-其中...表示一直这样有规律下去生成迭代列表。迭代语句有很多用法，详见后面的具体例子。
-
-
-
-
-\section{变形}
-\textbf{xshift}，x坐标轴平移。 \textbf{yshift}，y坐标轴平移。\textbf{rotate}，旋转 。\emph{注意xshift默认的单位并不是cm，如果要单位是cm需要写出来。}
-
-
-\subsection{旋转图形}
-后面加上可选项\textbf{rotate=30}即可，意思是图形逆时针旋转30度。
-
-\begin{Verbatim}
-\begin{tikzpicture}
-\draw (0,0)[rotate=30]  ellipse (2 and 1);
-\end{tikzpicture}
-\end{Verbatim}
-
-\begin{tikzpicture}
-\draw (0,0)[rotate=30]  ellipse (2 and 1);
-\end{tikzpicture}
-
-
-
-
-\begin{tikzpicture}
-\draw[help lines] (0,0) grid (3,2);
-\draw (0,0) -- (1,1);
-\draw[red] (0,0) -- ([xshift=1cm] 1,1);
-\end{tikzpicture}
-
-
-
-\subsection{反对称}
-xscale=-1或者yscale=-1就刚好相对y轴或x轴反对称。
-
-
-\section{样式}
-style，特定图形的样式。定义一个样式比如style001如下：\\
-\verb+style001/.style={color=red,fill=red!20}+
-
-\subsection{原有样式修改}
+原有样式修改
 \verb+help lines/.append style=blue!50+\\
 附加之后最新的样式胜出。
 
@@ -335,21 +237,112 @@ at (0,1) {default};
 \node [outline=blue] at (0,0) {blue};
 \end{tikzpicture}
 
-\section{定义点}
-\subsection{定义绝对点}
-\begin{Verbatim}
-\path (0,29) coordinate (top-left);
-\end{Verbatim}
-path命令后面跟着坐标点，然后coordinate后面跟着这个点的名字。这里规范为coordinate命令后面跟着就是点的名字，node命令后面跟着node的名字。
+* node语法详解
+** node里面插入中文字
+#+BEGIN_SRC latex
+\documentclass[tikz,border=2pt]{standalone}
 
-\subsection{定义相对点}
-\begin{Verbatim}
-\path (top-left) ++(1,-2) coordinate (name-point);
-\end{Verbatim}
+%================字體================%
+\RequirePackage{fontspec}
+\usepackage{xcolor}
 
-++适合描述一连串逐渐变化的点，+适合描述多个点围绕着一个点变化的情况。
-\subsection{极座标}
-tikz中的点也支持极座标表示，(30:1cm)，第一个参数是极座标里面的角度，第二个参数是半径。
+%中文環境
+\RequirePackage[CJKnumber=true]{xeCJK}
+
+\newfontfamily{\yanti}{颜体}
+\begin{document}
+
+\begin{tikzpicture}
+
+\node{\fontspec[Scale=4,Color=red]{颜体} 新春快乐} ;
+
+\end{tikzpicture}
+
+\end{document}
+#+END_SRC
+
+
+* tree语法详解
+
+* 确定绘图单元
+
+* 绘图单元的演变
+
+
+* help lines
+#+BEGIN_SRC latex
+\tikzset{help lines/.style= {step=0.5cm,color=gray!40,very thin}}
+\begin{tikzpicture}
+\draw[help lines] (0,0) grid (5,5);
+\end{tikzpicture}
+#+END_SRC
+
+
+
+* information text
+#+BEGIN_SRC latex
+\tikzset{information text/.style={rounded corners,fill=red!10,inner sep=1ex}}
+
+\begin{tikzpicture}
+\node[right, text width = 6cm,information text] {这是一段测试文字。};
+\end{tikzpicture}
+#+END_SRC
+
+
+* 变量声明
+[[http://tex.stackexchange.com/questions/47178/what-is-the-preferred-way-of-defining-a-tikz-constant][参考网站]]
+
+def命令可用，在里面声明一个变量。
+
+pgfmathsetmacro命令和def一样可用来声明变量，不同是里面可以放着一些数学运算公式，tikz会将其先运算再赋值。
+
+
+
+* scope环境
+scope环境就是作用域控制，一个局域环境，参数只影响内部，外部的参数也影响不进来，不过值得一提的是，定义的点外面也可以用。
+
+scope环境一个有用的特性的里面的clip命令不会影响到外面。
+
+
+* 迭代语句
+#+BEGIN_SRC latex
+\begin{tikzpicture}
+\draw[help lines] (0,0) grid (3,2);
+\foreach \x in {0,1,...,4}
+\draw[xshift=\x cm] (0,-1) -- (0,1);
+\end{tikzpicture}
+#+END_SRC
+
+其中...表示一直这样有规律下去生成迭代列表。迭代语句有很多用法，详见后面的具体例子。
+
+
+
+
+* 平移
+~xshift~ ，x坐标轴平移。  ~yshift~ ，y坐标轴平移。 ~rotate~ ，旋转 。 注意xshift默认的单位并不是cm，如果要单位是cm需要写出来。
+
+#+BEGIN_SRC latex
+\begin{tikzpicture}
+\draw[help lines] (0,0) grid (3,2);
+\draw (0,0) -- (1,1);
+\draw[red] (0,0) -- ([xshift=1cm] 1,1);
+\end{tikzpicture}
+#+END_SRC
+
+* 旋转
+后面加上可选项 ~rotate=30~ 即可，意思是图形逆时针旋转30度。
+
+#+BEGIN_SRC latex
+\begin{tikzpicture}
+\draw (0,0)[rotate=30]  ellipse (2 and 1);
+\end{tikzpicture}
+#+END_SRC
+
+
+* 反对称
+xscale=-1或者yscale=-1就刚好相对y轴或x轴反对称。
+
+
 
 
 \subsection{node命令中点的定义}
@@ -835,8 +828,8 @@ tikz除了前面的基本必要知识外，还有很多零零散散的内容，�
 这个例子核心内容是批量定义点和点的运算，把这个弄懂了，后面tikz的核心大门就为你打开了，然后很多图形都可以用简洁的命令生成出来了。
 
 
-\section{多个node连接}
-\begin{Verbatim}
+* 多个node连接
+#+BEGIN_SRC latex
 \usetikzlibrary{positioning}
 \tikzset{place/.style={circle,draw=blue!50,fill=blue!20,
 thick,inner sep=0pt,minimum size=6mm}}
@@ -856,33 +849,16 @@ fill=black!20,thick,inner sep=0pt,minimum size=4mm}}
 \draw [->] (critical) to (leave critical);
 \draw [->] (leave critical) to [bend right] (waiting);
 \end{tikzpicture}
-\end{Verbatim}
+#+END_SRC
 
-\tikzset{place/.style={circle,draw=blue!50,fill=blue!20,thick,inner sep=0pt,minimum size=6mm}}
-\tikzset{transition/.style={rectangle,draw=black!50,fill=black!20,thick,inner sep=0pt,minimum size=4mm}}
-\tikzset{every label/.style=red}
-\begin{tikzpicture}[bend angle=45]
-\node[place] (waiting)  {};
-\node[place] (critical) [below=of waiting] {};
-\node[place](semaphore) [below=of critical,label=above:$s\le3$] {};
-\node[transition](leave critical) [right=of critical]{};
-\node[transition] (enter critical)[left=of critical]{};
-\draw [->] (enter critical) to (critical);
-\draw [->] (waiting) to [bend right] (enter critical);
-\draw [->] (enter critical) to [bend right] (semaphore);
-\draw [->] (semaphore) to [bend right] (leave critical);
-\draw [->] (critical) to (leave critical);
-\draw [->] (leave critical) to [bend right] (waiting);
-\end{tikzpicture}
 
 这个例子需要加载positioning包，这个例子很好地展示了多个node和用箭头连接来表示他们关系的图形如何绘制。
 
 
-\section{几何第一个例子}
+* 绘制几何图形
 为了减少文档大小，我编写的tikz的例子都放入文件夹[\textit{tikz制图}]里面了。
 
-\begin{Verbatim}
-
+#+BEGIN_SRC latex
 \begin{tikzpicture}
 \coordinate[label=left:\textcolor{blue}{$A$}] (A) 
 at ($(0,0) +0.1*(rand,rand)$) ;
@@ -913,37 +889,7 @@ by={[label=above:$C$]C, [label=below:$C'$]C'}}];
 \end{pgfonlayer}
 
 \end{tikzpicture}
-\end{Verbatim}
-
-\begin{tikzpicture}
-\coordinate[label=left:\textcolor{blue}{$A$}] (A) at ($(0,0) +0.1*(rand,rand)$) ;
-\coordinate[label=right:\textcolor{blue}{$B$}] (B) at ($(1.25,0.25) +0.1*(rand,rand)$) ;
-
-\draw [name path=A--B] (A) -- (B);
-
-\node [name path=D,draw,circle through=(B),label=left:$D$] at (A) {};
-\node [name path=E,draw,circle through=(A),label=right:$E$] at (B) {};
-
-\path [name intersections={of=D and E, by={[label=above:$C$]C, [label=below:$C'$]C'}}];
-
-\draw [red] (A) -- (C);
-\draw [red] (B) -- (C);
-
-\draw [name path=C--C',red] (C) -- (C');
-\path [name intersections={of=A--B and C--C',by=F}];
-
-\node [fill=red,inner sep=1,label=-45:$F$] at (F) {};
-
-\foreach \point in {A,B,C,C'}
-\fill [black,opacity=.5] (\point) circle (2pt);
-
-\begin{pgfonlayer}{background}
-\fill[orange!80] (A) -- (C) -- (B) -- cycle;
-\end{pgfonlayer}
-
-\end{tikzpicture}
-
-
+#+END_SRC
 
 
 
@@ -1108,67 +1054,55 @@ xmin，xmax，ymin，ymax选项使用来配置坐标轴范围的。
 加上选项\textbf{grid=major}即加上网格。
 
 
-\chapter{电路图}
+* 电路图
 用tikz绘制一般电路图的解决方案可以说是完美，首先需要加载宏包：
-\begin{Verbatim}
+#+BEGIN_EXAMPLE
 \usetikzlibrary{circuits.ee.IEC}
-\end{Verbatim}
+#+END_EXAMPLE
+
 
 然后电路基本的组成单元是以node的某个特定样式的形式引入的，比如电池：
-\begin{Verbatim}
+#+BEGIN_EXAMPLE
 \node[battery] (battery) at(0,3) {};
-\end{Verbatim}
+#+END_EXAMPLE
+
 
 下面列出常用的符号列表
-\section{电路基本符号}
-\begin{minipage}{0.9\linewidth}
-\begin{table}[H]
-\centering
-\label{tab:电路基本符号}
-\caption{电路基本符号}
-\medskip 
-\begin{tabular}{@{}lll@{}}
-\toprule
-选项 & 说明 & 演示 \\ \midrule
-battery  & 电池 & \tikz[circuit ee IEC]{\node[battery] {};} \\
-bulb  & 灯泡  & \tikz[circuit ee IEC]{\node[bulb] {};}\\ 
-make contact  & 开关  & \tikz[circuit ee IEC]{\node[make contact] {};}\\ 
-make contact  & 开关另一种形式\footnote{额外选项[set make contact graphic= var make contact  IEC graphic]}  & \tikz[circuit ee IEC,set make contact graphic= var make contact IEC graphic]{\node[make contact] {};}\\ 
-resistor  & 电阻\footnote{加上选项[ohm=20k]则上面写上电阻数值}  & \tikz[circuit ee IEC]{\node[resistor] {};}\\ 
+** 电路基本符号
+- battery  ::  电池  ~\tikz[circuit ee IEC]{\node[battery] {};}~ 
+- bulb  ::  灯泡   ~\tikz[circuit ee IEC]{\node[bulb] {};}~ 
+- make contact  :: 开关  ~\tikz[circuit ee IEC]{\node[make contact] {};}~ 
+- make contact  :: 开关另一种形式 额外选项[set make contact graphic= var make contact  IEC graphic]}  ~\tikz[circuit ee IEC,set make contact graphic= var make contact IEC graphic]{\node[make contact] {};}~ 
+- resistor  & 电阻\footnote{加上选项[ohm=20k]则上面写上电阻数值}  & \tikz[circuit ee IEC]{\node[resistor] {};}\\ 
 contact  & 电线交点  & \tikz[circuit ee IEC]{\node[contact] {};}\\ 
 current direction  & to路径上加上电流方向\footnote{如果是[\textbf{current direction'}]则方向反向。}  & \tikz[circuit ee IEC]{\draw (0,0) to[current direction] (1,0);}\\ 
-\bottomrule
-\end{tabular}
-\end{table}
-\end{minipage}
 
-\subsection{连线问题}
+** 连线问题
 各个元器件之间的连线除了一般的\verb+--+连直线外，还可以通过\verb+-|+或者\verb+|-+来处理垂直拐线的问题，其中\verb+-|+你可以理解为从第一个点先横着走再竖着走，而\verb+|-+你可以理解为先从第一个点竖着走再横着走。
 
-\subsection{翻转问题}
+** 翻转问题
 四个基本的选项[\textbf{point up point down point left point right}\\]，分别是朝上，朝下，朝左和朝 右。
 
 其他复杂的角度的处理方法不是用rotate选项，而是在路径上加上上面的电路符号选项，这样那些元器件会自动跟随路径对齐的。
 
 
-\subsection{电压表和电流表}
+** 电压表和电流表
 电压表电流表实际上\textbf{circuit ee IEC}里面也有，不过不是我们（中国大陆）初高中物理书上常见的那种，而我们其实可以很简单的用node命令就画出了类似书本上的那种符号：
-\begin{Verbatim}
+#+BEGIN_SRC latex
 \node[draw,circle,inner sep =1pt] (A) at (-2,1.5) {\footnotesize A};
 \node[draw,circle,inner sep =1pt] (V) at (1,4) {\footnotesize V};
-\end{Verbatim}
+#+END_SRC
 
 
-
-\subsection{info选项}
+** info选项
 这些node命令都支持\verb+info+选项，也就是旁边加上标签信息。此外还有一个\verb+info'+选项会让信息位置反向，有时很有用。如果位置还是不满意那就只好用\verb+info=angle:text+的形式了，其中angle填上你想要的角度。一般通过角度控制能够达到满意的效果了吧。
 
 此外还有一个\textbf{info sloped}选项，这样文字会跟随路径出现旋转效果。
 
 
-\section{两个综合性的例子作为演示}
-\subsection{例子一}
-\begin{Verbatim}
+* 示例
+** 例子一
+#+BEGIN_SRC latex
 \usetikzlibrary{circuits.ee.IEC}
 
 \begin{tikzpicture}[circuit ee IEC]
@@ -1190,33 +1124,13 @@ current direction  & to路径上加上电流方向\footnote{如果是[\textbf{cu
 \draw (L1) -| (a);
 \draw (a) |- (battery);
 \end{tikzpicture}
-\end{Verbatim}
+#+END_SRC
 
 
-\scalebox{1.8}{
-\begin{tikzpicture}[circuit ee IEC]
-\node[battery] (battery) at(0,3) {};
-\node[make contact,info=S] (contact1) at(2,3) {};
-\draw (battery) -- (contact1);
-\node[draw,circle,inner sep =1pt] (A) at (3,1.5) {\footnotesize A};
-\draw (contact1) -| (A);
-\node[bulb,info=L1] (L1) at (-1,0){};
-\node[bulb,info=L2] (L2) at (1.5,0){};
-\node[contact,info=c] (c) at (2.5,0) {};
-\draw (L2) -| (A);
-\draw (L1) -- (L2);
-\node[contact,info'=b] (b) {};
-\node[contact,info=180:a] (a) at(-2,1.5) {};
-\node[draw,circle,inner sep =1pt] (V) at (-1,1.5) {\footnotesize V};
-\draw (a) -- (V);
-\draw (V) -| (b);
-\draw (L1) -| (a);
-\draw (a) |- (battery);
-\end{tikzpicture}
-}
 
-\subsection{例子二}
-\begin{Verbatim}
+
+** 例子二
+#+BEGIN_SRC latex
 \usetikzlibrary{circuits.ee.IEC}
 
 \begin{tikzpicture}[circuit ee IEC]
@@ -1242,37 +1156,11 @@ current direction  & to路径上加上电流方向\footnote{如果是[\textbf{cu
 \draw (b) |- (V) ;
 
 \end{tikzpicture}
-\end{Verbatim}
 
-\scalebox{1.8}{
-\begin{tikzpicture}[circuit ee IEC]
-\node[battery] (battery) at(0,0) {};
-\node[make contact,info=S] (S) at(-2,0) {};
-\draw (battery) -- (S);
-\node[draw,circle,inner sep =1pt] (A) at (-2,1.5) {\footnotesize A};
-\node[bulb,info=L1] (L1) at (0,1.5){};
-\draw (A) -- (L1);
-\node[resistor] (R) at (0,3) {};
-\node[bulb,info=L2] (L2) at (-2,3){};
-\draw (L2) -- (R);
-\node[contact] (a) at(-4,1.5) {};
-\node[contact] (b) at(2,1.5) {};
-\draw (S) -| (a);
-\draw (battery) -| (b);
-\draw (a) |- (L2);
-\draw (a) -- (A);
-\node[draw,circle,inner sep =1pt] (V) at (1,4) {\footnotesize V};
-\draw[-latex] (V) -| (R.north);
-\draw (L1) -- (b);
-\draw (b) |- (R);
-\draw (b) |- (V) ;
-
-\end{tikzpicture}
-}
+#+END_SRC
 
 
 
-#+LaTeX: \appendix
 
 
 * 附录

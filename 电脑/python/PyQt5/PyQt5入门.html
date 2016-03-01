@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2015-12-20 日 15:58 -->
+<!-- 2016-02-20 六 16:43 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>PyQt5入门</title>
@@ -9,195 +9,226 @@
 <meta  name="author" content="万泽">
 <meta  name="description" content="制作者邮箱：a358003542@gmail.com"
 >
-<style type="text/css">.title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .center-block {
-      display: block;
-      margin-right: auto;
-      margin-left: auto;}
-  .timestamp-kwd { color: #5f9ea0; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
+<style type="text/css">
+body {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  body {
+    width: 732px;
   }
-  pre.src {
-    position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
+}
+@media (min-width: 992px) {
+  body {
+    width: 948px;
   }
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .inlinetask {
+}
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
+}
+
+.title {
+    display: block;
+    text-align: center;
     padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
-.highlight .c { color: #008800; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #008800 } /* Comment.Preproc */
-.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
-.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BB4444 } /* Literal.String */
-.highlight .na { color: #BB4444 } /* Name.Attribute */
-.highlight .nb { color: #AA22FF } /* Name.Builtin */
-.highlight .nc { color: #0000FF } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #00A000 } /* Name.Function */
-.highlight .nl { color: #A0A000 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #B8860B } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
-.highlight .sc { color: #BB4444 } /* Literal.String.Char */
-.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
-.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
-.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
-.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
-.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
-.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #B8860B } /* Name.Variable.Class */
-.highlight .vg { color: #B8860B } /* Name.Variable.Global */
-.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.underline{
+    text-decoration: underline;
+}
+   #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    /*word-wrap: break-word;*/
+    word-wrap: normal; /* horizontal scrolling */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+table
+*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 16px 0;
+    empty-cells: show;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: table;
+}
+
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+table th,table td{
+    padding:8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
-.highlight .c { color: #008800; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #008800 } /* Comment.Preproc */
-.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .c { color: #8f5902; font-style: italic } /* Comment */
+.highlight .err { color: #a40000; border: 1px solid #ef2929 } /* Error */
+.highlight .g { color: #000000 } /* Generic */
+.highlight .k { color: #204a87; font-weight: bold } /* Keyword */
+.highlight .l { color: #000000 } /* Literal */
+.highlight .n { color: #000000 } /* Name */
+.highlight .o { color: #ce5c00; font-weight: bold } /* Operator */
+.highlight .x { color: #000000 } /* Other */
+.highlight .p { color: #000000; font-weight: bold } /* Punctuation */
+.highlight .ch { color: #8f5902; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #8f5902; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #8f5902; font-style: italic } /* Comment.Preproc */
+.highlight .cpf { color: #8f5902; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #8f5902; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #8f5902; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #a40000 } /* Generic.Deleted */
+.highlight .ge { color: #000000; font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #ef2929 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
 .highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .go { color: #000000; font-style: italic } /* Generic.Output */
+.highlight .gp { color: #8f5902 } /* Generic.Prompt */
+.highlight .gs { color: #000000; font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
-.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BB4444 } /* Literal.String */
-.highlight .na { color: #BB4444 } /* Name.Attribute */
-.highlight .nb { color: #AA22FF } /* Name.Builtin */
-.highlight .nc { color: #0000FF } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #00A000 } /* Name.Function */
-.highlight .nl { color: #A0A000 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #B8860B } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
-.highlight .sc { color: #BB4444 } /* Literal.String.Char */
-.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
-.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
-.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
-.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
-.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
-.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #B8860B } /* Name.Variable.Class */
-.highlight .vg { color: #B8860B } /* Name.Variable.Global */
-.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+.highlight .gt { color: #a40000; font-weight: bold } /* Generic.Traceback */
+.highlight .kc { color: #204a87; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #204a87; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #204a87; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #204a87; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #204a87; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #204a87; font-weight: bold } /* Keyword.Type */
+.highlight .ld { color: #000000 } /* Literal.Date */
+.highlight .m { color: #0000cf; font-weight: bold } /* Literal.Number */
+.highlight .s { color: #4e9a06 } /* Literal.String */
+.highlight .na { color: #c4a000 } /* Name.Attribute */
+.highlight .nb { color: #204a87 } /* Name.Builtin */
+.highlight .nc { color: #000000 } /* Name.Class */
+.highlight .no { color: #000000 } /* Name.Constant */
+.highlight .nd { color: #5c35cc; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #ce5c00 } /* Name.Entity */
+.highlight .ne { color: #cc0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #000000 } /* Name.Function */
+.highlight .nl { color: #f57900 } /* Name.Label */
+.highlight .nn { color: #000000 } /* Name.Namespace */
+.highlight .nx { color: #000000 } /* Name.Other */
+.highlight .py { color: #000000 } /* Name.Property */
+.highlight .nt { color: #204a87; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #000000 } /* Name.Variable */
+.highlight .ow { color: #204a87; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #f8f8f8; text-decoration: underline } /* Text.Whitespace */
+.highlight .mb { color: #0000cf; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #0000cf; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #0000cf; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000cf; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #0000cf; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { color: #4e9a06 } /* Literal.String.Backtick */
+.highlight .sc { color: #4e9a06 } /* Literal.String.Char */
+.highlight .sd { color: #8f5902; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4e9a06 } /* Literal.String.Double */
+.highlight .se { color: #4e9a06 } /* Literal.String.Escape */
+.highlight .sh { color: #4e9a06 } /* Literal.String.Heredoc */
+.highlight .si { color: #4e9a06 } /* Literal.String.Interpol */
+.highlight .sx { color: #4e9a06 } /* Literal.String.Other */
+.highlight .sr { color: #4e9a06 } /* Literal.String.Regex */
+.highlight .s1 { color: #4e9a06 } /* Literal.String.Single */
+.highlight .ss { color: #4e9a06 } /* Literal.String.Symbol */
+.highlight .bp { color: #3465a4 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #000000 } /* Name.Variable.Class */
+.highlight .vg { color: #000000 } /* Name.Variable.Global */
+.highlight .vi { color: #000000 } /* Name.Variable.Instance */
+.highlight .il { color: #0000cf; font-weight: bold } /* Literal.Number.Integer.Long */
 </style>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -226,7 +257,91 @@
 <div id="content">
 <header>
 <h1 class="title">PyQt5入门</h1>
-</header>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. 前言</a></li>
+<li><a href="#orgheadline4">2. 安装和配置</a>
+<ul>
+<li><a href="#orgheadline2">2.1. 安装pyqt4</a></li>
+<li><a href="#orgheadline3">2.2. 安装pyqt5</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline17">3. beginning</a>
+<ul>
+<li><a href="#orgheadline5">3.1. 窗口</a></li>
+<li><a href="#orgheadline6">3.2. 加上图标</a></li>
+<li><a href="#orgheadline7">3.3. 弹出提示信息</a></li>
+<li><a href="#orgheadline8">3.4. 关闭窗体时询问</a></li>
+<li><a href="#orgheadline9">3.5. 屏幕居中显示窗体</a></li>
+<li><a href="#orgheadline10">3.6. QMainWindow类</a></li>
+<li><a href="#orgheadline11">3.7. 加上状态栏</a></li>
+<li><a href="#orgheadline12">3.8. 加上菜单栏</a></li>
+<li><a href="#orgheadline13">3.9. 信号－槽机制</a></li>
+<li><a href="#orgheadline16">3.10. 如何查阅资料</a>
+<ul>
+<li><a href="#orgheadline14">3.10.1. 查看pydoc</a></li>
+<li><a href="#orgheadline15">3.10.2. 相关网络资源</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline22">4. 信号－槽详解</a>
+<ul>
+<li><a href="#orgheadline18">4.1. 自定义信号</a></li>
+<li><a href="#orgheadline19">4.2. 自定义槽</a></li>
+<li><a href="#orgheadline20">4.3. 发射信号</a></li>
+<li><a href="#orgheadline21">4.4. 信号－槽机制的反思</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline23">5. 使用Qt designer</a></li>
+<li><a href="#orgheadline25">6. 资源文件管理</a>
+<ul>
+<li><a href="#orgheadline24">6.1. 资源管理</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline32">7. 配置文件管理</a>
+<ul>
+<li><a href="#orgheadline26">7.1. QSettings构造函数</a></li>
+<li><a href="#orgheadline29">7.2. IniFormat</a>
+<ul>
+<li><a href="#orgheadline27">7.2.1. ini文件存放DIY</a></li>
+<li><a href="#orgheadline28">7.2.2. ini文件注意事项</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline30">7.3. 存值和读值</a></li>
+<li><a href="#orgheadline31">7.4. 群组管理</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline37">8. 布局管理</a>
+<ul>
+<li><a href="#orgheadline33">8.1. QBoxLayout</a></li>
+<li><a href="#orgheadline34">8.2. addStretch方法</a></li>
+<li><a href="#orgheadline35">8.3. QGridLayout</a></li>
+<li><a href="#orgheadline36">8.4. QFormLayout</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline38">9. 如何读写文件</a></li>
+<li><a href="#orgheadline39">10. 和python集成问题</a></li>
+<li><a href="#orgheadline46">11. 快捷键和Tab键管理</a>
+<ul>
+<li><a href="#orgheadline40">11.1. 什么是伙伴关系</a></li>
+<li><a href="#orgheadline41">11.2. 快捷键</a></li>
+<li><a href="#orgheadline42">11.3. QKeySequence</a></li>
+<li><a href="#orgheadline45">11.4. 国际化支持</a>
+<ul>
+<li><a href="#orgheadline43">11.4.1. 使用翻译文件</a></li>
+<li><a href="#orgheadline44">11.4.2. 使用qt官方翻译文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline47">12. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
 <div class="outline-2">
 <h2 id="orgheadline1">前言</h2>
 <div class="outline-text-2" id="text-1">
@@ -254,21 +369,21 @@
 <p>
 ubuntu下安装pyqt4即安装python3-pyqt4即可：
 </p>
-<div class="highlight"><pre>sudo apt-get install python3-pyqt4
+<div class="highlight"><pre><span></span>sudo apt-get install python3-pyqt4
 </pre></div>
 
 
 <p>
 如果你需要使用qt designer来辅助设计GUI，你还需要额外安装qt designer软件和pyuic4和pyrcc4命令。（顺便再次提醒下pyrcc4对中文目录目前支持有问题（201410）） 
 </p>
-<div class="highlight"><pre>sudo apt-get install pyqt4-dev-tools qt4-designer
+<div class="highlight"><pre><span></span>sudo apt-get install pyqt4-dev-tools qt4-designer
 </pre></div>
 
 
 <p>
 检查pyqt4安装情况执行以下脚本即可，显示的是当前安装的pyqt4的版本号:
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span> <span class="n">QT_VERSION_STR</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span> <span class="n">QT_VERSION_STR</span>
 <span class="k">print</span><span class="p">(</span><span class="n">QT_VERSION_STR</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -281,20 +396,20 @@ ubuntu下安装pyqt4即安装python3-pyqt4即可：
 <p>
 ubuntu下安装pyqt5即安装python3-pyqt5即可：
 </p>
-<div class="highlight"><pre>sudo apt-get install python3-pyqt5
+<div class="highlight"><pre><span></span>sudo apt-get install python3-pyqt5
 </pre></div>
 
 
 <p>
 同样对于pyqt5来说也有类似的pyuic5和pyrcc5命令。
 </p>
-<div class="highlight"><pre>sudo apt-get install pyqt5-dev-tools
+<div class="highlight"><pre><span></span>sudo apt-get install pyqt5-dev-tools
 </pre></div>
 
 <p>
 检查pyqt5安装情况执行以下脚本即可，显示的是当前安装的pyqt5的版本号:
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QT_VERSION_STR</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QT_VERSION_STR</span>
 <span class="k">print</span><span class="p">(</span><span class="n">QT_VERSION_STR</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -312,8 +427,8 @@ ubuntu下安装pyqt5即安装python3-pyqt5即可：
 <p>
 请看到下面的代码：
 </p>
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 
@@ -321,8 +436,8 @@ ubuntu下安装pyqt5即安装python3-pyqt5即可：
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
-        <span class="c">#坐标0 0 大小800 600</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="c1">#坐标0 0 大小800 600</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
 
 <span class="n">myapp</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 <span class="n">mywidget</span> <span class="o">=</span> <span class="n">MyWidget</span><span class="p">()</span>
@@ -357,8 +472,8 @@ ubuntu下安装pyqt5即安装python3-pyqt5即可：
 <p>
 pyqt5的版本如下所示：
 </p>
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
@@ -367,8 +482,8 @@ pyqt5的版本如下所示：
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
-        <span class="c">#坐标0 0 大小800 600</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="c1">#坐标0 0 大小800 600</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
 
 <span class="n">myapp</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 <span class="n">mywidget</span> <span class="o">=</span> <span class="n">MyWidget</span><span class="p">()</span>
@@ -386,8 +501,8 @@ pyqt5的版本如下所示：
 <div class="outline-3">
 <h3 id="orgheadline6">加上图标</h3>
 <div class="outline-text-3" id="text-3-2">
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 
@@ -395,9 +510,9 @@ pyqt5的版本如下所示：
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span>\
-        <span class="p">(</span><span class="s">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
+        <span class="p">(</span><span class="s1">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
 
 <span class="n">myapp</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 <span class="n">mywidget</span> <span class="o">=</span> <span class="n">MyWidget</span><span class="p">()</span>
@@ -426,8 +541,8 @@ pyqt5的版本除了把4换成5之外，然后加上额外的
 <div class="outline-3">
 <h3 id="orgheadline7">弹出提示信息</h3>
 <div class="outline-text-3" id="text-3-3">
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 
@@ -435,12 +550,12 @@ pyqt5的版本除了把4换成5之外，然后加上额外的
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span>\
-        <span class="p">(</span><span class="s">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s">&#39;看什么看^_^&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;看什么看^_^&#39;</span><span class="p">)</span>
         <span class="n">QToolTip</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span>\
-        <span class="p">(</span><span class="s">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="p">(</span><span class="s1">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 
 <span class="n">myapp</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 <span class="n">mywidget</span> <span class="o">=</span> <span class="n">MyWidget</span><span class="p">()</span>
@@ -465,8 +580,8 @@ pyqt5同上没有太多要改动的地方。
 <div class="outline-3">
 <h3 id="orgheadline8">关闭窗体时询问</h3>
 <div class="outline-text-3" id="text-3-4">
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 
@@ -474,18 +589,18 @@ pyqt5同上没有太多要改动的地方。
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span>\
-        <span class="p">(</span><span class="s">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s">&#39;看什么看^_^&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;看什么看^_^&#39;</span><span class="p">)</span>
         <span class="n">QToolTip</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span>\
-        <span class="p">(</span><span class="s">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="p">(</span><span class="s1">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="c">#重新定义colseEvent</span>
+        <span class="c1">#重新定义colseEvent</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span>\
-        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;信息&#39;</span><span class="p">,</span>
-            <span class="s">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
+        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;信息&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
@@ -514,8 +629,8 @@ pyqt5同上没有太多要改动的地方。
 <div class="outline-3">
 <h3 id="orgheadline9">屏幕居中显示窗体</h3>
 <div class="outline-text-3" id="text-3-5">
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 
@@ -524,25 +639,25 @@ pyqt5同上没有太多要改动的地方。
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span>\
-        <span class="p">(</span><span class="s">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s">&#39;看什么看^_^&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;看什么看^_^&#39;</span><span class="p">)</span>
         <span class="n">QToolTip</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span>\
-        <span class="p">(</span><span class="s">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="p">(</span><span class="s1">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="c">#重新定义colseEvent</span>
+        <span class="c1">#重新定义colseEvent</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span>\
-        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;信息&#39;</span><span class="p">,</span>
-            <span class="s">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
+        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;信息&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
-     <span class="c">#center method</span>
+     <span class="c1">#center method</span>
     <span class="k">def</span> <span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">screen</span> <span class="o">=</span> <span class="n">QDesktopWidget</span><span class="p">()</span><span class="o">.</span><span class="n">screenGeometry</span><span class="p">()</span>
         <span class="n">size</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
@@ -596,8 +711,8 @@ QtGui.QMainWindow类提供应用程序主窗口，可以创建一个经典的拥
 QMainWindow类是针对主窗体一般需求而设计的，它预定义了菜单栏状态栏和其他widget（窗口小部件） 。因为它继承自QWidget，所以前面谈及的一些属性修改都适用于它。那么首先我们将之前的代码中的QWidget类换成QMainWindow类。
 </p>
 
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 
@@ -606,25 +721,25 @@ QMainWindow类是针对主窗体一般需求而设计的，它预定义了菜单
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span>\
-        <span class="p">(</span><span class="s">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s">&#39;看什么看^_^&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;看什么看^_^&#39;</span><span class="p">)</span>
         <span class="n">QToolTip</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span>\
-        <span class="p">(</span><span class="s">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="p">(</span><span class="s1">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="c">#重新定义colseEvent</span>
+        <span class="c1">#重新定义colseEvent</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span>\
-        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;信息&#39;</span><span class="p">,</span>
-            <span class="s">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
+        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;信息&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
-     <span class="c">#center method</span>
+     <span class="c1">#center method</span>
     <span class="k">def</span> <span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">screen</span> <span class="o">=</span> <span class="n">QDesktopWidget</span><span class="p">()</span><span class="o">.</span><span class="n">screenGeometry</span><span class="p">()</span>
         <span class="n">size</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
@@ -651,8 +766,8 @@ pyqt5同上没有太多要改动的地方。
 <div class="outline-3">
 <h3 id="orgheadline11">加上状态栏</h3>
 <div class="outline-text-3" id="text-3-7">
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 
@@ -661,25 +776,25 @@ pyqt5同上没有太多要改动的地方。
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span>\
-        <span class="p">(</span><span class="s">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s">&#39;看什么看^_^&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;看什么看^_^&#39;</span><span class="p">)</span>
         <span class="n">QToolTip</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">QFont</span>\
-        <span class="p">(</span><span class="s">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="p">(</span><span class="s1">&#39;微软雅黑&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="c">#重新定义colseEvent</span>
+        <span class="c1">#重新定义colseEvent</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span>\
-        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;信息&#39;</span><span class="p">,</span>
-            <span class="s">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
+        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;信息&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
-     <span class="c">#center method</span>
+     <span class="c1">#center method</span>
     <span class="k">def</span> <span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">screen</span> <span class="o">=</span> <span class="n">QDesktopWidget</span><span class="p">()</span><span class="o">.</span><span class="n">screenGeometry</span><span class="p">()</span>
         <span class="n">size</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
@@ -689,7 +804,7 @@ pyqt5同上没有太多要改动的地方。
 <span class="n">myapp</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 <span class="n">mainwindow</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">()</span>
 <span class="n">mainwindow</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">mainwindow</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s">&#39;程序已就绪...&#39;</span><span class="p">)</span>
+<span class="n">mainwindow</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s1">&#39;程序已就绪...&#39;</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">myapp</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
 </pre></div>
 
@@ -710,8 +825,8 @@ pyqt5同上没有太多要改动的地方。
 <div class="outline-3">
 <h3 id="orgheadline12">加上菜单栏</h3>
 <div class="outline-text-3" id="text-3-8">
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
@@ -724,42 +839,42 @@ pyqt5同上没有太多要改动的地方。
     <span class="k">def</span> <span class="nf">initUI</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;myapp&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span>\
-        <span class="p">(</span><span class="s">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
-    <span class="c">#菜单栏</span>
-        <span class="n">menu_control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s">&#39;Contorl&#39;</span><span class="p">)</span>
-        <span class="n">act_quit</span> <span class="o">=</span> <span class="n">menu_control</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s">&#39;quit&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;icons/myapp.ico&#39;</span><span class="p">))</span>
+    <span class="c1">#菜单栏</span>
+        <span class="n">menu_control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;Contorl&#39;</span><span class="p">)</span>
+        <span class="n">act_quit</span> <span class="o">=</span> <span class="n">menu_control</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;quit&#39;</span><span class="p">)</span>
         <span class="n">act_quit</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
 
-        <span class="n">menu_help</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s">&#39;Help&#39;</span><span class="p">)</span>
-        <span class="n">act_about</span> <span class="o">=</span> <span class="n">menu_help</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s">&#39;about...&#39;</span><span class="p">)</span>
+        <span class="n">menu_help</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s1">&#39;Help&#39;</span><span class="p">)</span>
+        <span class="n">act_about</span> <span class="o">=</span> <span class="n">menu_help</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;about...&#39;</span><span class="p">)</span>
         <span class="n">act_about</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">about</span><span class="p">)</span>
-        <span class="n">act_aboutqt</span> <span class="o">=</span> <span class="n">menu_help</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s">&#39;aboutqt&#39;</span><span class="p">)</span>
+        <span class="n">act_aboutqt</span> <span class="o">=</span> <span class="n">menu_help</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s1">&#39;aboutqt&#39;</span><span class="p">)</span>
         <span class="n">act_aboutqt</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aboutqt</span><span class="p">)</span>
 
 
-    <span class="c">#状态栏</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s">&#39;程序已就绪...&#39;</span><span class="p">)</span>
+    <span class="c1">#状态栏</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="p">()</span><span class="o">.</span><span class="n">showMessage</span><span class="p">(</span><span class="s1">&#39;程序已就绪...&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s">&quot;about this software&quot;</span><span class="p">,</span><span class="s">&quot;wise system&quot;</span><span class="p">)</span>
+        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;about this software&quot;</span><span class="p">,</span><span class="s2">&quot;wise system&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">aboutqt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">QMessageBox</span><span class="o">.</span><span class="n">aboutQt</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="c">#重新定义colseEvent</span>
+        <span class="c1">#重新定义colseEvent</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span>\
-        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;信息&#39;</span><span class="p">,</span>
-            <span class="s">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
+        <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;信息&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;你确定要退出吗？&quot;</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span>
              <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
-     <span class="c">#center method</span>
+     <span class="c1">#center method</span>
     <span class="k">def</span> <span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">screen</span> <span class="o">=</span> <span class="n">QDesktopWidget</span><span class="p">()</span><span class="o">.</span><span class="n">screenGeometry</span><span class="p">()</span>
         <span class="n">size</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
@@ -800,7 +915,7 @@ GUI程序一般都引入一种事件和信号机制，well，简单来说就是�
 pyqt4的旧的信号－槽连接语句我在这里忽略了，在这里值得提醒的是pyqt5已经不支持旧的信号－槽连接语句了。下面就新的语句说明之。
 </p>
 
-<div class="highlight"><pre><span class="n">act_exit</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">act_exit</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
 </pre></div>
 
 <p>
@@ -822,7 +937,7 @@ sender方法来自GObject，所以一般Qt里的窗体对象都可以用。其�
 <p>
 pyqt5的情况如果你幸运的话你会发现按照上面的处理，就是把文件头引入语句换成：
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 
@@ -837,7 +952,7 @@ pyqt5的情况如果你幸运的话你会发现按照上面的处理，就是把
 <p>
 如果你在Unity环境（Ubuntu14.04）下，那么不需要做什么，如果你在gnome或者KDE上，那么qt5的菜单栏可能会显示不出来，你需要删除下面这个小东西。
 </p>
-<div class="highlight"><pre>sudo apt-get remove appmenu-qt5
+<div class="highlight"><pre><span></span>sudo apt-get remove appmenu-qt5
 </pre></div>
 
 <p>
@@ -920,8 +1035,8 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 <p>
 请看下面这个例子：
 </p>
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*-coding:utf-8-*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*-coding:utf-8-*-</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QHBoxLayout</span><span class="p">,</span><span class="n">QSlider</span><span class="p">,</span><span class="n">QSpinBox</span><span class="p">,</span><span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span>
@@ -929,7 +1044,7 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 <span class="n">window</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-<span class="n">window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&quot;enter your age&quot;</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;enter your age&quot;</span><span class="p">)</span>
 <span class="n">spinBox</span> <span class="o">=</span> <span class="n">QSpinBox</span><span class="p">()</span>
 <span class="n">slider</span> <span class="o">=</span> <span class="n">QSlider</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">)</span>
 <span class="n">spinBox</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">130</span><span class="p">)</span>
@@ -950,7 +1065,7 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
 
-<span class="c">#if __name__ == &#39;__main__&#39;:</span>
+<span class="c1">#if __name__ == &#39;__main__&#39;:</span>
 </pre></div>
 
 <p>
@@ -965,15 +1080,15 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 <p>
 正如前所述及自定义信号由PyQt5.QtCore.pyqtSingal（在pyqt4下是PyQt4.QtCore.pyqtSingal。）方法创建，具体格式如下：
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">pyqtSignal</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">pyqtSignal</span>
 
 <span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
     <span class="n">closed</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">()</span>
-    <span class="n">range_changed</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;rangeChanged&#39;</span><span class="p">)</span>
+    <span class="n">range_changed</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;rangeChanged&#39;</span><span class="p">)</span>
 </pre></div>
 
 <p>
-上面Foo类里面自定义了一个新的信号，它必须是GObject的子类。然后定义了一个closed信号，没有接受任何参数。下面是range<sub>changed信号</sub>，接受了一个int和一个int类型，然后这个信号的名字是rangeChanged，name选项是一个可选项，如果不填那么信号的名字就是range<sub>changed</sub>。
+上面Foo类里面自定义了一个新的信号，它必须是GObject的子类。然后定义了一个closed信号，没有接受任何参数。下面是range_changed信号，接受了一个int和一个int类型，然后这个信号的名字是rangeChanged，name选项是一个可选项，如果不填那么信号的名字就是range_changed。
 </p>
 
 <p>
@@ -994,24 +1109,24 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 按照python格式自己定义的函数就是所谓的自定义槽了。不过推荐用pyqt的槽装饰器来定义槽。
 </p>
 
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span>  <span class="n">pyqtSlot</span>
-    <span class="c">#1</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="kn">import</span>  <span class="n">pyqtSlot</span>
+    <span class="c1">#1</span>
     <span class="nd">@pyqtSlot</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
-    <span class="c">#2</span>
+    <span class="c1">#2</span>
     <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
         <span class="k">pass</span>
-    <span class="c">#3</span>
-    <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="c1">#3</span>
+    <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
         <span class="k">pass</span>
-    <span class="c">#4</span>
+    <span class="c1">#4</span>
     <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
         <span class="k">pass</span>
-    <span class="c">#5</span>
+    <span class="c1">#5</span>
     <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">QObject</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
         <span class="k">pass</span>
@@ -1021,8 +1136,8 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 上面的第一个例子定义了名叫foo的一个槽，然后不接受任何参数。第二个槽接受一个int类型的值和str类型的值。第三个槽名字叫做bar，接受一个int类型的值，第四个槽接受一个int类型的值，然后返回的是一个int类型的值，第五个操作接受一个int类型的值和一个GObject类型的值，此处应该暗指其他pyqt窗体类型都可以作为参数进行传递。
 </p>
 
-<div class="highlight"><pre><span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="nd">@pyqtSlot</span><span class="p">(</span><span class="s">&#39;QString&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nd">@pyqtSlot</span><span class="p">(</span><span class="s1">&#39;QString&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">valueChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
@@ -1048,8 +1163,8 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 下面通过一个例子详解自建信号还有自建槽并建立发射机制的情况。
 </p>
 
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*-coding:utf-8-*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*-coding:utf-8-*-</span>
 
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QDialog</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span><span class="n">QLineEdit</span><span class="p">,</span><span class="n">QCheckBox</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QHBoxLayout</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QApplication</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span>  <span class="n">Qt</span> <span class="p">,</span><span class="n">pyqtSignal</span><span class="p">,</span><span class="n">QObject</span><span class="p">,</span><span class="n">pyqtSlot</span>
@@ -1061,16 +1176,16 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s">&quot;Find &amp;what:&quot;</span><span class="p">))</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Find &amp;what:&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lineEdit</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">()</span>
         <span class="n">label</span><span class="o">.</span><span class="n">setBuddy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lineEdit</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">caseCheckBox</span><span class="o">=</span><span class="n">QCheckBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s">&quot;Match &amp;case&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">backwardCheckBox</span><span class="o">=</span><span class="n">QCheckBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s">&quot;Search &amp;backward&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">findButton</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s">&quot;&amp;Find&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caseCheckBox</span><span class="o">=</span><span class="n">QCheckBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Match &amp;case&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backwardCheckBox</span><span class="o">=</span><span class="n">QCheckBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Search &amp;backward&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">findButton</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;&amp;Find&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">findButton</span><span class="o">.</span><span class="n">setDefault</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">findButton</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-        <span class="n">closeButton</span><span class="o">=</span><span class="n">QPushButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s">&quot;Close&quot;</span><span class="p">))</span>
+        <span class="n">closeButton</span><span class="o">=</span><span class="n">QPushButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Close&quot;</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">lineEdit</span><span class="o">.</span><span class="n">textChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enableFindButton</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">findButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">findClicked</span><span class="p">)</span>
@@ -1092,7 +1207,7 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
         <span class="n">mainLayout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">rightLayout</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">mainLayout</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s">&quot;Find&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s2">&quot;Find&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setFixedHeight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
 
 
@@ -1113,14 +1228,14 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span><span class="o">=</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">findDialog</span> <span class="o">=</span> <span class="n">FindDialog</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">cs</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;find:&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">,</span><span class="s">&#39;cs&#39;</span><span class="p">,</span><span class="n">cs</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;find:&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">,</span><span class="s1">&#39;cs&#39;</span><span class="p">,</span><span class="n">cs</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">findp</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">cs</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;findp:&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">,</span><span class="s">&#39;cs&#39;</span><span class="p">,</span><span class="n">cs</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;findp:&#39;</span><span class="p">,</span><span class="n">text</span><span class="p">,</span><span class="s1">&#39;cs&#39;</span><span class="p">,</span><span class="n">cs</span><span class="p">)</span>
 
     <span class="n">findDialog</span><span class="o">.</span><span class="n">findNext</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">find</span><span class="p">)</span>
     <span class="n">findDialog</span><span class="o">.</span><span class="n">findPrevious</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">findp</span><span class="p">)</span>
@@ -1201,7 +1316,7 @@ findClicked槽的53-57行确定了当前的QLineEdit的text值和cs也就是大�
 <p>
 pyqt都用qrc文件来管理软件内部的资源文件（如图标文件，翻译文件等）。qrc文件的编写格式如下：
 </p>
-<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE RCC&gt;</span><span class="nt">&lt;RCC</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE RCC&gt;</span><span class="nt">&lt;RCC</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;qresource&gt;</span>
     <span class="nt">&lt;file&gt;</span>images/copy.png<span class="nt">&lt;/file&gt;</span>
 <span class="nt">&lt;/qresource&gt;</span>
@@ -1215,13 +1330,13 @@ qrc的编写还是很简单的，完全可以手工编写之。上面代码第�
 <p>
 qrc文件编写好了你需要运行如下命令
 </p>
-<div class="highlight"><pre>pyrcc5  wise.qrc  -o  wise_rc.py
+<div class="highlight"><pre><span></span>pyrcc5  wise.qrc  -o  wise_rc.py
 </pre></div>
 
 <p>
-这样将会输出一个wise<sub>rc.py文件</sub>，你如果要使用里面的资源，首先
+这样将会输出一个wise_rc.py文件，你如果要使用里面的资源，首先
 </p>
-<div class="highlight"><pre><span class="kn">import</span>  <span class="nn">wise_rc</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span>  <span class="nn">wise_rc</span>
 </pre></div>
 
 <p>
@@ -1231,7 +1346,7 @@ qrc文件编写好了你需要运行如下命令
 <p>
 上面是pyqt5的情况，对于pyqt4类似的有：
 </p>
-<div class="highlight"><pre>pyrcc4  wise.qrc  -o  wise_rc.py
+<div class="highlight"><pre><span></span>pyrcc4  wise.qrc  -o  wise_rc.py
 </pre></div>
 
 <p>
@@ -1262,15 +1377,15 @@ pyqt4和pyqt5里的QtCore子模块里提供了 <strong>QSettings</strong> 类来
 一般先推荐把OrganizationName和ApplicationName设置好。
 </p>
 
-<div class="highlight"><pre><span class="n">app</span><span class="o">.</span><span class="n">setOrganizationName</span><span class="p">(</span><span class="s">&quot;Wise&quot;</span><span class="p">)</span>
-<span class="n">app</span><span class="o">.</span><span class="n">setApplicationName</span><span class="p">(</span><span class="s">&quot;wise&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">app</span><span class="o">.</span><span class="n">setOrganizationName</span><span class="p">(</span><span class="s2">&quot;Wise&quot;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">setApplicationName</span><span class="p">(</span><span class="s2">&quot;wise&quot;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>
 然后接下来是构建一个QSettings对象。
 </p>
-<div class="highlight"><pre><span class="n">QSettings</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">QSettings</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
 </pre></div>
 
 <p>
@@ -1451,17 +1566,17 @@ Layout对象就好像一个封装器，Layout里面还可以有Layout，当然�
 请看到[works]→[layout]下的[hello.py]文件。这个文件来自<a href="http://www.thehackeruniversity.com/2014/01/23/pyqt5-beginner-tutorial/">这个网站</a> ，然后稍作修改。
 </p>
 
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*-coding:utf-8-*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*-coding:utf-8-*-</span>
 
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QMessageBox</span>
 
 <span class="k">class</span> <span class="nc">Form</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="n">nameLabel</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s">&quot;Name:&quot;</span><span class="p">)</span>
+        <span class="n">nameLabel</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Name:&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nameLine</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">submitButton</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s">&quot;Submit&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">submitButton</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Submit&quot;</span><span class="p">)</span>
         <span class="n">bodyLayout</span> <span class="o">=</span> <span class="n">QVBoxLayout</span><span class="p">()</span>
         <span class="n">bodyLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">nameLabel</span><span class="p">)</span>
         <span class="n">bodyLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nameLine</span><span class="p">)</span>
@@ -1470,21 +1585,21 @@ Layout对象就好像一个封装器，Layout里面还可以有Layout，当然�
         <span class="bp">self</span><span class="o">.</span><span class="n">submitButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submit</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">bodyLayout</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&quot;Hello Qt&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Hello Qt&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nameLine</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
-            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;Empty Field&quot;</span><span class="p">,</span>
-                                    <span class="s">&quot;Please enter a name.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Empty Field&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;Please enter a name.&quot;</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;Success!&quot;</span><span class="p">,</span>
-                                    <span class="s">&quot;Hello </span><span class="si">%s</span><span class="s">!&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Success!&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;Hello </span><span class="si">%s</span><span class="s2">!&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">screen</span> <span class="o">=</span> <span class="n">Form</span><span class="p">()</span>
@@ -1525,8 +1640,8 @@ from PyQt4.QtGui import ...
 请看到[works]→[layout]下的[gridlayout.py]文件。这个例子很好地演示了QGridLayout的使用。其中 <code>(i-1)//3</code> 即该数对3取商，本来的1 2 3 4 5 6&#x2026;将变成0 0 0 1 1 1 2 2 2&#x2026;正好对应网格中的几行，而 <code>(i-1)%3</code> 即该数对3取余，本来的1 2 3 4 5 6&#x2026;将变成0 1 2 0 1 2 0 1 2&#x2026;正好对应网格中的几列的概念。
 </p>
 
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python3</span>
-<span class="c">#-*-coding:utf-8-*-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1">#-*-coding:utf-8-*-</span>
 
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QGridLayout</span>
 
@@ -1539,11 +1654,11 @@ from PyQt4.QtGui import ...
             <span class="n">bodyLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">,(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span><span class="p">,(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">3</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span><span class="p">,(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">bodyLayout</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&quot;the grid layout&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;the grid layout&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">screen</span> <span class="o">=</span> <span class="n">Form</span><span class="p">()</span>
@@ -1565,7 +1680,7 @@ QFormLayout，表单布局，常用于提交某个配置信息的表单。
 请看到[works]→[layout]下的[basiclayouts.py]文件。这个例子来自pyqt5源码examples文件夹layouts文件夹里面的basiclayouts.py文件，做了简化主要用于演示表单布局。
 </p>
 
-<div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QApplication</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span><span class="n">QDialogButtonBox</span><span class="p">,</span> <span class="n">QFormLayout</span><span class="p">,</span> <span class="n">QGroupBox</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QTextEdit</span><span class="p">)</span>
 
@@ -1581,18 +1696,18 @@ QFormLayout，表单布局，常用于提交某个配置信息的表单。
         <span class="n">mainLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formGroupBox</span><span class="p">)</span>
         <span class="n">mainLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">buttonBox</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">mainLayout</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&quot;user info&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;user info&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">createFormGroupBox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">formGroupBox</span> <span class="o">=</span> <span class="n">QGroupBox</span><span class="p">(</span><span class="s">&quot;your infomation&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formGroupBox</span> <span class="o">=</span> <span class="n">QGroupBox</span><span class="p">(</span><span class="s2">&quot;your infomation&quot;</span><span class="p">)</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QFormLayout</span><span class="p">()</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&quot;name:&quot;</span><span class="p">),</span> <span class="n">QLineEdit</span><span class="p">())</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s">&quot;age:&quot;</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">())</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&quot;other infomation:&quot;</span><span class="p">),</span> <span class="n">QTextEdit</span><span class="p">())</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;name:&quot;</span><span class="p">),</span> <span class="n">QLineEdit</span><span class="p">())</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;age:&quot;</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">())</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;other infomation:&quot;</span><span class="p">),</span> <span class="n">QTextEdit</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">formGroupBox</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">()</span>
@@ -1736,7 +1851,7 @@ SOURCES 是你希望扫描的py文件，如果该文件有前面所说的self.tr
 </pre>
 
 <p>
-其中PROJECT<sub>NAME是你项目的名字</sub>，而QLocale.system().name()是你当前机器所用的目标语言简写，你可以在python3的eval模式下查看一下：
+其中PROJECT_NAME是你项目的名字，而QLocale.system().name()是你当前机器所用的目标语言简写，你可以在python3的eval模式下查看一下：
 </p>
 <pre>
 &gt;&gt;&gt; from PyQt5.QtCore import QLocale
@@ -1748,14 +1863,14 @@ SOURCES 是你希望扫描的py文件，如果该文件有前面所说的self.tr
 <p>
 然后你需要用pylupdate5小工具处理该pro文件：
 </p>
-<div class="highlight"><pre>pylupdate5 wise.pro
+<div class="highlight"><pre><span></span>pylupdate5 wise.pro
 </pre></div>
 
 
 <p>
 这样你就可以看到生成的 <code>wise_zh_CH.ts</code> 文件了，然后请确保安装了qt4-dev-tools，
 </p>
-<div class="highlight"><pre>sudo apt-get install qt4-dev-tools
+<div class="highlight"><pre><span></span>sudo apt-get install qt4-dev-tools
 </pre></div>
 
 <p>
@@ -1769,11 +1884,11 @@ SOURCES 是你希望扫描的py文件，如果该文件有前面所说的self.tr
 <p>
 样例如下：
 </p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QTranslator</span><span class="p">,</span><span class="n">QLocale</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QTranslator</span><span class="p">,</span><span class="n">QLocale</span>
     <span class="n">myapp</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">translator</span> <span class="o">=</span> <span class="n">QTranslator</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">translator</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;wise_&#39;</span><span class="o">+</span> <span class="n">QLocale</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;.qm&#39;</span><span class="p">,</span>
-        <span class="s">&quot;:/translations/&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">translator</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;wise_&#39;</span><span class="o">+</span> <span class="n">QLocale</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;.qm&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;:/translations/&quot;</span><span class="p">):</span>
         <span class="n">myapp</span><span class="o">.</span><span class="n">installTranslator</span><span class="p">(</span><span class="n">translator</span><span class="p">)</span>
 </pre></div>
 
@@ -1793,9 +1908,9 @@ SOURCES 是你希望扫描的py文件，如果该文件有前面所说的self.tr
 <p>
 有些qt窗体内部文字可能不好DIY，这时需要如上一样加载qt的官方翻译文件。代码如下所示：
 </p>
-<div class="highlight"><pre>    <span class="n">translator_qt</span> <span class="o">=</span> <span class="n">QTranslator</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">translator_qt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;qt_&#39;</span><span class="o">+</span> <span class="n">QLocale</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">+</span><span class="s">&#39;.qm&#39;</span><span class="p">,</span><span class="s">&quot;:/translations/&quot;</span><span class="p">):</span>
-<span class="c">#        print(&#39;i found qt&#39;)</span>
+<div class="highlight"><pre><span></span>    <span class="n">translator_qt</span> <span class="o">=</span> <span class="n">QTranslator</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">translator_qt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;qt_&#39;</span><span class="o">+</span> <span class="n">QLocale</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;.qm&#39;</span><span class="p">,</span><span class="s2">&quot;:/translations/&quot;</span><span class="p">):</span>
+<span class="c1">#        print(&#39;i found qt&#39;)</span>
         <span class="n">myapp</span><span class="o">.</span><span class="n">installTranslator</span><span class="p">(</span><span class="n">translator_qt</span><span class="p">)</span>
 </pre></div>
 
@@ -1807,7 +1922,7 @@ SOURCES 是你希望扫描的py文件，如果该文件有前面所说的self.tr
 <p>
 官方qt翻译文件在qt源码的translations文件夹里面，可以如下通过git clone获取。
 </p>
-<div class="highlight"><pre>git clone https://gitorious.org/qt/qttranslations.git
+<div class="highlight"><pre><span></span>git clone https://gitorious.org/qt/qttranslations.git
 </pre></div>
 
 <p>
@@ -1824,7 +1939,7 @@ ts文件如前所述用 <strong>lrelease</strong> 命令处理以下，或者直
 <h2 id="orgheadline47">参考资料</h2>
 <div class="outline-text-2" id="text-12">
 <ol class="org-ol">
-<li>pyqt4教程，<a href="http://blog.cx125.com/books/PyQt4_Tutorial/">PyQt4<sub>Tutorial</sub></a></li>
+<li>pyqt4教程，<a href="http://blog.cx125.com/books/PyQt4_Tutorial/">PyQt4_Tutorial</a></li>
 
 <li>Rapid GUI Programming with Python and Qt , 书籍的源码</li>
 

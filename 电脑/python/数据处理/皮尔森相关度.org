@@ -1,0 +1,23 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: 皮尔森相关度
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+皮尔森相关度是对一组数据进行分析从而得出其关于线性相关的相关度考量。皮尔森相关系统 ~-1<=r<=1~ ，如果r=0，则称为没有线性相关性，正值则称作正相关，负值则称作负相关。然后越靠近于1，越线性相关。
+
+
+
+
+
+
+
+
+
+

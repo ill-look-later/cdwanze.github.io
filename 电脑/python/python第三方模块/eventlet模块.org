@@ -1,0 +1,37 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: eventlet模块
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 简介
+eventlet是python的一个网络并发解决方案模块。其官方文档在 [[http://eventlet.net/][这里]] 。
+
+#+BEGIN_EXAMPLE
+pip install eventlet
+#+END_EXAMPLE
+
+最简单的一个例子:
+
+#+BEGIN_SRC python
+import eventlet
+from eventlet.green import urllib2
+
+urls = ["http://www.google.com/intl/en_ALL/images/logo.gif",
+       "https://www.python.org/static/img/python-logo.png",
+       "http://us.i1.yimg.com/us.yimg.com/i/ww/beta/y3.gif"]
+
+def fetch(url):
+    return urllib2.urlopen(url).read()
+
+pool = eventlet.GreenPool()
+for body in pool.imap(fetch, urls):
+    print("got body", len(body))
+#+END_SRC
+
+

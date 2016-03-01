@@ -202,6 +202,27 @@ git clone -b master --single-branch  https://github.com/pydata/pandas
 
 
 
+* tag功能
+我们看到github上有个release栏就是基于git的轻量级tag功能。
+
+** 查看当前tag
+#+BEGIN_EXAMPLE
+git tag
+#+END_EXAMPLE
+
+** 添加一个tag
+最简单的添加一个轻量级tag就是:
+#+BEGIN_EXAMPLE
+git tag tag_name
+#+END_EXAMPLE
+
+** 将tag推送到远程
+#+BEGIN_EXAMPLE
+git push --tag
+#+END_EXAMPLE
+
+然后我们就可以在github上看到这个release了。这里参看了 [[http://zengrong.net/post/1746.htm][这篇文章]] 。
+
 * 通过ssh来进行git操纵
 ** 什么是bare仓库
 我们往github上推送的时候，实际上是推送到github的另外一个bare仓库，然后我们在github上看到的远程仓库，实际上是github根据那个bare仓库来自动pull更新的另一个仓库。请参看 [[http://www.saintsjd.com/2011/01/what-is-a-bare-git-repository/][这个网页]] 。把这个弄明白了后面要讲的操作流程就很清晰了。

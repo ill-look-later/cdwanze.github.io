@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-02-27 六 16:41 -->
+<!-- 2016-03-01 二 09:20 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>精通flask框架</title>
@@ -1175,15 +1175,19 @@ SQLALCHEMY_ECHO = True
 
 <div class="outline-2">
 <h2 id="orgheadline32">表单</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+请参看 <a href="flask-wtf.html">flask-wtf</a> 一文。
+</p>
 </div>
-
+</div>
 
 
 <div class="outline-2">
 <h2 id="orgheadline33">用户管理规范</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-本小节主要参考了 <a href="http://spacewander.github.io/explore-flask-zh/12-handling_users.html">这个网页</a> 。
+本小节主要参考了 <a href="http://spacewander.github.io/explore-flask-zh/12-handling_users.html">这个网页</a> 。更成熟的方案请参看 flask-user
 </p>
 </div>
 </div>
@@ -1366,117 +1370,12 @@ restfulapi则可以上面四个方法都编写出来，调用者清晰的知道�
 <h3 id="orgheadline39">flask-restful插件</h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
+请参看 <a href="flask-restful.html">flask-restful</a> 一文。
 具体原生态的flask restful api代码编写就不在这里做了，有兴趣的可以看下本节开头提及参考资料的地一小节部分。
 </p>
-
-<p>
-然后flask0.7版本之后新加入了 <code>MethodView</code> 类，如下所示:
-</p>
-
-<pre>
-class UserAPI(MethodView):
-
-    def get(self, user_id):
-        if user_id is None:
-            # return a list of users
-            pass
-        else:
-            # expose a single user
-            pass
-
-    def post(self):
-        # create a new user
-        pass
-
-    def delete(self, user_id):
-        # delete a single user
-        pass
-
-    def put(self, user_id):
-        # update a single user
-        pass
-</pre>
-
-<p>
-这已经很方便就能编写出restful api接口了，但实际编写restfulapi推荐使用 flask-restful 这个插件。具体使用参看官方文档的这个例子:
-</p>
-<pre>
-from flask import Flask
-from flask_restful import Resource, Api
-
-app = Flask(__name__)
-api = Api(app)
-
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
-
-api.add_resource(HelloWorld, '/')
-
-if __name__ == '__main__':
-    app.run(debug=True)
-</pre>
-
-<p>
-注意一下几点:
-</p>
-<ol class="org-ol">
-<li>返回的是字典类型，该插件会自动jsonify处理的。</li>
-<li><code>api.add_resource(ClassName,'/resname/&lt;path:path&gt;',endpoint='resname')</code> ，endpoint定义了这个restfulapi的视图函数的endpoint值，然后你可以用 <code>url_for</code> 来快速生成对应的URL。</li>
-<li>该类中的方法其实等同于之前谈及的flask的视图函数，所以request session等这些变量也是可以使用的（存疑？）。</li>
-<li>你可以这样:</li>
-</ol>
-<pre>
-class FoldersAPI(Resource):
-    def __init__(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name')
-        parser.add_argument('description')
-        parser.add_argument('apikey')
-        self.args = parser.parse_args()
-        if self.args.get('apikey'):
-            g.apikey = self.args.get('apikey')
-</pre>
-<p>
-来给你的restfulapi endpoint 刷入一些参数，如果没设置参数，则该 <code>self.args['name']</code> 就是默认值 None。这些参数在后面的视图函数 get post之类中都是可以使用的。这个 <code>reqparse</code> 来自:
-</p>
-<pre>
-from flask_restful import reqparse
-</pre>
-
-<p>
-你可以看到其使用和 argparse 模块很接近。如果你熟悉python的argparse模块，那么可以毫不费力的来直接使用了。
-</p>
-
-<p>
-如果你要刷入一个列表，则需要如下设置:
-</p>
-<pre>
-parser.add_argument('name', action='append')
-</pre>
-
-<p>
-你还可以利用其从flask的request对象上刷值:
-</p>
-<pre>
-parser.add_argument('name', type=int, location='form')
-</pre>
-<p>
-这个我还不太清楚，似乎我们应该这样把之前提及的request变量刷的值引入进来。这样这套api也是可以为视图层所使用了。
-</p>
-
-
-<p>
-具体例子请参看我写的 <a href="https://github.com/a358003542/flask-examples">flask-examples</a> 那里，具体是 restfulapi.py 。
-</p>
-
-<p>
-更多内容请参看官方文档。这个插件的官方文档的中文翻译版本可以在这里 <a href="http://flask-restful-cn.readthedocs.org/zh/latest/quickstart.html">阅读</a> 。
-</p>
 </div>
 </div>
 </div>
-
 
 
 

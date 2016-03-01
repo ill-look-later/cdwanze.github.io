@@ -48,7 +48,7 @@ var age = prompt("what's your age");
 
 
 * 程序中的操作对象
-各个编程语言的数据类型底层大致都差不多的吧: 数值型，字符串型（javascript同python一样单引号双引号都可以），布尔型（javascript是true和false），然后其他常规数值运算和逻辑运算（如 ~&&~ ~||~ ~!~ 之类）和比较运算（这里值得一提的是和python的 ~==~ 对应的javascript的比较运算符应该是 ~===~ ，三个等号，这算是javascript的一个历史遗留语法瑕疵问题。）等都大体相同。python中的None对应的是javascript的 *null* 。
+各个编程语言的数据类型底层大致都差不多的吧: 数值型，字符串型（javascript同python一样单引号双引号都可以），布尔型（javascript是true和false），然后其他常规数值运算和逻辑运算（如 ~&&~ ~||~ ~!~ 之类）和比较运算（这里值得一提的是和python的 ~==~ 对应的javascript的比较运算符应该是 ~===~ ，三个等号，这算是javascript的一个历史遗留语法瑕疵问题。）等都大体相同。python中的None对应的是javascript的 ~null~ 。
 
 然后高级数据类型各个编程语言差异就很大了，不过javascript似乎和python在基本高级数据类型上也很接近，比如说javascript的数组就类似于python的列表:
 #+BEGIN_EXAMPLE
@@ -93,6 +93,11 @@ var count = 2;
 
 ** 数值
 javascript整数和浮点数都不分了，都统一表示为Number，然后数值其他的一些内容如果你学习过其他一门编程语言那么基本上没啥新鲜玩意儿了。
+
+#+BEGIN_EXAMPLE
+console.log(typeof 2)
+number
+#+END_EXAMPLE
 
 ** 字符串 
 *** 多行字符串
@@ -508,19 +513,40 @@ window是一个全局变量，表示本浏览器的窗口。
 - reload() :: 重载当前页面
 
 ** document
-你可以认为这是beautifulsoup刷过之后的网页文档树。
+你可以认为这是beautifulsoup刷过之后的网页文档树。简单的写入html代码:
+#+BEGIN_SRC js
+<script>
+document.write("<h1>This is a heading</h1>");
+document.write("<p>This is a paragraph.</p>");
+</script>
+#+END_SRC
+
+按钮点击一下则执行什么javascript代码。
+#+BEGIN_SRC js
+<button type="button" onclick="alert('Welcome!')">点击这里</button>
+#+END_SRC
+
+javascript改变HTML内容
+#+BEGIN_SRC js
+<script>
+function myFunction()
+{
+x=document.getElementById("demo");  // 找到元素
+x.innerHTML="Hello JavaScript!";    // 改变内容
+}
+</script>
+
+<button type="button" onclick="myFunction()">点击这里</button>
+#+END_SRC
+
+
 - title :: title标签内所含的内容
 - cookie :: 获取cookie的内容
-
--------
-
 - getElementById() :: 该方法用于根据Id来提取网页内容的某个DOM子节点
 - getElementsByTagName() :: 该方法用于根据Tag标签名字来提取某个DOM子节点（看到那个Elements的s，其将返回多个命中目标。记住带s的这些将返回的是一个数组对象）
 - getElementsByClassName() :: 该方法用于根据css来进行选择某些DOM子节点。
 
 返回的所谓DOM子节点对象，可以如同document对象一样使用这三个方法，相当于在第一次查找结果之上进一步查找。
-
--------
 
 - querySelector() :: 类似beautifulsoup的selector选择语法:
 #+BEGIN_EXAMPLE
@@ -528,16 +554,18 @@ var ps = q1.querySelectorAll('div.highlighted > p');
 #+END_EXAMPLE
 - querySelectorAll() :: 类似上面，但返回所有结果。
 
----------
+
 找到目标标签元素之后，各个样式属性可以如下直接引用:
 #+BEGIN_EXAMPLE
 document.querySelector('a').href
 #+END_EXAMPLE
 
+
+*** 修改节点的文本内容
 - innerHTML :: 对应该DOM节点标签内的文本内容
 - innerText :: 类似上面的innerHTML，但不可设置任何HTML标签
 
-------
+
 - createElement() :: 创建一个标签元素对象:
 #+BEGIN_EXAMPLE
 haskell = document.createElement('p');
@@ -555,6 +583,39 @@ parentElement.insertBefore(newElement, referenceElement);
 
 但是实际使用中推荐用jquery来操作各个DOM节点。
 
+*** 改变图片颜色
+#+BEGIN_SRC js
+<script>
+function changeImage()
+{
+element=document.getElementById('myimage')
+if (element.src.match("bulbon"))
+  {
+  element.src="/i/eg_bulboff.gif";
+  }
+else
+  {
+  element.src="/i/eg_bulbon.gif";
+  }
+}
+</script>
+
+<img id="myimage" onclick="changeImage()" src="/i/eg_bulboff.gif">
+#+END_SRC
+
+
+*** 改变元素的样式
+#+BEGIN_SRC js
+<script>
+function myFunction()
+{
+x=document.getElementById("demo") // 找到元素
+x.style.color="#ff0000";          // 改变样式
+}
+</script>
+
+<button type="button" onclick="myFunction()">点击这里</button>
+#+END_SRC
 
 * jquery
 #+BEGIN_EXAMPLE
@@ -757,4 +818,4 @@ JSON.parse('[1,2,3,true]');
 2. https://www.codecademy.com
 3. [[http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000][廖雪峰的javascript教程]] 
 4. Javascript in Ten Minutes; Author: Spencer Tipping; version: 2013 March <<cite4>>
-
+5. [[http://eloquentjavascript.net/][eloquent javascript]]

@@ -116,7 +116,7 @@ def g():
 g = update_wrapper(g, f)
 #+END_EXAMPLE
 
-也就是g就是wrapper，而f是wrapper。
+也就是g就是wrapper，而f是wrapped。
 
 在实际应用中，可以将这个函数g做成装饰器函数，如下所示:
 

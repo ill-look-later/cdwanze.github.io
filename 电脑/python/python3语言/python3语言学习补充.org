@@ -285,9 +285,9 @@ def mydecorator(arg1, arg2):
 * 类装饰器
 装饰器在python中扮演着非常重要的地位，下面简要介绍之。
 
-1. 无参数装饰器
+** 无参数装饰器
 如果你的装饰器不需要参数，那么就简单用一个函数装饰器即可。
-
+#+BEGIN_SRC python
 def mydecorator(function):
     def _mydecorator(*args,**kargs):
         # do some stuff
@@ -295,16 +295,23 @@ def mydecorator(function):
         # do some other stuff
         return res
     return _mydecorator
+#+END_SRC
 
-2. 有参数的装饰器 或者 有状态的装饰器 一律采用 内置类对象的风格，这样更加清晰。
+
+** 有参数的装饰器
+或者 有状态的装饰器 一律采用 内置类对象的风格，这样更加清晰。
 
 最核心的部分如下所示
+#+BEGIN_SRC python
 def plan(every, unit, at=None, loop=None,**kwargs):
     def _plan(func):
         return Plan(func,every,unit,at=at,loop=loop, **kwargs)
     return _plan
+#+END_SRC
 
-具体函数的参数传递给了你的对象的 _call_ 方法
+
+具体函数的参数传递给了你的对象的 ~__call__~ 方法
+#+BEGIN_SRC python
     def _call_(self,*fn_args):
         """Used as a decorator"""
         if self.auto_start:
@@ -313,6 +320,8 @@ def plan(every, unit, at=None, loop=None,**kwargs):
 @plan(every=0,unit="minute")
 def job(name):
     print("I'm working...{}".format(name))
+#+END_SRC
+
 
 当你执行
 job(name)
@@ -402,7 +411,7 @@ after fork
 我们看到在父进程那一边，pid是本父进程的子进程PID，而在子进程那一边，os.fork()返回的是0。可以利用这点将父进程的操作和子进程的操作分开。具体上面的代码if pid 那一块是父进程的，else那一块是子进程的。
 
 
-** 线程入门
+* 多线程
 线程的内部实施细节其实比进程要更加复杂，一般通俗的说法就是线程是轻量级进程，这里不深入讨论具体线程的细节。
 
 python操作线程的主要模块是 *threading*
@@ -438,9 +447,33 @@ thread: 7
 22972371
 #+END_EXAMPLE
 
-*注意:*  控制参数后面那个逗号必须加上。
+*注意:*  控制参数如果只有一个后面那个逗号必须加上。
 
-我不太喜欢这种风格，因为线程对接的那个函数实际上并不能return 什么值，而且其保存的值也依赖于前面的定义，并不能称之为真正意义上的函数（一个定义很好的函数必须复用特性很强）。所以线程还是如下类的风格编写。下面代码参考了  [[http://www.ibm.com/developerworks/aix/library/au-threadingpython/index.html][这个网页]] 。
+** 后台警报线程
+下面的函数实现了一个后台警报线程，不会阻塞主程序。
+#+BEGIN_SRC python
+def beep(a,b):
+    '''make a sound , ref: http://stackoverflow.com/questions/16573051/python-sound-alarm-when-code-finishes
+    you need install  ``apt-get install sox``
+
+    :param a: frenquency
+    :param b: duration
+
+    create a background thread,so this function does not block the main program
+    '''
+    def _beep(a,b):
+        import os
+        os.system('play --no-show-progress --null --channels 1 synth %s sine %f' % (b,a))
+    from threading import Thread
+    thread = Thread(target=_beep,args=(a,b))
+    thread.daemon = True
+    thread.start()
+#+END_SRC
+
+如上所示，原beep函数调用系统的play命令制造一个声音，其中b是声音持续的时间，所以其是阻塞的。我们将其作为一个线程调用之后，然后其就没有阻塞主程序了。这里的 ~daemon~ 的意思是让这个线程成为一个后台线程，请参看 [[http://stackoverflow.com/questions/190010/daemon-threads-explanation][这个网页]] ，其说道后台线程可以不用管了，后面会随着主程序自动关闭。
+
+
+线程还可以用如下类的风格编写。下面代码参考了  [[http://www.ibm.com/developerworks/aix/library/au-threadingpython/index.html][这个网页]] 。
 
 #+BEGIN_SRC python
 

@@ -8,6 +8,8 @@
 #+CREATOR: 编者:wanze(<a href="mailto:a358003542@163.com">a358003542@163.com</a>)
 #+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
 
+
+* 简介
 一般制作python命令行脚本，推荐使用argparse模块，
 
 下面简要介绍了python3的官方文档argparse模块的用法，用于快速制作一个可以刷参数的python脚本，更多信息请参看 [[https://docs.python.org/3/library/argparse.html][官方文档]] 。
@@ -37,7 +39,7 @@ optional arguments:
 其首先是新建一个parser，上面ArgumentParser的usage是可选参数，就是命令行的一些描述信息。然后需要调用parser的 ~parse_args~ 方法，其就是具体将命令行接受的一些参数刷进去。
 
 
-* 简单添加一个参数
+** 简单添加一个参数
 上面的例子太简单了，现在开始简单添加一个参数。
 #+BEGIN_EXAMPLE
 import argparse
@@ -100,7 +102,7 @@ wanze@wanze-ubuntu64:~/桌面$ python3 hello.py --config='config.cfg'
 
 上面代码稍作修改，在长名字可选参数前面还可以加上短名字可选参数支持，然后我们看到 ~parse_args~ 方法经过 ~vars~ 处理之后返回的是字典值。该字典的key默认对应的是长名字可选参数。你还可以自己设置目标参数名:
 
-* 添加参数的其他选项设置
+** 添加参数的其他选项设置
 下面演示了如何设置目标参数在脚本中具体对应的变量名:
 #+BEGIN_SRC python
 import argparse
@@ -131,14 +133,14 @@ parser.add_argument('--delay',type=int)
 #+END_EXAMPLE
 
 
-必填参数的添加如下所示，除了这个"target"名字前面没有"-"之外，和可选参数用法大致类似，其刷入args字典之后的key就是"target"这个名字。
+必填参数的添加如下所示，除了这个"target"名字前面没有 ~--~ 之外，和可选参数用法大致类似，其刷入args字典之后的key就是"target"这个名字。
 #+BEGIN_EXAMPLE
 parser.add_argument('target',help="必填参数")
 #+END_EXAMPLE
 
 不过必填参数和可选参数在某些细节上还是有点差异的，后面会提及。
 
-** nargs选项设置
+*** nargs选项设置
 nargs设置之后该参数在脚本中具体对应的变量将是一个列表。其中nargs可以设置为一个数字，比如 ~nargs=4~ ，则脚本对该参数将接受4个输入值，然后将其收集进一个列表里面。
 
 此外还有:
@@ -221,151 +223,62 @@ the target width is 300
 #+END_EXAMPLE
 
 
-* 一个通用刷参数的函数
+* 命令行选项关联其他动作
+parser的 ~add_argument~ 方法的 ~action~ 参数就是用来控制命令行选项关联的动作的，一般都不需要设置，就是默认的 ~store~ ，也就是存储值。类似的有 ~store_const~ , ~store_true~ 和 ~store_false~ 。
+
+** store_const
+如果是默认的store，则通常是需要指明具体值的，如果设置action为store_const了:
 #+BEGIN_SRC python
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+parser.add_argument('--foo', action='store_const', const=42)
+#+END_SRC
 
-import argparse
-usage = '''
-resize the image
-'''
+那么如下就会自动设置该值，这和default默认值的区别是这个选项的值要求是某个常量值。
+#+BEGIN_EXAMPLE
+>> python3 test2.py --foo
+Namespace(foo=42)
+#+END_EXAMPLE
 
-def get_env():
-    return globals()
+** store_true 和 store_false
+如果写为:
+#+BEGIN_SRC python
+parser.add_argument('--foo', action='store_true')
+#+END_SRC
+则其存储的就是 ~True~ 值:
+#+BEGIN_EXAMPLE
+>> python3 test2.py --foo 
+Namespace(foo=True)
+#+END_EXAMPLE
 
-def even(n):
-    '''偶数判断函数'''
-    if not isinstance(n, int):
-        raise NotIntegerError
+这里主要是要讲定义自己的动作，就是类似 ~--version~ 这样的用法，是一种影响程序整个工作流的选项，官方文档推荐通过子类化 ~argparse.Action~ 的方法，还是有点麻烦的。然后发现 ~click~ 模块非常好，处理这个问题也很容易:
 
-    if n % 2 ==0:
-        return True
+#+BEGIN_SRC python
+import click
 
-def str2num(string):
-    try:
-        return int(string)
-    except ValueError:
-        try:
-            return float(string)
-        except ValueError:
-            return string
+def print_version(ctx, param, value):
+    if not value or ctx.resilient_parsing:
+        return
+    click.echo('Version 1.0')
+    ctx.exit()
 
-def init_argv(usage=''):
-    parser = argparse.ArgumentParser(usage=usage)
-    parser.add_argument('-c','--config',dest="configpath",help="the config file path")
-    parser.add_argument('--args',dest='more_args',help="more you input args will be passed as a genernal way, longname and the string type",nargs=argparse.REMAINDER)
+def quick(ctx,param,value):
+    print(ctx,param,value)
+    ctx.exit()
 
-    args = vars(parser.parse_args())
-    more_args = args['more_args']
-    print(more_args)
+@click.command()
+@click.option('--version', is_flag=True, callback=print_version,
+              expose_value=False, is_eager=True)
+@click.option('--quick',callback=quick,is_flag=True)
+def hello():
+    while True:
+        userinput = input('input:')
+        click.echo(userinput)
 
-    for i,arg in enumerate(more_args):
-        if even(i):
-            longname = arg[2:]
-            args[longname] = str2num(more_args[i+1])
-
-    return args
-
-
-def main():
-    env = get_env()
-    env.update(init_argv(usage))
-
-    print('resize image')
-    print('the input image is {},type: {}'.format(inputimg,type(inputimg)))
-    print('the target width is {},typpe:{}'.format(width,type(width)))
+        if userinput == 'exit':
+            break
 
 
 if __name__ == '__main__':
-    main()
+    hello()
 #+END_SRC
 
-这里约定通用刷额外参数一次只能接受一个值，而且必须赋值。这是没有办法的，也许能够写出更灵活的支持吧。然后我们定义一个脚本的 ~globals()~ 全局变量字典值为 *env* 变量，即本脚本所处的全局环境。这个环境的概念很重要。以后我们扩展脚本都将基于这个环境。
-
-这个脚本并没有用到configpath，不过以后这个功能应该需要加进去，推荐使用cfg文件格式（configparser模块支持）或者简单的一个简单的字典值的json文件（json不推荐做配置管理，不过一个字典的情况是可以接受的。）。读入之后刷入进 *env* 中。我们这里约定具体各个参数配置优先级如下:
-
------
-具体命令行参数 > 配置文件
------
-
-最后脚本全局环境env将上面谈及的这些字典配置都 *update* 进去。
-
-* 通用脚本函数支持
-继续上面的例子，然后这里加入了对于配置文件的支持。具体是刷的cfg文件的DEFAULT section，可以进一步设置其他的section的配置。
-#+BEGIN_SRC python
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-
-import argparse
-usage = '''
-resize the image
-'''
-
-def get_env():
-    return globals()
-
-def even(n):
-    '''偶数判断函数'''
-    if not isinstance(n, int):
-        raise NotIntegerError
-
-    if n % 2 ==0:
-        return True
-
-def str2num(string):
-    try:
-        return int(string)
-    except ValueError:
-        try:
-            return float(string)
-        except ValueError:
-            return string
-
-def init_argv(usage=''):
-    parser = argparse.ArgumentParser(usage=usage)
-    parser.add_argument('-c','--config',dest="configpath",help="the config file path")
-    parser.add_argument('--args',dest='more_args',help="more you input args will be passed as a genernal way, longname and the string type",nargs=argparse.REMAINDER)
-
-    args = vars(parser.parse_args())
-    more_args = args['more_args']
-    print(more_args)
-
-    for i,arg in enumerate(more_args):
-        if even(i):
-            longname = arg[2:]
-            args[longname] = str2num(more_args[i+1])
-
-    return args
-
-import configparser
-def init_config(configpath,configsection='DEFAULT'):
-    config = configparser.ConfigParser()
-    config.read(configpath)
-    return dict(config[configsection])
-
-
-def init_env():
-    env = get_env()
-    args = init_argv(usage)
-
-    configpath  = args['configpath']
-    if configpath:
-        env.update(init_config(configpath))
-
-    env.update(args)
-
-def main():
-    init_env()
-
-    print('resize image')
-    print('the input image is {},type: {}'.format(inputimg,type(inputimg)))
-    print('the target width is {},typpe:{}'.format(width,type(width)))
-
-    print('i am from config file the start_date is {},typpe:{}'.format(start_date,type(start_date)))
-
-
-if __name__ == '__main__':
-    main()
-#+END_SRC
+这里的ctx和param到click模块那边再细将吧，我们看到整个过程比argparse美观多了。
