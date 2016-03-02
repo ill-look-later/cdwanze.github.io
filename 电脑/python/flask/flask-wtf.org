@@ -10,9 +10,125 @@
 
 
 * 简介
+官方文档在 [[https://flask-wtf.readthedocs.org/en/latest/][这里]] ，简单的安装就是:
+
+#+BEGIN_EXAMPLE
+bash>>> sudo pip3 install flask-wtf
+#+END_EXAMPLE
+
+其是对python的另外一个模块 ~wtforms~ 和flask的对接，方便快速创建表单，管理表单等等其他相关事情。我之前并没有接触过 ~wtforms~ 这个模块，不管怎么说，后面慢慢接触吧。
+
+* 第一个例子
+比如我们要创建登录输入email和密码的表单，在flask框架的forms.py那里写上:
+
+
+#+BEGIN_SRC python
+from flask_wtf import Form
+from wtforms import StringField, PasswordField
+from wtforms.validators import DataRequired, Email
+
+class EmailPasswordForm(Form):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+#+END_SRC
+
+然后在相应的模块文件那里有如下代码:
+#+BEGIN_SRC html
+<form action="{{url_for('signin')}}" method="post" class="form-signin">
+      <h2 class="form-signin-heading">Please sign in</h2>
+    <div class="form-group">
+            {{ form.email(class_="form-control",placeholder="Email") }}
+    </div>
+    <div class="form-group">
+        {{ form.password(class_="form-control",placeholder="Password") }}
+    </div>
+    <button type="submit" class="btn btn-default btn-halfblock">Sign in</button>
+    <button type="submit" formaction="/register" class="btn btn-default btn-halfblock">Register</button>
+
+    {{ form.csrf_token }}
+</form>
+#+END_SRC
+
+然后在flask框架的视图层那边有:
+#+BEGIN_SRC python
+@app.route('/register', methods=['GET','POST'])
+def register():
+    form = EmailPasswordForm()
+    if form.validate_on_submit():
+        ### do some register sucessed thing
+        user = User(
+            email = form.email.data,
+            password = form.password.data
+        )
+        email = user.email
+        target = db.session.query(User).filter(User.email == email).first()
+        if target:
+            flash('alredy register under this email')
+        else:
+            ## update database
+            ##send confirm email
+    return redirect(url_for('index'))
+#+END_SRC
+
+当然更加成熟的处理用户注册登录之类事宜的推荐使用 ~flask-user~ 模块，这里主要是利用这个例子来理解 ~flask-wtf~ 的一些基本的东西。
+
+
+** 模型层
+模型层那边就是定义一些你想要该form表单存储那些value。定义的时候像 ~StringField~ 这个是很影响后面在网页模板那边具体的显示结果的，比如 ~PasswordField~ 在输出 input 标签的时候 type 类型应该是 password 。当然实际操作我们根据情景选择使用的类即可，不用想那么多了。
+
+~validators~ 这个选项很重要，比如 ~validators=[DataRequired(), Email()])~ 则要求该输入框你必须输入值而且是有效的email格式，否则该表单不能提交。你还可以定义自己的验证器等，还有自己的提示信息等，这些后面再说。
 
 
 
+** 网页模板
+这里参看了 [[http://stackoverflow.com/questions/22084886/add-a-css-class-to-a-field-in-wtform][这个网页]] ，当我们在网页模板上写上:
+#+BEGIN_EXAMPLE
+   {{ form.email }}
+#+END_EXAMPLE
+
+其会输出:
+#+BEGIN_EXAMPLE
+<input id="email" name="email" type="text" value="">
+#+END_EXAMPLE
+
+然后如果我们如下写上:
+#+BEGIN_EXAMPLE
+ {{ form.email(class_="form-control",placeholder="Email") }}
+#+END_EXAMPLE
+
+其输出（我这里还不大确切，不过大体是这样）:
+#+BEGIN_EXAMPLE
+<input id="email" name="email" type="text" value="" class="form-control" placeholder="Email">
+#+END_EXAMPLE
+
+其他相关html知识这里就不多说了，然后再看到这一行:
+#+BEGIN_EXAMPLE
+    {{ form.csrf_token }}
+#+END_EXAMPLE
+
+使用是处理表单CSRF的唯一性验证的，然后app的config需要加上:
+#+BEGIN_EXAMPLE
+WTF_CSRF_ENABLED = False
+#+END_EXAMPLE
+然后其他的flask-wtf会自动帮我们处理好，当然这一块还有其他一些内容，先暂时略过。
+
+
+** 视图层
+在视图层的视图函数那边，首先我们需要定义你这里想使用的表单对象:
+#+BEGIN_EXAMPLE
+form = EmailPasswordForm()
+#+END_EXAMPLE
+
+然后后面的基本结构是:
+#+BEGIN_EXAMPLE
+    if form.validate_on_submit():
+        ### do some register sucessed thing
+    return redirect(url_for('index'))
+#+END_EXAMPLE
+
+这里的 ~form.validate_on_submit()~ 就是在接受POST请求的时候验证表单有效性，如果有效则具体做何种动作，比如数据库操作啊，发送确认email动作啊等等。最后那个就是网页返回操作了，这个根据实际情况需要会有所不同。
+
+大体整个流程就是这样的，然后接下来就是其他一些具体细节问题了。
 
 
 

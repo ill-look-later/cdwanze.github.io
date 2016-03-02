@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-03-01 二 09:18 -->
+<!-- 2016-03-02 三 11:05 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>flask-wtf</title>
@@ -240,6 +240,13 @@ table tr:nth-child(even) {
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">1. 简介</a></li>
+<li><a href="#orgheadline5">2. 第一个例子</a>
+<ul>
+<li><a href="#orgheadline2">2.1. 模型层</a></li>
+<li><a href="#orgheadline3">2.2. 网页模板</a></li>
+<li><a href="#orgheadline4">2.3. 视图层</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -247,6 +254,178 @@ table tr:nth-child(even) {
 
 <div class="outline-2">
 <h2 id="orgheadline1">简介</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+官方文档在 <a href="https://flask-wtf.readthedocs.org/en/latest/">这里</a> ，简单的安装就是:
+</p>
+
+<pre>
+bash&gt;&gt;&gt; sudo pip3 install flask-wtf
+</pre>
+
+<p>
+其是对python的另外一个模块 <code>wtforms</code> 和flask的对接，方便快速创建表单，管理表单等等其他相关事情。我之前并没有接触过 <code>wtforms</code> 这个模块，不管怎么说，后面慢慢接触吧。
+</p>
+</div>
+</div>
+
+<div class="outline-2">
+<h2 id="orgheadline5">第一个例子</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+比如我们要创建登录输入email和密码的表单，在flask框架的forms.py那里写上:
+</p>
+
+
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask_wtf</span> <span class="kn">import</span> <span class="n">Form</span>
+<span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">StringField</span><span class="p">,</span> <span class="n">PasswordField</span>
+<span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">DataRequired</span><span class="p">,</span> <span class="n">Email</span>
+
+<span class="k">class</span> <span class="nc">EmailPasswordForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Email&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</pre></div>
+
+<p>
+然后在相应的模块文件那里有如下代码:
+</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;{{url_for(&#39;signin&#39;)}}&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-signin&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-signin-heading&quot;</span><span class="p">&gt;</span>Please sign in<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+            {{ form.email(class_=&quot;form-control&quot;,placeholder=&quot;Email&quot;) }}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        {{ form.password(class_=&quot;form-control&quot;,placeholder=&quot;Password&quot;) }}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default btn-halfblock&quot;</span><span class="p">&gt;</span>Sign in<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">formaction</span><span class="o">=</span><span class="s">&quot;/register&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default btn-halfblock&quot;</span><span class="p">&gt;</span>Register<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+    {{ form.csrf_token }}
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+
+<p>
+然后在flask框架的视图层那边有:
+</p>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/register&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">EmailPasswordForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+        <span class="c1">### do some register sucessed thing</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
+            <span class="n">email</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">data</span>
+        <span class="p">)</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">email</span> <span class="o">==</span> <span class="n">email</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">target</span><span class="p">:</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s1">&#39;alredy register under this email&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">## update database</span>
+            <span class="c1">##send confirm email</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+</pre></div>
+
+<p>
+当然更加成熟的处理用户注册登录之类事宜的推荐使用 <code>flask-user</code> 模块，这里主要是利用这个例子来理解 <code>flask-wtf</code> 的一些基本的东西。
+</p>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline2">模型层</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+模型层那边就是定义一些你想要该form表单存储那些value。定义的时候像 <code>StringField</code> 这个是很影响后面在网页模板那边具体的显示结果的，比如 <code>PasswordField</code> 在输出 input 标签的时候 type 类型应该是 password 。当然实际操作我们根据情景选择使用的类即可，不用想那么多了。
+</p>
+
+<p>
+<code>validators</code> 这个选项很重要，比如 <code>validators=[DataRequired(), Email()])</code> 则要求该输入框你必须输入值而且是有效的email格式，否则该表单不能提交。你还可以定义自己的验证器等，还有自己的提示信息等，这些后面再说。
+</p>
+</div>
+</div>
+
+
+
+<div class="outline-3">
+<h3 id="orgheadline3">网页模板</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+这里参看了 <a href="http://stackoverflow.com/questions/22084886/add-a-css-class-to-a-field-in-wtform">这个网页</a> ，当我们在网页模板上写上:
+</p>
+<pre>
+{{ form.email }}
+</pre>
+
+<p>
+其会输出:
+</p>
+<pre>
+&lt;input id="email" name="email" type="text" value=""&gt;
+</pre>
+
+<p>
+然后如果我们如下写上:
+</p>
+<pre>
+{{ form.email(class_="form-control",placeholder="Email") }}
+</pre>
+
+<p>
+其输出（我这里还不大确切，不过大体是这样）:
+</p>
+<pre>
+&lt;input id="email" name="email" type="text" value="" class="form-control" placeholder="Email"&gt;
+</pre>
+
+<p>
+其他相关html知识这里就不多说了，然后再看到这一行:
+</p>
+<pre>
+{{ form.csrf_token }}
+</pre>
+
+<p>
+使用是处理表单CSRF的唯一性验证的，然后app的config需要加上:
+</p>
+<pre>
+WTF_CSRF_ENABLED = False
+</pre>
+<p>
+然后其他的flask-wtf会自动帮我们处理好，当然这一块还有其他一些内容，先暂时略过。
+</p>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline4">视图层</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+在视图层的视图函数那边，首先我们需要定义你这里想使用的表单对象:
+</p>
+<pre>
+form = EmailPasswordForm()
+</pre>
+
+<p>
+然后后面的基本结构是:
+</p>
+<pre>
+if form.validate_on_submit():
+    ### do some register sucessed thing
+return redirect(url_for('index'))
+</pre>
+
+<p>
+这里的 <code>form.validate_on_submit()</code> 就是在接受POST请求的时候验证表单有效性，如果有效则具体做何种动作，比如数据库操作啊，发送确认email动作啊等等。最后那个就是网页返回操作了，这个根据实际情况需要会有所不同。
+</p>
+
+<p>
+大体整个流程就是这样的，然后接下来就是其他一些具体细节问题了。
+</p>
+</div>
+</div>
 </div>
 </div>
 </body>
