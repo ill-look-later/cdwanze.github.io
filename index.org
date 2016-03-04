@@ -285,6 +285,8 @@
 2. [[file:电脑/python/Qt/C++ GUI Qt4 编程.pdf][C++ GUI Qt4 编程.pdf]]
 3. [[file:电脑/python/Qt/C++-GUI-Programming-with-Qt-4.pdf][C++-GUI-Programming-with-Qt-4.pdf]]
 4. [[file:电脑/python/Qt/The Book of Qt 4 - The Art of Building Qt Applications.pdf][The Book of Qt 4 - The Art of Building Qt Applications.pdf]]
+*** api对接
+1. [[file:电脑/python/api对接/api对接的设计原则.html][api对接的设计原则.html]]
 *** flask
 1. [[file:电脑/python/flask/flask-socketio.html][flask-socketio.html]]
 2. [[file:电脑/python/flask/flask-user.html][flask-user.html]]
