@@ -50,6 +50,8 @@
 1. [[file:思想/德山书生/论五权分立.pdf][论五权分立.pdf]]
 2. [[file:思想/德山书生/人工智能的为和不为.html][人工智能的为和不为.html]]
 3. [[file:思想/德山书生/论五权分立.html][论五权分立.html]]
+*** 演讲稿
+1. [[file:思想/德山书生/演讲稿/穷人的国和富人的国.html][穷人的国和富人的国.html]]
 ** 新阶级
 1. [[file:思想/新阶级/新阶级.html][新阶级.html]]
 2. [[file:思想/新阶级/新阶级.pdf][新阶级.pdf]]
@@ -119,6 +121,8 @@
 1. [[file:教育/科普/熵:一种新的世界观/熵:一种新的世界观.pdf][熵:一种新的世界观.pdf]]
 *** 皇帝新脑
 1. [[file:教育/科普/皇帝新脑/皇帝新脑.pdf][皇帝新脑.pdf]]
+*** 确定性的终结
+1. [[file:教育/科普/确定性的终结/确定性的终结.html][确定性的终结.html]]
 *** 终极理论之梦
 1. [[file:教育/科普/终极理论之梦/终极理论之梦.pdf][终极理论之梦.pdf]]
 *** 综合讨论类
@@ -301,6 +305,8 @@
 11. [[file:电脑/python/flask/Flask Web Development.pdf][Flask Web Development.pdf]]
 12. [[file:电脑/python/flask/flask-restful.html][flask-restful.html]]
 13. [[file:电脑/python/flask/Werkzeug.pdf][Werkzeug.pdf]]
+*** hacker修道院
+1. [[file:电脑/python/hacker修道院/hacker修道院入门.html][hacker修道院入门.html]]
 *** python3语言
 1. [[file:电脑/python/python3语言/python cookbook.pdf][python cookbook.pdf]]
 2. [[file:电脑/python/python3语言/intermediate-and-advanced-software-carpentry.pdf][intermediate-and-advanced-software-carpentry.pdf]]

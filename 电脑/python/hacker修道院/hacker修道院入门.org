@@ -1,0 +1,23 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: hacker修道院入门
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 网络技能
+** DHCP
+DHCP（Dynamic Host Configuration Protocol）
+
+
+
+* 参考资料
+1. [[http://null-byte.wonderhowto.com/how-to/essential-skills-becoming-master-hacker-0154509/][essential-skills-becoming-master-hacker]]
+http://null-byte.wonderhowto.com/inspiration/hacker-fundamentals-tale-two-standards-0133727/
+
+
+http://null-byte.wonderhowto.com/how-to/hacker-fundamentals-everymans-guide-network-packets-are-routed-across-web-0134491/
