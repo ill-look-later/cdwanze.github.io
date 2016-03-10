@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 2016-03-10 四 14:38 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>Tornado学习笔记</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="万泽(德山书生)">
+<meta  name="description" content="制作者邮箱：a358003542@gmail.com"
+>
+<style type="text/css">
+body {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  body {
+    width: 732px;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    width: 948px;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    width: 1140px;
+  }
+}
+
+.title {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.underline{
+    text-decoration: underline;
+}
+   #content {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    /*word-wrap: break-word;*/
+    word-wrap: normal; /* horizontal scrolling */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 17.5px;
+    border-left: 5px solid #eee;
+}
+
+
+p{
+    text-indent:2em;
+    line-height:150%;
+}
+
+li, dt{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+video{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure p{
+    text-indent:0em;
+}
+img{
+    max-width: 95%;
+}
+
+figure{
+    text-align: center;
+}
+
+/*  class  */
+.framed{
+    max-width:700px;
+    border:1px solid ;
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.notecard{
+    width: 320px;
+    position:relative;
+    right: -215px;
+    padding: 1em;
+    margin:0 auto;
+    border: solid 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+table
+*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 16px 0;
+    empty-cells: show;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: table;
+}
+
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+table th,table td{
+    padding:8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #8f5902; font-style: italic } /* Comment */
+.highlight .err { color: #a40000; border: 1px solid #ef2929 } /* Error */
+.highlight .g { color: #000000 } /* Generic */
+.highlight .k { color: #204a87; font-weight: bold } /* Keyword */
+.highlight .l { color: #000000 } /* Literal */
+.highlight .n { color: #000000 } /* Name */
+.highlight .o { color: #ce5c00; font-weight: bold } /* Operator */
+.highlight .x { color: #000000 } /* Other */
+.highlight .p { color: #000000; font-weight: bold } /* Punctuation */
+.highlight .ch { color: #8f5902; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #8f5902; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #8f5902; font-style: italic } /* Comment.Preproc */
+.highlight .cpf { color: #8f5902; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #8f5902; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #8f5902; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #a40000 } /* Generic.Deleted */
+.highlight .ge { color: #000000; font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #ef2929 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #000000; font-style: italic } /* Generic.Output */
+.highlight .gp { color: #8f5902 } /* Generic.Prompt */
+.highlight .gs { color: #000000; font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #a40000; font-weight: bold } /* Generic.Traceback */
+.highlight .kc { color: #204a87; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #204a87; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #204a87; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #204a87; font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { color: #204a87; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #204a87; font-weight: bold } /* Keyword.Type */
+.highlight .ld { color: #000000 } /* Literal.Date */
+.highlight .m { color: #0000cf; font-weight: bold } /* Literal.Number */
+.highlight .s { color: #4e9a06 } /* Literal.String */
+.highlight .na { color: #c4a000 } /* Name.Attribute */
+.highlight .nb { color: #204a87 } /* Name.Builtin */
+.highlight .nc { color: #000000 } /* Name.Class */
+.highlight .no { color: #000000 } /* Name.Constant */
+.highlight .nd { color: #5c35cc; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #ce5c00 } /* Name.Entity */
+.highlight .ne { color: #cc0000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #000000 } /* Name.Function */
+.highlight .nl { color: #f57900 } /* Name.Label */
+.highlight .nn { color: #000000 } /* Name.Namespace */
+.highlight .nx { color: #000000 } /* Name.Other */
+.highlight .py { color: #000000 } /* Name.Property */
+.highlight .nt { color: #204a87; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #000000 } /* Name.Variable */
+.highlight .ow { color: #204a87; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #f8f8f8; text-decoration: underline } /* Text.Whitespace */
+.highlight .mb { color: #0000cf; font-weight: bold } /* Literal.Number.Bin */
+.highlight .mf { color: #0000cf; font-weight: bold } /* Literal.Number.Float */
+.highlight .mh { color: #0000cf; font-weight: bold } /* Literal.Number.Hex */
+.highlight .mi { color: #0000cf; font-weight: bold } /* Literal.Number.Integer */
+.highlight .mo { color: #0000cf; font-weight: bold } /* Literal.Number.Oct */
+.highlight .sb { color: #4e9a06 } /* Literal.String.Backtick */
+.highlight .sc { color: #4e9a06 } /* Literal.String.Char */
+.highlight .sd { color: #8f5902; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4e9a06 } /* Literal.String.Double */
+.highlight .se { color: #4e9a06 } /* Literal.String.Escape */
+.highlight .sh { color: #4e9a06 } /* Literal.String.Heredoc */
+.highlight .si { color: #4e9a06 } /* Literal.String.Interpol */
+.highlight .sx { color: #4e9a06 } /* Literal.String.Other */
+.highlight .sr { color: #4e9a06 } /* Literal.String.Regex */
+.highlight .s1 { color: #4e9a06 } /* Literal.String.Single */
+.highlight .ss { color: #4e9a06 } /* Literal.String.Symbol */
+.highlight .bp { color: #3465a4 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #000000 } /* Name.Variable.Class */
+.highlight .vg { color: #000000 } /* Name.Variable.Global */
+.highlight .vi { color: #000000 } /* Name.Variable.Instance */
+.highlight .il { color: #0000cf; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">Tornado学习笔记</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline5">1. 前言</a>
+<ul>
+<li><a href="#orgheadline1">1.1. 安装</a></li>
+<li><a href="#orgheadline2">1.2. 第一个例子</a></li>
+<li><a href="#orgheadline3">1.3. 一个简单的异步例子</a></li>
+<li><a href="#orgheadline4">1.4. tornado.gen.coroutine vs asyncio.coroutine</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">2. tornado plus flask</a></li>
+<li><a href="#orgheadline7">3. Application对象</a></li>
+<li><a href="#orgheadline8">4. 参考资料</a></li>
+</ul>
+</div>
+</nav>
+
+<div class="outline-2">
+<h2 id="orgheadline5">前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+tornado是一个异步webapp框架，其从内部工作原理上应该说更加接近于aiohttp，其内部有一个事件循环，是可以挂载到python官方的asyncio的主事件循环上的，而aiohttp的client部分也是基于asyncio的事件循环的，所以这几个模块是可以统一起来的。然后tornado有自己的模板，websocket和国际化等等解决方案，是一个不错的产品级的异步webapp框架。
+</p>
+
+<p>
+虽然tornado也支持将自己进行wsgi接口封装，但我估计没谁这么做吧。可能会有某些人把flask编写的webapp稍作修改对接进tornado里面去，这样做的人都是flask的插件和生态圈的爱好者，我大体也是其中一员吧。唯一的疑问就是这种做法效率到底提升了多少，从 <a href="https://gist.github.com/andreif/6088558">这篇文章</a> 看来，似乎效率的提升不是很明显。同时tornado和flask的混杂丢失了一些东西，比如异步机制，然后websocket之类的。然后我看到了 <a href="http://stackoverflow.com/questions/8143141/using-flask-and-tornado-together/8247457#8247457">这篇文章</a> ，其做法似乎做到了更加完美的揉合了tornado和flask，我很是喜欢，更多详细细节后面再讨论。
+</p>
+
+
+<p>
+正如前面所述及的，tornado这个框架里面内容是很丰富的，但是有些内容不一定要使用tornado，比如说web client层，同步的就可以考虑使用不错的requests模块，而异步则使用aiohttp也是不错的；然后还有其他一些底层的tcpclient或tcpserver类等，实际上用asyncio里面的某些功能来实现也是可以的，这个倒不用拘泥；然后比如tornado提供了queues结构，asyncio里面也有类似的Queue结构，也不一定要使用tornado的那个；等等。不过就最顶层的webapp 视图层还是推荐全部在tornado框架下编写。
+</p>
+</div>
+
+
+
+<div class="outline-3">
+<h3 id="orgheadline1">安装</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="highlight"><pre><span></span>pip3 install tornado
+</pre></div>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline2">第一个例子</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tornado.ioloop</span>
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello, world&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">r&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="p">])</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8888</span><span class="p">)</span>
+    <span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+<p>
+这是一个同步的webapp框架，可能后面会用的较少，这里主要了解一下tornado编写的webapp的基本结构:
+</p>
+
+<ol class="org-ol">
+<li>开启tornado的事件驱动循环:</li>
+</ol>
+<pre>
+tornado.ioloop.IOLoop.current().start()
+</pre>
+
+<p>
+这个大体类似于asyncio的:
+</p>
+<pre>
+asyncio.get_event_loop().run_forever()
+</pre>
+
+<p>
+所以后面我们会谈论到将tornado的事件驱动挂载到asyncio的主事件驱动循环上，这样tornado webapp的事件处理部分就变成了:
+</p>
+
+<pre>
+from tornado.platform.asyncio import AsyncIOMainLoop
+if __name__ == '__main__':
+    AsyncIOMainLoop().install()
+    app = make_app()
+    app.listen(9999)
+
+    asyncio.get_event_loop().run_forever()
+</pre>
+
+<p>
+这里的 <code>AsyncioIOMainLoop().install()</code> 的用途就是上面提及的将tornado的事件循环挂载到asyncio的主事件驱动循环上。
+</p>
+
+<ol class="org-ol">
+<li>make_app:</li>
+</ol>
+<p>
+我们需要创建一个Application对象，这个Application对象后面再详细讨论:
+</p>
+<pre>
+def make_app():
+    return tornado.web.Application([
+        (r"/", MainHandler),
+    ])
+</pre>
+<p>
+然后从上面的代码我们就已经看到，根据不同的URL将分发不同的Handler，这个类似于flask的URL和视图函数分发过程。所以我们也可以把这里的 MainHandler看作一个视图处理类。
+</p>
+
+<ol class="org-ol">
+<li>编写各个视图处理类:</li>
+</ol>
+<pre>
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Hello, world")
+</pre>
+<p>
+视图处理类里面很多细节后面再详细讨论之，我们从上面的例子可以看到大体分发了HTTP <code>get</code> 请求，然后write了什么信息。
+</p>
+</div>
+</div>
+
+
+
+
+
+<div class="outline-3">
+<h3 id="orgheadline3">一个简单的异步例子</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">tornado.platform.asyncio</span> <span class="kn">import</span> <span class="n">AsyncIOMainLoop</span>
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+<span class="kn">import</span> <span class="nn">aiohttp</span>
+<span class="kn">from</span> <span class="nn">expython.web.coroutine</span> <span class="kn">import</span> <span class="n">aiowget_images</span>
+
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="nd">@asyncio.coroutine</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">aiowget_images</span><span class="p">(</span><span class="s1">&#39;http://tu.duowan.com/m/meinv&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&lt;img src={} /&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">img</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">make_app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">r&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+    <span class="p">],</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">AsyncIOMainLoop</span><span class="p">()</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">9999</span><span class="p">)</span>
+
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_forever</span><span class="p">()</span>
+</pre></div>
+<p>
+这个例子将tornado的事件循环和asyncio的事件循环合并了，然后我们看到程序结构大体和同步风格没有太大差异，除了视图处理类里面的某些函数变成了协程函数，从而其可以不阻塞的接受多个网络对应的方法的请求了。上面的aiowget_images是我写的一个异步的抓取某个网页的图片链接函数，读者有兴趣可以了解下。
+</p>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline4">tornado.gen.coroutine vs asyncio.coroutine</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+请参看官方文档的 <a href="http://www.tornadoweb.org/en/stable/guide/coroutines.html">这里</a> ，实际上我试了一下，将 <code>@gen.coroutine</code> 替换为 <code>@asyncio.coroutine</code> webapp也是可以正常运行的。
+</p>
+
+<p>
+正如官方文档所说，这里主要是兼容性的考虑，Tornado的coroutine runner更通用，可以适应其他框架，而asyncio的coroutine runner并不接受其他框架的corotine。所以如果你并没有兼容其他框架的考虑，就直接使用 <code>@asyncio.coroutine</code> 也是可以的。
+</p>
+</div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline6">tornado plus flask</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+主要参考了 <a href="http://stackoverflow.com/questions/8143141/using-flask-and-tornado-together/8247457#8247457">这个网站</a> 。
+</p>
+
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tornado.wsgi</span> <span class="kn">import</span> <span class="n">WSGIContainer</span>
+<span class="kn">from</span> <span class="nn">tornado.ioloop</span> <span class="kn">import</span> <span class="n">IOLoop</span>
+<span class="kn">from</span> <span class="nn">tornado.web</span> <span class="kn">import</span> <span class="n">FallbackHandler</span><span class="p">,</span> <span class="n">RequestHandler</span><span class="p">,</span> <span class="n">Application</span>
+<span class="kn">from</span> <span class="nn">flasky</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="k">class</span> <span class="nc">MainHandler</span><span class="p">(</span><span class="n">RequestHandler</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;This message comes from Tornado ^_^&quot;</span><span class="p">)</span>
+
+<span class="n">tr</span> <span class="o">=</span> <span class="n">WSGIContainer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="n">application</span> <span class="o">=</span> <span class="n">Application</span><span class="p">([</span>
+<span class="p">(</span><span class="s2">r&quot;/tornado&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+<span class="p">(</span><span class="s2">r&quot;.*&quot;</span><span class="p">,</span> <span class="n">FallbackHandler</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fallback</span><span class="o">=</span><span class="n">tr</span><span class="p">)),</span>
+<span class="p">])</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+  <span class="n">application</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">)</span>
+  <span class="n">IOLoop</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+<div class="outline-2">
+<h2 id="orgheadline7">Application对象</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+18
+</p>
+</div>
+</div>
+
+
+
+
+<div class="outline-2">
+<h2 id="orgheadline8">参考资料</h2>
+<div class="outline-text-2" id="text-4">
+<ol class="org-ol">
+<li><a href="http://www.tornadoweb.org/en/stable/index.html">官方文档</a> ，其他的中文翻译版本可能有点过时了。</li>
+</ol>
+</div>
+</div>
+</div>
+</body>
+</html>

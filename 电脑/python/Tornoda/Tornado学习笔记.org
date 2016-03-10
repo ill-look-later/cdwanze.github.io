@@ -1,0 +1,170 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: Tornado学习笔记
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+* 前言
+tornado是一个异步webapp框架，其从内部工作原理上应该说更加接近于aiohttp，其内部有一个事件循环，是可以挂载到python官方的asyncio的主事件循环上的，而aiohttp的client部分也是基于asyncio的事件循环的，所以这几个模块是可以统一起来的。然后tornado有自己的模板，websocket和国际化等等解决方案，是一个不错的产品级的异步webapp框架。
+
+虽然tornado也支持将自己进行wsgi接口封装，但我估计没谁这么做吧。可能会有某些人把flask编写的webapp稍作修改对接进tornado里面去，这样做的人都是flask的插件和生态圈的爱好者，我大体也是其中一员吧。唯一的疑问就是这种做法效率到底提升了多少，从 [[https://gist.github.com/andreif/6088558][这篇文章]] 看来，似乎效率的提升不是很明显。同时tornado和flask的混杂丢失了一些东西，比如异步机制，然后websocket之类的。然后我看到了 [[http://stackoverflow.com/questions/8143141/using-flask-and-tornado-together/8247457#8247457][这篇文章]] ，其做法似乎做到了更加完美的揉合了tornado和flask，我很是喜欢，更多详细细节后面再讨论。
+
+
+正如前面所述及的，tornado这个框架里面内容是很丰富的，但是有些内容不一定要使用tornado，比如说web client层，同步的就可以考虑使用不错的requests模块，而异步则使用aiohttp也是不错的；然后还有其他一些底层的tcpclient或tcpserver类等，实际上用asyncio里面的某些功能来实现也是可以的，这个倒不用拘泥；然后比如tornado提供了queues结构，asyncio里面也有类似的Queue结构，也不一定要使用tornado的那个；等等。不过就最顶层的webapp 视图层还是推荐全部在tornado框架下编写。
+
+
+
+** 安装
+#+BEGIN_SRC sh
+pip3 install tornado
+#+END_SRC
+
+** 第一个例子
+#+BEGIN_SRC python
+import tornado.ioloop
+import tornado.web
+
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Hello, world")
+
+def make_app():
+    return tornado.web.Application([
+        (r"/", MainHandler),
+    ])
+
+if __name__ == "__main__":
+    app = make_app()
+    app.listen(8888)
+    tornado.ioloop.IOLoop.current().start()
+#+END_SRC
+
+这是一个同步的webapp框架，可能后面会用的较少，这里主要了解一下tornado编写的webapp的基本结构:
+
+1. 开启tornado的事件驱动循环:
+#+BEGIN_EXAMPLE
+    tornado.ioloop.IOLoop.current().start()
+#+END_EXAMPLE
+
+这个大体类似于asyncio的:
+#+BEGIN_EXAMPLE
+    asyncio.get_event_loop().run_forever()
+#+END_EXAMPLE
+
+所以后面我们会谈论到将tornado的事件驱动挂载到asyncio的主事件驱动循环上，这样tornado webapp的事件处理部分就变成了:
+
+#+BEGIN_EXAMPLE
+from tornado.platform.asyncio import AsyncIOMainLoop
+if __name__ == '__main__':
+    AsyncIOMainLoop().install()
+    app = make_app()
+    app.listen(9999)
+
+    asyncio.get_event_loop().run_forever()
+#+END_EXAMPLE
+
+这里的 ~AsyncioIOMainLoop().install()~ 的用途就是上面提及的将tornado的事件循环挂载到asyncio的主事件驱动循环上。
+
+2. make_app:
+我们需要创建一个Application对象，这个Application对象后面再详细讨论:
+#+BEGIN_EXAMPLE
+def make_app():
+    return tornado.web.Application([
+        (r"/", MainHandler),
+    ])
+#+END_EXAMPLE
+然后从上面的代码我们就已经看到，根据不同的URL将分发不同的Handler，这个类似于flask的URL和视图函数分发过程。所以我们也可以把这里的 MainHandler看作一个视图处理类。
+
+3. 编写各个视图处理类:
+#+BEGIN_EXAMPLE
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Hello, world")
+#+END_EXAMPLE
+视图处理类里面很多细节后面再详细讨论之，我们从上面的例子可以看到大体分发了HTTP ~get~ 请求，然后write了什么信息。
+
+
+
+
+
+** 一个简单的异步例子
+#+BEGIN_SRC python
+import asyncio
+from tornado.platform.asyncio import AsyncIOMainLoop
+import tornado.web
+import aiohttp
+from expython.web.coroutine import aiowget_images
+
+
+class MainHandler(tornado.web.RequestHandler):
+    @asyncio.coroutine
+    def get(self):
+        res = yield from aiowget_images('http://tu.duowan.com/m/meinv')
+        for img in res:
+            self.write("<img src={} />".format(img))
+
+def make_app():
+    return tornado.web.Application([
+        (r"/", MainHandler),
+    ],debug=True)
+
+
+
+if __name__ == '__main__':
+    AsyncIOMainLoop().install()
+    app = make_app()
+    app.listen(9999)
+
+    asyncio.get_event_loop().run_forever()
+#+END_SRC
+这个例子将tornado的事件循环和asyncio的事件循环合并了，然后我们看到程序结构大体和同步风格没有太大差异，除了视图处理类里面的某些函数变成了协程函数，从而其可以不阻塞的接受多个网络对应的方法的请求了。上面的aiowget_images是我写的一个异步的抓取某个网页的图片链接函数，读者有兴趣可以了解下。
+
+
+** tornado.gen.coroutine vs asyncio.coroutine 
+请参看官方文档的 [[http://www.tornadoweb.org/en/stable/guide/coroutines.html][这里]] ，实际上我试了一下，将 ~@gen.coroutine~ 替换为 ~@asyncio.coroutine~ webapp也是可以正常运行的。
+
+正如官方文档所说，这里主要是兼容性的考虑，Tornado的coroutine runner更通用，可以适应其他框架，而asyncio的coroutine runner并不接受其他框架的corotine。所以如果你并没有兼容其他框架的考虑，就直接使用 ~@asyncio.coroutine~ 也是可以的。
+
+
+* tornado plus flask
+主要参考了 [[http://stackoverflow.com/questions/8143141/using-flask-and-tornado-together/8247457#8247457][这个网站]] 。
+
+#+BEGIN_SRC python
+from tornado.wsgi import WSGIContainer
+from tornado.ioloop import IOLoop
+from tornado.web import FallbackHandler, RequestHandler, Application
+from flasky import app
+
+class MainHandler(RequestHandler):
+  def get(self):
+    self.write("This message comes from Tornado ^_^")
+
+tr = WSGIContainer(app)
+
+application = Application([
+(r"/tornado", MainHandler),
+(r".*", FallbackHandler, dict(fallback=tr)),
+])
+
+if __name__ == "__main__":
+  application.listen(8000)
+  IOLoop.instance().start()
+#+END_SRC
+
+
+* Application对象
+18
+
+
+
+
+* 参考资料
+1. [[http://www.tornadoweb.org/en/stable/index.html][官方文档]] ，其他的中文翻译版本可能有点过时了。
+
+
+
+
