@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-02-20 六 16:43 -->
+<!-- 2016-03-19 六 16:09 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
-<title>PyQt5入门</title>
+<title>PyQt5入门（第二版）</title>
 <meta  name="generator" content="Org-mode">
 <meta  name="author" content="万泽">
 <meta  name="description" content="制作者邮箱：a358003542@gmail.com"
@@ -230,144 +230,190 @@ table tr:nth-child(even) {
 .highlight .vi { color: #000000 } /* Name.Variable.Instance */
 .highlight .il { color: #0000cf; font-weight: bold } /* Literal.Number.Integer.Long */
 </style>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
 <header>
-<h1 class="title">PyQt5入门</h1>
+<h1 class="title">PyQt5入门（第二版）</h1>
 </header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 前言</a></li>
-<li><a href="#orgheadline4">2. 安装和配置</a>
+<li><a href="#orgheadline5">1. 前言</a>
 <ul>
-<li><a href="#orgheadline2">2.1. 安装pyqt4</a></li>
-<li><a href="#orgheadline3">2.2. 安装pyqt5</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline17">3. beginning</a>
+<li><a href="#orgheadline1">1.1. 第二版声明</a></li>
+<li><a href="#orgheadline4">1.2. 安装和配置</a>
 <ul>
-<li><a href="#orgheadline5">3.1. 窗口</a></li>
-<li><a href="#orgheadline6">3.2. 加上图标</a></li>
-<li><a href="#orgheadline7">3.3. 弹出提示信息</a></li>
-<li><a href="#orgheadline8">3.4. 关闭窗体时询问</a></li>
-<li><a href="#orgheadline9">3.5. 屏幕居中显示窗体</a></li>
-<li><a href="#orgheadline10">3.6. QMainWindow类</a></li>
-<li><a href="#orgheadline11">3.7. 加上状态栏</a></li>
-<li><a href="#orgheadline12">3.8. 加上菜单栏</a></li>
-<li><a href="#orgheadline13">3.9. 信号－槽机制</a></li>
-<li><a href="#orgheadline16">3.10. 如何查阅资料</a>
-<ul>
-<li><a href="#orgheadline14">3.10.1. 查看pydoc</a></li>
-<li><a href="#orgheadline15">3.10.2. 相关网络资源</a></li>
+<li><a href="#orgheadline2">1.2.1. 安装pyqt5</a></li>
+<li><a href="#orgheadline3">1.2.2. 安装pyqt4</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline22">4. 信号－槽详解</a>
+<li><a href="#orgheadline18">2. beginning</a>
 <ul>
-<li><a href="#orgheadline18">4.1. 自定义信号</a></li>
-<li><a href="#orgheadline19">4.2. 自定义槽</a></li>
-<li><a href="#orgheadline20">4.3. 发射信号</a></li>
-<li><a href="#orgheadline21">4.4. 信号－槽机制的反思</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline23">5. 使用Qt designer</a></li>
-<li><a href="#orgheadline25">6. 资源文件管理</a>
+<li><a href="#orgheadline6">2.1. 窗口</a></li>
+<li><a href="#orgheadline7">2.2. 加上图标</a></li>
+<li><a href="#orgheadline8">2.3. 弹出提示信息</a></li>
+<li><a href="#orgheadline9">2.4. 关闭窗体时询问</a></li>
+<li><a href="#orgheadline10">2.5. 屏幕居中显示窗体</a></li>
+<li><a href="#orgheadline11">2.6. QMainWindow类</a></li>
+<li><a href="#orgheadline12">2.7. 加上状态栏</a></li>
+<li><a href="#orgheadline13">2.8. 加上菜单栏</a></li>
+<li><a href="#orgheadline14">2.9. 信号－槽机制</a></li>
+<li><a href="#orgheadline17">2.10. 如何查阅资料</a>
 <ul>
-<li><a href="#orgheadline24">6.1. 资源管理</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline32">7. 配置文件管理</a>
-<ul>
-<li><a href="#orgheadline26">7.1. QSettings构造函数</a></li>
-<li><a href="#orgheadline29">7.2. IniFormat</a>
-<ul>
-<li><a href="#orgheadline27">7.2.1. ini文件存放DIY</a></li>
-<li><a href="#orgheadline28">7.2.2. ini文件注意事项</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline30">7.3. 存值和读值</a></li>
-<li><a href="#orgheadline31">7.4. 群组管理</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline37">8. 布局管理</a>
-<ul>
-<li><a href="#orgheadline33">8.1. QBoxLayout</a></li>
-<li><a href="#orgheadline34">8.2. addStretch方法</a></li>
-<li><a href="#orgheadline35">8.3. QGridLayout</a></li>
-<li><a href="#orgheadline36">8.4. QFormLayout</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline38">9. 如何读写文件</a></li>
-<li><a href="#orgheadline39">10. 和python集成问题</a></li>
-<li><a href="#orgheadline46">11. 快捷键和Tab键管理</a>
-<ul>
-<li><a href="#orgheadline40">11.1. 什么是伙伴关系</a></li>
-<li><a href="#orgheadline41">11.2. 快捷键</a></li>
-<li><a href="#orgheadline42">11.3. QKeySequence</a></li>
-<li><a href="#orgheadline45">11.4. 国际化支持</a>
-<ul>
-<li><a href="#orgheadline43">11.4.1. 使用翻译文件</a></li>
-<li><a href="#orgheadline44">11.4.2. 使用qt官方翻译文件</a></li>
+<li><a href="#orgheadline15">2.10.1. 查看pydoc</a></li>
+<li><a href="#orgheadline16">2.10.2. 相关网络资源</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline47">12. 参考资料</a></li>
+<li><a href="#orgheadline23">3. 信号－槽详解</a>
+<ul>
+<li><a href="#orgheadline19">3.1. 自定义信号</a></li>
+<li><a href="#orgheadline20">3.2. 自定义槽</a></li>
+<li><a href="#orgheadline21">3.3. 发射信号</a></li>
+<li><a href="#orgheadline22">3.4. 信号－槽机制的反思</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline24">4. 使用Qt designer</a></li>
+<li><a href="#orgheadline26">5. 资源文件管理</a>
+<ul>
+<li><a href="#orgheadline25">5.1. 资源管理</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline33">6. 配置文件管理</a>
+<ul>
+<li><a href="#orgheadline27">6.1. QSettings构造函数</a></li>
+<li><a href="#orgheadline30">6.2. IniFormat</a>
+<ul>
+<li><a href="#orgheadline28">6.2.1. ini文件存放DIY</a></li>
+<li><a href="#orgheadline29">6.2.2. ini文件注意事项</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline31">6.3. 存值和读值</a></li>
+<li><a href="#orgheadline32">6.4. 群组管理</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline38">7. 布局管理</a>
+<ul>
+<li><a href="#orgheadline34">7.1. QBoxLayout</a></li>
+<li><a href="#orgheadline35">7.2. addStretch方法</a></li>
+<li><a href="#orgheadline36">7.3. QGridLayout</a></li>
+<li><a href="#orgheadline37">7.4. QFormLayout</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline42">8. 快捷键和Tab键管理</a>
+<ul>
+<li><a href="#orgheadline39">8.1. 什么是伙伴关系</a></li>
+<li><a href="#orgheadline40">8.2. 快捷键</a></li>
+<li><a href="#orgheadline41">8.3. QKeySequence</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline45">9. 国际化支持</a>
+<ul>
+<li><a href="#orgheadline43">9.1. 使用翻译文件</a></li>
+<li><a href="#orgheadline44">9.2. 使用qt官方翻译文件</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline50">10. 附录</a>
+<ul>
+<li><a href="#orgheadline46">10.1. PyQt4和PyQt5的区别整理</a></li>
+<li><a href="#orgheadline47">10.2. 引用信号发射对象</a></li>
+<li><a href="#orgheadline48">10.3. 菜单栏看不见？</a></li>
+<li><a href="#orgheadline49">10.4. 参考资料</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
 
+
+
 <div class="outline-2">
-<h2 id="orgheadline1">前言</h2>
+<h2 id="orgheadline5">前言</h2>
 <div class="outline-text-2" id="text-1">
-<p>
-虽然说本文是PyQt5的入门教程，但随着文章不断修改，内容变得并是那么初级了。此外还写了一个PyQt5杂项的文章，就是希望把那些不是最核心的其他零碎知识放到那里。但实际上是很难区分那些知识零碎那些知识无关紧要的，因为如果你对Qt里面的各个类和方法不熟悉的话，也谈不上能够熟练自如的编写Qt程序。但本文又必须控制文档大小，为此在这里约定，在讲解核心概念时例子中涉及到的类的接口和方法等就实时跟进讲解，除此之外的相关类的属性或方法都放入PyQt5杂项文章中。
-</p>
-
-<p>
-同时要提醒读者的是，随着我的探索深入，即使是之前我觉得应该是核心知识的那些内容，有时也不是那么重要的，但还是放在本文中了。之所以会这样，是因为PyQt编程越深入进去，方法学上的差异越来越明显了：第一种是喜欢完全用py文件代码编写，第二种是喜欢利用ui文件编写，即使是使用ui文件编写也分为两种，利用ui文件生成py文件或者直接加载ui文件。此外还有利用qml等的新式方法。总之每一种方法学的不同随导致核心知识侧重点的不同，而关于PyQt编程好的书籍实在是没有，多少造成这方面的学习是困难重重而又精力分散。
-</p>
-
-<p>
-有一段时间我是喜欢完全基于py文件代码编写Qt程序，但是在如何重用代码上我做了一些尝试但总找不到感觉，也许是我python功力不够吧。又因为我对新式的qml方法还有极大的抵触情绪，因为它几乎摒弃了之前所学的大部分核心知识，代之以晦涩人类不易读的qml编码形式，也许华丽外观的追求对我这个业余编程爱好者吸引力不是太大，所以我选择了第二条道路，就是思考如何利用 qt designer 生成ui文件和相应的思考如何重用代码。本文后面进行了大量的修改，就是基于这条路的优化。
-</p>
-</div>
-</div>
-
-
-<div class="outline-2">
-<h2 id="orgheadline4">安装和配置</h2>
-<div class="outline-text-2" id="text-2">
 </div><div class="outline-3">
-<h3 id="orgheadline2">安装pyqt4</h3>
-<div class="outline-text-3" id="text-2-1">
+<h3 id="orgheadline1">第二版声明</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
-ubuntu下安装pyqt4即安装python3-pyqt4即可：
+随着作者编程水平的上升，对很多内容都有了不同的理解。本文进行了进一步的重新修改，推出第二版。
+</p>
+
+<p>
+本文的例子都是基于PyQt5。如果读者需要使用PyQt4，请参看附录后面的 PyQt4和PyQt5的区别整理 一小节。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline4">安装和配置</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div class="outline-4">
+<h4 id="orgheadline2">安装pyqt5</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+就ubuntu下安装pyqt5是很简单的，如下所示：
+</p>
+<div class="highlight"><pre><span></span>sudo apt-get install python3-pyqt5
+</pre></div>
+<p>
+如果你使用的是默认的python3版本的话，否则你可能需要手工编译pyqt5。
+</p>
+
+<p>
+其中安装Qt5不需要我们多费心，请确保下面几个软件包安装上去了（参考了 <a href="http://askubuntu.com/questions/508503/whats-the-development-package-for-qt5-in-14-04">这个网页</a> 和 <a href="http://askubuntu.com/questions/609238/error-pyqt5-requires-qt-v5-0-or-later">这个网页</a> ）:
+</p>
+<pre>
+sudo apt-get install qt5-default
+sudo apt-get install qtbase5-dev
+sudo apt-get install qtdeclarative5-dev
+</pre>
+
+<p>
+上面的第三个可能并不需要安装，其中第一个 <code>qt5-default</code> 和qmake的v5版本有关，然后 <code>qtbase5-dev</code> 肯定是需要安装的。不管怎么说，确保这些都装上吧。
+</p>
+
+<p>
+然后再在 <a href="https://www.riverbankcomputing.com/news">PyQt的官网</a> 下载 <code>SIP</code> 的源码，运行 <code>python3 configure.py</code> 输出makefile，后面就是大家熟悉的 <code>make</code> , <code>sudo make install</code> 。
+</p>
+
+<p>
+继续再下载 <code>PyQt5</code> 的源码，安装步骤同上，这里就不赘述了。
+</p>
+
+
+<p>
+在后面我们会提到 <code>pyuic5</code> 和 <code>pyrcc5</code> 命令，其在下面这个软件包里面: 
+</p>
+<div class="highlight"><pre><span></span>sudo apt-get install pyqt5-dev-tools
+</pre></div>
+
+<p>
+检查pyqt5安装情况执行以下脚本即可，显示的是当前安装的pyqt5的版本号:
+</p>
+<pre>
+&gt;&gt;&gt; from PyQt5.QtCore import QT_VERSION_STR
+&gt;&gt;&gt; print(QT_VERSION_STR)
+5.2.1
+</pre>
+
+<p>
+本文的代码都是PyQt版本号都是上面的，没有特别的理由，会一直维持在这个版本号里面了。
+</p>
+</div>
+</div>
+
+<div class="outline-4">
+<h4 id="orgheadline3">安装pyqt4</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+安装pyqt4大致过程类似上面，只是一些细节上的改动了，比如:
+</p>
+
+<p>
+ubuntu下安装pyqt4即：
 </p>
 <div class="highlight"><pre><span></span>sudo apt-get install python3-pyqt4
 </pre></div>
@@ -388,94 +434,22 @@ ubuntu下安装pyqt4即安装python3-pyqt4即可：
 </pre></div>
 </div>
 </div>
-
-
-<div class="outline-3">
-<h3 id="orgheadline3">安装pyqt5</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-ubuntu下安装pyqt5即安装python3-pyqt5即可：
-</p>
-<div class="highlight"><pre><span></span>sudo apt-get install python3-pyqt5
-</pre></div>
-
-
-<p>
-同样对于pyqt5来说也有类似的pyuic5和pyrcc5命令。
-</p>
-<div class="highlight"><pre><span></span>sudo apt-get install pyqt5-dev-tools
-</pre></div>
-
-<p>
-检查pyqt5安装情况执行以下脚本即可，显示的是当前安装的pyqt5的版本号:
-</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QT_VERSION_STR</span>
-<span class="k">print</span><span class="p">(</span><span class="n">QT_VERSION_STR</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 
 
 
 <div class="outline-2">
-<h2 id="orgheadline17">beginning</h2>
-<div class="outline-text-2" id="text-3">
+<h2 id="orgheadline18">beginning</h2>
+<div class="outline-text-2" id="text-2">
 </div><div class="outline-3">
-<h3 id="orgheadline5">窗口</h3>
-<div class="outline-text-3" id="text-3-1">
+<h3 id="orgheadline6">窗口</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 请看到下面的代码：
 </p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
-        <span class="c1">#坐标0 0 大小800 600</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span>
-
-<span class="n">myapp</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-<span class="n">mywidget</span> <span class="o">=</span> <span class="n">MyWidget</span><span class="p">()</span>
-<span class="n">mywidget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">myapp</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
-</pre></div>
-
-<p>
-首先导入sys宏包，这是为了后面接受sys.argv参数。从PyQt4模块导入QtGui宏包，是为了后面创建QWidget类的实例。
-</p>
-
-<p>
-接下来我们定义了MyWidget类，它继承自QtGui的QWidget类。然后重定义了构造函数，首先继承了QtGui的QWidget类的构造函数。
-</p>
-
-<p>
-然后通过QWidget类定义好的 <strong>setGeometry</strong> 方法来调整窗口的左顶点的坐标位置和窗口的大小。
-</p>
-
-<p>
-然后通过 <strong>setWindowTitle</strong> 方法来设置这个窗口程序的标题，这里就简单设置为myapp了。
-</p>
-
-<p>
-任何窗口程序都需要创建一个QApplication类的实例，这里是myapp。然后接下来创建QWidget类的实例mywidget，然后通过调用mywidget的方法 <strong>show</strong> 来显示窗体。
-</p>
-
-<p>
-最后我们看到系统要退出是调用的myapp实例的 <strong>exec_</strong> 方法。
-</p>
-
-<p>
-pyqt5的版本如下所示：
-</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
@@ -492,19 +466,34 @@ pyqt5的版本如下所示：
 </pre></div>
 
 <p>
-和pyqt4不同，pyqt5的QWidget等都放入QtWidgets里面去了，所以 <code>from PyQt5.QtWidgets import *</code> ，其他的不用改动了。
+首先导入sys宏包，这是为了后面接受sys.argv参数。关于引入这里值得一提的是: 很多pyqt4原放在QtGui里面的一些QWidget在pyqt5里面都放入QtWidgets里面去了。
+</p>
+
+<p>
+接下来我们定义了MyWidget类，它继承自QWidget类。然后通过QWidget类的 <code>setGeometry</code> 方法来调整窗口的左顶点的坐标位置和窗口的大小。
+</p>
+
+<p>
+然后通过 <code>setWindowTitle</code> 方法来设置这个窗口程序的标题，这里就简单设置为"myapp"了。
+</p>
+
+<p>
+任何窗口程序都需要创建一个QApplication类的实例，这里是myapp。然后接下来创建QWidget类的实例mywidget，然后通过调用mywidget的方法 <code>show</code> 来显示窗体。
+</p>
+
+<p>
+最后我们看到系统要退出是调用的myapp实例的 <code>exec_</code> 方法。
 </p>
 </div>
 </div>
 
 
 <div class="outline-3">
-<h3 id="orgheadline6">加上图标</h3>
-<div class="outline-text-3" id="text-3-2">
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<h3 id="orgheadline7">加上图标</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="n">QIcon</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QApplication</span>
 
 <span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -521,30 +510,22 @@ pyqt5的版本如下所示：
 </pre></div>
 
 <p>
-这个程序相对上面的程序就增加了一个 <strong>setWindowIcon</strong> 方法，这个方法调用了QtGui.QIcon方法，然后后面跟的就是图标的存放路径，使用相对路径。在运行这个例子的时候，请随便弄个图标文件过来。
+这个程序相对上面的程序就增加了一个 <code>setWindowIcon</code> 方法，这个方法调用了 <code>QtGui.QIcon</code> 方法，然后后面跟的就是图标的存放路径，使用相对路径。在运行这个例子的时候，请随便弄个图标文件过来。
 </p>
 
 <p>
-这个程序为了简单起见就使用了QWidget类的 <strong>resize</strong> 方法来设置窗体的大小。
+为了简单起见这个程序就使用了QWidget类的 <code>resize</code> 方法来设置窗体的大小。
 </p>
-
-<p>
-pyqt5的版本除了把4换成5之外，然后加上额外的
-</p>
-<pre>
-#+INCLUDE: "works/beginning/first01.py" src python
-</pre>
 </div>
 </div>
 
 
 <div class="outline-3">
-<h3 id="orgheadline7">弹出提示信息</h3>
-<div class="outline-text-3" id="text-3-3">
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<h3 id="orgheadline8">弹出提示信息</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -562,28 +543,22 @@ pyqt5的版本除了把4换成5之外，然后加上额外的
 <span class="n">mywidget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">myapp</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
 </pre></div>
-
 <p>
-上面这段代码和前面的代码的不同就在于MyWidget类的初始函数新加入了两条命令。其中 <strong>setToolTip</strong> 方法设置具体显示的弹出的提示文本内容，然后后面调用QToolTip类的 <strong>setFont</strong> 方法来设置字体和字号，我不太清楚这里随便设置系统的字体微软雅黑是不是有效。
+上面这段代码和前面的代码的不同就在于MyWidget类的初始函数新加入了两条命令。其中 <code>setToolTip</code> 方法设置具体显示的弹出的提示文本内容，然后后面调用QToolTip类的 <code>setFont</code> 方法来设置字体和字号，我不太清楚这里随便设置系统的字体微软雅黑是不是有效。
 </p>
 
 <p>
 这样你的鼠标停放在窗口上一会儿会弹出一小段提示文字。
 </p>
-
-<p>
-pyqt5同上没有太多要改动的地方。
-</p>
 </div>
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline8">关闭窗体时询问</h3>
-<div class="outline-text-3" id="text-3-4">
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<h3 id="orgheadline9">关闭窗体时询问</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -615,24 +590,18 @@ pyqt5同上没有太多要改动的地方。
 </pre></div>
 
 <p>
-这段代码和前面代码的不同就是重新定义了 <strong>colseEvent</strong> 事件。这段代码的核心就是QtGui类的QMessageBox类的question方法，这个方法将会弹出一个询问窗体。这个方法接受四个参数：第一个参数是这个窗体所属的母体，这里就是self也就是实例mywidget；第二个参数是弹出窗体的标题；第三个参数是一个标准button；第四个参数也是一个标准button，是默认（也就是按enter直接选定的）的button。然后这个方法返回的是那个被点击了的标准button的标识符，所以后面和标准QMessageBox.Yes比较了，然后执行event的accept方法。
-</p>
-
-
-<p>
-pyqt5同上没有太多要改动的地方。
+这段代码和前面代码的不同就是重新定义了 <code>colseEvent</code> 事件。这段代码的核心就是QtGui类的QMessageBox类的question方法，这个方法将会弹出一个询问窗体。这个方法接受四个参数：第一个参数是这个窗体所属的母体，这里就是self也就是实例mywidget；第二个参数是弹出窗体的标题；第三个参数是一个标准button；第四个参数也是一个标准button，是默认（也就是按enter直接选定的）的button。然后这个方法返回的是那个被点击了的标准button的标识符，所以后面和标准 <code>QMessageBox.Yes</code>
+ 比较了，然后执行event的accept方法。
 </p>
 </div>
 </div>
-
 
 <div class="outline-3">
-<h3 id="orgheadline9">屏幕居中显示窗体</h3>
-<div class="outline-text-3" id="text-3-5">
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<h3 id="orgheadline10">屏幕居中显示窗体</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -669,17 +638,16 @@ pyqt5同上没有太多要改动的地方。
 <span class="n">mywidget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">myapp</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
 </pre></div>
-
 <p>
-这个例子和前面相比改动是新建了一个center方法，接受一个实例，这里是mywidget。然后对这个实例也就是窗口的具体位置做一些调整。
+这个例子和前面相比改动是新建了一个 <code>center</code> 方法，接受一个实例，这里是mywidget。然后对这个实例也就是窗口的具体位置做一些调整。
 </p>
 
 <p>
-QDesktopWidget类的 <strong>screenGeometry</strong> 方法返回一个量，这个量的width属性就是屏幕的宽度（按照pt像素计，比如1366×768，宽度就是1366），这个量的height属性就是屏幕的高度。
+QDesktopWidget类的 <code>screenGeometry</code> 方法返回一个量，这个量的width属性就是屏幕的宽度（按照pt像素计，比如1366×768，宽度就是1366），这个量的height属性就是屏幕的高度。
 </p>
 
 <p>
-然后QWidget类的 <strong>geometry</strong> 方法同样返回一个量，这个量的width是这个窗体的宽度，这个量的height属性是这个窗体的高度。
+然后QWidget类的 <code>geometry</code> 方法同样返回一个量，这个量的width是这个窗体的宽度，这个量的height属性是这个窗体的高度。
 </p>
 
 <p>
@@ -689,16 +657,13 @@ QDesktopWidget类的 <strong>screenGeometry</strong> 方法返回一个量，这
 <p>
 整个函数的作用效果就是将这个窗体居中显示。
 </p>
+</div>
+</div>
 
-<p>
-pyqt5同上没有太多要改动的地方。
-</p>
-</div>
-</div>
 
 <div class="outline-3">
-<h3 id="orgheadline10">QMainWindow类</h3>
-<div class="outline-text-3" id="text-3-6">
+<h3 id="orgheadline11">QMainWindow类</h3>
+<div class="outline-text-3" id="text-2-6">
 <p>
 QtGui.QMainWindow类提供应用程序主窗口，可以创建一个经典的拥有状态栏、工具栏和菜单栏的应用程序骨架。（之前使用的是QWidget类，现在换成QMainWindow类。）
 </p>
@@ -711,10 +676,9 @@ QtGui.QMainWindow类提供应用程序主窗口，可以创建一个经典的拥
 QMainWindow类是针对主窗体一般需求而设计的，它预定义了菜单栏状态栏和其他widget（窗口小部件） 。因为它继承自QWidget，所以前面谈及的一些属性修改都适用于它。那么首先我们将之前的代码中的QWidget类换成QMainWindow类。
 </p>
 
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -753,10 +717,6 @@ QMainWindow类是针对主窗体一般需求而设计的，它预定义了菜单
 </pre></div>
 
 <p>
-pyqt5同上没有太多要改动的地方。
-</p>
-
-<p>
 现在程序运行情况良好，我们继续加点东西进去。
 </p>
 </div>
@@ -764,12 +724,11 @@ pyqt5同上没有太多要改动的地方。
 
 
 <div class="outline-3">
-<h3 id="orgheadline11">加上状态栏</h3>
-<div class="outline-text-3" id="text-3-7">
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<h3 id="orgheadline12">加上状态栏</h3>
+<div class="outline-text-3" id="text-2-7">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -809,27 +768,22 @@ pyqt5同上没有太多要改动的地方。
 </pre></div>
 
 <p>
-这个程序和前面的区别在于最后倒数第二行，调用mainwindow这个QMainWindow类生成的实例的 <strong>statusBar</strong> 方法生成一个QStatusBar对象，然后调用QStatusBar类的 <strong>showMessage</strong> 方法来显示一段文字。
+这个程序和前面的区别在于最后倒数第二行，调用mainwindow这个QMainWindow类生成的实例的 <code>statusBar</code> 方法生成一个QStatusBar对象，然后调用QStatusBar类的 <code>showMessage</code> 方法来显示一段文字。
 </p>
 
 <p>
 如果你希望这段代码在 <code>__init__</code> 方法里面，那么具体实现过程也与上面描述的类似。
 </p>
-
-<p>
-pyqt5同上没有太多要改动的地方。
-</p>
 </div>
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline12">加上菜单栏</h3>
-<div class="outline-text-3" id="text-3-8">
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<h3 id="orgheadline13">加上菜单栏</h3>
+<div class="outline-text-3" id="text-2-8">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">PyQt4.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -885,30 +839,29 @@ pyqt5同上没有太多要改动的地方。
 <span class="n">mainwindow</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">()</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">myapp</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
 </pre></div>
-
 <p>
-和上面讨论加上状态栏类似，这里用QMainWindow类的menuBar方法来获得一个菜单栏对象。然后用这个菜单栏对象的 <strong>addMenu</strong> 方法来创建一个新的菜单对象（QMenu类），addMenu方法里面的内容是新建菜单要显示的文本。
+和上面讨论加上状态栏类似，这里用QMainWindow类的 <code>menuBar</code> 方法来获得一个菜单栏对象。然后用这个菜单栏对象的 <code>addMenu</code> 方法来创建一个新的菜单对象（QMenu类），addMenu方法里面的内容是新建菜单要显示的文本。
 </p>
 
 <p>
-然后继续给之前的菜单对象加上动作，调用菜单对象的 <strong>addAction</strong> 方法，我们看到menuBar创建了一个菜单栏对象，然后使用addMenu方法创建了一个菜单，同时返回的是一个菜单对象，然后对这个菜单对象使用addAction方法，这个方法给菜单添加了一个动作，或者说一个item一个内容，然后addAction返回的是一个动作对象，然后对这个动作对象进行信号－槽机制连接，将其和一个函数连接起来了。
+然后继续给之前的菜单对象加上动作，调用菜单对象的 <code>addAction</code> 方法，我们看到menuBar创建了一个菜单栏对象，然后使用addMenu方法创建了一个菜单，同时返回的是一个菜单对象，然后对这个菜单对象使用addAction方法，这个方法给菜单添加了一个动作，或者说一个item一个内容，然后addAction返回的是一个动作对象，然后对这个动作对象进行信号－槽机制连接，将其和一个函数连接起来了。
 </p>
 
 <p>
-在这里这个动作对象，就是菜单的下拉选项，如果我们用鼠标点击一下的话，将会触发 <strong>triggered</strong> 信号，如果我们connect方法连接到某个槽上（或者某个你定义的函数），那么将会触发这个函数的执行。下面就信号－槽机制详细说明之。
+在这里这个动作对象，就是菜单的下拉选项，如果我们用鼠标点击一下的话，将会触发 <code>triggered</code> 信号，如果我们connect方法连接到某个槽上（或者某个你定义的函数），那么将会触发这个函数的执行。下面就信号－槽机制详细说明之。
 </p>
 </div>
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline13">信号－槽机制</h3>
-<div class="outline-text-3" id="text-3-9">
+<h3 id="orgheadline14">信号－槽机制</h3>
+<div class="outline-text-3" id="text-2-9">
 <p>
 GUI程序一般都引入一种事件和信号机制，well，简单来说就是一个循环程序，这个循环程序等到某个时刻程序会自动做某些事情比如刷新程序界面啊，或者扫描键盘鼠标之类的，等用户点击鼠标或者按了键盘之后，它会接受这个信号然后做出相应的反应。
 </p>
 
 <p>
-所以你一定猜到了，close函数可能就是要退出这个循环程序。我们调用主程序的 <code>exec_</code> 方法，就是开启这个循环程序。
+所以你一定猜到了， <code>close</code> 函数可能就是要退出这个循环程序。我们调用主程序的 <code>exec_</code> 方法，就是开启这个循环程序。
 </p>
 
 <p>
@@ -922,55 +875,28 @@ pyqt4的旧的信号－槽连接语句我在这里忽略了，在这里值得提
 我们看到新的信号－槽机制语句变得更精简更易懂了。整个过程就是如我前面所述，某个对象发出了某个信号，然后用connect将这个信号和某个槽（或者你定义的某个函数）连接起来即形成了一个反射弧了。
 </p>
 
+
 <p>
 这里的槽就是self主窗口实例的close方法，这个是主窗口自带的函数。
 </p>
 
 <p>
-然后我们看到aboutqt和about函数。具体读者如果不懂请翻阅QMessageBox类的静态方法about和aboutqt。
-</p>
-
-<p>
-sender方法来自GObject，所以一般Qt里的窗体对象都可以用。其用法主要在槽里面，调用self.sender()，即返回一个发射该信号从而调用该槽的对象。
-</p>
-
-<p>
-pyqt5的情况如果你幸运的话你会发现按照上面的处理，就是把文件头引入语句换成：
-</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtGui</span>  <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-
-<p>
-然后就没什么区别了，除了aboutqt调出来的界面显示的qt版本是v5.2。当然，这在我们的意料之中。
-</p>
-
-<p>
-不过可能你会遇到麻烦，我就折腾了好久，因为菜单栏总是显示不出来，然后才发现是系统环境的问题，我在GNOME下看不到pyqt5做的软件的菜单栏了，但是到Ubuntu默认的Unity环境下最上面的面板就是菜单栏了，这个值得说一下。
-</p>
-
-<p>
-如果你在Unity环境（Ubuntu14.04）下，那么不需要做什么，如果你在gnome或者KDE上，那么qt5的菜单栏可能会显示不出来，你需要删除下面这个小东西。
-</p>
-<div class="highlight"><pre><span></span>sudo apt-get remove appmenu-qt5
-</pre></div>
-
-<p>
-把这个小软件删除，pyqt5上的菜单栏就能正常显示了，不过在unity环境下菜单栏不会显示在最上面的面板上了，而是常规的在图形GUI标题栏下面了。
+然后我们看到aboutqt和about函数。具体读者如果不懂请翻阅QMessageBox类的静态方法 <code>about</code> 和 <code>aboutqt</code> 。
 </p>
 </div>
 </div>
+
 
 
 
 
 
 <div class="outline-3">
-<h3 id="orgheadline16">如何查阅资料</h3>
-<div class="outline-text-3" id="text-3-10">
+<h3 id="orgheadline17">如何查阅资料</h3>
+<div class="outline-text-3" id="text-2-10">
 </div><div class="outline-4">
-<h4 id="orgheadline14">查看pydoc</h4>
-<div class="outline-text-4" id="text-3-10-1">
+<h4 id="orgheadline15">查看pydoc</h4>
+<div class="outline-text-4" id="text-2-10-1">
 <p>
 如果要看python3的所有模块用help函数之后生成的信息，使用如下命令打开网页查看。
 </p>
@@ -995,33 +921,31 @@ pydoc  -p 1234
 
 
 <div class="outline-4">
-<h4 id="orgheadline15">相关网络资源</h4>
-<div class="outline-text-4" id="text-3-10-2">
+<h4 id="orgheadline16">相关网络资源</h4>
+<div class="outline-text-4" id="text-2-10-2">
 <p>
-相关网络见下面的参考资料部分。
+请参看本文最下面的参考资料部分。
 </p>
+</div>
+</div>
+</div>
+</div>
 
-<ol class="org-ol">
-<li><a href="http://pyqt.sourceforge.net/Docs/PyQt4/classes.html">PyQt4各个类参考</a></li>
-</ol>
-</div>
-</div>
-</div>
-</div>
+
 
 <div class="outline-2">
-<h2 id="orgheadline22">信号－槽详解</h2>
-<div class="outline-text-2" id="text-4">
+<h2 id="orgheadline23">信号－槽详解</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 考虑到pyqt5只支持新式信号－槽机制了，这里将新式信号－槽机制详细说明，由于新式信号－槽机制在pyqt4上也能正常运行，所以新来的程序员推荐都用新式信号－槽机制。下面只介绍新式的信号－槽机制。
 </p>
 
 <p>
-信号(singal)可以连接无数多个槽(slot)，或者没有连接槽也没有问题，信号也可以连接其他的信号。正如前面所述，连接的基本语句形式如下：who.singal.connect(slot)。比如说按钮最常见的内置信号triggered，而槽实际上就是某个函数，比如主窗体的self.close方法。
+信号(singal)可以连接无数多个槽(slot)，或者没有连接槽也没有问题，信号也可以连接其他的信号。正如前面所述，连接的基本语句形式如下： <code>who.singal.connect(slot)</code> 。比如说按钮最常见的内置信号 <code>triggered</code> ，而槽实际上就是某个函数，比如主窗体的 <code>self.close</code> 方法。
 </p>
 
 <p>
-信号就是 <strong>QObject</strong> 的一个属性，pyqt的窗体有很多内置信号，你也可以定义自己的信号，这个后面再提及。信号还没和槽连接起来就只是一个属性，只有通过connect方法连接起来，信号－槽机制就建立起来了。类似的信号还有disconnect方法和emit方法。disconnect就是断开信号－槽机制，而emit就是激活那个信号。
+信号就是 <code>QObject</code> 的一个属性，pyqt的窗体有很多内置信号，你也可以定义自己的信号，这个后面再提及。信号还没和槽连接起来就只是一个属性，只有通过 <code>connect</code> 方法连接起来，信号－槽机制就建立起来了。类似的信号还有 <code>disconnect</code> 方法和 <code>emit</code> 方法。disconnect就是断开信号－槽机制，而emit就是激活那个信号。
 </p>
 
 <p>
@@ -1029,16 +953,13 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 </p>
 
 <p>
-信号都是类的一个属性，新的信号必须继承自QObject，然后由PyQt5.QtCore.pyqtSingal（在pyqt4下是PyQt4.QtCore.pyqtSingal。）方法创建，这个方法接受的参数中最重要的是types类型，比如int，bool之类的，你可以认为这是信号传递的参数类型，但实际传递这些参数值的是emit方法。然后槽实际上就是经过特殊封装的函数，这些函数当然需要接受一些参数或者不接受参数，而这些参数具体的值传进来的是由emit方法执行的，然后我们通过who.singal.connect(slot)这样的形式将某个信号和某个槽连接起来，who的信号，然后信号类自带的连接方法，然后连接到slot某个函数上，在这里隐藏的一个重要细节就是emit方法，比如说你定义一个新的信号，需要将点击屏幕的具体x,y坐标发送出去，内置的信号－槽将这一机制都完成了，如果你自己定义的信号和槽的话，比如pyqtSingal(int,int)，发送给func(x,y)，具体x和y的值你需要通过emit(x,y)来发送。至于什么时候发送，已经发送的x,y值的获取，这应该又是另外一个信号－槽机制的细节。
+信号都是类的一个属性，新的信号必须继承自QObject，然后由 <code>PyQt5.QtCore.pyqtSingal</code> （在pyqt4下是PyQt4.QtCore.pyqtSingal。）方法创建，这个方法接受的参数中最重要的是types类型，比如int，bool之类的，你可以认为这是信号传递的参数类型，但实际传递这些参数值的是emit方法。然后槽实际上就是经过特殊封装的函数，这些函数当然需要接受一些参数或者不接受参数，而这些参数具体的值传进来的是由emit方法执行的，然后我们通过who.singal.connect(slot)这样的形式将某个信号和某个槽连接起来，who的信号，然后信号类自带的连接方法，然后连接到slot某个函数上，在这里隐藏的一个重要细节就是emit方法，比如说你定义一个新的信号，需要将点击屏幕的具体x,y坐标发送出去，内置的信号－槽将这一机制都完成了，如果你自己定义的信号和槽的话，比如 <code>pyqtSingal(int,int)</code> ，发送给func(x,y)，具体x和y的值你需要通过emit(x,y)来发送。至于什么时候发送，已经发送的x,y值的获取，这应该又是另外一个信号－槽机制的细节。
 </p>
 
 <p>
 请看下面这个例子：
 </p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*-coding:utf-8-*-</span>
-
-<span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QHBoxLayout</span><span class="p">,</span><span class="n">QSlider</span><span class="p">,</span><span class="n">QSpinBox</span><span class="p">,</span><span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
 
@@ -1064,19 +985,17 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
-
-<span class="c1">#if __name__ == &#39;__main__&#39;:</span>
 </pre></div>
 
 <p>
-第16行将spinBox的valueChanged信号和slider的setValue槽连接起来了，其中QSpinBox内置的valueChanged信号发射自带的一个参数就是改变后的值，这个值传递给了QSlider的内置槽setValue，从而将slider的值设置为新值。第17行如果slider的值发生了改变，那么会发送valueChanged信号，然后又传递给了spinBox，并执行了内置槽setValue，由于此时的值即为原值，这样spinBox内的值就没有发生改变了，如此程序不会陷入死循环。
+第16行将spinBox的 <code>valueChanged</code> 信号和slider的 <code>setValue</code> 槽连接起来了，其中QSpinBox内置的 <code>valueChanged</code> 信号发射自带的一个参数就是改变后的值，这个值传递给了QSlider的内置槽 <code>setValue</code> ，从而将slider的值设置为新值。第17行如果slider的值发生了改变，那么会发送valueChanged信号，然后又传递给了spinBox，并执行了内置槽setValue，由于此时的值即为原值，这样spinBox内的值就没有发生改变了，如此程序不会陷入死循环。
 </p>
 </div>
 
 
 <div class="outline-3">
-<h3 id="orgheadline18">自定义信号</h3>
-<div class="outline-text-3" id="text-4-1">
+<h3 id="orgheadline19">自定义信号</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 正如前所述及自定义信号由PyQt5.QtCore.pyqtSingal（在pyqt4下是PyQt4.QtCore.pyqtSingal。）方法创建，具体格式如下：
 </p>
@@ -1103,8 +1022,8 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 
 
 <div class="outline-3">
-<h3 id="orgheadline19">自定义槽</h3>
-<div class="outline-text-3" id="text-4-2">
+<h3 id="orgheadline20">自定义槽</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 按照python格式自己定义的函数就是所谓的自定义槽了。不过推荐用pyqt的槽装饰器来定义槽。
 </p>
@@ -1149,8 +1068,8 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline20">发射信号</h3>
-<div class="outline-text-3" id="text-4-3">
+<h3 id="orgheadline21">发射信号</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 信号对象有emit方法用来发射信号，然后信号对象还有disconnect方法断开某个信号和槽的连接。
 </p>
@@ -1163,10 +1082,7 @@ pyqt很多内置信号和内置槽将GUI的事件驱动细节给隐藏了，如�
 下面通过一个例子详解自建信号还有自建槽并建立发射机制的情况。
 </p>
 
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*-coding:utf-8-*-</span>
-
-<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QDialog</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span><span class="n">QLineEdit</span><span class="p">,</span><span class="n">QCheckBox</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QHBoxLayout</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QApplication</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QDialog</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span><span class="n">QLineEdit</span><span class="p">,</span><span class="n">QCheckBox</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QHBoxLayout</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QApplication</span>
 <span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span>  <span class="n">Qt</span> <span class="p">,</span><span class="n">pyqtSignal</span><span class="p">,</span><span class="n">QObject</span><span class="p">,</span><span class="n">pyqtSlot</span>
 
 
@@ -1259,8 +1175,8 @@ findClicked槽的53-57行确定了当前的QLineEdit的text值和cs也就是大�
 
 
 <div class="outline-3">
-<h3 id="orgheadline21">信号－槽机制的反思</h3>
-<div class="outline-text-3" id="text-4-4">
+<h3 id="orgheadline22">信号－槽机制的反思</h3>
+<div class="outline-text-3" id="text-3-4">
 <p>
 在接下来Qt designer这一章也会详细讨论这个问题，我们使用Qt designer来设计和修改ui文件——对应程序中大部分的静态视图元素，主要的目的倒不是为了快速GUI程序编写，其实写代码也挺快的，主要的目的就是为了代码复用。当我们养成习惯，强迫自己程序中的静态视图元素都进入ui文件，这不仅增强了ui文件的复用性，而且也增强了剩下来的python代码的复用性。这其中很大一部分就是这里讨论的信号－槽机制的功劳。
 </p>
@@ -1281,24 +1197,14 @@ findClicked槽的53-57行确定了当前的QLineEdit的text值和cs也就是大�
 <li>大组织对小组织元素的某些实现的引用，采用明文引用原则。比如说母窗体中有一个小窗体有一个编辑器，母窗体想要操控这个编辑器执行剪切操作，那么采用明文引用，也就是self.textEdit.cut。</li>
 <li>小组织对大组织属性的引用采用信号激活原则，比如说某个编辑器发生了内容修改，你可以自定义一个信号，该信号为标题修改信号，然后信号触发母窗体的某个方法，这样达到修改母窗体的标题的目的。而在母窗体中，只需要在声明是将小组织的信号和大组织的某个方法连接起来即可。</li>
 </ol>
-
-
-<p>
-编程多的人都清楚，类，复杂的类是很难做到代码复用的，但是函数通常复用性是很好的。在遵循上面的原则之后，我们会发现编写一个GUI程序，其实最大的任务就是编写各个槽（实现函数），然后将各个信号和槽连接起来。这些槽（实现函数）很有可能改改信号接口就能在另外一个GUI程序中复用了，同时采用这种方法，ui文件本身也有很大的复用性。
-</p>
-
-<p>
-如果编程中出现了某种方法学让大家欲罢不能，那一定是和改进了代码复用有关，because we all like copy and paste. 
-</p>
-
-
-<hr >
 </div>
 </div>
 </div>
+
+
 <div class="outline-2">
-<h2 id="orgheadline23">使用Qt designer</h2>
-<div class="outline-text-2" id="text-5">
+<h2 id="orgheadline24">使用Qt designer</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 其实我们不一定要使用Qt designer，Qt desinger的目的主要不是为了快速绘制GUI，而是一种模块化编程思路。利用Qt designer在代码复用上ui文件只是很小的一部分，关键是将ui抽离之后，剩下的py文件里面定义的大多是信号和槽，其中槽就是函数，这些函数复用性是很高的。而对于不同的程序最大差异化的不分就是不同的信号和信号与槽之间的连接了。下面将通过一个timer计时器小程序简单演示下如何利用Qt designer快速Qt编程。
 </p>
@@ -1308,11 +1214,11 @@ findClicked槽的53-57行确定了当前的QLineEdit的text值和cs也就是大�
 
 
 <div class="outline-2">
-<h2 id="orgheadline25">资源文件管理</h2>
-<div class="outline-text-2" id="text-6">
+<h2 id="orgheadline26">资源文件管理</h2>
+<div class="outline-text-2" id="text-5">
 </div><div class="outline-3">
-<h3 id="orgheadline24">资源管理</h3>
-<div class="outline-text-3" id="text-6-1">
+<h3 id="orgheadline25">资源管理</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 pyqt都用qrc文件来管理软件内部的资源文件（如图标文件，翻译文件等）。qrc文件的编写格式如下：
 </p>
@@ -1363,16 +1269,16 @@ qrc文件编写好了你需要运行如下命令
 
 
 <div class="outline-2">
-<h2 id="orgheadline32">配置文件管理</h2>
-<div class="outline-text-2" id="text-7">
+<h2 id="orgheadline33">配置文件管理</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 pyqt4和pyqt5里的QtCore子模块里提供了 <strong>QSettings</strong> 类来方便管理软件的配置文件。
 </p>
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline26">QSettings构造函数</h3>
-<div class="outline-text-3" id="text-7-1">
+<h3 id="orgheadline27">QSettings构造函数</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 一般先推荐把OrganizationName和ApplicationName设置好。
 </p>
@@ -1389,7 +1295,7 @@ pyqt4和pyqt5里的QtCore子模块里提供了 <strong>QSettings</strong> 类来
 </pre></div>
 
 <p>
-在设置好组织名和软件名之后，如果如上简单 <code>QSettings()</code> 来创建一个配置文件对象，不带任何参数，parent取默认值，那么所谓的format取的默认值是 <strong>QSettings.NativeFormat</strong> ，然后所谓的scope取的默认值是 <strong>QSettings.UserScope</strong> 。这里的scope还有QSettings.SystemScope，这个和软件的配置文件权限有关，这里先略过了，一般就使用默认的UserScope吧。
+在设置好组织名和软件名之后，如果如上简单 <code>QSettings()</code> 来创建一个配置文件对象，不带任何参数，parent取默认值，那么所谓的format取的默认值是 <code>QSettings.NativeFormat</code> ，然后所谓的scope取的默认值是 <code>QSettings.UserScope</code> 。这里的scope还有QSettings.SystemScope，这个和软件的配置文件权限有关，这里先略过了，一般就使用默认的UserScope吧。
 </p>
 
 <p>
@@ -1422,8 +1328,8 @@ windows下配置是放在注册表里面的。
 
 
 <div class="outline-3">
-<h3 id="orgheadline29">IniFormat</h3>
-<div class="outline-text-3" id="text-7-2">
+<h3 id="orgheadline30">IniFormat</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 如果你希望配置文件都以ini形式存储，那么你需要采取如下格式初始化配置文件对象：
 </p>
@@ -1445,8 +1351,8 @@ self.settings = QSettings(QSettings.IniFormat,QSettings.UserScope,"Wise","wise")
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline27">ini文件存放DIY</h4>
-<div class="outline-text-4" id="text-7-2-1">
+<h4 id="orgheadline28">ini文件存放DIY</h4>
+<div class="outline-text-4" id="text-6-2-1">
 <p>
 如果你希望ini文件放在你喜欢的地方，下面是配置文件构造函数的第三种形式：
 </p>
@@ -1465,8 +1371,8 @@ QSettings("wise.ini",QSettings.IniFormat)
 </div>
 
 <div class="outline-4">
-<h4 id="orgheadline28">ini文件注意事项</h4>
-<div class="outline-text-4" id="text-7-2-2">
+<h4 id="orgheadline29">ini文件注意事项</h4>
+<div class="outline-text-4" id="text-6-2-2">
 <p>
 ini文件是大小写不敏感的，所以尽量避免两个变量名相近只是大小写不同。
 </p>
@@ -1480,10 +1386,10 @@ ini文件是大小写不敏感的，所以尽量避免两个变量名相近只�
 
 
 <div class="outline-3">
-<h3 id="orgheadline30">存值和读值</h3>
-<div class="outline-text-3" id="text-7-3">
+<h3 id="orgheadline31">存值和读值</h3>
+<div class="outline-text-3" id="text-6-3">
 <p>
-配置文件对象建立之后你就可以很方便地存放一些值和读取值了。存值用 <strong>setValue</strong> 方法，取值用 <strong>value</strong> 方法。如下所示：
+配置文件对象建立之后你就可以很方便地存放一些值和读取值了。存值用 <code>setValue</code> 方法，取值用 <code>value</code> 方法。如下所示：
 </p>
 <pre>
 settings.setValue("editor/wrapMargin", 68)
@@ -1491,11 +1397,11 @@ margin = self.settings.value("editor/wrapMargin")
 </pre>
 
 <p>
-如果setValue的键在配置文件对象中已经存在，那么将更新值，如果要修改立即生效，可以使用 <strong>sync</strong> 方法，sync方法不接受参数，就是立即同步配置文件中的更新。
+如果setValue的键在配置文件对象中已经存在，那么将更新值，如果要修改立即生效，可以使用 <code>sync</code> 方法，sync方法不接受参数，就是立即同步配置文件中的更新。
 </p>
 
 <p>
-<strong>value</strong> 方法第一个参数是“键”，第二个参数是可选值，也就是如果没找到这个键，那么将会返回的值。一般最好还是写上，否则可能配置文件不在了，你就会发生读取错误。
+<code>value</code> 方法第一个参数是“键”，第二个参数是可选值，也就是如果没找到这个键，那么将会返回的值。一般最好还是写上，否则可能配置文件不在了，你就会发生读取错误。
 </p>
 
 
@@ -1514,8 +1420,8 @@ margin = self.settings.value("editor/wrapMargin")
 
 
 <div class="outline-3">
-<h3 id="orgheadline31">群组管理</h3>
-<div class="outline-text-3" id="text-7-4">
+<h3 id="orgheadline32">群组管理</h3>
+<div class="outline-text-3" id="text-6-4">
 <pre>
 settings.setValue("editor/wrapMargin", 68)
 </pre>
@@ -1536,18 +1442,18 @@ settings.engGroup()
 
 
 <div class="outline-2">
-<h2 id="orgheadline37">布局管理</h2>
-<div class="outline-text-2" id="text-8">
+<h2 id="orgheadline38">布局管理</h2>
+<div class="outline-text-2" id="text-7">
 <p>
-布局管理是GUI设计中不可回避的一个话题，这里详细讨论下pyqt的布局管理。正如前所述及，pyqt5用于布局管理的类都移到了QtWidgets子模块那里了，首先是最基本的 <strong>QHBoxLayout</strong> 和 <strong>QVBoxLayout</strong> 。
+布局管理是GUI设计中不可回避的一个话题，这里详细讨论下pyqt的布局管理。正如前所述及，pyqt5用于布局管理的类都移到了QtWidgets子模块那里了，首先是最基本的 <code>QHBoxLayout</code> 和 <code>QVBoxLayout</code> 。
 </p>
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline33">QBoxLayout</h3>
-<div class="outline-text-3" id="text-8-1">
+<h3 id="orgheadline34">QBoxLayout</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
-<strong>QHBoxLayout</strong> 和 <strong>QVBoxLayout</strong> 一个是横向排布，一个是竖向排布。它们的使用方法如下所示：
+<code>QHBoxLayout</code> 和 <code>QVBoxLayout</code> 一个是横向排布，一个是竖向排布。它们的使用方法如下所示：
 </p>
 
 <pre>
@@ -1559,17 +1465,10 @@ self.setLayout(mainLayout)
 
 
 <p>
-Layout对象就好像一个封装器，Layout里面还可以有Layout，当然还有其他一些窗体子单元，都通过 <strong>addWidget</strong> 方法来确立封装关系。最后主母窗口主要接受一个Layout对象，使用的是 <strong>setLayout</strong> 方法。
+Layout对象就好像一个封装器，Layout里面还可以有Layout，当然还有其他一些窗体子单元，都通过 <code>addWidget</code> 方法来确立封装关系。最后主母窗口主要接受一个Layout对象，使用的是 <code>setLayout</code> 方法。
 </p>
 
-<p>
-请看到[works]→[layout]下的[hello.py]文件。这个文件来自<a href="http://www.thehackeruniversity.com/2014/01/23/pyqt5-beginner-tutorial/">这个网站</a> ，然后稍作修改。
-</p>
-
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*-coding:utf-8-*-</span>
-
-<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QMessageBox</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QMessageBox</span>
 
 <span class="k">class</span> <span class="nc">Form</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1607,7 +1506,6 @@ Layout对象就好像一个封装器，Layout里面还可以有Layout，当然�
 </pre></div>
 
 
-
 <p>
 pyqt4版本就是把头引入语句改成
 </p>
@@ -1621,8 +1519,8 @@ from PyQt4.QtGui import ...
 
 
 <div class="outline-3">
-<h3 id="orgheadline34">addStretch方法</h3>
-<div class="outline-text-3" id="text-8-2">
+<h3 id="orgheadline35">addStretch方法</h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
 插入一个分隔符，也就是设计器里面的弹簧。
 </p>
@@ -1630,20 +1528,17 @@ from PyQt4.QtGui import ...
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline35">QGridLayout</h3>
-<div class="outline-text-3" id="text-8-3">
+<h3 id="orgheadline36">QGridLayout</h3>
+<div class="outline-text-3" id="text-7-3">
 <p>
 在tkinter中有个grid方法，也就是网格布局，同样pyqt中也有个网格布局对象QGridLayout。QGridLayout的用法和上面QBoxLayout类似，除了 <strong>addWidget</strong> 方法后面还可以接受两个额外的参数表示几行几列。
 </p>
 
 <p>
-请看到[works]→[layout]下的[gridlayout.py]文件。这个例子很好地演示了QGridLayout的使用。其中 <code>(i-1)//3</code> 即该数对3取商，本来的1 2 3 4 5 6&#x2026;将变成0 0 0 1 1 1 2 2 2&#x2026;正好对应网格中的几行，而 <code>(i-1)%3</code> 即该数对3取余，本来的1 2 3 4 5 6&#x2026;将变成0 1 2 0 1 2 0 1 2&#x2026;正好对应网格中的几列的概念。
+请看到下面的例子。这个例子很好地演示了QGridLayout的使用。其中 <code>(i-1)//3</code> 即该数对3取商，本来的1 2 3 4 5 6&#x2026;将变成0 0 0 1 1 1 2 2 2&#x2026;正好对应网格中的几行，而 <code>(i-1)%3</code> 即该数对3取余，本来的1 2 3 4 5 6&#x2026;将变成0 1 2 0 1 2 0 1 2&#x2026;正好对应网格中的几列的概念。
 </p>
 
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="c1">#-*-coding:utf-8-*-</span>
-
-<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QGridLayout</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span><span class="p">,</span><span class="n">QWidget</span><span class="p">,</span><span class="n">QPushButton</span><span class="p">,</span><span class="n">QGridLayout</span>
 
 <span class="k">class</span> <span class="nc">Form</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1668,21 +1563,18 @@ from PyQt4.QtGui import ...
 </div>
 
 
-
 <div class="outline-3">
-<h3 id="orgheadline36">QFormLayout</h3>
-<div class="outline-text-3" id="text-8-4">
+<h3 id="orgheadline37">QFormLayout</h3>
+<div class="outline-text-3" id="text-7-4">
 <p>
 QFormLayout，表单布局，常用于提交某个配置信息的表单。
 </p>
 
 <p>
-请看到[works]→[layout]下的[basiclayouts.py]文件。这个例子来自pyqt5源码examples文件夹layouts文件夹里面的basiclayouts.py文件，做了简化主要用于演示表单布局。
+请看到下面的例子。这个例子来自pyqt5源码examples文件夹layouts文件夹里面的basiclayouts.py文件，做了简化主要用于演示表单布局。
 </p>
 
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QApplication</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span><span class="n">QDialogButtonBox</span><span class="p">,</span> <span class="n">QFormLayout</span><span class="p">,</span> <span class="n">QGroupBox</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QTextEdit</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="p">(</span><span class="n">QApplication</span><span class="p">,</span> <span class="n">QDialog</span><span class="p">,</span><span class="n">QDialogButtonBox</span><span class="p">,</span> <span class="n">QFormLayout</span><span class="p">,</span> <span class="n">QGroupBox</span><span class="p">,</span><span class="n">QLabel</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">,</span><span class="n">QVBoxLayout</span><span class="p">,</span><span class="n">QTextEdit</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Dialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
@@ -1715,13 +1607,12 @@ QFormLayout，表单布局，常用于提交某个配置信息的表单。
 </pre></div>
 
 
-
 <p>
-这里 <strong>QDialog</strong> 类和 <strong>QDialogButtonBox</strong> 类我们且不去管他，QDialog类和下面的accept和reject方法有关，而QDialogButtonBox和最下面的两个按钮和绑定的喜好accepted和rejected有关。
+这里 <code>QDialog</code> 类和 <code>QDialogButtonBox</code> 类我们且不去管他，QDialog类和下面的accept和reject方法有关，而QDialogButtonBox和最下面的两个按钮和绑定的喜好accepted和rejected有关。
 </p>
 
 <p>
-然后我们看到下面创建表单的那个函数，其中 <strong>QGroupBox</strong> 也是一个窗体类型，带有标题。接下来就是QFormLayout表单布局的核心代码：
+然后我们看到下面创建表单的那个函数，其中 <code>QGroupBox</code> 也是一个窗体类型，带有标题。接下来就是QFormLayout表单布局的核心代码：
 </p>
 <pre>
 layout = QFormLayout()
@@ -1733,37 +1624,19 @@ self.formGroupBox.setLayout(layout)
 
 
 <p>
-我们看到前面的layout的创建和后面母窗体使用本layout的\textbf{setLayout}方法和前面两个布局都是类似的，除了表单布局是一行行的，它的方法不是addWidget，而是 <strong>addRow</strong> ，然后addRow方法严格意义上可以接受两个窗体类型（包括layout类型）， <span class="underline">另外第一个参数还可以是字符串，即显示的文字</span> 。
+我们看到前面的layout的创建和后面母窗体使用本layout的 <code>setLayout</code> 方法和前面两个布局都是类似的，除了表单布局是一行行的，它的方法不是addWidget，而是 <code>addRow</code> ，然后addRow方法严格意义上可以接受两个窗体类型（包括layout类型）， <span class="underline">另外第一个参数还可以是字符串，即显示的文字</span> 。
 </p>
 </div>
 </div>
 </div>
 
 
-
-
-
-
 <div class="outline-2">
-<h2 id="orgheadline38">如何读写文件</h2>
-</div>
-
-<div class="outline-2">
-<h2 id="orgheadline39">和python集成问题</h2>
-<div class="outline-text-2" id="text-10">
-<p>
-pyqt如何和python各个模块更好的集成？
-</p>
-</div>
-</div>
-
-
-<div class="outline-2">
-<h2 id="orgheadline46">快捷键和Tab键管理</h2>
-<div class="outline-text-2" id="text-11">
+<h2 id="orgheadline42">快捷键和Tab键管理</h2>
+<div class="outline-text-2" id="text-8">
 </div><div class="outline-3">
-<h3 id="orgheadline40">什么是伙伴关系</h3>
-<div class="outline-text-3" id="text-11-1">
+<h3 id="orgheadline39">什么是伙伴关系</h3>
+<div class="outline-text-3" id="text-8-1">
 <p>
 一般是通过QLabel的setBuddy方法来关联某个输入窗体。然后QLabel有一个快捷键，当你按下这个快捷键，输入焦点就会转到这个QLabel对应的伙伴输入窗体上。
 </p>
@@ -1771,8 +1644,8 @@ pyqt如何和python各个模块更好的集成？
 </div>
 
 <div class="outline-3">
-<h3 id="orgheadline41">快捷键</h3>
-<div class="outline-text-3" id="text-11-2">
+<h3 id="orgheadline40">快捷键</h3>
+<div class="outline-text-3" id="text-8-2">
 <p>
 QShortcut类
 </p>
@@ -1794,10 +1667,10 @@ QShortcut类
 
 
 <div class="outline-3">
-<h3 id="orgheadline42">QKeySequence</h3>
-<div class="outline-text-3" id="text-11-3">
+<h3 id="orgheadline41">QKeySequence</h3>
+<div class="outline-text-3" id="text-8-3">
 <p>
-<strong>QKeySequence</strong> 类在pyqt4和pyqt5中来自QtGui子模块，是快捷键的解决方案。比如可以直接引用 <strong>QKeySequence.Open</strong> 来表示快捷键Ctrl+O。可用的构造函数如下所示：
+<code>QKeySequence</code> 类在pyqt4和pyqt5中来自QtGui子模块，是快捷键的解决方案。比如可以直接引用 <code>QKeySequence.Open</code> 来表示快捷键Ctrl+O。可用的构造函数如下所示：
 </p>
 
 <pre>
@@ -1813,24 +1686,25 @@ QKeySequence(Qt.CTRL + Qt.Key_P)
 </p>
 
 <p>
-字母按键就是类似 <code>Qt.Key_W</code> 这样的形式，Shift按键是Qt.SHIFT，Meta按键是Qt.META，CTRL按键是        Qt.CTRL        ，ALT按键是Qt.ALT。
+字母按键就是类似 <code>Qt.Key_W</code> 这样的形式，Shift按键是Qt.SHIFT，Meta按键是Qt.META，CTRL按键是 <code>Qt.CTRL</code> ，ALT按键是 <code>Qt.ALT</code> 。
 </p>
 </div>
 </div>
+</div>
 
-<div class="outline-3">
-<h3 id="orgheadline45">国际化支持</h3>
-<div class="outline-text-3" id="text-11-4">
+<div class="outline-2">
+<h2 id="orgheadline45">国际化支持</h2>
+<div class="outline-text-2" id="text-9">
 <p>
 本小节参考资料除了官方文档之外还有<a href="http://plashless.wordpress.com/2014/02/01/internationalizing-python-pyqt-apps/">这个网站</a> 。
 </p>
 
 <p>
-这里指的pyqt的软件国际化支持主要是指i18n，也就是两种语言，英语和本土语言。其中软件的字符串都是英语，然后用 <strong>self.tr()</strong> 封装。
+这里指的pyqt的软件国际化支持主要是指i18n，也就是两种语言，英语和本土语言。其中软件的字符串都是英语，然后用 <code>self.tr()</code> 封装。
 </p>
 
 <p>
-然后在你的项目里新建一个translations文件夹，新建如下一个小文件\uwave{wise.pro}，这里的wise是你的模块具体的名字，随意修改之。这个文件的内容简要如下：
+然后在你的项目里新建一个translations文件夹，新建如下一个小文件 <code>wise.pro</code> ，这里的wise是你的模块具体的名字，随意修改之。这个文件的内容简要如下：
 </p>
 <pre>
 SOURCES += ../main.py  ../__init__.py \
@@ -1878,9 +1752,9 @@ SOURCES 是你希望扫描的py文件，如果该文件有前面所说的self.tr
 </p>
 </div>
 
-<div class="outline-4">
-<h4 id="orgheadline43">使用翻译文件</h4>
-<div class="outline-text-4" id="text-11-4-1">
+<div class="outline-3">
+<h3 id="orgheadline43">使用翻译文件</h3>
+<div class="outline-text-3" id="text-9-1">
 <p>
 样例如下：
 </p>
@@ -1902,9 +1776,9 @@ SOURCES 是你希望扫描的py文件，如果该文件有前面所说的self.tr
 </div>
 </div>
 
-<div class="outline-4">
-<h4 id="orgheadline44">使用qt官方翻译文件</h4>
-<div class="outline-text-4" id="text-11-4-2">
+<div class="outline-3">
+<h3 id="orgheadline44">使用qt官方翻译文件</h3>
+<div class="outline-text-3" id="text-9-2">
 <p>
 有些qt窗体内部文字可能不好DIY，这时需要如上一样加载qt的官方翻译文件。代码如下所示：
 </p>
@@ -1931,20 +1805,74 @@ ts文件如前所述用 <strong>lrelease</strong> 命令处理以下，或者直
 </div>
 </div>
 </div>
-</div>
 
 
 
 <div class="outline-2">
-<h2 id="orgheadline47">参考资料</h2>
-<div class="outline-text-2" id="text-12">
+<h2 id="orgheadline50">附录</h2>
+<div class="outline-text-2" id="text-10">
+</div><div class="outline-3">
+<h3 id="orgheadline46">PyQt4和PyQt5的区别整理</h3>
+<div class="outline-text-3" id="text-10-1">
+<ul class="org-ul">
+<li>很多pyqt4原放在QtGui里面的一些QWidget在pyqt5里面都放入QtWidgets里面去了。一个简单的解决兼容性问题的方案就是在pyqt4里面引入的时候写上:</li>
+</ul>
+<pre>
+from PyQt4.QtGui import *
+</pre>
+
+<p>
+在pyqt5里面引入的时候写上:
+</p>
+<pre>
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+</pre>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline47">引用信号发射对象</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+<code>sender</code> 方法来自GObject，所以一般Qt里的窗体对象都可以用。其用法主要在槽里面，调用 <code>self.sender()</code> ，即返回一个发射该信号从而调用该槽的对象。
+</p>
+</div>
+</div>
+
+<div class="outline-3">
+<h3 id="orgheadline48">菜单栏看不见？</h3>
+<div class="outline-text-3" id="text-10-3">
+<p>
+不过可能你会遇到麻烦，我就折腾了好久，因为菜单栏总是显示不出来，然后才发现是系统环境的问题，我在GNOME下看不到pyqt5做的软件的菜单栏了，但是到Ubuntu默认的Unity环境下最上面的面板就是菜单栏了，这个值得说一下。
+</p>
+
+<p>
+如果你在Unity环境（Ubuntu14.04）下，那么不需要做什么，如果你在gnome或者KDE上，那么qt5的菜单栏可能会显示不出来，你需要删除下面这个小东西。
+</p>
+<div class="highlight"><pre><span></span>sudo apt-get remove appmenu-qt5
+</pre></div>
+
+<p>
+把这个小软件删除，pyqt5上的菜单栏就能正常显示了，不过在unity环境下菜单栏不会显示在最上面的面板上了，而是常规的在图形GUI标题栏下面了。
+</p>
+</div>
+</div>
+
+
+<div class="outline-3">
+<h3 id="orgheadline49">参考资料</h3>
+<div class="outline-text-3" id="text-10-4">
 <ol class="org-ol">
 <li>pyqt4教程，<a href="http://blog.cx125.com/books/PyQt4_Tutorial/">PyQt4_Tutorial</a></li>
 
 <li>Rapid GUI Programming with Python and Qt , 书籍的源码</li>
 
 <li>C++-GUI-Programming-with-Qt-4-Second Edition 书籍的源码</li>
+
+<li><a href="http://pyqt.sourceforge.net/Docs/PyQt4/classes.html">PyQt4各个类参考</a></li>
 </ol>
+</div>
 </div>
 </div>
 </div>

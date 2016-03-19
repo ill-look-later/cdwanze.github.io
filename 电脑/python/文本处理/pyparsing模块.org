@@ -9,9 +9,102 @@
 #+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
 
 
-* 
+* 简介
+pyparsing模块是一个不错的超越re模块之上，用BNF思维来思考文本处理的模块，借助pyparsing模块，我们可以写出很强大的text parser。
+
+其最简单的例子如下所示:
+#+BEGIN_SRC python
+from pyparsing import Word, alphas
+
+# define grammar
+greet = Word( alphas ) + "," + Word( alphas ) + "!"
+
+# input string
+hello = "Hello, World!"
+
+# parse input string
+print(hello, "->", greet.parseString( hello ))
+#+END_SRC
+
+首先我们需要定义BNF text parser 模板，然后调用其 ~parseString~ 方法来具体进行parse操作。如果使用parseString而输入字符串并不复合规则，则会出错。我似乎更喜欢 ~scanString~ 方法，其并不出错，然后返回的结果是一个生成器对象，如果展开则如下所示:
+#+BEGIN_EXAMPLE
+test: Hello, World! from python -> [((['Hello', ',', 'World', '!'], {}), 6, 19)]
+#+END_EXAMPLE
+其第一个是parse match的部分，然后第二个值是命中的start，第三个值是命中end的索引值。
 
 
 
+* 空格
+pyparsing默认是忽略空格的，
 
+加入我们要匹配 ~3.1415926~ 这样的float，若是:
+#+BEGIN_EXAMPLE
+real = Word(nums) + '.' + Word(nums)
+#+END_EXAMPLE
+
+则 ~3 . 14~ 也会匹配进去，这可能是你想要的，也可能不是。如果要精确匹配一个浮点数不允许中间出现空格，则要使用 ~Combine~ :
+
+#+BEGIN_EXAMPLE
+real = Combine( Word(nums) + '.' + Word(nums) )
+#+END_EXAMPLE
+
+这里 ~Combine~ 的作用就是将多个匹配token连接为一个匹配字符串。
+
+* ~*~ 有重复的含义
+#+BEGIN_EXAMPLE
+expr*3 is equivalent to expr + expr + expr
+expr*(2,3) is equivalent to expr + expr + Optional(expr)
+expr*(n,None) or expr*(n,) is equivalent to expr*n + ZeroOrMore(expr) (read as "at least n instances of expr")
+expr*(None,n) is equivalent to expr*(0,n) (read as "0 to n instances of expr")
+expr*(None,None) is equivalent to ZeroOrMore(expr)
+expr*(1,None) is equivalent to OneOrMore(expr)
+#+END_EXAMPLE
+
+* srange函数
+#+BEGIN_EXAMPLE
+>>> srange(r"[a-z]")
+'abcdefghijklmnopqrstuvwxyz'
+#+END_EXAMPLE
+
+srange函数里面大体有点类似于正则表达式的那种，但不能当成正则表达式，就类似上面那么写个范围即是了。
+
+* Word类
+下面这个token paser的意思是开头 ~字母加上_~ ，然后该词后面可以是 ~字母加数字加_~ 。
+
+#+BEGIN_EXAMPLE
+Word( alphas+"_", alphanums+"_" )
+#+END_EXAMPLE
+Word类可以如上接受两个参数，其中第一个是必填参数，说明这个词的开头可选字符，然后第二个可选参数是用来说明这个词的body，也就是后面的可选字符。该类还可以接受如下可选项:
+
+- min :: 最小字符长度
+- max :: 最大字符长度
+- exact :: 确切字符长度
+
+* 刷float的进阶
+之前写的:
+#+BEGIN_EXAMPLE
+real = Combine( Word(nums) + '.' + Word(nums) )
+#+END_EXAMPLE
+还是较为粗糙，下面是一个简单完善点了的刷float的token paser:
+#+BEGIN_EXAMPLE
+cs_real = set(nums + '.+-')
+
+pe_real = Combine(Optional(Word('+-')) +  Word(nums) + '.' + Word(nums) )
+tp_real = WordStart(cs_real) + pe_real + WordEnd(cs_real)
+#+END_EXAMPLE
+
+首先我们看到 ~Optional(Word('+-'))~ ，这样将可能有的正负号加进去了。然后当我们parse ~x=-3.14~ 的时候还是将其刷不进去，因为我们还没有很好的定义词头和词尾。一个不错的做法是将该词可能的charset加进来。如上所示，这样明确词头和词尾了，我们就可以顺利的将 ~x=-3.14~ 这种格式刷出float来了。
+
+* 刷化学分子式
+这个借鉴了官方examples的 ~chemicalFormulas.py~ 。我们注意看每个parser element后面是可以参数的，这个参数就是具体parse得到的结果。然后Optional可以设置默认值。然后 ~Group~ 这里的用途就是对于 ~ZeroOrMore~ 或者 ~OneOrMore~ 这样的parser element enhancement 更好的关闭。
+#+BEGIN_EXAMPLE
+cs_formula = set(alphanums)
+pe_element = Regex("A[cglmrstu]|B[aehikr]?|C[adeflmorsu]?|D[bsy]|"
+                "E[rsu]|F[emr]?|G[ade]|H[efgos]?|I[nr]?|Kr?|L[airu]|"
+                "M[dgnot]|N[abdeiop]?|Os?|P[abdmortu]?|R[abefghnu]|"
+                "S[bcegimnr]?|T[abcehilm]|U(u[bhopqst])?|V|W|Xe|Yb?|Z[nr]")
+
+pe_elementnum = Group( pe_element("element") + Optional( Word( nums ), default="1" )("num"))
+tp_formula = WordStart(cs_formula) + OneOrMore( pe_elementnum ) + WordEnd(cs_formula)
+#+END_EXAMPLE
 
