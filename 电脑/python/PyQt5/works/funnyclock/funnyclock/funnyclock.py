@@ -109,7 +109,6 @@ def main():
     clock = Clock()
     clock.setPalette(palette)
 
- #   clock.setAttribute(Qt.WA_TranslucentBackground)
 
     clock.show()
     sys.exit(app.exec_())
