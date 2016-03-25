@@ -1,0 +1,25 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: stackoverflow精彩问题收录
+#+AUTHOR: 万泽(德山书生)
+#+CREATOR: wanze(<a href="mailto:a358003542@gmail.com">a358003542@gmail.com</a>)
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 如何制作一个 ~Bootstrap~ 风格的带链接的按钮
+参看 [[http://stackoverflow.com/questions/19981949/how-to-make-a-button-in-bootstrap-look-like-a-normal-link-in-nav-tabs][这个网页]] 。
+
+我更喜欢这种写法:
+#+BEGIN_EXAMPLE
+<a href="{{ message["body"] }}" target="_blank"  role="button" class="btn btn-success btn-large">Click here!</a>
+#+END_EXAMPLE
+
+
+
+
+
+
+

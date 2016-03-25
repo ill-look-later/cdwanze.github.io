@@ -1,0 +1,24 @@
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:[11pt,oneside]
+#+LATEX_HEADER: \usepackage{article}
+
+
+#+TITLE: 唐诗三百首
+#+AUTHOR: 蘅塘退士
+#+CREATOR: 编者:万泽
+#+DESCRIPTION: 制作者邮箱：a358003542@gmail.com
+
+
+* 唐诗三百首
+
+** 简介
+此电子版本乃由Ned Walsh于一九九二年春陆续输入。当时他是美国Columbia大学的博士班学生。他断断续续地学习了十年的中文，其博士论文的主题将是关于北宋时期的词。我于该年春末将全文校正一遍，并稍改Ned的格式。全本共有三百又二十首诗，原由蘅塘退士选辑，分为六卷。以下目录中，右端列的是诗的编号。——单维彰 1992-7-5
+
+标点、国标版制作——方舟子
+
+部分不明确的字结合手写输入和网络资源明确电脑输入，然后参考汉典给出基本字义。——万泽 2014-10。
+
+** 资源
+1. [[https://github.com/a358003542/tangshi-sanbai-shou][github源码地址]]
+2. [[file:唐诗三百首+.pdf][唐诗三百首精排版pdf]]
+
